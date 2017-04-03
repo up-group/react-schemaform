@@ -61,17 +61,17 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
 
 
         if (isControl) {
-            var typeStr = function (fun) {
-                var ret = fun.toString();
-                ret = ret.substr('function '.length);
-                ret = ret.substr(0, ret.indexOf('('));
-                return ret;
-            } (element.type);
+            //var typeStr = function (fun) {
+            //    var ret = fun.toString();
+            //    ret = ret.substr('function '.length);
+            //    ret = ret.substr(0, ret.indexOf('('));
+            //    return ret;
+            //} (element.type);
 
             var colsize = 6
-            if (typeStr == "UpDate") {
-                colsize = 3;
-            }
+            //if (typeStr == "UpDate") {
+            //    colsize = 3;
+            //}
 
             return <UpFormGroup
                 colSize={isArray ? 12 : colsize}
