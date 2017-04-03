@@ -19,10 +19,12 @@ var schema : JsonSchema = {
 
     "type": "object",
     "properties": {
-        "geo": {"title" :"str" ,"type": "string" },
+        "a": {"title" :"str" ,"type": "string" },
 
-        "age": { "title": "nb","type": "number" },
-        "aa": { "title": "date","type": "string","format": "date" }
+        "b": { "title": "nb","type": "number" },
+        "c": { "title": "date", "type": "string", "format": "date" },
+        "d": { "title": "boll", "type": "boolean" },
+
 
 
     }

@@ -7,5 +7,4 @@
 /test/node_modules
 /UpSchemaForm/.vs
 /UpSchemaForm/node_modules
-/UpSchemaForm/**/*.js
-/UpSchemaForm/**/*.map
+/UpSchemaForm/test/dist
