@@ -1,8 +1,11 @@
-﻿import * as React from "react";
+﻿/// <reference path="JsonSchema.d.ts" />
+
+import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./UpForm/HelperMemory";
+
 
 interface UpSchemaFormProps {
     schema: JsonSchema;
@@ -24,7 +27,13 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                 </div>            );        }        return (            <div className="panel panel-default">                <div className="panel-heading">
                     {this.props.schema.title}
                 </div>
-                <div className="panel-body">                    <UpSchemaFormComponentSelector isRequired={false}  schema={this.props.schema} node={""} onFormChange={this.onFormChange}  onFormError={this.onFormError} ></UpSchemaFormComponentSelector>
+                <div className="panel-body">                    <UpSchemaFormComponentSelector
+                        isRequired={false}
+                        schema={this.props.schema}
+                        node={""}
+                        onFormChange={this.onFormChange}
+                        onFormError={this.onFormError} >
+                    </UpSchemaFormComponentSelector>
                 </div>
                 <div className="panel-footer">
                     {this.props.children}
@@ -75,4 +84,5 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
 
 
 }
+
 
