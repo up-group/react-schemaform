@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 //import UpSchemaForm from "./node_modules/upschemaform/src/UpSchemaForm";
-import UpSchemaForm from "./src/UpSchemaForm";
+import UpSchemaForm from "../src/UpSchemaForm";
 
 
 var onFormEror = (data) => {
