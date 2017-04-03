@@ -25,6 +25,8 @@
     "select2": "^4.0.3"
   },
   "devDependencies": {
+    "css-loader": "^0.28.0",
+    "style-loader": "^0.16.1",
     "typescript": "^2.2.2"
   }
 }

@@ -20,7 +20,7 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}>{
     }
 
     componentDidMount() {
-        $('[data-toggle="tooltip"]').tooltip();
+       // $('[data-toggle="tooltip"]').tooltip();
     }
 
     render() {

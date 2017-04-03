@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 //import UpSchemaForm from "./node_modules/upschemaform/src/UpSchemaForm";
@@ -18,9 +19,10 @@ var schema : JsonSchema = {
 
     "type": "object",
     "properties": {
-        "geo": {"title" :"geto str" ,"type": "string" },
+        "geo": {"title" :"str" ,"type": "string" },
 
-        "age": { "title": "geto nb","type": "number" }
+        "age": { "title": "nb","type": "number" },
+        "aa": { "title": "date","type": "string","format": "date" }
 
 
     }
@@ -31,9 +33,6 @@ var schema : JsonSchema = {
 
 var a = <UpSchemaForm schema={schema} onFormEror={onFormEror} onFormPayload={onFormPayload}></UpSchemaForm>
 
-var t = (<h1>Hello, world! {a} </h1>);
-
-
-ReactDOM.render(t, document.getElementById('root'));
+ReactDOM.render(a, document.getElementById('root'));
 
 
