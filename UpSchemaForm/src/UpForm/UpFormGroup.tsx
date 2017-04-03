@@ -1,4 +1,6 @@
-﻿import * as React from "react";
+﻿import * as $ from "jquery";
+import * as bootstrap from "bootstrap";
+import * as React from "react";
 
 import UpFormLabel from "./UpFormLabel"
 import {UpFormControl} from "./UpFormControl"

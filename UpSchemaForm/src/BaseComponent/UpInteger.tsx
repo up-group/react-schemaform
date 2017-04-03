@@ -7,6 +7,7 @@ export default class UpInteger extends UpFormControl<number> {
         this._ControlErrorCentral.addControl(new TypeNumberControl(true, this.props.schema.minimum, this.props.schema.maximum));    }    setInput(data) {        this.inputElement.value = data;    }    _componentDidMount() {
     }    renderField() {
         return <input
+            readOnly={this.props.schema.readonly === true}
             ref={(input) => { this.inputElement = input; } }
             style={this.state.hasError === true ? { borderColor: "red" } : null}
             type="text"

@@ -1,7 +1,8 @@
-﻿import * as React from "react";
+﻿import * as $ from "jquery";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {UpFormControl} from "../UpForm/UpFormControl"
-import {TypeDateControl, dateFormat} from "../ControlError/TypeDateControl"
+import { UpFormControl } from "../UpForm/UpFormControl"
+import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl"
 
 export default class UpDate extends UpFormControl<Date> {
     inputElementGroup: HTMLDivElement;    constructor(p, c) {        super(p, c);
@@ -11,16 +12,16 @@ export default class UpDate extends UpFormControl<Date> {
         $(this.inputElementGroup).on("dp.change", this.handleChangeJsEventGlobal);
     }    renderField() {
 
-            return <div className='input-group date' ref={(input) => { this.inputElementGroup = input; } } >
-                <input
-                    ref={(input) => { this.inputElement = input; } }
-                    style={this.state.hasError === true ? { borderColor: "red" } : null}
-                    type='text'
-                    className="form-control" />
-                <span className="input-group-addon">
-                    <span className="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
+        return <div className='input-group date' style={{ marginBottom: "3px" }} ref={(input) => { this.inputElementGroup = input; } } >
+            <input
+                ref={(input) => { this.inputElement = input; } }
+                style={this.state.hasError === true ? { borderColor: "red" } : null}
+                type='text'
+                className="form-control" />
+            <span className="input-group-addon">
+                <span className="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
 
     }
 
@@ -30,7 +31,7 @@ export default class UpDate extends UpFormControl<Date> {
         }
         return null;
     }
-    
+
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }

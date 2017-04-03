@@ -46,5 +46,7 @@ interface JsonSchema {
         queryParameterName: string
     };
     fileExtension?: string;
+    readonly?: boolean;
+    hide?: boolean;
 }
 

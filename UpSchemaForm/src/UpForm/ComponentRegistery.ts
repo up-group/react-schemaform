@@ -59,27 +59,25 @@ export default class ComponentRegistery {
 import UpDate  from "../BaseComponent/UpDate"
 import UpDateTime  from "../BaseComponent/UpDateTime"
 import UpTime  from "../BaseComponent/UpTime"
+import UpEntity  from "../BaseComponent/UpEntity"
 import UpString  from "../BaseComponent/UpString"
 import UpNumber  from "../BaseComponent/UpNumber"
 import UpInteger  from "../BaseComponent/UpInteger"
 import UpBoolean  from "../BaseComponent/UpBoolean"
-
-//import UpEntity from "../BaseComponent/UpEntity"
-//import UpUpload from "../BaseComponent/UpUpload"
-//import UpEnum from "../BaseComponent/UpEnum"
-//import UpMonth from "../BaseComponent/UpMonth"
+import UpEnum  from "../BaseComponent/UpEnum"
+import UpUpload  from "../BaseComponent/UpUpload"
+import UpMonth  from "../BaseComponent/UpMonth"
 
 ComponentRegistery.Register("UpNumber", "number", null, UpNumber);
-ComponentRegistery.Register("UpString", "string", null, UpString);                
+ComponentRegistery.Register("UpString", "string", null, UpString);
 ComponentRegistery.Register("UpDate", null, "date", UpDate);
 ComponentRegistery.Register("UpDateTime", null, "date-time", UpDateTime);
 ComponentRegistery.Register("UpTime", null, "time", UpTime);
 ComponentRegistery.Register("UpInteger", "integer", null, UpInteger);
 ComponentRegistery.Register("UpBoolean", "boolean", null, UpBoolean);
 
-                                                              /*
+
 ComponentRegistery.Register("UpEntity", null, "entityKey", UpEntity, true);
 ComponentRegistery.Register("UpEnum", null, "enum", UpEnum, true);
 ComponentRegistery.Register("UpUpload", null, "upload", UpUpload, false);
-ComponentRegistery.Register("UpMonth", null, "month", UpMonth, false);  
-                                     */
+ComponentRegistery.Register("UpMonth", null, "month", UpMonth, false);

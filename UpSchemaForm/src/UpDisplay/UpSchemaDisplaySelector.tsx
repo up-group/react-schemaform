@@ -9,13 +9,17 @@ export default class UpSchemaDisplaySelector extends React.Component<{
 }, {}> {
     UpSchemaDisplayArrayRef: UpSchemaDisplayArray;    constructor(p, c) {        super(p, c);    }    render() {
 
+        if (this.props.schema.hide === true) {
+            return <span />
+        }
+
         var type = function (t) {
             if (typeof (t) === "string") {
                 return t;
             } else if (t.indexOf("null") != -1) {
                 return t[0];
             }
-        } (this.props.schema.type);
+        }(this.props.schema.type);
 
 
         switch (this.props.schema.format) {
@@ -50,10 +54,10 @@ export default class UpSchemaDisplaySelector extends React.Component<{
 
         switch (type) {
             case "object":
-                return <UpObject schema={this.props.schema} data={this.props.data}/>
+                return <UpObject schema={this.props.schema} data={this.props.data} />
             //return <span>Type object: {JSON.stringify(this.props.data) } </span>
             case "string":
-                return <span>{this.props.data}</span>
+                return <span style={{ whiteSpace: "pre" }}>{this.props.data}</span>
             case "number":
                 return <span>{this.props.data}</span>
             case "integer":
@@ -61,8 +65,8 @@ export default class UpSchemaDisplaySelector extends React.Component<{
             case "boolean":
                 return <span>{this.props.data == null ? "" : this.props.data == true ? "Oui" : "Non"}</span>;
             case "array":
-                return <UpSchemaDisplayArray  ref={(arg) => { this.UpSchemaDisplayArrayRef = arg; } } /*exporterBtn={this.props.exporterBtn}*//* autoExport={this.props.autoExport}*/ data={this.props.data} schema={this.props.schema} />
-        }        return <span/>
+                return <UpSchemaDisplayArray ref={(arg) => { this.UpSchemaDisplayArrayRef = arg; }} /*exporterBtn={this.props.exporterBtn}*//* autoExport={this.props.autoExport}*/ data={this.props.data} schema={this.props.schema} />
+        }        return <span />
     }
 }
 
@@ -81,10 +85,10 @@ class UpObject extends React.Component<{
                 elements.push(
                     <div key={index} className={"col-md-6"}>
                         <div className={"col-md-6"}>
-                            <strong >{ schema.title }: </strong>
+                            <strong >{schema.title}: </strong>
                         </div>
-                        <div  className={"col-md-6"}>
-                            <UpSchemaDisplaySelector data={this.props.data[index]} schema={schema}/>                        </div>
+                        <div className={"col-md-6"}>
+                            <UpSchemaDisplaySelector data={this.props.data[index]} schema={schema} />                        </div>
                     </div>
                 )
             }

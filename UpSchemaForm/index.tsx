@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 //import UpSchemaForm from "./node_modules/upschemaform/src/UpSchemaForm";
-import UpSchemaForm from "../UpSchemaForm/src/UpSchemaForm";
+import UpSchemaForm from "./src/UpSchemaForm";
 
 
 var onFormEror = (data) => {
@@ -14,13 +14,13 @@ var onFormPayload = (data) => {
 }
 
 
-var schema = {
+var schema : JsonSchema = {
 
     "type": "object",
     "properties": {
-        "geo": { "type": "string" },
+        "geo": {"title" :"geto str" ,"type": "string" },
 
-        "age": { "type": "number" }
+        "age": { "title": "geto nb","type": "number" }
 
 
     }

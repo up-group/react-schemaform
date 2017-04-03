@@ -1,8 +1,8 @@
 ﻿import * as React from "react";
-import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector"
+import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import { UpFormControl } from "./UpForm/UpFormControl";
-import ErrorMemory from "./UpForm/ErrorMemory"
-import HelperMemory from "./UpForm/HelperMemory"
+import ErrorMemory from "./UpForm/ErrorMemory";
+import HelperMemory from "./UpForm/HelperMemory";
 
 interface UpSchemaFormProps {
     schema: JsonSchema;
@@ -11,31 +11,25 @@ interface UpSchemaFormProps {
 }
 
 export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}> {
-
-    errorMemory = new ErrorMemory();
-
-    constructor(p, c) {
+    errorMemory = new ErrorMemory();    constructor(p, c) {
         super(p, c);
     }
 
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <div className="panel panel-default">
-                <div className="panel-heading">
+    componentDidMount() {    }    render() {        if (this.props.schema.type === undefined) {            return (                <div className="panel panel-default">                    <div className="panel-heading">
+                    </div>
+                    <div className="panel-body">                    </div>
+                    <div className="panel-footer">
+                        {this.props.children}
+                    </div>
+                </div>            );        }        return (            <div className="panel panel-default">                <div className="panel-heading">
                     {this.props.schema.title}
                 </div>
-                <div className="panel-body">
-                    <UpSchemaFormComponentSelector isRequired={false}  schema={this.props.schema} node={""} onFormChange={this.onFormChange}  onFormError={this.onFormError} ></UpSchemaFormComponentSelector>
+                <div className="panel-body">                    <UpSchemaFormComponentSelector isRequired={false}  schema={this.props.schema} node={""} onFormChange={this.onFormChange}  onFormError={this.onFormError} ></UpSchemaFormComponentSelector>
                 </div>
                 <div className="panel-footer">
                     {this.props.children}
                 </div>
-            </div >
-        );
-    }
+            </div>        );    }
 
 
 
@@ -50,7 +44,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         nodeArray.shift();
 
         this.setState(HelperMemory.AssignValue(this.state, nodeArray, newValue), () => {
-            this.errorMemory.cleanErrorOn(node); 
+            this.errorMemory.cleanErrorOn(node);
             this.updateState();
         });
 

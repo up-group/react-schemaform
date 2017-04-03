@@ -1,4 +1,5 @@
-﻿import * as React from "react";
+﻿import * as $ from "jquery";
+import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import {TypeDateControl, dateFormat} from "../ControlError/TypeDateControl"
 import "eonasdan-bootstrap-datetimepicker"

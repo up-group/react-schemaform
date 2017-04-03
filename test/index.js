@@ -1,7 +1,8 @@
 "use strict";
 var React = require("react");
 var ReactDOM = require("react-dom");
-var UpSchemaForm_1 = require("./node_modules/upschemaform/src/UpSchemaForm");
+//import UpSchemaForm from "./node_modules/upschemaform/src/UpSchemaForm";
+var UpSchemaForm_1 = require("../UpSchemaForm/src/UpSchemaForm");
 var onFormEror = function (data) {
     console.log("err", data);
 };

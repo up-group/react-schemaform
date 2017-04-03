@@ -1,4 +1,5 @@
-﻿import * as React from "react";
+﻿import * as $ from "jquery";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaDisplaySelector from "./UpSchemaDisplaySelector"
 //import * as exporterTable from "exporterTable";
@@ -29,7 +30,13 @@ export default class UpSchemaDisplayArray extends React.Component<{
     render() {
         var header = [];
         for (var key in (this.props.schema.items as JsonSchema).properties) {
-            if (!(this.props.schema.items as JsonSchema).properties.hasOwnProperty(key)) continue;
+          
+            if (!(this.props.schema.items as JsonSchema).properties.hasOwnProperty(key) ||
+                ((this.props.schema.items as JsonSchema).properties[key] != null && (this.props.schema.items as JsonSchema).properties[key].hide === true)||
+                ((this.props.schema.items as JsonSchema).properties[key] != null && (this.props.schema.items as JsonSchema).properties[key].items != null && ((this.props.schema.items as JsonSchema).properties[key].items as JsonSchema).hide === true) 
+            ) {
+                continue;
+            }
 
             header.push(<th key={key}>{(this.props.schema.items as JsonSchema).properties[key].title || key}</th>);
 
@@ -63,7 +70,13 @@ class ObjectRow extends React.Component<{ schema: JsonSchema, data: any }, {}> {
     render() {
         var cols = [];
         for (var key in this.props.data) {
-            if (!this.props.data.hasOwnProperty(key)) continue;
+            if (!this.props.data.hasOwnProperty(key) ||
+                (this.props.schema[key] != null && this.props.schema[key].hide === true)  ||
+                (this.props.schema[key] != null && this.props.schema[key].items != null && this.props.schema[key].items.hide === true)
+            )
+            {
+                continue;
+            }
             cols.push(<td key={key}><UpSchemaDisplaySelector schema={this.props.schema[key]} data={this.props.data[key]}  /></td>);
         }
         return <tr>{cols}</tr>

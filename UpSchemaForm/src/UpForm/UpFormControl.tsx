@@ -5,20 +5,22 @@ import JsonSchemaHelper from "../JsonSchemaHelper";
 
 
 
-interface baseProp<baseType> {
+export interface baseProp<baseType> {
     schema: JsonSchema;
     isRequired: boolean;
     onChange: (arg: baseType) => void;
     onError: () => void;
 }
 
-interface baseState<baseType> {
+export interface baseState<baseType> {
     value?: baseType;
     hasError?: boolean;
     errorMessage?: string;
 }
 
 export abstract class UpFormControl<baseType> extends React.Component<baseProp<baseType>, baseState<baseType>> {
+
+
     inputElement: HTMLInputElement;
     _ControlErrorCentral: ControlErrorCentral;
 
@@ -96,11 +98,11 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
     componentDidMount() {        this._componentDidMount();        if (this.props.schema.default !== undefined) {            this.handleChangeEventGlobal(this.props.schema.default);            this.setInput(this.props.schema.default);        } else {            this.handleChangeEventGlobal(null);            this.setInput(null);        }    }    render() {
         return <span>
-            {this.renderField() }
+            {this.renderField()}
             {
                 (this.state.hasError && this.state.errorMessage != null) ?
                     <span className="text-danger">{this.state.errorMessage}</span>
-                    : <span className="text-danger">&nbsp; </span>
+                    : null
             }
         </span>
     }
