@@ -5,14 +5,21 @@
     "noImplicitAny": false,
     "module": "commonjs",
     "target": "es5",
-    "jsx": "react"
-
+    "jsx": "react",
+    "declaration": true,
+    "outFile": "file"
   },
-  //"filesGlob": [ "*.ts" ]
+  "filesGlob": [
+    "./**/*.ts",
+    "!./node_modules/**/*.ts"
+  ],
 
   "files": [
-    "../src/JsonSchema.d.ts",
-    "../src/UpReactComponent.d.ts"
+    "../src/interfaces/JsonSchema.d.ts",
+    "../src/interfaces/UpReactComponent.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 
   // "compileOnSave": true
