@@ -40,10 +40,9 @@ export default class UpDate extends React.Component<UpDateProps, UpDateState> {
     handleChangeJsEvent(event: any) {
         if (typeof (event.date) === "object" && event.date && typeof (event.date.toDate) === "function") {
             this.setState({ value: event.date.toDate() }, this.dispatchOnChange)
-            return ;
-
+            return
         }
-        return null;
+        this.setState({ value: null }, this.dispatchOnChange)
     }
     dispatchOnChange = () => {        this.props.onChange(this.state.value);
     }
