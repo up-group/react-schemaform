@@ -1,12 +1,19 @@
 {
-  "name": "upschemaform",
+  "name": "up-react-schemaform",
   "version": "0.0.1",
-  "repository": "",
   "description": "",
   "main": "./src/UpSchemaForm.tsx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuillaumeDumo/React-SchemaForm.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bugs": {
+    "url": "https://github.com/GuillaumeDumo/React-SchemaForm/issues"
+  },
+  "homepage": "https://github.com/GuillaumeDumo/React-SchemaForm#readme",
   "author": "",
   "license": "ISC",
   "dependencies": {
