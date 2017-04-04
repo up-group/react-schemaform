@@ -1,4 +1,4 @@
-﻿export default class HelperMemory {
+﻿export default class MemoryHelper {
 
     static AssignValue(obj, nodes, value) {
         var data = obj || {};

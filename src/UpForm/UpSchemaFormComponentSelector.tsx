@@ -5,7 +5,7 @@ import UpSchemaArray from "./UpSchemaArray"
 import UpSchemaObject from "./UpSchemaObject"
 import { UpFormControl } from "./UpFormControl"
 import ComponentRegistery from "./ComponentRegistery"
-import JsonSchemaHelper from "../JsonSchemaHelper";
+import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
 
 interface UpSchemaFormComponentSelectorProps {

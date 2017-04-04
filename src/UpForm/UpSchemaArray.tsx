@@ -3,7 +3,7 @@
 import ComponentRegistery from "./ComponentRegistery"
 
 import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector"
-import JsonSchemaHelper from "../JsonSchemaHelper"
+import JsonSchemaHelper from "../helper/JsonSchemaHelper"
 import UpSchemaObject from "./UpSchemaObject"
 import ErrorMemory from "./ErrorMemory"
 

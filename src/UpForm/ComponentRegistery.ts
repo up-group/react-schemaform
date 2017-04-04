@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import JsonSchemaHelper from "../JsonSchemaHelper";
+import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
 interface ComponentRegisteryEntry {
     key: string;

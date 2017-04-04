@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import TypeNumberControl from "../ControlError/TypeNumberControl"
-import UpFile from "../ReactComponent/UpFile"
+import UpFile from "../externalReactComponent/UpFile"
 
 export default class UpUpload extends UpFormControl<number[]> {
     constructor(p, c) {        super(p, c);

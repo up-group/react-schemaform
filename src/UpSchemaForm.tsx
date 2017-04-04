@@ -1,10 +1,10 @@
-﻿/// <reference path="JsonSchema.d.ts" />
+﻿/// <reference path="interfaces/JsonSchema.d.ts" />
 
 import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
-import HelperMemory from "./UpForm/HelperMemory";
+import HelperMemory from "./helper/MemoryHelper";
 
 
 interface UpSchemaFormProps {
