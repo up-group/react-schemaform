@@ -1,47 +1,23 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
+import UpSwitch from "../externalReactComponent/UpSwitch"
 
 export default class UpBoolean extends UpFormControl<Boolean>{
-    name = this.makeid();    constructor(p, c) {        super(p, c);
+    constructor(p, c) {        super(p, c);
     }    setInput(data) {    }    _componentDidMount() {
         this.setState({
             value: this.props.schema.default
         });
     }    renderField() {
-        if (this.isNuallble === true) {
-         return <span className="btnBool">
-             <span className={"btnFalse " + (this.state.value === false ? "selected Null" : "")} value={false.toString()} onClick={this.onBoolClick}>Non</span>
-                <span className={"btnNull " + (this.state.value === null ? "selected Null" : "") } value={null} onClick={this.onBoolClick}>Null</span>
-                <span className={"btnTrue " + (this.state.value === true ? "selected Null" : "")} value={true.toString()} onClick={this.onBoolClick}>Oui</span>
-            </span>
-        } else {
-            return <span className="btnBool">
-
-                <span className={" " + (this.state.value === false ? "btnFalse selected" : "btnFalse")} value={false.toString()} onClick={this.onBoolClick}>Non</span>
-                <span className={" " + (this.state.value === true ? "btnTrue selected" : "btnTrue")} value={true.toString()} onClick={this.onBoolClick}>Oui</span>
-            </span>
-        }
+        return <UpSwitch isNuallble={this.isNuallble} onChange={this.handleChangeEventGlobal} default={true} ></UpSwitch>        
     }
-    onBoolClick = (a) => {        var data = a.target.getAttribute("value");        switch (data) {
-            case "true":
-                this.handleChangeEventGlobal(true);
-                break;
-            case "false":
-                this.handleChangeEventGlobal(false);
-                break;
-            case "null":
-                this.handleChangeEventGlobal(null);
-                break;
-            default:
-                this.handleChangeEventGlobal(null);
-        }    }    isEmpty() {
+        isEmpty() {
         return false;
     }
 
-    handleChangeJsEvent(event: any) {
-        return this.state.value;
+    handleChangeJsEvent(event : boolean) {
+        return event;
     }
-
 
     handleChangeData(args: boolean) {
         return {
@@ -51,13 +27,4 @@ export default class UpBoolean extends UpFormControl<Boolean>{
         };
     }
 
-    makeid() {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (var i = 0; i < 10; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        return text;
-    }
 }
