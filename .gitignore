@@ -2,9 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/test/.vs
-/test/node_modules
-/UpSchemaForm/.vs
-/UpSchemaForm/node_modules
-/UpSchemaForm/test/dist
+/.vs/
+/node_modules/
+/node_modules/
+/test/dist/
