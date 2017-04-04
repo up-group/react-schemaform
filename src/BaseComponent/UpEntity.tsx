@@ -1,6 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
-import UpSelect2 from "../externalReactComponent/UpSelect2"
+//import UpSelect2 from "../externalReactComponent/UpSelect2"
+import UpSelect2 from "../../node_modules/up-react-control/Controls/UpSelect2"
 
 interface UpEntityExtendProp {
     getFullData: boolean;

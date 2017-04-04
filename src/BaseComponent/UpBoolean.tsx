@@ -1,6 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
-import UpSwitch from "../externalReactComponent/UpSwitch"
+//import UpSwitch from "../externalReactComponent/UpSwitch"
+import UpSwitch from "../../node_modules/up-react-control/Controls/UpSwitch"
 
 export default class UpBoolean extends UpFormControl<Boolean>{
     constructor(p, c) {        super(p, c);

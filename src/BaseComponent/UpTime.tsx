@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
-import UpTimePicker from "../externalReactComponent/UpTimePicker"
+import UpTimePicker from "../../node_modules/up-react-control/Controls/UpTimePicker"
 
 export default class UpTime extends UpFormControl<string> {
     constructor(p, c) {        super(p, c);
