@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 //import UpSelect2 from "../externalReactComponent/UpSelect2"
-import UpSelect2 from "../../node_modules/up-react-control/Controls/UpSelect2"
+import { UpSelect2 } from "up-react-control";
 
 interface UpEntityExtendProp {
     getFullData: boolean;
@@ -20,9 +20,22 @@ interface UpEntityExtendProp {
 
 
 export default class UpEntity<Type> extends UpFormControl<Type> {
-    constructor(p, c) {        super(p, c);
-    }    _componentDidMount() {
-    }    setInput(data) {        //TODO        //this.inputElement.value = data;    }    UpSelect    renderField() {
+    constructor(p, c) {
+        super(p, c);
+    }
+
+    _componentDidMount() {
+    }
+
+
+
+    setInput(data) {
+        //TODO
+        //this.inputElement.value = data;
+    }
+
+    UpSelect
+    renderField() {
         return <UpSelect2
             ref={(input) => { this.UpSelect = input; } }
             default={null}
@@ -38,7 +51,9 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
             />
 
     }
-    handleChangeJsEvent(args: any) {
+
+
+    handleChangeJsEvent(args: any) {
         return args;
     }
 
@@ -47,7 +62,8 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
             return true;
         }
         return value === null || value === undefined || value === "" || value === "00000000-0000-0000-0000-000000000000";
-    }
+    }
+
     private get schema(): JsonSchema {
         return this.props.schema.items || this.props.schema
 

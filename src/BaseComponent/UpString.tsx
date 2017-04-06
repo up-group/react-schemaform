@@ -1,9 +1,12 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import TypeStringControl from "../ControlError/TypeStringControl"
-import UpStringMultiLine from "../../node_modules/up-react-control/Controls/UpStringMultiLine"
-export default class UpString extends UpFormControl<string> {
-    constructor(p, c) {        super(p, c);
+import { UpStringMultiLine } from "up-react-control";
+
+export default class UpString extends UpFormControl<string> {
+
+    constructor(p, c) {
+        super(p, c);
 
         var pattern = new RegExp(this.props.schema.pattern);
         var patternErrorMessage = this.props.schema.patternErrorMessage;
@@ -22,7 +25,15 @@ import UpStringMultiLine from "../../node_modules/up-react-control/Controls/UpSt
             }
         }
         this._ControlErrorCentral.addControl(new TypeStringControl(pattern, patternErrorMessage));
-    }    setInput(data) {        if (this.inputElement) {            this.inputElement.value = data;        }    }    renderField() {
+    }
+
+    setInput(data) {
+        if (this.inputElement) {
+            this.inputElement.value = data;
+        }
+    }
+
+    renderField() {
         if (this.props.schema.format === "multilineText") {
             return <UpStringMultiLine onChange={this.handleChangeEventGlobal} hasError={this.state.hasError}/>
         }
@@ -34,7 +45,8 @@ import UpStringMultiLine from "../../node_modules/up-react-control/Controls/UpSt
             className="form-control"
             onChange={this.handleChangeJsEventGlobal} ></input>;
     }
-    handleChangeJsEvent(event: any) {
+
+    handleChangeJsEvent(event: any) {
         return event.target.value;
     }
 
@@ -44,4 +56,5 @@ import UpStringMultiLine from "../../node_modules/up-react-control/Controls/UpSt
 
     _componentDidMount() {
     }
-}
+
+}

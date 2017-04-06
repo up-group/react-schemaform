@@ -1,18 +1,28 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
-//import UpSwitch from "../externalReactComponent/UpSwitch"
-import UpSwitch from "../../node_modules/up-react-control/Controls/UpSwitch"
+
+import { UpSwitch } from "up-react-control";
 
 export default class UpBoolean extends UpFormControl<Boolean>{
-    constructor(p, c) {        super(p, c);
-    }    setInput(data) {    }    _componentDidMount() {
+    constructor(p, c) {
+        super(p, c);
+    }
+
+    setInput(data) {
+    }
+
+    _componentDidMount() {
         this.setState({
             value: this.props.schema.default
         });
-    }    renderField() {
+        
+    }
+
+    renderField() {
         return <UpSwitch isNuallble={this.isNuallble} onChange={this.handleChangeEventGlobal} default={true} ></UpSwitch>        
     }
-        isEmpty() {
+    
+    isEmpty() {
         return false;
     }
 

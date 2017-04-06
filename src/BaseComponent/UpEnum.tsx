@@ -1,17 +1,28 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl";
 //import UpSelect2 from "../externalReactComponent/UpSelect2";
-import UpSelect2 from "../../node_modules/up-react-control/Controls/UpSelect2"
+import { UpSelect2 } from "up-react-control";
 
 interface UpEnumExtendProp {
     _enum: Number[];
     enumDescriptions: String[];
     multiple: boolean;
 }
-export default class UpEnum extends UpFormControl<number> {
-    constructor(p, c) {        super(p, c);
-    }    _componentDidMount() {
-    }    setInput(data) {    }    renderField() {
+
+export default class UpEnum extends UpFormControl<number> {
+
+    constructor(p, c) {
+        super(p, c);
+    }
+
+    _componentDidMount() {
+    }
+
+    setInput(data) {
+
+    }
+
+    renderField() {
         var options = [];
         for (var i = 0; i < this.schema.enum.length; i++) {
             if (this.schema.enum[i] == null) {
@@ -57,4 +68,6 @@ interface UpEnumExtendProp {
             return true;
         }
         return value === null || value === undefined || value === "";
-    }}
+    }
+
+}

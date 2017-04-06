@@ -3,16 +3,26 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { UpFormControl } from "../UpForm/UpFormControl"
 import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl"
-import UpDate from "../../node_modules/up-react-control/Controls/UpDate"
-
+import { UpDate } from "up-react-control";
 
 export default class UpDateComp extends UpFormControl<Date> {
-    inputElementGroup: HTMLDivElement;    constructor(p, c) {        super(p, c);
+
+    inputElementGroup: HTMLDivElement;
+    constructor(p, c) {
+        super(p, c);
         this._ControlErrorCentral.addControl(new TypeDateControl(dateFormat.date));
-    }    setInput(data) {       // $(this.inputElementGroup).data("DateTimePicker").date(data);    }    _componentDidMount() {
+    }
+
+    setInput(data) {
+       // $(this.inputElementGroup).data("DateTimePicker").date(data);
+    }
+
+    _componentDidMount() {
         //$(this.inputElementGroup).datetimepicker({ locale: 'fr', format: "DD/MM/YYYY" });
         //$(this.inputElementGroup).on("dp.change", this.handleChangeJsEventGlobal);
-    }    renderField() {
+    }
+
+    renderField() {
 
         return <UpDate onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNuallble={this.isNuallble}></UpDate>
 
@@ -36,9 +46,12 @@ export default class UpDateComp extends UpFormControl<Date> {
         //return null;
         return event;
     }
-
+
+
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }
-}
+
+
+}
 

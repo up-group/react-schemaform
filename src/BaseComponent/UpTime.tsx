@@ -1,11 +1,19 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
-import UpTimePicker from "../../node_modules/up-react-control/Controls/UpTimePicker"
+import { UpTimePicker } from "up-react-control";
 
 export default class UpTime extends UpFormControl<string> {
-    constructor(p, c) {        super(p, c);
-    }    setInput(data) {    }    _componentDidMount() {
-    }    renderField() {
+    constructor(p, c) {
+        super(p, c);
+    }
+
+    setInput(data) {
+    }
+
+    _componentDidMount() {
+    }
+
+    renderField() {
         return <UpTimePicker onChange={this.handleChangeEventGlobal} hasError={this.state.hasError}/>
         //return <input
         //    ref={(input) => { this.inputElement = input; } }
@@ -15,7 +23,8 @@ export default class UpTime extends UpFormControl<string> {
         //    className="form-control" ></input>;
     }
 
-        handleChangeJsEvent(args: any) {
+    
+    handleChangeJsEvent(args: any) {
         if (args  != null && !args.target){
             return args;
         }
@@ -24,5 +33,7 @@ export default class UpTime extends UpFormControl<string> {
 
     isEmpty(value) {
         return value === null || value === undefined || value === "";
-    }}
+    }
+
+}
 
