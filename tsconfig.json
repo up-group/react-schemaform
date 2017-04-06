@@ -9,7 +9,7 @@
 
   "exclude": [
     "node_modules"
-  ]
+  ],
 
-  // "compileOnSave": true
+  "compileOnSave": true
 }

@@ -1,9 +1,12 @@
 module.exports = {
-    entry: "./index.tsx",
-    output: {
-        filename: "index.js",
-        path: __dirname + "/dist"
+    entry: {
+        'demo/dist/demo': './demo/demo.tsx',
+        'dist/index': './index.tsx'
     },
+    output: {
+        path: './',
+        filename: '[name].js'
+    }          ,
     devtool: "source-map",
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
