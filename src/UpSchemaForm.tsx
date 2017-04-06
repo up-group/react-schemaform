@@ -1,33 +1,49 @@
-﻿/// <reference path="interfaces/JsonSchema.d.ts" />
-
-import * as React from "react";
+﻿import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
 
 
-interface UpSchemaFormProps {
+export interface UpSchemaFormProps {
     schema: JsonSchema;
     onFormEror: (data: boolean) => void;
     onFormPayload: (data: any) => void;
 }
 
 export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}> {
-    errorMemory = new ErrorMemory();    constructor(p, c) {
+
+    errorMemory = new ErrorMemory();
+
+    constructor(p, c) {
         super(p, c);
     }
 
-    componentDidMount() {    }    render() {        if (this.props.schema.type === undefined) {            return (                <div className="panel panel-default">                    <div className="panel-heading">
+    componentDidMount() {
+    }
+
+    render() {
+
+        if (this.props.schema.type === undefined) {
+            return (
+                <div className="panel panel-default">
+                    <div className="panel-heading">
                     </div>
-                    <div className="panel-body">                    </div>
+                    <div className="panel-body">
+                    </div>
                     <div className="panel-footer">
                         {this.props.children}
                     </div>
-                </div>            );        }        return (            <div className="panel panel-default">                <div className="panel-heading">
+                </div>
+            );
+        }
+        return (
+            <div className="panel panel-default">
+                <div className="panel-heading">
                     {this.props.schema.title}
                 </div>
-                <div className="panel-body">                    <UpSchemaFormComponentSelector
+                <div className="panel-body">
+                    <UpSchemaFormComponentSelector
                         isRequired={false}
                         schema={this.props.schema}
                         node={""}
@@ -38,7 +54,9 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                 <div className="panel-footer">
                     {this.props.children}
                 </div>
-            </div>        );    }
+            </div>
+        );
+    }
 
 
 
