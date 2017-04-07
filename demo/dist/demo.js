@@ -6073,31 +6073,6 @@ module.exports = ReactCurrentOwner;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-var UpDate_1 = __webpack_require__(210);
-var UpDateTime_1 = __webpack_require__(211);
-var UpFile_1 = __webpack_require__(212);
-var UpSelect2_1 = __webpack_require__(213);
-var UpStringMultiLine_1 = __webpack_require__(214);
-var UpSwitch_1 = __webpack_require__(215);
-var UpTimePicker_1 = __webpack_require__(216);
-var _export = {
-    UpDate: UpDate_1.default,
-    UpDateTime: UpDateTime_1.default,
-    UpFile: UpFile_1.default,
-    UpSelect2: UpSelect2_1.default,
-    UpStringMultiLine: UpStringMultiLine_1.default,
-    UpSwitch: UpSwitch_1.default,
-    UpTimePicker: UpTimePicker_1.default
-};
-module.exports = _export;
-//# sourceMappingURL=up-react-control.js.map
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -6366,6 +6341,31 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
   }
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var UpDate_1 = __webpack_require__(210);
+var UpDateTime_1 = __webpack_require__(211);
+var UpFile_1 = __webpack_require__(212);
+var UpSelect2_1 = __webpack_require__(213);
+var UpStringMultiLine_1 = __webpack_require__(214);
+var UpSwitch_1 = __webpack_require__(215);
+var UpTimePicker_1 = __webpack_require__(216);
+var _export = {
+    UpDate: UpDate_1.default,
+    UpDateTime: UpDateTime_1.default,
+    UpFile: UpFile_1.default,
+    UpSelect2: UpSelect2_1.default,
+    UpStringMultiLine: UpStringMultiLine_1.default,
+    UpSwitch: UpSwitch_1.default,
+    UpTimePicker: UpTimePicker_1.default
+};
+module.exports = _export;
+//# sourceMappingURL=up-react-control.js.map
 
 /***/ }),
 /* 17 */
@@ -18264,7 +18264,7 @@ module.exports = ReactInstanceMap;
 
 
 
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 var getEventTarget = __webpack_require__(49);
 
@@ -39158,7 +39158,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpBoolean = (function (_super) {
     __extends(UpBoolean, _super);
     function UpBoolean(p, c) {
@@ -39172,7 +39172,7 @@ var UpBoolean = (function (_super) {
         });
     };
     UpBoolean.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpSwitch, { isNuallble: this.isNuallble, onChange: this.handleChangeEventGlobal, default: true });
+        return React.createElement(up_react_controls_1.UpSwitch, { isNuallble: this.isNuallble, onChange: this.handleChangeEventGlobal, default: true });
     };
     UpBoolean.prototype.isEmpty = function () {
         return false;
@@ -39212,7 +39212,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
 var TypeDateControl_1 = __webpack_require__(59);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpDateComp = (function (_super) {
     __extends(UpDateComp, _super);
     function UpDateComp(p, c) {
@@ -39225,7 +39225,7 @@ var UpDateComp = (function (_super) {
     UpDateComp.prototype._componentDidMount = function () {
     };
     UpDateComp.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpDate, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
+        return React.createElement(up_react_controls_1.UpDate, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
     };
     UpDateComp.prototype.handleChangeJsEvent = function (event) {
         return event;
@@ -39258,7 +39258,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
 var TypeDateControl_1 = __webpack_require__(59);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpDateTimeComp = (function (_super) {
     __extends(UpDateTimeComp, _super);
     function UpDateTimeComp(p, c) {
@@ -39271,7 +39271,7 @@ var UpDateTimeComp = (function (_super) {
     UpDateTimeComp.prototype._componentDidMount = function () {
     };
     UpDateTimeComp.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpDateTime, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
+        return React.createElement(up_react_controls_1.UpDateTime, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
     };
     UpDateTimeComp.prototype.handleChangeJsEvent = function (event) {
         return event;
@@ -39303,7 +39303,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpEntity = (function (_super) {
     __extends(UpEntity, _super);
     function UpEntity(p, c) {
@@ -39315,7 +39315,7 @@ var UpEntity = (function (_super) {
     };
     UpEntity.prototype.renderField = function () {
         var _this = this;
-        return React.createElement(up_react_control_1.UpSelect2, { ref: function (input) { _this.UpSelect = input; }, default: null, isNuallble: this.isNuallble, isRequired: this.props.isRequired, getFullData: false, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeJsEventGlobal, onError: this.props.onError, dataSource: this.schema.entitySource });
+        return React.createElement(up_react_controls_1.UpSelect2, { ref: function (input) { _this.UpSelect = input; }, default: null, isNuallble: this.isNuallble, isRequired: this.props.isRequired, getFullData: false, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeJsEventGlobal, onError: this.props.onError, dataSource: this.schema.entitySource });
     };
     UpEntity.prototype.handleChangeJsEvent = function (args) {
         return args;
@@ -39364,7 +39364,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpEnum = (function (_super) {
     __extends(UpEnum, _super);
     function UpEnum(p, c) {
@@ -39384,7 +39384,7 @@ var UpEnum = (function (_super) {
                 options.push({ id: this.schema.enum[i], text: this.schema.enumDescriptions[i] });
             }
         }
-        return React.createElement(up_react_control_1.UpSelect2, { default: this.schema.default, isNuallble: this.isNuallble, isRequired: this.props.isRequired, getFullData: false, minimumInputLength: 0, placeholder: "Recherche", multiple: this.isArray, allowClear: !this.props.isRequired, onError: this.props.onError, onChange: this.handleChangeJsEventGlobal, data: options });
+        return React.createElement(up_react_controls_1.UpSelect2, { default: this.schema.default, isNuallble: this.isNuallble, isRequired: this.props.isRequired, getFullData: false, minimumInputLength: 0, placeholder: "Recherche", multiple: this.isArray, allowClear: !this.props.isRequired, onError: this.props.onError, onChange: this.handleChangeJsEventGlobal, data: options });
     };
     Object.defineProperty(UpEnum.prototype, "schema", {
         get: function () {
@@ -39610,7 +39610,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
 var TypeStringControl_1 = __webpack_require__(230);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpString = (function (_super) {
     __extends(UpString, _super);
     function UpString(p, c) {
@@ -39641,7 +39641,7 @@ var UpString = (function (_super) {
     UpString.prototype.renderField = function () {
         var _this = this;
         if (this.props.schema.format === "multilineText") {
-            return React.createElement(up_react_control_1.UpStringMultiLine, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError });
+            return React.createElement(up_react_controls_1.UpStringMultiLine, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError });
         }
         return React.createElement("input", { ref: function (input) { _this.inputElement = input; }, style: this.state.hasError === true ? { borderColor: "red" } : null, type: "text", className: "form-control", onChange: this.handleChangeJsEventGlobal });
     };
@@ -39677,7 +39677,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpTime = (function (_super) {
     __extends(UpTime, _super);
     function UpTime(p, c) {
@@ -39688,7 +39688,7 @@ var UpTime = (function (_super) {
     UpTime.prototype._componentDidMount = function () {
     };
     UpTime.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpTimePicker, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError });
+        return React.createElement(up_react_controls_1.UpTimePicker, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError });
     };
     UpTime.prototype.handleChangeJsEvent = function (args) {
         if (args != null && !args.target) {
@@ -39723,7 +39723,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var UpFormControl_1 = __webpack_require__(11);
-var up_react_control_1 = __webpack_require__(15);
+var up_react_controls_1 = __webpack_require__(16);
 var UpUpload = (function (_super) {
     __extends(UpUpload, _super);
     function UpUpload(p, c) {
@@ -39734,7 +39734,7 @@ var UpUpload = (function (_super) {
     UpUpload.prototype._componentDidMount = function () {
     };
     UpUpload.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpFile, { onError: this.setSpecificError, hasError: this.state.hasError, onChange: this.handleChangeJsEventGlobal, fileExtension: this.props.schema.fileExtension });
+        return React.createElement(up_react_controls_1.UpFile, { onError: this.setSpecificError, hasError: this.state.hasError, onChange: this.handleChangeJsEventGlobal, fileExtension: this.props.schema.fileExtension });
     };
     UpUpload.prototype.handleChangeJsEvent = function (event) {
         return event;
@@ -41801,7 +41801,7 @@ var EventPropagators = __webpack_require__(27);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactUpdates = __webpack_require__(13);
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 var getEventTarget = __webpack_require__(49);
 var isEventSupported = __webpack_require__(50);
@@ -48763,7 +48763,7 @@ var EventPropagators = __webpack_require__(27);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactInputSelection = __webpack_require__(192);
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 var getActiveElement = __webpack_require__(68);
 var isTextInputElement = __webpack_require__(202);
@@ -48963,7 +48963,7 @@ var EventPropagators = __webpack_require__(27);
 var ReactDOMComponentTree = __webpack_require__(7);
 var SyntheticAnimationEvent = __webpack_require__(299);
 var SyntheticClipboardEvent = __webpack_require__(300);
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 var SyntheticFocusEvent = __webpack_require__(303);
 var SyntheticKeyboardEvent = __webpack_require__(305);
 var SyntheticMouseEvent = __webpack_require__(33);
@@ -49189,7 +49189,7 @@ module.exports = SimpleEventPlugin;
 
 
 
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 /**
  * @interface Event
@@ -49233,7 +49233,7 @@ module.exports = SyntheticAnimationEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 /**
  * @interface Event
@@ -49276,7 +49276,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 /**
  * @interface Event
@@ -49399,7 +49399,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 /**
  * @interface Event
@@ -49580,7 +49580,7 @@ module.exports = SyntheticTouchEvent;
 
 
 
-var SyntheticEvent = __webpack_require__(16);
+var SyntheticEvent = __webpack_require__(15);
 
 /**
  * @interface Event

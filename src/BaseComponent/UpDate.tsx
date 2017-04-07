@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { UpFormControl } from "../UpForm/UpFormControl"
 import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl"
-import { UpDate } from "up-react-control";
+import { UpDate } from "@up-group/up-react-controls";
 
 export default class UpDateComp extends UpFormControl<Date> {
 

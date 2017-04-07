@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "./src/UpSchemaForm"
 
-import {UpSwitch} from "up-react-control"
+import { UpSwitch } from "@up-group/up-react-controls"
 
 
 var schema : JsonSchema= {

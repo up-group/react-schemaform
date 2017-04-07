@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import TypeStringControl from "../ControlError/TypeStringControl"
-import { UpStringMultiLine } from "up-react-control";
+import { UpStringMultiLine } from "@up-group/up-react-controls";
 
 export default class UpString extends UpFormControl<string> {
 

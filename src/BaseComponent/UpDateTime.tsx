@@ -2,7 +2,7 @@
 import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import {TypeDateControl, dateFormat} from "../ControlError/TypeDateControl"
-import { UpDateTime } from "up-react-control";
+import { UpDateTime } from "@up-group/up-react-controls";
 export default class UpDateTimeComp extends UpFormControl<Date> {
 
     inputElementGroup: HTMLDivElement;

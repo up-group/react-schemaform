@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl";
 //import UpSelect2 from "../externalReactComponent/UpSelect2";
-import { UpSelect2 } from "up-react-control";
+import { UpSelect2 } from "@up-group/up-react-controls";
 
 interface UpEnumExtendProp {
     _enum: Number[];
