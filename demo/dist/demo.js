@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 334);
+/******/ 	return __webpack_require__(__webpack_require__.s = 333);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -58294,36 +58294,63 @@ S2.define('jquery.select2',[
 
 
 /***/ }),
-/* 333 */,
-/* 334 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(5);
 var ReactDOM = __webpack_require__(58);
 var UpSchemaForm_1 = __webpack_require__(208);
-var up_react_control_1 = __webpack_require__(15);
-var schema = {
-    "title": "test",
-    "type": "object",
-    "properties": {
-        "a": { "type": "number" },
-        "b": { "type": "string" }
+var Demo = (function (_super) {
+    __extends(Demo, _super);
+    function Demo(p, c) {
+        var _this = _super.call(this, p, c) || this;
+        _this.onSchemaChange = function (e) {
+            _this.setState({ schema: JSON.parse(e.target.value) });
+        };
+        _this.onFormPayload = function (e) {
+            _this.setState({ result: JSON.stringify(e) });
+        };
+        var s = {
+            "title": "test",
+            "type": "object",
+            "properties": {
+                "a": { "type": "number" },
+                "b": { "type": "string" }
+            }
+        };
+        _this.state = { result: "", schema: s };
+        return _this;
     }
-};
-var onFormEror = function (e) {
-    console.log("onFormEror", e);
-};
-var onFormPayload = function (e) {
-    console.log("onFormPayload", e);
-};
-var a = React.createElement(UpSchemaForm_1.default, { schema: schema, onFormEror: onFormEror, onFormPayload: onFormPayload });
-var b = React.createElement(up_react_control_1.UpSwitch, { isNuallble: true, onChange: function (aa) { console.log(aa); } });
-ReactDOM.render(a, document.getElementById('root'));
+    Demo.prototype.render = function () {
+        var onFormEror = function (e) {
+            console.log("onFormEror", e);
+        };
+        return React.createElement("div", null,
+            React.createElement("textarea", { className: "form-control", cols: 100, rows: 10, onChange: this.onSchemaChange }),
+            React.createElement("hr", null),
+            React.createElement(UpSchemaForm_1.default, { schema: this.state.schema, onFormEror: onFormEror, onFormPayload: this.onFormPayload }),
+            React.createElement("hr", null),
+            this.state.result);
+    };
+    return Demo;
+}(React.Component));
+exports.Demo = Demo;
+ReactDOM.render(React.createElement(Demo, null), document.getElementById('root'));
 
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=demo.js.map
