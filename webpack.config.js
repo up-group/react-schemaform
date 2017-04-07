@@ -1,7 +1,6 @@
 module.exports = {
     entry: {
-        'docs/dist/demo': './docs/demo.tsx',
-        'dist/index': './index.tsx'
+        'docs/dist/demo': './docs/demo.tsx'
     },
     output: {
         path: './',
