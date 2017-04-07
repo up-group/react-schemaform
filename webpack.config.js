@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        'demo/dist/demo': './demo/demo.tsx',
+        'docs/dist/demo': './docs/demo.tsx',
         'dist/index': './index.tsx'
     },
     output: {
