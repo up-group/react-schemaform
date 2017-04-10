@@ -1,15 +1,9 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
 var TypeNumberControl_1 = require("../ControlError/TypeNumberControl");
@@ -39,7 +33,7 @@ var UpNumber = (function (_super) {
     };
     UpNumber.prototype.renderField = function () {
         var _this = this;
-        return React.createElement("input", { readOnly: this.props.schema.readonly === true, ref: function (input) { _this.inputElement = input; }, style: this.state.hasError === true ? { borderColor: "red" } : null, type: "text", className: "form-control", onChange: this.handleChangeJsEventGlobal, onKeyDown: this.onKeyDown });
+        return React.createElement("input", { readOnly: this.props.schema.readonly === true, ref: function (input) { _this.inputElement = input; }, style: this.state.hasError === true ? { borderColor: "red" } : null, type: "text", className: "form-control", onChange: this.handleChangeJsEventGlobal, onKeyDown: this.onKeyDown, onError: true });
     };
     UpNumber.prototype.handleChangeJsEvent = function (event) {
         return event.target.value;
@@ -49,5 +43,6 @@ var UpNumber = (function (_super) {
     };
     return UpNumber;
 }(UpFormControl_1.UpFormControl));
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = UpNumber;
 //# sourceMappingURL=UpNumber.js.map
