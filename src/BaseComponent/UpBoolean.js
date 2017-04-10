@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpBoolean = (function (_super) {
     __extends(UpBoolean, _super);
     function UpBoolean(p, c) {
@@ -26,7 +26,7 @@ var UpBoolean = (function (_super) {
         });
     };
     UpBoolean.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpSwitch, { isNuallble: this.isNuallble, onChange: this.handleChangeEventGlobal, default: true });
+        return React.createElement(up_react_controls_1.UpSwitch, { isNuallble: this.isNuallble, onChange: this.handleChangeEventGlobal, default: true });
     };
     UpBoolean.prototype.isEmpty = function () {
         return false;

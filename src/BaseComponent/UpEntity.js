@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpEntity = (function (_super) {
     __extends(UpEntity, _super);
     function UpEntity(p, c) {
@@ -24,7 +24,7 @@ var UpEntity = (function (_super) {
     };
     UpEntity.prototype.renderField = function () {
         var _this = this;
-        return React.createElement(up_react_control_1.UpSelect2, { ref: function (input) { _this.UpSelect = input; }, default: null, isNuallble: this.isNuallble, isRequired: this.props.isRequired, getFullData: false, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeJsEventGlobal, onError: this.props.onError, dataSource: this.schema.entitySource });
+        return React.createElement(up_react_controls_1.UpSelect2, { ref: function (input) { _this.UpSelect = input; }, default: null, isNuallble: this.isNuallble, isRequired: this.props.isRequired, getFullData: false, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeJsEventGlobal, onError: this.props.onError, dataSource: this.schema.entitySource });
     };
     UpEntity.prototype.handleChangeJsEvent = function (args) {
         return args;

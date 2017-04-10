@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
 var TypeDateControl_1 = require("../ControlError/TypeDateControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpDateComp = (function (_super) {
     __extends(UpDateComp, _super);
     function UpDateComp(p, c) {
@@ -26,7 +26,7 @@ var UpDateComp = (function (_super) {
     UpDateComp.prototype._componentDidMount = function () {
     };
     UpDateComp.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpDate, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
+        return React.createElement(up_react_controls_1.UpDate, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
     };
     UpDateComp.prototype.handleChangeJsEvent = function (event) {
         return event;
