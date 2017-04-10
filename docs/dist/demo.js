@@ -58607,7 +58607,7 @@ var Demo = (function (_super) {
                         "number": { "type": "number" },
                         "integer": { "type": "integer" },
                         "boolean": { "type": "boolean" },
-                        "string": { "type": "string" },
+                        "string": { "type": "string" }
                     }
                 },
                 id: "base"
@@ -58619,10 +58619,66 @@ var Demo = (function (_super) {
                     "properties": {
                         "date": { "type": "string", "format": "date" },
                         "time": { "type": "string", "format": "time" },
-                        "datetime": { "type": "string", "format": "datetime" },
+                        "datetime": { "type": "string", "format": "date-time" }
                     }
                 },
                 id: "DateTime"
+            },
+            {
+                data: {
+                    "title": "Required",
+                    "type": "object",
+                    "properties": {
+                        "number": { "type": "number" }
+                    },
+                    "required": ["number"]
+                },
+                id: "required"
+            },
+            {
+                data: {
+                    "title": "MAX / MIN",
+                    "type": "object",
+                    "properties": {
+                        "size": {
+                            "type": "number",
+                            "minimum": 5.0,
+                            "maximum": 10.5
+                        }
+                    },
+                },
+                id: "MAX / MIN"
+            },
+            {
+                data: {
+                    "title": "enum",
+                    "type": "object",
+                    "properties": {
+                        "size": {
+                            "enumNames": ["choix1", "choix2", "choix3"],
+                            "enumDescriptions": ["Premier choix", "Second choix", "Troisieme choix"],
+                            "type": "integer",
+                            "format": "enum",
+                            "enum": [2, 4, 6]
+                        }
+                    },
+                },
+                id: "enum"
+            },
+            {
+                data: {
+                    "title": "upload",
+                    "type": "object",
+                    "properties": {
+                        "file": {
+                            "fileExtension": ".csv",
+                            "type": ["string", "null"],
+                            "default": null,
+                            "format": "upload"
+                        }
+                    },
+                },
+                id: "upload"
             }
         ];
         var onFormEror = function (e) {

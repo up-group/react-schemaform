@@ -55,6 +55,123 @@ La demo suivante permet de de voir la generation.
 
 ## JsonSchema
 
+### Type
+
+
+- object
+- array
+- string
+- number
+- integer
+- boolean
+
+
+### Format
+
+- date
+- date-time
+- time
+- entitykey
+- enum
+- email
+
+### Required
+
+Cette valeur est definie au niveau du parent pour dire qu'elle enfant sont requis.
+
+``` javascript
+{
+    "type": "object",
+    "properties": {
+        "age": { "type": "number" }
+        "hauteur": { "type": "number" }
+    },
+    "required": ["age"]
+}
+```
+
+Dans cette exemple l'a valeur age est requise mais pas la hauteur.
+
+
+### Minimum et Maximum
+
+Disponible avec les types `number` et `integer`.
+
+``` javascript
+{
+    "type":"number",
+    "minimum":5.0,
+    "maximum":10.5
+}
+```
+
+### Enum
+
+Cette partie ne suis pas les normes de JSONSchema.
+
+Deux champs suplmentaire ont été rajouté :
+- `enumNames`
+- `enumDescriptions` 
+
+Ainsi que le format :
+- `enum`
+
+Ce fonctionnement est orirenté specifiquement pour la génèration de formulaire.
+
+
+```javascript
+{
+    "enumNames":["choix1","choix2","choix3"],
+    "enumDescriptions":["Premier choix","Second choix","Troisieme choix"],
+    "type":"integer",
+    "format":"enum",
+    "enum":[2,4,6]
+}
+```
+
+### EntityKey EntitySource
+
+Nouveau format `entityKey`
+
+Nouveau propiete de JsonSchema: `entitySource` qui contient : 
+- `id` : nom de la propriété qui sera renvoyé.
+- `name` : nom de l’agrégat
+- `text` : nom à afficher à l’utilisateur
+- `query` : url de l’api de recherche
+- `queryParameterName` : nom de l’argument
+
+``` javascript
+{
+    "entitySource":{
+        "id":"Id",
+        "name":"Inventaire",
+        "text":"{Nom}",
+        "query":"/AtHome/api/queries/IInventaireSearchQuery",
+        "queryParameterName":"args"
+    },
+    "type":"string",
+    "default":"00000000-0000-0000-0000-000000000000",
+    "format":"entityKey"
+}
+
+```
+
+### Upload
+
+Gestion d’upload de fichier, permet d’envoyer un fichier transformé en byte array.
+
+Nouveau format `upload`
+Nouvelle propiété JsonSchema `fileExtension`
+
+```javascript
+{
+    "fileExtension":".csv",
+    "type":["string","null"],
+    "default":null,
+    "format":"upload"
+}
+```
+
 ## Utilisation du composant
 
-## autre
+## Autre
