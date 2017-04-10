@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
+import { UpFormControl } from "../UpForm/UpFormControl"
 import { UpTimePicker } from "@up-group/up-react-controls";
 
 export default class UpTime extends UpFormControl<string> {
@@ -14,18 +14,12 @@ export default class UpTime extends UpFormControl<string> {
     }
 
     renderField() {
-        return <UpTimePicker onChange={this.handleChangeEventGlobal} hasError={this.state.hasError}/>
-        //return <input
-        //    ref={(input) => { this.inputElement = input; } }
-        //    style={this.state.hasError === true ? { borderColor: "red" } : null}
-        //    onChange={this.handleChangeJsEventGlobal}
-        //    type="time"
-        //    className="form-control" ></input>;
+        return <UpTimePicker onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} />
     }
 
-    
+
     handleChangeJsEvent(args: any) {
-        if (args  != null && !args.target){
+        if (args != null && !args.target) {
             return args;
         }
         return args.target.value;
