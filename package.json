@@ -9,7 +9,9 @@
     "url": "git+https://github.com/GuillaumeDumo/React-SchemaForm.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publishProd": "npm version patch && npm publish --access public",
+    "publishBeta": "npm version patch && npm publish --tag beta"
   },
   "bugs": {
     "url": "https://github.com/GuillaumeDumo/React-SchemaForm/issues"
