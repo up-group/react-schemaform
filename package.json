@@ -12,9 +12,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
-    "url": "https://github.com/GuillaumeDumo/React-SchemaForm/issues"
+    "url": "https://github.com/Up-Group/react-schemaform/issues"
   },
-  "homepage": "https://github.com/GuillaumeDumo/React-SchemaForm#readme",
+  "homepage": "https://github.com/Up-Group/react-schemaform#readme",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +22,7 @@
     "@types/jquery": "^2.0.41",
     "@types/react": "^15.0.21",
     "@types/react-dom": "^0.14.23",
-    "@up-group/up-react-controls": "0.0.13",
+    "@up-group/up-react-controls": "*",
     "awesome-typescript-loader": "^3.1.2",
     "bootstrap3": "^3.3.5",
     "jquery": "^3.2.1",
