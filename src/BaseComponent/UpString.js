@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
 var TypeStringControl_1 = require("../ControlError/TypeStringControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpString = (function (_super) {
     __extends(UpString, _super);
     function UpString(p, c) {
@@ -44,7 +44,7 @@ var UpString = (function (_super) {
     UpString.prototype.renderField = function () {
         var _this = this;
         if (this.props.schema.format === "multilineText") {
-            return React.createElement(up_react_control_1.UpStringMultiLine, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError });
+            return React.createElement(up_react_controls_1.UpText, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError });
         }
         return React.createElement("input", { ref: function (input) { _this.inputElement = input; }, style: this.state.hasError === true ? { borderColor: "red" } : null, type: "text", className: "form-control", onChange: this.handleChangeJsEventGlobal });
     };

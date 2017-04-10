@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var JsonSchemaHelper_1 = require("../helper/JsonSchemaHelper");
 var ComponentRegistery = (function () {
@@ -77,7 +78,6 @@ var ComponentRegistery = (function () {
 }());
 ComponentRegistery._instance = new ComponentRegistery();
 ComponentRegistery.Component = {};
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ComponentRegistery;
 var UpDate_1 = require("../BaseComponent/UpDate");
 var UpDateTime_1 = require("../BaseComponent/UpDateTime");

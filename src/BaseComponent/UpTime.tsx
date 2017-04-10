@@ -30,4 +30,3 @@ export default class UpTime extends UpFormControl<string> {
     }
 
 }
-

@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import TypeStringControl from "../ControlError/TypeStringControl"
-import { UpStringMultiLine } from "@up-group/up-react-controls";
+import { UpText } from "@up-group/up-react-controls";
 
 export default class UpString extends UpFormControl<string> {
 
@@ -35,7 +35,7 @@ export default class UpString extends UpFormControl<string> {
 
     renderField() {
         if (this.props.schema.format === "multilineText") {
-            return <UpStringMultiLine onChange={this.handleChangeEventGlobal} hasError={this.state.hasError}/>
+            return <UpText onChange={this.handleChangeEventGlobal} hasError={this.state.hasError}/>
         }
 
         return <input
