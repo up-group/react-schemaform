@@ -20,7 +20,6 @@ export default class UpNumber extends UpFormControl<number> {
             className="form-control"
             onChange={this.handleChangeJsEventGlobal}
             onKeyDown={this.onKeyDown}
-            onError
         />
 
     }
