@@ -26,7 +26,7 @@ var UpDateComp = (function (_super) {
     UpDateComp.prototype._componentDidMount = function () {
     };
     UpDateComp.prototype.renderField = function () {
-        return React.createElement(up_react_controls_1.UpDate, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNuallble: this.isNuallble });
+        return React.createElement(up_react_control_1.UpDate, { onChange: this.handleChangeEventGlobal, hasError: this.state.hasError, isNullable: this.isNullable });
     };
     UpDateComp.prototype.handleChangeJsEvent = function (event) {
         return event;

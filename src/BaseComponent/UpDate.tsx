@@ -24,7 +24,7 @@ export default class UpDateComp extends UpFormControl<Date> {
 
     renderField() {
 
-        return <UpDate onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNuallble={this.isNuallble}></UpDate>
+        return <UpDate onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDate>
 
         //return <div className='input-group date' style={{ marginBottom: "3px" }} ref={(input) => { this.inputElementGroup = input; } } >
         //    <input

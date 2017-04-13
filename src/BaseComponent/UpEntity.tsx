@@ -18,7 +18,6 @@ interface UpEntityExtendProp {
     }
 }
 
-
 export default class UpEntity<Type> extends UpFormControl<Type> {
     constructor(p, c) {
         super(p, c);
@@ -26,8 +25,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
 
     _componentDidMount() {
     }
-
-
 
     setInput(data) {
         //TODO
@@ -39,7 +36,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         return <UpSelect2
             ref={(input) => { this.UpSelect = input; } }
             default={null}
-            isNuallble={this.isNuallble}
+            isNullable={this.isNullable}
             isRequired={this.props.isRequired}
             getFullData={false}
             multiple={this.isArray}
@@ -49,9 +46,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
             onError={this.props.onError}
             dataSource= {this.schema.entitySource}
             />
-
     }
-
 
     handleChangeJsEvent(args: any) {
         return args;
@@ -72,8 +67,4 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     private get isArray() {
         return this.props.schema.type.indexOf("array") !== -1;
     }
-
-
 }
-
-

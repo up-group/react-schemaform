@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm"
+import {UpDraft, Input} from "@up-group/up-react-controls"
 
 interface DemoState {
     result: string;
@@ -8,22 +9,16 @@ interface DemoState {
 }
 
 export class Demo extends React.Component<{}, DemoState> {
-
-
     constructor(p, c) {
         super(p, c);
         this.state = { result: "", schema: {} }
     }
 
     render() {
-
-
         var schemas: { id: string, data: JsonSchema }[] = [
-
             {
                 data: {
-
-                    "title": "test",
+                  "title": "test",
                     "type": "object",
                     "properties": {
                         "number": { "type": "number" },
@@ -31,11 +26,9 @@ export class Demo extends React.Component<{}, DemoState> {
                         "boolean": { "type": "boolean" },
                         "string": { "type": "string" }
                     }
-                }
-                ,
+                },
                 id: "base"
-            }
-            ,
+            },
             {
                 data: {
                     "title": "date",
@@ -45,8 +38,7 @@ export class Demo extends React.Component<{}, DemoState> {
                         "time": { "type": "string", "format": "time" },
                         "datetime": { "type": "string", "format": "date-time" }
                     }
-                }
-                ,
+                },
                 id: "DateTime"
             },
             {
@@ -57,8 +49,7 @@ export class Demo extends React.Component<{}, DemoState> {
                         "number": { "type": "number" }
                     },
                     "required": ["number"]
-                }
-                ,
+                },
                 id: "required"
             },
             {
@@ -72,11 +63,9 @@ export class Demo extends React.Component<{}, DemoState> {
                             "maximum": 10.5
                         }
                     },
-                }
-                ,
+                },
                 id: "MAX / MIN"
             },
-
             {
                 data: {
                     "title": "enum",
@@ -91,12 +80,9 @@ export class Demo extends React.Component<{}, DemoState> {
                         }
 
                     },
-                }
-                ,
+                },
                 id: "enum"
-            }
-            ,
-
+            },
             {
                 data: {
                     "title": "upload",
@@ -110,39 +96,22 @@ export class Demo extends React.Component<{}, DemoState> {
                             "format": "upload"
                         }
                     },
-                }
-                ,
+                },
                 id: "upload"
             }
-
-
-
-
-
-
-         
-
-
-           
-
-
         ];
-
 
         var onFormEror = (e) => {
             console.log("onFormEror", e);
         }
 
         return <div>
-
             <select className="form-control" defaultValue="" onChange={this.selectChange} required>
-
                 {
                     schemas.map((schema) => {
                         return <option key={schema.id} value={JSON.stringify(schema.data)}>{schema.id}</option>;
                     })
                 }
-
             </select>
 
             <textarea value={JSON.stringify(this.state.schema)} className="form-control" cols={100} rows={10} onChange={this.onSchemaChange}></textarea>
@@ -150,9 +119,14 @@ export class Demo extends React.Component<{}, DemoState> {
             <UpSchemaForm schema={this.state.schema} onFormEror={onFormEror} onFormPayload={this.onFormPayload}></UpSchemaForm>
             <hr />
             {this.state.result}
+            <UpDraft onChange={this.onEditorChange} />
+            <label>email</label>
+            <Input type="email" />
         </div>
+    }
 
-
+    onEditorChange = (e) => {
+        console.log(e) ;
     }
 
     onSchemaChange = (e) => {
@@ -163,16 +137,9 @@ export class Demo extends React.Component<{}, DemoState> {
         this.setState({ result: JSON.stringify(e) });
     }
 
-
     selectChange = (e) => {
         this.setState({ schema: JSON.parse(e.target.value) });
     }
-
 }
 
-
-
-
 ReactDOM.render(<Demo />, document.getElementById('root'));
-
-

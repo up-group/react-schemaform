@@ -22,7 +22,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
     renderField() {
-        return <UpDateTime onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNuallble={this.isNuallble}></UpDateTime>
+        return <UpDateTime onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDateTime>
 
         //return <div className='input-group datetime' ref={(input) => { this.inputElementGroup = input; } } >
         //    <input
