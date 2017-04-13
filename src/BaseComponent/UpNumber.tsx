@@ -1,20 +1,26 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
+import { UpFormControl } from "../UpForm/UpFormControl"
 import TypeNumberControl from "../ControlError/TypeNumberControl"
+
+interface baseprop {
+    value: any,
+    onChange: (data: any) => void,
+    onError: (error: any) => void
+}
 
 export default class UpNumber extends UpFormControl<number> {
     constructor(p, c) {        super(p, c);
         this._ControlErrorCentral.addControl(new TypeNumberControl(false, this.props.schema.minimum, this.props.schema.maximum));    }    setInput(data) {        this.inputElement.value = data;    }    _componentDidMount() {
-    }    renderField() {
+    }    renderField() {
         return <input
             readOnly={this.props.schema.readonly === true}
-            ref={(input) => { this.inputElement = input; } }
+            ref={(input) => { this.inputElement = input; }}
             style={this.state.hasError === true ? { borderColor: "red" } : null}
             type="text"
             className="form-control"
             onChange={this.handleChangeJsEventGlobal}
             onKeyDown={this.onKeyDown}
-            />
+        />
 
     }
 

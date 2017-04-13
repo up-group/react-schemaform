@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpUpload = (function (_super) {
     __extends(UpUpload, _super);
     function UpUpload(p, c) {
@@ -23,7 +23,7 @@ var UpUpload = (function (_super) {
     UpUpload.prototype._componentDidMount = function () {
     };
     UpUpload.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpFile, { onError: this.setSpecificError, hasError: this.state.hasError, onChange: this.handleChangeJsEventGlobal, fileExtension: this.props.schema.fileExtension });
+        return React.createElement(up_react_controls_1.UpFile, { onError: this.setSpecificError, hasError: this.state.hasError, onChange: this.handleChangeJsEventGlobal, fileExtension: this.props.schema.fileExtension });
     };
     UpUpload.prototype.handleChangeJsEvent = function (event) {
         return event;

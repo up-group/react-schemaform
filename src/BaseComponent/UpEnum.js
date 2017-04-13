@@ -12,7 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpEnum = (function (_super) {
     __extends(UpEnum, _super);
     function UpEnum(p, c) {

@@ -1,4 +1,7 @@
-﻿import * as React from "react";
+﻿/// <reference path="./interfaces/JsonSchema.d.ts"/>
+/// <reference path="./interfaces/UpReactComponent.d.ts"/>
+
+import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";

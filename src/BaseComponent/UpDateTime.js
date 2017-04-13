@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var UpFormControl_1 = require("../UpForm/UpFormControl");
 var TypeDateControl_1 = require("../ControlError/TypeDateControl");
-var up_react_control_1 = require("up-react-control");
+var up_react_controls_1 = require("@up-group/up-react-controls");
 var UpDateTimeComp = (function (_super) {
     __extends(UpDateTimeComp, _super);
     function UpDateTimeComp(p, c) {
