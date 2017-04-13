@@ -55,7 +55,7 @@ var UpFormControl = (function (_super) {
         };
         _this.handleChangeJsEventGlobal = _this.handleChangeJsEventGlobal.bind(_this);
         _this._ControlErrorCentral = new ControlErrorCentral_1.default();
-        _this._ControlErrorCentral.addControl(new TypeNullControl_1.default(_this.props.isRequired, _this.isNuallble, _this.props.schema.default, _this));
+        _this._ControlErrorCentral.addControl(new TypeNullControl_1.default(_this.props.isRequired, _this.isNullable, _this.props.schema.default, _this));
         return _this;
     }
     UpFormControl.prototype.handleChangeJsEventGlobal = function (event) {
@@ -74,7 +74,7 @@ var UpFormControl = (function (_super) {
         }
         return false;
     };
-    Object.defineProperty(UpFormControl.prototype, "isNuallble", {
+    Object.defineProperty(UpFormControl.prototype, "isNullable", {
         get: function () {
             return JsonSchemaHelper_1.default.isNullable(this.props.schema);
         },

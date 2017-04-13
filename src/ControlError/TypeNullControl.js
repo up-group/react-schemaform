@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var TypeNullControl = (function () {
-    function TypeNullControl(isRequierd, isNuallble, defaultValue, control) {
-        this._isNuallble = isNuallble;
+    function TypeNullControl(isRequierd, isNullable, defaultValue, control) {
+        this._isNullable = isNullable;
         this._isRequierd = isRequierd;
         this.defaultValue = defaultValue;
         this._control = control;

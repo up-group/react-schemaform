@@ -25,10 +25,18 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     _ControlErrorCentral: ControlErrorCentral;
 
 
-    constructor(props?, context?) {        super(props, context);        this.state = {
+    constructor(props?, context?) {
+        super(props, context);
+        this.state = {
             hasError: false,
             value: null
-        };        this.handleChangeJsEventGlobal = this.handleChangeJsEventGlobal.bind(this);        this._ControlErrorCentral = new ControlErrorCentral();        this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNuallble, this.props.schema.default, this));    }
+        };
+        this.handleChangeJsEventGlobal = this.handleChangeJsEventGlobal.bind(this);
+
+        this._ControlErrorCentral = new ControlErrorCentral();
+        this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
+    }
+
     abstract handleChangeJsEvent(args: any): baseType;
     abstract isEmpty(value: baseType): boolean;
     abstract setInput(args: baseType);
@@ -59,7 +67,9 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
                 this.props.onChange(value);
             });
     }
-    setSpecificError = (errorMesssage: string) => {
+
+
+    setSpecificError = (errorMesssage: string) => {
 
         this.setState({
             hasError: true,
@@ -91,12 +101,23 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         return false;
     }
 
-    get isNuallble() {
+    get isNullable() {
         return JsonSchemaHelper.isNullable(this.props.schema);
     }
 
 
-    componentDidMount() {        this._componentDidMount();        if (this.props.schema.default !== undefined) {            this.handleChangeEventGlobal(this.props.schema.default);            this.setInput(this.props.schema.default);        } else {            this.handleChangeEventGlobal(null);            this.setInput(null);        }    }    render() {
+    componentDidMount() {
+        this._componentDidMount();
+        if (this.props.schema.default !== undefined) {
+            this.handleChangeEventGlobal(this.props.schema.default);
+            this.setInput(this.props.schema.default);
+        } else {
+            this.handleChangeEventGlobal(null);
+            this.setInput(null);
+        }
+
+    }
+    render() {
         return <span>
             {this.renderField()}
             {

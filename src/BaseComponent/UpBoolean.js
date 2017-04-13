@@ -26,7 +26,7 @@ var UpBoolean = (function (_super) {
         });
     };
     UpBoolean.prototype.renderField = function () {
-        return React.createElement(up_react_control_1.UpSwitch, { isNuallble: this.isNuallble, onChange: this.handleChangeEventGlobal, default: true });
+        return React.createElement(up_react_control_1.UpSwitch, { isNullable: this.isNullable, onChange: this.handleChangeEventGlobal, default: true });
     };
     UpBoolean.prototype.isEmpty = function () {
         return false;

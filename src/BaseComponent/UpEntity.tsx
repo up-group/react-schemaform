@@ -39,7 +39,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         return <UpSelect2
             ref={(input) => { this.UpSelect = input; } }
             default={null}
-            isNuallble={this.isNuallble}
+            isNullable={this.isNullable}
             isRequired={this.props.isRequired}
             getFullData={false}
             multiple={this.isArray}

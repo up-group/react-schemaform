@@ -35,7 +35,7 @@ export default class UpEnum extends UpFormControl<number> {
 
       return <UpSelect2
             default= {this.schema.default}
-            isNuallble={this.isNuallble}
+            isNullable={this.isNullable}
             isRequired={this.props.isRequired}
             getFullData={false}
             minimumInputLength={0}
