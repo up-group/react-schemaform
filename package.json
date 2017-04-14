@@ -1,6 +1,6 @@
 {
-  "name": "@up-group/up-react-schemaform",
-  "version": "0.0.10",
+  "name": "@up-group/react-schemaform",
+  "version": "0.0.9",
   "description": "",
   "main": "./src/UpSchemaForm.js",
   "types": "./src/UpSchemaForm.tsx",
