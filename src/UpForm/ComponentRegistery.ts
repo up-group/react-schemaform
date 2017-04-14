@@ -24,31 +24,75 @@ export default class ComponentRegistery {
         return ComponentRegistery._instance;
     }
 
-    public static Register(key: string, type: string, format: string, Component: React.ComponentClass<any>, array: boolean = false) {        this.Component[key] = {            key: key,            ComponentClass: Component,            format: format,            type: type,            array: array        };    }    public static GetComponentByKey(ComponentKey: string) {        return this.Component[ComponentKey];    }
+
+    public static Register(key: string, type: string, format: string, Component: React.ComponentClass<any>, array: boolean = false) {
+        this.Component[key] = {
+            key: key,
+            ComponentClass: Component,
+            format: format,
+            type: type,
+            array: array
+        };
+    }
+
+    public static GetComponentByKey(ComponentKey: string) {
+        return this.Component[ComponentKey];
+    }
 
 
-    private static GetComponentByType(type: string) {        for (var ComponentKey in this.Component) {
+    private static GetComponentByType(type: string) {
+        for (var ComponentKey in this.Component) {
             if (!this.Component.hasOwnProperty(ComponentKey)) { continue; }
             if (this.Component[ComponentKey].type === type) {
                 return this.Component[ComponentKey];
             }
-        }        return null    }
+        }
+        return null
+    }
 
-    private static GetComponentByFormat(format: string) {        for (var ComponentKey in this.Component) {
+    private static GetComponentByFormat(format: string) {
+        for (var ComponentKey in this.Component) {
             if (!this.Component.hasOwnProperty(ComponentKey)) { continue; }
             if (this.Component[ComponentKey].format === format) {
                 return this.Component[ComponentKey];
             }
-        }        return null    }
+        }
+        return null
+    }
 
     public static GetComponentBySchema(schema: JsonSchema) {
-        var comp = ComponentRegistery.GetComponentByFormat(((schema.items as JsonSchema) || schema).format);        if (comp == null) {            comp = ComponentRegistery.GetComponentByType(JsonSchemaHelper.getBaseType(schema));        }
+        var comp = ComponentRegistery.GetComponentByFormat(((schema.items as JsonSchema) || schema).format);
+
+        if (comp == null) {
+            comp = ComponentRegistery.GetComponentByType(JsonSchemaHelper.getBaseType(schema));
+        }
         return comp;
     }
 
-    public static GetComponentInstanceByKey(key: string, onError: () => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {        var comp = this.GetComponentByKey(key);        var props = {            onError: onError,            onChange: onChange,            isRequired: isRequired,            schema: schema        }        return React.createElement(comp.ComponentClass, props);    }
+    public static GetComponentInstanceByKey(key: string, onError: () => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
+        var comp = this.GetComponentByKey(key);
+        var props = {
+            onError: onError,
+            onChange: onChange,
+            isRequired: isRequired,
+            schema: schema
+        }
 
-    public static GetComponentInstance(onError: () => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {        var comp = this.GetComponentBySchema(schema);        var props = {            onError: onError,            onChange: onChange,            isRequired: isRequired,            schema: schema        }        return React.createElement(comp.ComponentClass, props);    }
+        return React.createElement(comp.ComponentClass, props);
+    }
+
+    public static GetComponentInstance(onError: () => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
+        var comp = this.GetComponentBySchema(schema);
+
+        var props = {
+            onError: onError,
+            onChange: onChange,
+            isRequired: isRequired,
+            schema: schema
+        }
+
+        return React.createElement(comp.ComponentClass, props);
+    }
 
 }
 
