@@ -59,7 +59,6 @@ var UpFormControl = (function (_super) {
         return _this;
     }
     UpFormControl.prototype.handleChangeJsEventGlobal = function (event) {
-        debugger;
         var cleandata = this.handleChangeJsEvent(event);
         this.handleChangeEventGlobal(cleandata);
     };
