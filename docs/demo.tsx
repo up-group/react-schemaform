@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm"
-import {UpDraft, Input} from "@up-group/up-react-controls"
+import {UpDraft} from "@up-group/react-controls"
 
 interface DemoState {
     result: string;
@@ -119,9 +119,6 @@ export class Demo extends React.Component<{}, DemoState> {
             <UpSchemaForm schema={this.state.schema} onFormEror={onFormEror} onFormPayload={this.onFormPayload}></UpSchemaForm>
             <hr />
             {this.state.result}
-            <UpDraft onChange={this.onEditorChange} />
-            <label>email</label>
-            <Input type="email" />
         </div>
     }
 
