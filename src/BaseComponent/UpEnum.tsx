@@ -1,7 +1,6 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl";
-//import UpSelect2 from "../externalReactComponent/UpSelect2";
-import { UpSelect2 } from "@up-group/up-react-controls";
+import { UpFormControl } from "../UpForm/UpFormControl";
+import { UpSelect } from "@up-group/react-controls";
 
 interface UpEnumExtendProp {
     _enum: Number[];
@@ -33,7 +32,7 @@ export default class UpEnum extends UpFormControl<number> {
             }
         }
 
-      return <UpSelect2
+        return <UpSelect
             default= {this.schema.default}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}

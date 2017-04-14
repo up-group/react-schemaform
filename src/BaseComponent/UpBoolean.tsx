@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
+import { UpFormControl } from "../UpForm/UpFormControl";
 
-import { UpSwitch } from "@up-group/up-react-controls";
+import { UpSwitch } from "@up-group/react-controls";
 
 export default class UpBoolean extends UpFormControl<Boolean>{
     constructor(p, c) {

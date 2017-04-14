@@ -1,11 +1,22 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import TypeNumberControl from "../ControlError/TypeNumberControl"
+import { UpInteger } from "@up-group/react-controls";
 
-export default class UpInteger extends UpFormControl<number> {
-    constructor(p, c) {        super(p, c);
-        this._ControlErrorCentral.addControl(new TypeNumberControl(true, this.props.schema.minimum, this.props.schema.maximum));    }    setInput(data) {        this.inputElement.value = data;    }    _componentDidMount() {
-    }    renderField() {
+export default class UpIntegerComp extends UpFormControl<number> {
+    constructor(p, c) {
+        super(p, c);
+        this._ControlErrorCentral.addControl(new TypeNumberControl(true, this.props.schema.minimum, this.props.schema.maximum));
+    }
+
+    setInput(data) {
+        this.inputElement.value = data;
+    }
+
+    _componentDidMount() {
+    }
+
+    renderField() {
         return <input
             readOnly={this.props.schema.readonly === true}
             ref={(input) => { this.inputElement = input; } }
@@ -28,10 +39,12 @@ export default class UpInteger extends UpFormControl<number> {
             this.handleChangeEventGlobal(newValue);
         }
     }
-    handleChangeJsEvent(event: any) {
+
+    handleChangeJsEvent(event: any) {
         return event.target.value;
     }
-
+
+
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }

@@ -2,7 +2,9 @@
 import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
 import {TypeDateControl, dateFormat} from "../ControlError/TypeDateControl"
-import { UpDateTime } from "@up-group/up-react-controls";
+import { UpDateTime } from "@up-group/react-controls";
+
+
 export default class UpDateTimeComp extends UpFormControl<Date> {
 
     inputElementGroup: HTMLDivElement;
@@ -22,7 +24,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
     renderField() {
-        return <UpDateTime onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDateTime>
+        return  <UpDateTime value="" onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDateTime>
 
         //return <div className='input-group datetime' ref={(input) => { this.inputElementGroup = input; } } >
         //    <input

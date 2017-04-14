@@ -1,9 +1,9 @@
 ﻿import * as $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { UpFormControl } from "../UpForm/UpFormControl"
-import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl"
-import { UpDate } from "@up-group/up-react-controls";
+import { UpFormControl } from "../UpForm/UpFormControl";
+import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl";
+import { UpDate } from "@up-group/react-controls";
 
 export default class UpDateComp extends UpFormControl<Date> {
 
@@ -24,7 +24,7 @@ export default class UpDateComp extends UpFormControl<Date> {
 
     renderField() {
 
-        return <UpDate onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDate>
+        return  <UpDate value="" onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDate>
 
         //return <div className='input-group date' style={{ marginBottom: "3px" }} ref={(input) => { this.inputElementGroup = input; } } >
         //    <input

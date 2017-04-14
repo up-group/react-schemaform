@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
-//import UpSelect2 from "../externalReactComponent/UpSelect2"
-import { UpSelect2 } from "@up-group/up-react-controls";
+import { UpFormControl } from "../UpForm/UpFormControl"
+
+import { UpSelect } from "@up-group/react-controls";
 
 interface UpEntityExtendProp {
     getFullData: boolean;
@@ -33,7 +33,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
 
     UpSelect
     renderField() {
-        return <UpSelect2
+        return <UpSelect
             ref={(input) => { this.UpSelect = input; } }
             default={null}
             isNullable={this.isNullable}
