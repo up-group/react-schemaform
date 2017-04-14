@@ -13,10 +13,14 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.tsx?|.ts?$/, loader: "awesome-typescript-loader" },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            { test: /\.tsx?|.ts?$/, loader: "ts-loader" },
+            { test: /\.css$/, loader: 'css-loader?url=false' },
             { test: /\.md$/, loader: 'html!markdown-loader' },
-            { test: /\.svg$/, loader: 'svg-inline-loader'}
+            { test: /\.svg$/, loader: 'svg-inline-loader'},
+            {
+                test: /\.(eot|ttf|woff|woff2)$/,
+                loader: 'file-loader?name=public/fonts/[name].[ext]'
+            }
         ]
     }
 
