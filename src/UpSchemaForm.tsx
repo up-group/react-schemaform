@@ -63,7 +63,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
 
 
 
-    onFormError = (node: string) => {
+    onFormError = (node: string, hasError: boolean) => {
         this.errorMemory.errorOn(node);
         this.props.onFormEror(true);
 
@@ -74,21 +74,21 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         nodeArray.shift();
 
         this.setState(HelperMemory.AssignValue(this.state, nodeArray, newValue), () => {
-            this.errorMemory.cleanErrorOn(node);
+            // this.errorMemory.cleanErrorOn(node);
             this.updateState();
         });
 
     }
 
     updateState() {
-        if (this.errorMemory.hasError) {
-            this.props.onFormEror(true);
+        //if (this.errorMemory.hasError) {
+        //    this.props.onFormEror(true);
 
-        } else {
-            this.props.onFormPayload(this.state);
-            this.props.onFormEror(false);
+        //  } else {
+        this.props.onFormPayload(this.state);
+        //      this.props.onFormEror(false);
 
-        }
+        //   }
     }
 
     private newObject(nodes, value) {
