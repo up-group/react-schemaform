@@ -7,7 +7,7 @@ interface UpSchemaObjectProps {
     SchemaArg: JsonSchema;
     node: string;
     onFormChange: (newValue: any, node: string) => void;
-    onFormError: (node: string) => void;
+    onFormError: (node: string, hasError: boolean) => void;
     isRequired: boolean;
 }
 
@@ -27,16 +27,16 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
         }
         var elements = properties.map((property, index) => {
             return (<UpSchemaFormComponentSelector
-                isRequired={this.isRequired(propertiesName[index]) }
+                isRequired={this.isRequired(propertiesName[index])}
                 key={index}
                 schema={property}
                 node={this.props.node + '.' + propertiesName[index]}
                 onFormChange={this.props.onFormChange}
                 onFormError={this.props.onFormError}
-                />)
+            />)
         });
         return <div className="col-md-12">
-            {this.props.withHR ? <hr/> : null}
+            {this.props.withHR ? <hr /> : null}
             {this.props.SchemaArg.title == null || this.props.node === "" ? "" : <h4>{this.props.SchemaArg.title}</h4>}
             <div className="row">{elements}</div>
         </div>

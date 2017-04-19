@@ -12,7 +12,7 @@ interface UpSchemaFormComponentSelectorProps {
     schema: JsonSchema;
     node: string;
     onFormChange: (newValue: any, node: string) => void;
-    onFormError: (node: string) => void;
+    onFormError: (node: string,hasError: boolean) => void;
     isRequired: boolean;
 }
 
@@ -88,8 +88,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
         this.props.onFormChange(arg, this.props.node);
     }
 
-    private onElementError = () => {
-        this.props.onFormError(this.props.node);
+    private onElementError = (hasError: boolean) => {
+        this.props.onFormError(this.props.node, hasError);
     }
 
 }

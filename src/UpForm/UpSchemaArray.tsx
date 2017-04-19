@@ -11,7 +11,7 @@ import ErrorMemory from "./ErrorMemory"
 interface UpSchemaArrayProps {
     schema: JsonSchema;
     onChange: (arg: any) => void;
-    onError: () => void;
+    onError: (hasError: boolean) => void;
     isRequired: boolean;
     node: string;
 }
@@ -39,10 +39,10 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
             switch (type) {
                 case "object":
                     element = <UpSchemaObject
-                        withHR = {index !== 0}
+                        withHR={index !== 0}
                         onFormError={value.onError}
                         isRequired={this.props.isRequired}
-                        SchemaArg= { schema }
+                        SchemaArg={schema}
                         node={""}
                         onFormChange={value.onChange} />
                     break;
@@ -70,10 +70,10 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
             "border": "1px solid #f4f4f4"
         }}>
             {items}
-            <br/>
+            <br />
             <span className="btn-group">
-                <button className="btn btn-default" onClick={this.AddElement }><span className="glyphicon glyphicon-plus"/></button>
-                <button className="btn btn-default" disabled={this.state.items.length <= 0} onClick={this.RemoveElement }><span className="glyphicon glyphicon-minus"/></button>
+                <button className="btn btn-default" onClick={this.AddElement}><span className="glyphicon glyphicon-plus" /></button>
+                <button className="btn btn-default" disabled={this.state.items.length <= 0} onClick={this.RemoveElement}><span className="glyphicon glyphicon-minus" /></button>
             </span>
         </div >
     }
@@ -105,8 +105,8 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
         this.props.onChange(data);
     }
 
-    onItemError = () => {
-        this.props.onError();
+    onItemError = (hasError : boolean) => {
+        this.props.onError(hasError);
     }
 }
 

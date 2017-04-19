@@ -69,7 +69,7 @@ export default class ComponentRegistery {
         return comp;
     }
 
-    public static GetComponentInstanceByKey(key: string, onError: () => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
+    public static GetComponentInstanceByKey(key: string, onError: (hasError: boolean) => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
         var comp = this.GetComponentByKey(key);
         var props = {
             onError: onError,
@@ -81,7 +81,7 @@ export default class ComponentRegistery {
         return React.createElement(comp.ComponentClass, props);
     }
 
-    public static GetComponentInstance(onError: () => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
+    public static GetComponentInstance(onError: (hasError: boolean) => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
         var comp = this.GetComponentBySchema(schema);
 
         var props = {
@@ -100,17 +100,17 @@ export default class ComponentRegistery {
 
 
 //************************************************  CONGFIG
-import UpDate  from "../BaseComponent/UpDate"
-import UpDateTime  from "../BaseComponent/UpDateTime"
-import UpTime  from "../BaseComponent/UpTime"
-import UpEntity  from "../BaseComponent/UpEntity"
-import UpString  from "../BaseComponent/UpString"
-import UpNumber  from "../BaseComponent/UpNumber"
-import UpInteger  from "../BaseComponent/UpInteger"
-import UpBoolean  from "../BaseComponent/UpBoolean"
-import UpEnum  from "../BaseComponent/UpEnum"
-import UpUpload  from "../BaseComponent/UpUpload"
-import UpMonth  from "../BaseComponent/UpMonth"
+import UpDate from "../BaseComponent/UpDate"
+import UpDateTime from "../BaseComponent/UpDateTime"
+import UpTime from "../BaseComponent/UpTime"
+import UpEntity from "../BaseComponent/UpEntity"
+import UpString from "../BaseComponent/UpString"
+import UpNumber from "../BaseComponent/UpNumber"
+import UpInteger from "../BaseComponent/UpInteger"
+import UpBoolean from "../BaseComponent/UpBoolean"
+import UpEnum from "../BaseComponent/UpEnum"
+import UpUpload from "../BaseComponent/UpUpload"
+import UpMonth from "../BaseComponent/UpMonth"
 
 ComponentRegistery.Register("UpNumber", "number", null, UpNumber);
 ComponentRegistery.Register("UpString", "string", null, UpString);

@@ -9,7 +9,7 @@ export interface baseProp<baseType> {
     schema: JsonSchema;
     isRequired: boolean;
     onChange: (arg: baseType) => void;
-    onError: () => void;
+    onError: (hasError:boolean) => void;
 }
 
 export interface baseState<baseType> {
@@ -53,12 +53,13 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         this.valueChange(cleandata);
     }
 
-    public handleerrorEventGlobal = (hasError: boolean) => {
+    public handlErrorEventGlobal = (hasError: boolean) => {
         if (hasError) {
             this.setState({
                 hasError: true,
                 errorMessage: ""
             });
+            this.props.onError(hasError);
         } else {
             this.unSetSpecifiError();
         }
@@ -79,7 +80,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
             hasError: true,
             errorMessage: errorMesssage
         });
-        this.props.onError();
+        this.props.onError(true);
     }
 
     private unSetSpecifiError = () => {
