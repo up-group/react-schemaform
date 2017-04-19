@@ -54,15 +54,15 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     }
 
     public handlErrorEventGlobal = (hasError: boolean) => {
-        if (hasError) {
-            this.setState({
-                hasError: true,
-                errorMessage: ""
-            });
-            this.props.onError(hasError);
-        } else {
-            this.unSetSpecifiError();
-        }
+        this.props.onError(hasError);
+        //if (hasError) {
+        //    this.setState({
+        //        hasError: true,
+        //        errorMessage: ""
+        //    });
+        //} else {
+        //    this.unSetSpecifiError();
+        //}
     }
 
 

@@ -5,8 +5,8 @@
 
     memory: { [key: string]: boolean } = {}
 
-    errorOn(node: string) {
-        this.memory[node] = true;
+    errorOn(node: string,hasError : boolean) {
+        this.memory[node] = hasError;
     }
 
     cleanErrorOn(node: string) {

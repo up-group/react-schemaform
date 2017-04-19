@@ -139,12 +139,12 @@ class item {
     }
 
 
-    onError = (node?) => {
-        if (node === undefined) {
-            this.error = true;
-        } else {
-            this.errorMemory.errorOn(node);
-        }
+    onError = (/*node, hasError:boolean*/) => {
+        //if (node === undefined) {
+        //    this.error = true;
+        //} else {
+        //    this.errorMemory.errorOn(node, hasError);
+        //}
 
         this.onItemError();
     }
