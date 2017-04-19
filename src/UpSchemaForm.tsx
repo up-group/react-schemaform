@@ -6,6 +6,7 @@ import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelecto
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
+import { UpPanel } from "@up-group/react-controls";
 
 
 export interface UpSchemaFormProps {
@@ -26,7 +27,6 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     }
 
     render() {
-
         if (this.props.schema.type === undefined) {
             return (
                 <div className="panel panel-default">
@@ -41,28 +41,30 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
             );
         }
         return (
-            <div className="panel panel-default">
-                <div className="panel-heading">
-                    {this.props.schema.title}
+            <UpPanel title={this.props.schema.title}>
+                <div className="panel panel-default">
+                    <div className="panel-heading">
+
+                    </div>
+                    <div className="panel-body">
+                        <UpSchemaFormComponentSelector
+                            isRequired={false}
+                            schema={this.props.schema}
+                            node={""}
+                            onFormChange={this.onFormChange}
+                            onFormError={this.onFormError} >
+                        </UpSchemaFormComponentSelector>
+                    </div>
+                    <div className="panel-footer">
+                        {this.props.children}
+                    </div>
                 </div>
-                <div className="panel-body">
-                    <UpSchemaFormComponentSelector
-                        isRequired={false}
-                        schema={this.props.schema}
-                        node={""}
-                        onFormChange={this.onFormChange}
-                        onFormError={this.onFormError} >
-                    </UpSchemaFormComponentSelector>
-                </div>
-                <div className="panel-footer">
-                    {this.props.children}
-                </div>
-            </div>
+            </UpPanel>
         );
     }
 
     onFormError = (node: string, hasError: boolean) => {
-        this.errorMemory.errorOn(node,hasError);
+        this.errorMemory.errorOn(node, hasError);
         this.props.onFormEror(this.errorMemory.hasError);
 
     }
