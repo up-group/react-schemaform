@@ -10,7 +10,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     inputElementGroup: HTMLDivElement;
     constructor(p, c) {
         super(p, c);
-        this._ControlErrorCentral.addControl(new TypeDateControl(dateFormat.dateTime));
+        //this._ControlErrorCentral.addControl(new TypeDateControl(dateFormat.dateTime));
     }
 
 

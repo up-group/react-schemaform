@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
+import { UpFormControl } from "../UpForm/UpFormControl"
 import TypeStringControl from "../ControlError/TypeStringControl"
-import { UpInput } from "@up-group/react-controls";
+import { UpInput, UpEmail, UpPhone, UpText } from "@up-group/react-controls";
 
 export default class UpString extends UpFormControl<string> {
 
@@ -34,16 +34,19 @@ export default class UpString extends UpFormControl<string> {
     }
 
     renderField() {
-        if (this.props.schema.format === "multilineText") {
-            return <UpInput type="text" onChange={this.handleChangeEventGlobal} hasError={this.state.hasError}/>
+
+
+        switch (this.props.schema) {
+            case "email":
+                return <UpEmail onChange={this.handleChangeEventGlobal} />;
+            case "phone":
+                return <UpPhone onChange={this.handleChangeEventGlobal} />;
+            case "multilineText":
+                return <UpText value={this.state.value} multiline={true} onChange={this.handleChangeEventGlobal} />;
+            default:
+                return <UpText value={this.state.value} multiline={false} onChange={this.handleChangeEventGlobal} />;
         }
 
-        return <input
-            ref={(input) => { this.inputElement = input; } }
-            style={this.state.hasError === true ? { borderColor: "red" } : null}
-            type="text"
-            className="form-control"
-            onChange={this.handleChangeJsEventGlobal} ></input>;
     }
 
     handleChangeJsEvent(event: any) {

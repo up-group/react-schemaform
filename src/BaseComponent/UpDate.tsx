@@ -10,7 +10,7 @@ export default class UpDateComp extends UpFormControl<Date> {
     inputElementGroup: HTMLDivElement;
     constructor(p, c) {
         super(p, c);
-        this._ControlErrorCentral.addControl(new TypeDateControl(dateFormat.date));
+        //this._ControlErrorCentral.addControl(new TypeDateControl(dateFormat.date));
     }
 
     setInput(data) {
@@ -24,7 +24,7 @@ export default class UpDateComp extends UpFormControl<Date> {
 
     renderField() {
 
-        return  <UpDate value="" onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDate>
+        return <UpDate value={this.state.value} onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDate>
 
         //return <div className='input-group date' style={{ marginBottom: "3px" }} ref={(input) => { this.inputElementGroup = input; } } >
         //    <input

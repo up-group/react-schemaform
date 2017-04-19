@@ -13,7 +13,7 @@ export default class UpNumberComp extends UpFormControl<number> {
 
     constructor(p, c) {
         super(p, c);
-        this._ControlErrorCentral.addControl(new TypeNumberControl(false, this.props.schema.minimum, this.props.schema.maximum));
+        //this._ControlErrorCentral.addControl(new TypeNumberControl(false, this.props.schema.minimum, this.props.schema.maximum));
     }
 
 
@@ -27,7 +27,7 @@ export default class UpNumberComp extends UpFormControl<number> {
 
 
     renderField() {
-        return <UpNumber onChange={this.test} max={this.props.schema.maximum} min={this.props.schema.minimum}/>
+        return <UpNumber onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum}/>
 
 
         /*return <input
@@ -43,21 +43,20 @@ export default class UpNumberComp extends UpFormControl<number> {
     }
 
     test = (a,b)=>{
-        debugger
     }
 
 
-    onKeyDown = (e) => {
-        if (e.keyCode == 38) { // up
-            var newValue = Number(e.target.value) + 1;
-            this.inputElement.value = newValue.toString();
-            this.handleChangeEventGlobal(newValue);
-        } else if (e.keyCode == 40) { // down
-            var newValue = Number(e.target.value) - 1;
-            this.inputElement.value = (newValue).toString();
-            this.handleChangeEventGlobal(newValue);
-        }
-    }
+    //onKeyDown = (e) => {
+    //    if (e.keyCode == 38) { // up
+    //        var newValue = Number(e.target.value) + 1;
+    //        this.inputElement.value = newValue.toString();
+    //        this.handleChangeEventGlobal(newValue);
+    //    } else if (e.keyCode == 40) { // down
+    //        var newValue = Number(e.target.value) - 1;
+    //        this.inputElement.value = (newValue).toString();
+    //        this.handleChangeEventGlobal(newValue);
+    //    }
+    //}
 
     handleChangeJsEvent(event: any) {
         return event;
