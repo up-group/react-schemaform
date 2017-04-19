@@ -3,7 +3,6 @@ module.exports = {
         'docs/dist/demo': './docs/demo.tsx'
     },
     output: {
-        path: './',
         filename: '[name].js'
     }          ,
     devtool: "source-map",
