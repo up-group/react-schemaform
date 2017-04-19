@@ -1,3 +1,7 @@
+type TypeOfSchema = "null" | "object" | "string" | "number" | "integer" | "boolean";
+type FormatOfSchema = "date" | "date-time" | "time" | "entityKey" | "enum" | "upload" | "month" | "email" | "phone" | "multilineText";
+
+
 
 
 interface JsonSchema {
@@ -30,12 +34,12 @@ interface JsonSchema {
     patternProperties?: { [pattern: string]: JsonSchema };
     dependencies?: { [key: string]: JsonSchema | string[] };
     'enum'?: any[];
-    type?: string | string[];
+    type?: TypeOfSchema | TypeOfSchema[];
     allOf?: JsonSchema[];
     anyOf?: JsonSchema[];
     oneOf?: JsonSchema[];
     not?: JsonSchema;
-    format?: string;
+    format?: FormatOfSchema;
     enumDescriptions?: string[];
     enumNames?: string[];
     entitySource?: {
