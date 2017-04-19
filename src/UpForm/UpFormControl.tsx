@@ -50,13 +50,17 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     }
 
     public handleChangeEventGlobal = (cleandata) => {
-        var result = this._ControlErrorCentral.isValidValue(cleandata);
-        if (result.hasError) {
-            this.setSpecificError(result.errorMessage);
+        this.valueChange(cleandata);
+    }
+
+    public handleerrorEventGlobal = (hasError: boolean) => {
+        if (hasError) {
+            this.setState({
+                hasError: true,
+                errorMessage: ""
+            });
         } else {
             this.unSetSpecifiError();
-            this.valueChange(result.correctValue);
-            this.setInput(result.correctValue);
         }
     }
 
@@ -107,14 +111,14 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
     componentDidMount() {
-        this._componentDidMount();
-        if (this.props.schema.default !== undefined) {
-            this.handleChangeEventGlobal(this.props.schema.default);
-            this.setInput(this.props.schema.default);
-        } else {
-            this.handleChangeEventGlobal(null);
-            this.setInput(null);
-        }
+        //this._componentDidMount();
+        //if (this.props.schema.default !== undefined) {
+        //    this.handleChangeEventGlobal(this.props.schema.default);
+        //    this.setInput(this.props.schema.default);
+        //} else {
+        //    this.handleChangeEventGlobal(null);
+        //    this.setInput(null);
+        //}
 
     }
     render() {
