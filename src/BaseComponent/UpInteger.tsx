@@ -6,7 +6,6 @@ import { UpInteger } from "@up-group/react-controls";
 export default class UpIntegerComp extends UpFormControl<number> {
     constructor(p, c) {
         super(p, c);
-        //this._ControlErrorCentral.addControl(new TypeNumberControl(true, this.props.schema.minimum, this.props.schema.maximum));
     }
 
     setInput(data) {
