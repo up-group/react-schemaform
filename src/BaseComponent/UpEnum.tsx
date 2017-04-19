@@ -41,11 +41,12 @@ export default class UpEnum extends UpFormControl<number> {
             placeholder="Recherche"
             multiple={this.isArray}
             allowClear={!this.props.isRequired}
-            onError={this.props.onError}
             onChange={this.handleChangeJsEventGlobal}
-            data ={options}
+            data={options}
+            onError={() => { }}
             />
-                
+            //onError={this.props.onError}
+
     }
 
     private get schema() : JsonSchema {

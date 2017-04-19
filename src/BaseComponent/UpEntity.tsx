@@ -41,9 +41,10 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
             placeholder="Recherche"
             allowClear={!this.props.isRequired}
             onChange={this.handleChangeJsEventGlobal}
-            onError={this.props.onError}
-            dataSource= {this.schema.entitySource}
-            />
+            dataSource={this.schema.entitySource}
+            onError={() => { }}
+        />
+        //    onError={this.props.onError}
     }
 
     handleChangeJsEvent(args: any) {
