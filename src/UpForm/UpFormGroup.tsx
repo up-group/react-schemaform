@@ -2,8 +2,7 @@
 import * as bootstrap from "bootstrap";
 import * as React from "react";
 
-import UpFormLabel from "./UpFormLabel"
-import {UpFormControl} from "./UpFormControl"
+import { UpLabel } from "@up-group/react-controls";
 
 interface UpFormGroupProps {
     hasError?: boolean;
@@ -20,13 +19,12 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}>{
     }
 
     componentDidMount() {
-       // $('[data-toggle="tooltip"]').tooltip();
+        // $('[data-toggle="tooltip"]').tooltip();
     }
 
     render() {
         return <div className={"col-md-" + this.props.colSize + " form-group"}>
-            <UpFormLabel title= { this.props.title}/>
-
+            <UpLabel text={this.props.title} />
             {this.props.description != null ?
                 <a data-toggle="tooltip" data-placement="bottom" data-html="true" title={this.props.description}>
                     <i className='glyphicon glyphicon-info-sign'></i>
