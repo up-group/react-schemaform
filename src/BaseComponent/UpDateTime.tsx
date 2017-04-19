@@ -20,7 +20,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
     renderField() {
-        return  <UpDateTime value="" onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDateTime>
+        return <UpDateTime value="" onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDateTime>
 
       
     }

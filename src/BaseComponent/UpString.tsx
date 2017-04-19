@@ -38,13 +38,13 @@ export default class UpString extends UpFormControl<string> {
 
         switch (this.props.schema) {
             case "email":
-                return <UpEmail onChange={this.handleChangeEventGlobal} />;
+                return <UpEmail onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
             case "phone":
-                return <UpPhone onChange={this.handleChangeEventGlobal} />;
+                return <UpPhone onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
             case "multilineText":
-                return <UpText value={this.state.value} multiline={true} onChange={this.handleChangeEventGlobal} />;
+                return <UpText value={this.state.value} onError={this.handlErrorEventGlobal} multiline={true} onChange={this.handleChangeEventGlobal} />;
             default:
-                return <UpText value={this.state.value} multiline={false} onChange={this.handleChangeEventGlobal} />;
+                return <UpText value={this.state.value} onError={this.handlErrorEventGlobal} multiline={false} onChange={this.handleChangeEventGlobal} />;
         }
 
     }

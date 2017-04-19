@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
+import { UpFormControl } from "../UpForm/UpFormControl"
 import TypeNumberControl from "../ControlError/TypeNumberControl"
 import { UpInteger } from "@up-group/react-controls";
 
@@ -17,31 +17,15 @@ export default class UpIntegerComp extends UpFormControl<number> {
     }
 
     renderField() {
-        return <input
-            readOnly={this.props.schema.readonly === true}
-            ref={(input) => { this.inputElement = input; } }
-            style={this.state.hasError === true ? { borderColor: "red" } : null}
-            type="text"
-            className="form-control"
-            onKeyDown={this.onKeyDown}
-            onChange={this.handleChangeJsEventGlobal}
-            />
+       
+        return <UpInteger onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
+
+
     }
 
-    onKeyDown = (e) => {
-        if (e.keyCode == 38) { // up
-            var newValue = Number(e.target.value) + 1;
-            this.inputElement.value = newValue.toString();
-            this.handleChangeEventGlobal(newValue);
-        } else if (e.keyCode == 40) { // down
-            var newValue = Number(e.target.value) - 1;
-            this.inputElement.value = (newValue).toString();
-            this.handleChangeEventGlobal(newValue);
-        }
-    }
 
     handleChangeJsEvent(event: any) {
-        return event.target.value;
+        return event;
     }
 
 

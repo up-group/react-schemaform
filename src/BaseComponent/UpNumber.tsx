@@ -13,7 +13,7 @@ export default class UpNumberComp extends UpFormControl<number> {
 
     constructor(p, c) {
         super(p, c);
-        //this._ControlErrorCentral.addControl(new TypeNumberControl(false, this.props.schema.minimum, this.props.schema.maximum));
+       //this._ControlErrorCentral.addControl(new TypeNumberControl(false, this.props.schema.minimum, this.props.schema.maximum));
     }
 
 
@@ -27,7 +27,7 @@ export default class UpNumberComp extends UpFormControl<number> {
 
 
     renderField() {
-        return <UpNumber onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum}/>
+        return <UpNumber onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum}/>
 
 
 

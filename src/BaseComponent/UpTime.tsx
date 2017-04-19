@@ -14,6 +14,7 @@ export default class UpTime extends UpFormControl<string> {
     }
 
     renderField() {
+        //onError = { this.handlErrorEventGlobal }
         return <UpTimePicker onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} />
     }
 
