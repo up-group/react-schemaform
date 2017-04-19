@@ -1,5 +1,5 @@
 type TypeOfSchema = "null" | "object" | "string" | "number" | "integer" | "boolean" | "array";
-type FormatOfSchema = "date" | "date-time" | "time" | "entityKey" | "enum" | "upload" | "month" | "email" | "phone" | "multilineText";
+type FormatOfSchema = "date" | "date-time" | "time" | "entityKey" | "enum" | "upload" | "month" | "email" | "phone" | "multilineText" | "imageUrl" | "uri";
 
 
 
