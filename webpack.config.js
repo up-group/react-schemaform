@@ -12,15 +12,19 @@ module.exports = {
         extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".css"]
     },
     module: {
-        loaders: [
-            { test: /\.tsx?|.ts?$/, loader: "ts-loader" },
-            { test: /\.css$/, loader: 'css-loader?url=false' },
-            { test: /\.md$/, loader: 'html!markdown-loader' },
-            { test: /\.svg$/, loader: 'svg-inline-loader'},
+        rules: [
             {
-                test: /\.(eot|ttf|woff|woff2)$/,
-                loader: 'file-loader?name=public/fonts/[name].[ext]'
-            }
+                test: /\.tsx?|.ts?$/,
+                use: [
+                   
+                     'ts-loader'
+                ]
+            },
+            { test: /\.css$/, loader: 'style-loader!css-loader?url=false' },
+            { test: /\.json$/, loader: 'json-loader' },
+            { test: /\.md$/, loader: 'html!markdown-loader' },
+            { test: /\.svg$/, loader: 'svg-inline-loader' },
+            { test: /\.(eot|ttf|woff|woff2)$/, loader: 'file-loader' }
         ]
     }
 

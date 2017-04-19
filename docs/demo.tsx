@@ -1,24 +1,25 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm"
-import {UpDraft} from "@up-group/react-controls"
+//import {UpDraft} from "@up-group/react-controls"
 
 interface DemoState {
     result: string;
     schema: JsonSchema;
+    hasError: boolean;
 }
 
 export class Demo extends React.Component<{}, DemoState> {
     constructor(p, c) {
         super(p, c);
-        this.state = { result: "", schema: {} }
+        this.state = { result: "", schema: {}, hasError: false }
     }
 
     render() {
         var schemas: { id: string, data: JsonSchema }[] = [
             {
                 data: {
-                  "title": "test",
+                    "title": "test",
                     "type": "object",
                     "properties": {
                         "number": { "type": "number" },
@@ -98,12 +99,40 @@ export class Demo extends React.Component<{}, DemoState> {
                     },
                 },
                 id: "upload"
+            },
+            ,
+            {
+                data: {
+                    "title": "everyone",
+                    "type": "object",
+                    "properties": {
+                        "a": {
+                            "title": "boolean", "type": "boolean"
+                        },
+                        "b": { "title": "integer", "type": "integer" },
+                        "c": { "title": "number", "type": "number" },
+                        "d": { "title": "string", "type": "string" },
+                        "e": { "title": "date", "type": "string", "format": "date" },
+                        "f": { "title": "date-time", "type": "string", "format": "date-time" },
+                        "g": { "title": "time", "type": "string", "format": "time" },
+                        "h": { "title": "month", "type": "string", "format": "month" },
+                        "i": { "title": "upload", "type": "string", "format": "upload" },
+                        "j": {
+                            "title": "enum",
+                            "enumNames": ["choix1", "choix2", "choix3"],
+                            "enumDescriptions": ["Premier choix", "Second choix", "Troisieme choix"],
+                            "type": "integer",
+                            "format": "enum",
+                            "enum": [2, 4, 6]
+                        }
+
+                    },
+                },
+                id: "everyone"
             }
+
         ];
 
-        var onFormEror = (e) => {
-            console.log("onFormEror", e);
-        }
 
         return <div>
             <select className="form-control" defaultValue="" onChange={this.selectChange} required>
@@ -114,20 +143,27 @@ export class Demo extends React.Component<{}, DemoState> {
                 }
             </select>
 
-            <textarea value={JSON.stringify(this.state.schema)} className="form-control" cols={100} rows={10} onChange={this.onSchemaChange}></textarea>
+            <textarea value={JSON.stringify(this.state.schema)} className="form-control" cols={100} rows={3} onChange={this.onSchemaChange}></textarea>
             <hr />
-            <UpSchemaForm schema={this.state.schema} onFormEror={onFormEror} onFormPayload={this.onFormPayload}></UpSchemaForm>
+            <UpSchemaForm schema={this.state.schema} onFormEror={this.onFormEror} onFormPayload={this.onFormPayload}></UpSchemaForm>
             <hr />
-            {this.state.result}
+            <div style={{ color: this.state.hasError ? "red" : "green" }}>
+                {this.state.result}
+            </div>
         </div>
     }
 
+    onFormEror = (e) => {
+        this.setState({ hasError: e })
+        console.log("onFormEror", e);
+    }
+
     onEditorChange = (e) => {
-        console.log(e) ;
+        console.log(e);
     }
 
     onSchemaChange = (e) => {
-        this.setState({ schema: JSON.parse(e.target.value) });
+        this.setState({ result: "", schema: JSON.parse(e.target.value) });
     }
 
     onFormPayload = (e) => {
