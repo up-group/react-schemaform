@@ -65,6 +65,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     }
 
     private get isArray() {
-        return this.props.schema.type.indexOf("array") !== -1;
+        return (this.props.schema.type as TypeOfSchema[]).indexOf("array") !== -1;
     }
+
 }

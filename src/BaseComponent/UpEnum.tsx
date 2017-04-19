@@ -54,7 +54,7 @@ export default class UpEnum extends UpFormControl<number> {
     }
 
     private get isArray() {
-        return this.props.schema.type.indexOf("array") !== -1;
+        return (this.props.schema.type as TypeOfSchema[]).indexOf("array") !== -1;
     }
 
     handleChangeJsEvent(value: any) {
