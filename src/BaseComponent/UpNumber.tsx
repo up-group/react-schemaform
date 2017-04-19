@@ -30,33 +30,9 @@ export default class UpNumberComp extends UpFormControl<number> {
         return <UpNumber onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum}/>
 
 
-        /*return <input
-            readOnly={this.props.schema.readonly === true}
-            ref={(input) => { this.inputElement = input; }}
-            style={this.state.hasError === true ? { borderColor: "red" } : null}
-            type="text"
-            className="form-control"
-            onChange={this.handleChangeJsEventGlobal}
-            onKeyDown={this.onKeyDown}
-        />*/
 
     }
 
-    test = (a,b)=>{
-    }
-
-
-    //onKeyDown = (e) => {
-    //    if (e.keyCode == 38) { // up
-    //        var newValue = Number(e.target.value) + 1;
-    //        this.inputElement.value = newValue.toString();
-    //        this.handleChangeEventGlobal(newValue);
-    //    } else if (e.keyCode == 40) { // down
-    //        var newValue = Number(e.target.value) - 1;
-    //        this.inputElement.value = (newValue).toString();
-    //        this.handleChangeEventGlobal(newValue);
-    //    }
-    //}
 
     handleChangeJsEvent(event: any) {
         return event;

@@ -27,8 +27,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     }
 
     setInput(data) {
-        //TODO
-        //this.inputElement.value = data;
     }
 
     UpSelect
