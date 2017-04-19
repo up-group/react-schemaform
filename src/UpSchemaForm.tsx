@@ -6,7 +6,7 @@ import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelecto
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
-import { UpPanel } from "@up-group/react-controls";
+import { UpPanel,UpBox } from "@up-group/react-controls";
 
 
 export interface UpSchemaFormProps {
@@ -42,23 +42,18 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         }
         return (
             <UpPanel title={this.props.schema.title}>
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-
-                    </div>
-                    <div className="panel-body">
-                        <UpSchemaFormComponentSelector
-                            isRequired={false}
-                            schema={this.props.schema}
-                            node={""}
-                            onFormChange={this.onFormChange}
-                            onFormError={this.onFormError} >
-                        </UpSchemaFormComponentSelector>
-                    </div>
-                    <div className="panel-footer">
-                        {this.props.children}
-                    </div>
-                </div>
+                <UpBox>
+                    <UpSchemaFormComponentSelector
+                        isRequired={false}
+                        schema={this.props.schema}
+                        node={""}
+                        onFormChange={this.onFormChange}
+                        onFormError={this.onFormError} >
+                    </UpSchemaFormComponentSelector>
+                </UpBox>
+                {/*<div className="panel-footer">
+                    {this.props.children}
+                </div>*/}
             </UpPanel>
         );
     }
