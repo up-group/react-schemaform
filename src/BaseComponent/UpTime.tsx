@@ -7,9 +7,6 @@ export default class UpTime extends UpFormControl<string> {
         super(p, c);
     }
 
-    setInput(data) {
-    }
-
     renderField() {
        
         return <UpTimePicker

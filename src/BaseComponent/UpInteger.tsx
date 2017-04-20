@@ -8,10 +8,6 @@ export default class UpIntegerComp extends UpFormControl<number> {
         super(p, c);
     }
 
-    setInput(data) {
-        this.inputElement.value = data;
-    }
-
     renderField() {
         return <UpInteger ref={(i) => { this.InputBaseControl = i; }} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }

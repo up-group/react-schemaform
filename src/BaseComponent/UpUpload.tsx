@@ -9,9 +9,6 @@ export default class UpUpload extends UpFormControl<number[]> {
         super(p, c);
     }
 
-    setInput(data) {
-    }
-
     renderField() {
         /* onError={this.handlErrorEventGlobal}*/
         return <UpFile

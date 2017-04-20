@@ -11,10 +11,6 @@ export default class UpString extends UpFormControl<string> {
         var patternErrorMessage = this.props.schema.patternErrorMessage;
     }
 
-    setInput(data) {
-     
-    }
-
     renderField() {
         
         switch (this.props.schema.format) {

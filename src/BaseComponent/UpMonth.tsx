@@ -3,7 +3,7 @@ import {UpFormControl} from "../UpForm/UpFormControl"
 export default class UpMonth extends UpFormControl<number> {
     constructor(p, c) {        super(p, c);
 
-    }    setInput(data) {        if (this.inputElement) {            this.inputElement.value = data;        }    }    renderField() {
+    }    renderField() {
         return <select className="form-control" /*onChange={this.handleChangeJsEventGlobal}*/>
             <option value='-1'>--Select Month--</option>
             <option value='1'>Janvier</option>

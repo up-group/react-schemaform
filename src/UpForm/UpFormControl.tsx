@@ -35,7 +35,6 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
     abstract isEmpty(value: baseType): boolean;
-    abstract setInput(args: baseType);
     abstract renderField(): JSX.Element;
 
 

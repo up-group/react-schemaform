@@ -23,12 +23,10 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         super(p, c);
     }
 
-    setInput(data) {
-    }
 
     renderField() {
         return <UpSelect
-           // ref={(i) => { this.InputBaseControl = i; }}
+            // ref={(i) => { this.InputBaseControl = i; }}
             default={null}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}
@@ -58,6 +56,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     private get isArray() {
         return (this.props.schema.type as TypeOfSchema[]).indexOf("array") !== -1;
     }
-   
+
 
 }

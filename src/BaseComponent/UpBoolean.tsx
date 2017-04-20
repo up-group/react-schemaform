@@ -8,11 +8,6 @@ export default class UpBoolean extends UpFormControl<Boolean>{
         super(p, c);
     }
 
-    setInput(data) {
-    }
-
-   
-
     renderField() {
         return <UpSwitch /*ref={(i) => { this.InputBaseControl = i; }}*/ isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
     }
@@ -20,8 +15,6 @@ export default class UpBoolean extends UpFormControl<Boolean>{
     isEmpty() {
         return false;
     }
-
-
 
     handleChangeData(args: boolean) {
         return {

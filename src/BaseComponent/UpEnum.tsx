@@ -14,10 +14,6 @@ export default class UpEnum extends UpFormControl<number> {
         super(p, c);
     }
 
-    setInput(data) {
-
-    }
-
     renderField() {
         var options = [];
         for (var i = 0; i < this.schema.enum.length; i++) {
