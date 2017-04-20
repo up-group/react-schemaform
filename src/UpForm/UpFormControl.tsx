@@ -2,14 +2,14 @@
 import ControlErrorCentral from "../ControlError/ControlErrorCentral";
 import TypeNullControl from "../ControlError/TypeNullControl";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
-
+import { BaseControl } from "@up-group/react-controls";
 
 
 export interface baseProp<baseType> {
     schema: JsonSchema;
     isRequired: boolean;
     onChange: (arg: baseType) => void;
-    onError: (hasError:boolean) => void;
+    onError: (hasError: boolean) => void;
 }
 
 export interface baseState<baseType> {
@@ -20,6 +20,7 @@ export interface baseState<baseType> {
 
 export abstract class UpFormControl<baseType> extends React.Component<baseProp<baseType>, baseState<baseType>> {
 
+    InputBaseControl: BaseControl<any, any>;
 
     inputElement: HTMLInputElement;
     _ControlErrorCentral: ControlErrorCentral;
@@ -43,18 +44,43 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     abstract _componentDidMount(): void;
     abstract renderField(): JSX.Element;
 
-
-    public handleChangeJsEventGlobal(event) {
+    public handleChangeJsEventGlobal(event,b,c) {
         var cleandata = this.handleChangeJsEvent(event);
-        this.handleChangeEventGlobal(cleandata);
+        this.handleChangeEventGlobal(cleandata,b,c);
     }
 
-    public handleChangeEventGlobal = (cleandata) => {
-        this.valueChange(cleandata);
+    public checkFormError() {
+        var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
+        if (errorCheck.hasError == true) {
+            this.handlErrorEventGlobal(true);
+            if (this.InputBaseControl != null) {
+                this.InputBaseControl.setState({ error: errorCheck.errorMessage });
+            }
+        }
+    }
+
+    public handleChangeEventGlobal = (cleandata, event?, eror?) => {
+        this.setState({ value: cleandata }, () => {
+            if (eror === false ) {
+                this.checkFormError()
+
+            }
+            this.props.onChange(this.state.value);
+        });
+
+        //this.valueChange(cleandata);
+        //if (eror === false) {
+        //}
+
     }
 
     public handlErrorEventGlobal = (hasError: boolean) => {
         this.props.onError(hasError);
+        //if (this.InputBaseControl == null) {
+        //    console.log(this)
+        //} else {
+        //    this.InputBaseControl.setState({ error: "patate" });
+        //}
         //if (hasError) {
         //    this.setState({
         //        hasError: true,
@@ -67,10 +93,6 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
     private valueChange = (value: baseType) => {
-        this.setState({ value: value },
-            () => {
-                this.props.onChange(value);
-            });
     }
 
 
@@ -112,6 +134,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
     componentDidMount() {
+        this.handleChangeEventGlobal(null);
         //this._componentDidMount();
         //if (this.props.schema.default !== undefined) {
         //    this.handleChangeEventGlobal(this.props.schema.default);
