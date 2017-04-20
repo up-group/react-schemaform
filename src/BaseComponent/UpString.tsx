@@ -34,7 +34,4 @@ export default class UpString extends UpFormControl<string> {
         return value === null || value === undefined || value === "";
     }
 
-    _componentDidMount() {
-    }
-    
 }

@@ -24,6 +24,4 @@ import {UpFormControl} from "../UpForm/UpFormControl"
         return value === null || value === undefined || value === "";
     }
 
-    _componentDidMount() {
-    } 
-}
+}

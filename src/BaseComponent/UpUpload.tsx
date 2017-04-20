@@ -12,9 +12,6 @@ export default class UpUpload extends UpFormControl<number[]> {
     setInput(data) {
     }
 
-    _componentDidMount() {
-    }
-
     renderField() {
         /* onError={this.handlErrorEventGlobal}*/
         return <UpFile

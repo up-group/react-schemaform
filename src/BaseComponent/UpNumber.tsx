@@ -19,11 +19,6 @@ export default class UpNumberComp extends UpFormControl<number> {
     setInput(data) {
     }
 
-    _componentDidMount() {
-
-    }
-
-
     renderField() {
         return <UpNumber ref={(i) => { this.InputBaseControl = i; }} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }

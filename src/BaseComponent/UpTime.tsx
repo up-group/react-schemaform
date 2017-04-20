@@ -10,9 +10,6 @@ export default class UpTime extends UpFormControl<string> {
     setInput(data) {
     }
 
-    _componentDidMount() {
-    }
-
     renderField() {
        
         return <UpTimePicker
