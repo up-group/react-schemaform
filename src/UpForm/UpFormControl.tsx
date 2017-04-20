@@ -32,8 +32,6 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
             hasError: false,
             value: null
         };
-        this.handleChangeJsEventGlobal = this.handleChangeJsEventGlobal.bind(this);
-
         this._ControlErrorCentral = new ControlErrorCentral();
         this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
     }
@@ -44,11 +42,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     abstract _componentDidMount(): void;
     abstract renderField(): JSX.Element;
 
-    public handleChangeJsEventGlobal(event,b,c) {
-        //var cleandata = this.handleChangeJsEvent(event);
-        this.handleChangeEventGlobal(event,b,c);
-    }
-
+   
     public checkFormError() {
         var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
         if (errorCheck.hasError == true) {
