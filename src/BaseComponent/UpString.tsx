@@ -19,13 +19,13 @@ export default class UpString extends UpFormControl<string> {
         
         switch (this.props.schema.format) {
             case "email":
-                return <UpEmail ref={(i) => { this.InputBaseControl = i; }} onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
+                return <UpEmail ref={(i) => { this.InputBaseControl = i; }} onChange={this.handleChangeEventGlobal} />;
             case "phone":
-                return <UpPhone ref={(i) => { this.InputBaseControl = i; }} onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
+                return <UpPhone ref={(i) => { this.InputBaseControl = i; }}  onChange={this.handleChangeEventGlobal} />;
             case "multilineText":
-                return <UpText ref={(i) => { this.InputBaseControl = i; }} value={this.state.value} onError={this.handlErrorEventGlobal} multiline={true} onChange={this.handleChangeEventGlobal} />;
+                return <UpText ref={(i) => { this.InputBaseControl = i; }} value={this.state.value} multiline={true} onChange={this.handleChangeEventGlobal} />;
             default:
-                return <UpText ref={(i) => { this.InputBaseControl = i; }} value={this.state.value} onError={this.handlErrorEventGlobal} multiline={false} onChange={this.handleChangeEventGlobal} />;
+                return <UpText ref={(i) => { this.InputBaseControl = i; }} value={this.state.value} multiline={false} onChange={this.handleChangeEventGlobal} />;
         }
 
     }

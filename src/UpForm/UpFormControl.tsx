@@ -42,22 +42,26 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     abstract _componentDidMount(): void;
     abstract renderField(): JSX.Element;
 
-   
+
     public checkFormError() {
         var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
         if (errorCheck.hasError == true) {
-            this.handlErrorEventGlobal(true);
+            this.props.onError(true)
             if (this.InputBaseControl != null) {
                 this.InputBaseControl.setState({ error: errorCheck.errorMessage });
             }
+        } else {
+            this.props.onError(false)
         }
     }
 
     public handleChangeEventGlobal = (cleandata, event?, eror?) => {
         this.setState({ value: cleandata }, () => {
-            if (eror === false ) {
+            if (eror === false) {
                 this.checkFormError()
 
+            } else {
+                this.props.onError(eror);
             }
             this.props.onChange(this.state.value);
         });
@@ -68,22 +72,22 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
     }
 
-    public handlErrorEventGlobal = (hasError: boolean) => {
-        this.props.onError(hasError);
-        //if (this.InputBaseControl == null) {
-        //    console.log(this)
-        //} else {
-        //    this.InputBaseControl.setState({ error: "patate" });
-        //}
-        //if (hasError) {
-        //    this.setState({
-        //        hasError: true,
-        //        errorMessage: ""
-        //    });
-        //} else {
-        //    this.unSetSpecifiError();
-        //}
-    }
+    //public handlErrorEventGlobal = (hasError: boolean) => {
+    //    this.props.onError(hasError);
+    //    //if (this.InputBaseControl == null) {
+    //    //    console.log(this)
+    //    //} else {
+    //    //    this.InputBaseControl.setState({ error: "patate" });
+    //    //}
+    //    //if (hasError) {
+    //    //    this.setState({
+    //    //        hasError: true,
+    //    //        errorMessage: ""
+    //    //    });
+    //    //} else {
+    //    //    this.unSetSpecifiError();
+    //    //}
+    //}
 
 
     private valueChange = (value: baseType) => {
