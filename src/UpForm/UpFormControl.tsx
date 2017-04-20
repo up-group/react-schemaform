@@ -62,54 +62,12 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
             }
             this.props.onChange(this.state.value);
         });
-
-        //this.valueChange(cleandata);
-        //if (eror === false) {
-        //}
-
     }
-
-    //public handlErrorEventGlobal = (hasError: boolean) => {
-    //    this.props.onError(hasError);
-    //    //if (this.InputBaseControl == null) {
-    //    //    console.log(this)
-    //    //} else {
-    //    //    this.InputBaseControl.setState({ error: "patate" });
-    //    //}
-    //    //if (hasError) {
-    //    //    this.setState({
-    //    //        hasError: true,
-    //    //        errorMessage: ""
-    //    //    });
-    //    //} else {
-    //    //    this.unSetSpecifiError();
-    //    //}
-    //}
 
 
     private valueChange = (value: baseType) => {
     }
-
-
-    //setSpecificError = (errorMesssage: string) => {
-
-    //    this.setState({
-    //        hasError: true,
-    //        errorMessage: errorMesssage
-    //    });
-    //    this.props.onError(true);
-    //}
-
-    //private unSetSpecifiError = () => {
-    //    if (this.state.hasError == true) {
-    //        this.setState({
-    //            hasError: false,
-    //            errorMessage: null
-    //        });
-    //    }
-
-    //}
-
+    
     isEmptyOrNull(value) {
         if (value === null) {
             return true;
@@ -130,14 +88,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
     componentDidMount() {
         this.handleChangeEventGlobal(null);
-        //this._componentDidMount();
-        //if (this.props.schema.default !== undefined) {
-        //    this.handleChangeEventGlobal(this.props.schema.default);
-        //    this.setInput(this.props.schema.default);
-        //} else {
-        //    this.handleChangeEventGlobal(null);
-        //    this.setInput(null);
-        //}
+       
 
     }
     render() {
