@@ -18,7 +18,7 @@ export default class UpTime extends UpFormControl<string> {
         return <UpTimePicker
             //ref={(i) => { this.InputBaseControl = i; }}
             //onError = { this.handlErrorEventGlobal }
-            onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} />
+            onChange={this.handleChangeEventGlobal} hasError={undefined} />
     }
 
 

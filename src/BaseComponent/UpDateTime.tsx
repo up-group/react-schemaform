@@ -1,7 +1,7 @@
 ﻿import * as $ from "jquery";
 import * as React from "react";
-import {UpFormControl} from "../UpForm/UpFormControl"
-import {TypeDateControl, dateFormat} from "../ControlError/TypeDateControl"
+import { UpFormControl } from "../UpForm/UpFormControl"
+import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl"
 import { UpDateTime } from "@up-group/react-controls";
 
 
@@ -20,12 +20,12 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
     renderField() {
-        return <UpDateTime ref={(i) => { this.InputBaseControl = i; }} value="" onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable} />
+        return <UpDateTime ref={(i) => { this.InputBaseControl = i; }} value="" onChange={this.handleChangeEventGlobal} isNullable={this.isNullable} />
     }
 
 
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }
-    
+
 }

@@ -14,8 +14,6 @@ export interface baseProp<baseType> {
 
 export interface baseState<baseType> {
     value?: baseType;
-    hasError?: boolean;
-    errorMessage?: string;
 }
 
 export abstract class UpFormControl<baseType> extends React.Component<baseProp<baseType>, baseState<baseType>> {
@@ -29,7 +27,6 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     constructor(props?, context?) {
         super(props, context);
         this.state = {
-            hasError: false,
             value: null
         };
         this._ControlErrorCentral = new ControlErrorCentral();
@@ -94,24 +91,24 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     }
 
 
-    setSpecificError = (errorMesssage: string) => {
+    //setSpecificError = (errorMesssage: string) => {
 
-        this.setState({
-            hasError: true,
-            errorMessage: errorMesssage
-        });
-        this.props.onError(true);
-    }
+    //    this.setState({
+    //        hasError: true,
+    //        errorMessage: errorMesssage
+    //    });
+    //    this.props.onError(true);
+    //}
 
-    private unSetSpecifiError = () => {
-        if (this.state.hasError == true) {
-            this.setState({
-                hasError: false,
-                errorMessage: null
-            });
-        }
+    //private unSetSpecifiError = () => {
+    //    if (this.state.hasError == true) {
+    //        this.setState({
+    //            hasError: false,
+    //            errorMessage: null
+    //        });
+    //    }
 
-    }
+    //}
 
     isEmptyOrNull(value) {
         if (value === null) {
@@ -146,11 +143,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     render() {
         return <span>
             {this.renderField()}
-            {
-                (this.state.hasError && this.state.errorMessage != null) ?
-                    <span className="text-danger">{this.state.errorMessage}</span>
-                    : null
-            }
+           
         </span>
     }
 

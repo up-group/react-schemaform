@@ -19,7 +19,7 @@ export default class UpUpload extends UpFormControl<number[]> {
         /* onError={this.handlErrorEventGlobal}*/
         return <UpFile
             //ref={(i) => { this.InputBaseControl = i; }}
-            hasError={this.state.hasError} onChange={this.handleChangeEventGlobal} fileExtension={this.props.schema.fileExtension} />
+            hasError={undefined} onChange={this.handleChangeEventGlobal} fileExtension={this.props.schema.fileExtension} />
     }
 
     isEmpty(value) {
