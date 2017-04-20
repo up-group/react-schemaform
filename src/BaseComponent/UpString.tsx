@@ -16,17 +16,16 @@ export default class UpString extends UpFormControl<string> {
     }
 
     renderField() {
-
-
-        switch (this.props.schema) {
+        
+        switch (this.props.schema.format) {
             case "email":
-                return <UpEmail onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
+                return <UpEmail ref={(i) => { this.InputBaseControl = i; }} onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
             case "phone":
-                return <UpPhone onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
+                return <UpPhone ref={(i) => { this.InputBaseControl = i; }} onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} />;
             case "multilineText":
-                return <UpText value={this.state.value} onError={this.handlErrorEventGlobal} multiline={true} onChange={this.handleChangeEventGlobal} />;
+                return <UpText ref={(i) => { this.InputBaseControl = i; }} value={this.state.value} onError={this.handlErrorEventGlobal} multiline={true} onChange={this.handleChangeEventGlobal} />;
             default:
-                return <UpText value={this.state.value} onError={this.handlErrorEventGlobal} multiline={false} onChange={this.handleChangeEventGlobal} />;
+                return <UpText ref={(i) => { this.InputBaseControl = i; }} value={this.state.value} onError={this.handlErrorEventGlobal} multiline={false} onChange={this.handleChangeEventGlobal} />;
         }
 
     }
@@ -41,5 +40,5 @@ export default class UpString extends UpFormControl<string> {
 
     _componentDidMount() {
     }
-
+    
 }

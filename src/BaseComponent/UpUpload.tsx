@@ -17,7 +17,9 @@ export default class UpUpload extends UpFormControl<number[]> {
 
     renderField() {
         /* onError={this.handlErrorEventGlobal}*/
-        return <UpFile hasError={this.state.hasError} onChange={this.handleChangeJsEventGlobal} fileExtension={this.props.schema.fileExtension}/>
+        return <UpFile
+            //ref={(i) => { this.InputBaseControl = i; }}
+            hasError={this.state.hasError} onChange={this.handleChangeEventGlobal} fileExtension={this.props.schema.fileExtension} />
     }
 
     handleChangeJsEvent(event: any) {
@@ -27,6 +29,5 @@ export default class UpUpload extends UpFormControl<number[]> {
     isEmpty(value) {
         return value === null || value === [] || value === "";
     }
-
 
 }

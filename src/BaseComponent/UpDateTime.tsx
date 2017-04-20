@@ -20,9 +20,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
     renderField() {
-        return <UpDateTime value="" onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable}></UpDateTime>
-
-      
+        return <UpDateTime ref={(i) => { this.InputBaseControl = i; }} value="" onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} hasError={this.state.hasError} isNullable={this.isNullable} />
     }
 
 
@@ -34,5 +32,5 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }
-
+    
 }

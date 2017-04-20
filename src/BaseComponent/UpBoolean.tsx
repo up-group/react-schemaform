@@ -15,18 +15,18 @@ export default class UpBoolean extends UpFormControl<Boolean>{
         this.setState({
             value: this.props.schema.default
         });
-        
+
     }
 
     renderField() {
-        return <UpSwitch isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} ></UpSwitch>        
+        return <UpSwitch /*ref={(i) => { this.InputBaseControl = i; }}*/ isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
     }
-    
+
     isEmpty() {
         return false;
     }
 
-    handleChangeJsEvent(event : boolean) {
+    handleChangeJsEvent(event: boolean) {
         return event;
     }
 

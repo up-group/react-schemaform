@@ -29,5 +29,5 @@ import {UpFormControl} from "../UpForm/UpFormControl"
     }
 
     _componentDidMount() {
-    }
+    } 
 }

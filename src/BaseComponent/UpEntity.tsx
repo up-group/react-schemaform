@@ -29,10 +29,9 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     setInput(data) {
     }
 
-    UpSelect
     renderField() {
         return <UpSelect
-            ref={(input) => { this.UpSelect = input; } }
+           // ref={(i) => { this.InputBaseControl = i; }}
             default={null}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}
@@ -40,7 +39,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
             multiple={this.isArray}
             placeholder="Recherche"
             allowClear={!this.props.isRequired}
-            onChange={this.handleChangeJsEventGlobal}
+            onChange={this.handleChangeEventGlobal}
             dataSource={this.schema.entitySource}
             onError={() => { }}
         />
@@ -66,5 +65,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     private get isArray() {
         return (this.props.schema.type as TypeOfSchema[]).indexOf("array") !== -1;
     }
+   
 
 }

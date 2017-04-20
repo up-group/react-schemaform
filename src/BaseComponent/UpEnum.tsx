@@ -33,6 +33,7 @@ export default class UpEnum extends UpFormControl<number> {
         }
 
         return <UpSelect
+            //ref={(i) => { this.InputBaseControl = i; }}
             default= {this.schema.default}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}
@@ -41,7 +42,7 @@ export default class UpEnum extends UpFormControl<number> {
             placeholder="Recherche"
             multiple={this.isArray}
             allowClear={!this.props.isRequired}
-            onChange={this.handleChangeJsEventGlobal}
+            onChange={this.handleChangeEventGlobal}
             data={options}
             onError={() => { }}
             />
@@ -69,5 +70,5 @@ export default class UpEnum extends UpFormControl<number> {
         }
         return value === null || value === undefined || value === "";
     }
-
+    
 }

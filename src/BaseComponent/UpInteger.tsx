@@ -16,10 +16,7 @@ export default class UpIntegerComp extends UpFormControl<number> {
     }
 
     renderField() {
-       
-        return <UpInteger onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
-
-
+        return <UpInteger ref={(i) => { this.InputBaseControl = i; }} onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }
 
 
@@ -31,5 +28,5 @@ export default class UpIntegerComp extends UpFormControl<number> {
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }
-
+    
 }
