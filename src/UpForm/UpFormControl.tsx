@@ -33,8 +33,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
     }
 
-
-    abstract isEmpty(value: baseType): boolean;
+    
     abstract renderField(): JSX.Element;
 
 

@@ -53,11 +53,11 @@ export default class UpEnum extends UpFormControl<number> {
     }
 
 
-    isEmpty(value) {
-        if (this.isArray && value != null && value.length === 0) {
-            return true;
-        }
-        return value === null || value === undefined || value === "";
-    }
+    //isEmpty(value) {
+    //    if (this.isArray && value != null && value.length === 0) {
+    //        return true;
+    //    }
+    //    return value === null || value === undefined || value === "";
+    //}
     
 }

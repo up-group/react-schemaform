@@ -14,10 +14,5 @@ export default class UpTime extends UpFormControl<string> {
             //onError = { this.handlErrorEventGlobal }
             onChange={this.handleChangeEventGlobal} hasError={undefined} />
     }
-
-
-    isEmpty(value) {
-        return value === null || value === undefined || value === "";
-    }
   
 }

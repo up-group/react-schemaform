@@ -26,8 +26,4 @@ export default class UpString extends UpFormControl<string> {
 
     }
 
-    isEmpty(value) {
-        return value === null || value === undefined || value === "";
-    }
-
 }

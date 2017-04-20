@@ -1,4 +1,4 @@
-﻿import {UpFormControl} from "../UpForm/UpFormControl"
+﻿import { UpFormControl } from "../UpForm/UpFormControl"
 
 
 export default class TypeNullControl implements ErrorControl<any> {
@@ -17,7 +17,7 @@ export default class TypeNullControl implements ErrorControl<any> {
 
 
     isValidValue(value: any): errorControlType<any> {
-        if (this._isRequierd && this._control.isEmpty(value)) {
+        if (this._isRequierd && this.isNullOrWhiteSpace(value) === true) {
             return { hasError: true, errorMessage: "Doit avoir une valeur" }
         }
 
@@ -26,6 +26,21 @@ export default class TypeNullControl implements ErrorControl<any> {
         //}
 
         return { hasError: false }
+    }
+
+    private isNullOrWhiteSpace(value) {
+        var emptyValue = [undefined, null, ""];
+
+        if (value === undefined || value === null || value === "") {
+            return true;
+        }
+
+        if (value.length === 0) {
+            return true;
+        }
+
+
+        return false;
     }
 
 }

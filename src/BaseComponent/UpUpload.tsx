@@ -16,8 +16,4 @@ export default class UpUpload extends UpFormControl<number[]> {
             hasError={undefined} onChange={this.handleChangeEventGlobal} fileExtension={this.props.schema.fileExtension} />
     }
 
-    isEmpty(value) {
-        return value === null || value === [] || value === "";
-    }
-
 }

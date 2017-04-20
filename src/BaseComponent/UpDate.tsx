@@ -21,10 +21,6 @@ export default class UpDateComp extends UpFormControl<Date> {
     }
 
 
-    isEmpty(value) {
-        return value === null || value === undefined || value === "";
-    }
-
 
 }
 

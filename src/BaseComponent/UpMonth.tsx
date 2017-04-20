@@ -20,8 +20,5 @@ import {UpFormControl} from "../UpForm/UpFormControl"
             <option value='12'>Décembre</option>
         </select>
     }
-    isEmpty(value) {
-        return value === null || value === undefined || value === "";
-    }
 
 }

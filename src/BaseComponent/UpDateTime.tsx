@@ -16,9 +16,4 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
         return <UpDateTime ref={(i) => { this.InputBaseControl = i; }} value="" onChange={this.handleChangeEventGlobal} isNullable={this.isNullable} />
     }
 
-
-    isEmpty(value) {
-        return value === null || value === undefined || value === "";
-    }
-
 }

@@ -23,7 +23,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         super(p, c);
     }
 
-
     renderField() {
         return <UpSelect
             // ref={(i) => { this.InputBaseControl = i; }}
@@ -41,12 +40,12 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         //    onError={this.props.onError}
     }
 
-    isEmpty(value) {
-        if (this.isArray && value != null && value.length === 0) {
-            return true;
-        }
-        return value === null || value === undefined || value === "" || value === "00000000-0000-0000-0000-000000000000";
-    }
+    //isEmpty(value) {
+    //    if (this.isArray && value != null && value.length === 0) {
+    //        return true;
+    //    }
+    //    return value === null || value === undefined || value === "" || value === "00000000-0000-0000-0000-000000000000";
+    //}
 
     private get schema(): JsonSchema {
         return this.props.schema.items || this.props.schema
