@@ -22,13 +22,6 @@ export default class UpTime extends UpFormControl<string> {
     }
 
 
-    handleChangeJsEvent(args: any) {
-        if (args != null && !args.target) {
-            return args;
-        }
-        return args.target.value;
-    }
-
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }

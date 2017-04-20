@@ -46,10 +46,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         //    onError={this.props.onError}
     }
 
-    handleChangeJsEvent(args: any) {
-        return args;
-    }
-
     isEmpty(value) {
         if (this.isArray && value != null && value.length === 0) {
             return true;

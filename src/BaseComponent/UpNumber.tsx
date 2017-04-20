@@ -28,16 +28,7 @@ export default class UpNumberComp extends UpFormControl<number> {
         return <UpNumber ref={(i) => { this.InputBaseControl = i; }} onError={this.handlErrorEventGlobal} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }
 
-   
-    handleChangeJsEvent(event: any) {
-
-        return event;
-
-    }
-
     isEmpty(value) {
         return value === null || value === "";
     }
-
-
 }

@@ -30,10 +30,6 @@ export default class UpString extends UpFormControl<string> {
 
     }
 
-    handleChangeJsEvent(event: any) {
-        return event.target.value;
-    }
-
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }

@@ -24,11 +24,6 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
 
-    handleChangeJsEvent(event: Date) {
-       
-        return event;
-    }
-
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }

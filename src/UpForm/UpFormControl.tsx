@@ -38,15 +38,15 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
     }
 
-    abstract handleChangeJsEvent(args: any): baseType;
+
     abstract isEmpty(value: baseType): boolean;
     abstract setInput(args: baseType);
     abstract _componentDidMount(): void;
     abstract renderField(): JSX.Element;
 
     public handleChangeJsEventGlobal(event,b,c) {
-        var cleandata = this.handleChangeJsEvent(event);
-        this.handleChangeEventGlobal(cleandata,b,c);
+        //var cleandata = this.handleChangeJsEvent(event);
+        this.handleChangeEventGlobal(event,b,c);
     }
 
     public checkFormError() {

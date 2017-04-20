@@ -20,11 +20,6 @@ export default class UpIntegerComp extends UpFormControl<number> {
     }
 
 
-    handleChangeJsEvent(event: any) {
-        return event;
-    }
-
-
     isEmpty(value) {
         return value === null || value === undefined || value === "";
     }

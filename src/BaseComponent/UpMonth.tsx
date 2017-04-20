@@ -4,7 +4,7 @@ import {UpFormControl} from "../UpForm/UpFormControl"
     constructor(p, c) {        super(p, c);
 
     }    setInput(data) {        if (this.inputElement) {            this.inputElement.value = data;        }    }    renderField() {
-        return <select className="form-control" onChange={this.handleChangeJsEvent}>
+        return <select className="form-control" /*onChange={this.handleChangeJsEventGlobal}*/>
             <option value='-1'>--Select Month--</option>
             <option value='1'>Janvier</option>
             <option value='2'>Février</option>
@@ -20,11 +20,7 @@ import {UpFormControl} from "../UpForm/UpFormControl"
             <option value='12'>Décembre</option>
         </select>
     }
-    handleChangeJsEvent(event: any) {
-        return Number(event.target.value);
-    }
-
-    isEmpty(value) {
+    isEmpty(value) {
         return value === null || value === undefined || value === "";
     }
 

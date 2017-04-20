@@ -26,9 +26,7 @@ export default class UpBoolean extends UpFormControl<Boolean>{
         return false;
     }
 
-    handleChangeJsEvent(event: boolean) {
-        return event;
-    }
+    
 
     handleChangeData(args: boolean) {
         return {
