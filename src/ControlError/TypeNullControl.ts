@@ -29,8 +29,6 @@ export default class TypeNullControl implements ErrorControl<any> {
     }
 
     private isNullOrWhiteSpace(value) {
-        var emptyValue = [undefined, null, ""];
-
         if (value === undefined || value === null || value === "") {
             return true;
         }
@@ -38,7 +36,6 @@ export default class TypeNullControl implements ErrorControl<any> {
         if (value.length === 0) {
             return true;
         }
-
 
         return false;
     }
