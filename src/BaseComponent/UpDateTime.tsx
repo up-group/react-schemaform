@@ -12,11 +12,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
         super(p, c);
     }
 
-
     setInput(data) {
-    }
-
-    _componentDidMount() {
     }
 
     renderField() {

@@ -23,9 +23,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
         super(p, c);
     }
 
-    _componentDidMount() {
-    }
-
     setInput(data) {
     }
 

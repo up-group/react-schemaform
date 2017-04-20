@@ -14,9 +14,6 @@ export default class UpEnum extends UpFormControl<number> {
         super(p, c);
     }
 
-    _componentDidMount() {
-    }
-
     setInput(data) {
 
     }

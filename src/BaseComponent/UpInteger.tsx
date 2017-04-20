@@ -12,9 +12,6 @@ export default class UpIntegerComp extends UpFormControl<number> {
         this.inputElement.value = data;
     }
 
-    _componentDidMount() {
-    }
-
     renderField() {
         return <UpInteger ref={(i) => { this.InputBaseControl = i; }} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }
