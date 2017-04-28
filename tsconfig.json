@@ -3,17 +3,18 @@
     "module": "commonjs",
     "target": "ES5",
     "sourceMap": true,
+    "declaration": true,
+    "allowJs": false,
     "jsx": "react",
-    "allowJs": true,
     "removeComments": true,
-    "outDir": "./dist/",
+    "outDir": "lib",
     "allowUnreachableCode": false
   },
 
   "exclude": [
-    "node_modules",
-    "dist",
-    "docs/dist"
+    "node_modules/",
+    "lib/",
+    "docs/lib/"
   ],
 
   "compileOnSave": false
