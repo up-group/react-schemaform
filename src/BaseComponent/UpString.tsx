@@ -1,6 +1,5 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl"
-import TypeStringControl from "../ControlError/TypeStringControl"
 import { UpInput, UpEmail, UpPhone, UpText } from "@up-group/react-controls";
 
 export default class UpString extends UpFormControl<string> {
