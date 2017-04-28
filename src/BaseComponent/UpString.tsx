@@ -19,9 +19,9 @@ export default class UpString extends UpFormControl<string> {
             case "phone":
                 return <UpPhone onChange={this.handleChangeEventGlobal} />;
             case "multilineText":
-                return <UpText value={this.state.value} onChange={this.handleChangeEventGlobal} />;
+                return <UpText onChange={this.handleChangeEventGlobal} />;
             default:
-                return <UpInput value={this.state.value} onChange={this.handleChangeEventGlobal} />;
+                return <UpInput onChange={this.handleChangeEventGlobal} />;
         }
 
     }
