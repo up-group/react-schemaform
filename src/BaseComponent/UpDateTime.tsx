@@ -1,7 +1,6 @@
 ﻿import * as $ from "jquery";
 import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl"
-import { TypeDateControl, dateFormat } from "../ControlError/TypeDateControl"
 import { UpDateTime } from "@up-group/react-controls";
 
 
