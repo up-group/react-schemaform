@@ -9,7 +9,7 @@ export default class UpIntegerComp extends UpFormControl<number> {
     }
 
     renderField() {
-        return <UpInteger onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
+        return <UpInteger isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }
 
 }
