@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
-interface ComponentRegisteryEntry {
+export interface ComponentRegisteryEntry {
     key: string;
     ComponentClass: React.ComponentClass<any>;//UpFormControl
     type: string;

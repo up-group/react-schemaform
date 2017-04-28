@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { UpLabel } from "@up-group/react-controls";
 
-interface UpFormGroupProps {
+export interface UpFormGroupProps {
     hasError?: boolean;
     title: string;
     description: string

@@ -2,7 +2,7 @@
 import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector"
 
-interface UpSchemaObjectProps {
+export interface UpSchemaObjectProps {
     withHR: boolean;
     SchemaArg: JsonSchema;
     node: string;

@@ -8,7 +8,7 @@ import ComponentRegistery from "./ComponentRegistery"
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
 
-interface UpSchemaFormComponentSelectorProps {
+export interface UpSchemaFormComponentSelectorProps {
     schema: JsonSchema;
     node: string;
     onFormChange: (newValue: any, node: string) => void;

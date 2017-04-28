@@ -8,7 +8,7 @@ import UpSchemaObject from "./UpSchemaObject"
 import ErrorMemory from "./ErrorMemory"
 
 
-interface UpSchemaArrayProps {
+export interface UpSchemaArrayProps {
     schema: JsonSchema;
     onChange: (arg: any) => void;
     onError: (hasError: boolean) => void;
@@ -16,7 +16,7 @@ interface UpSchemaArrayProps {
     node: string;
 }
 
-interface UpSchemaArrayState {
+export interface UpSchemaArrayState {
     items: item[];
 }
 
@@ -110,7 +110,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
     }
 }
 
-class item {
+export class item {
     value = null;
     errorMemory = new ErrorMemory();
     error = false;
