@@ -1,6 +1,5 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl"
-import TypeNumberControl from "../ControlError/TypeNumberControl"
 import { UpInteger } from "@up-group/react-controls";
 
 export default class UpIntegerComp extends UpFormControl<number> {

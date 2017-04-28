@@ -1,6 +1,5 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl"
-import TypeNumberControl from "../ControlError/TypeNumberControl"
 import { UpNumber } from "@up-group/react-controls";
 
 interface baseprop {
