@@ -25,11 +25,10 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
 
     renderField() {
         return <UpSelect
-            // ref={(i) => { this.InputBaseControl = i; }}
             default={null}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}
-            getFullData={false}
+            //getFullData={false}
             multiple={this.isArray}
             placeholder="Recherche"
             allowClear={!this.props.isRequired}

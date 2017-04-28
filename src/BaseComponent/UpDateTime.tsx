@@ -13,7 +13,7 @@ export default class UpDateTimeComp extends UpFormControl<Date> {
     }
 
     renderField() {
-        return <UpDateTime ref={(i) => { this.InputBaseControl = i; }} value="" onChange={this.handleChangeEventGlobal} isNullable={this.isNullable} />
+        return <UpDateTime onChange={this.handleChangeEventGlobal} />
     }
 
 }

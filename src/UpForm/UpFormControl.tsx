@@ -2,7 +2,6 @@
 import ControlErrorCentral from "../ControlError/ControlErrorCentral";
 import TypeNullControl from "../ControlError/TypeNullControl";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
-import { BaseControl } from "@up-group/react-controls";
 
 
 export interface baseProp<baseType> {
@@ -18,7 +17,6 @@ export interface baseState<baseType> {
 
 export abstract class UpFormControl<baseType> extends React.Component<baseProp<baseType>, baseState<baseType>> {
 
-    InputBaseControl: BaseControl<any, any>;
 
     inputElement: HTMLInputElement;
     _ControlErrorCentral: ControlErrorCentral;
@@ -41,9 +39,9 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
         if (errorCheck.hasError == true) {
             this.props.onError(true)
-            if (this.InputBaseControl != null) {
-                this.InputBaseControl.setState({ error: errorCheck.errorMessage });
-            }
+            //if (this.InputBaseControl != null) {
+            //    this.InputBaseControl.setState({ error: errorCheck.errorMessage });
+            //}
         } else {
             this.props.onError(false)
         }

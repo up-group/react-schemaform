@@ -26,11 +26,10 @@ export default class UpEnum extends UpFormControl<number> {
         }
 
         return <UpSelect
-            //ref={(i) => { this.InputBaseControl = i; }}
             default= {this.schema.default}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}
-            getFullData={false}
+            //getFullData={false}
             minimumInputLength={0}
             placeholder="Recherche"
             multiple={this.isArray}
