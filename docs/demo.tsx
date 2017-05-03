@@ -187,7 +187,7 @@ class Demo extends React.Component<{}, DemoState> {
                     "title": "R",
                     "type": "object",
                     "properties": {
-                        "a": {
+                        "datetime": {
                             "title": "date-time",
                             "type": "object",
                             "properties": {
@@ -197,7 +197,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "b": {
+                        "date": {
                             "title": "date",
                             "type": "object",
                             "properties": {
@@ -207,7 +207,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "c": {
+                        "time": {
                             "title": "time",
                             "type": "object",
                             "properties": {
@@ -217,7 +217,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "d": {
+                        "boolean": {
                             "title": "boolean",
                             "type": "object",
                             "properties": {
@@ -225,7 +225,7 @@ class Demo extends React.Component<{}, DemoState> {
                                 "b": { "title": "booleanN", "type": ["boolean", "null"] }
                             }
                         },
-                        "e": {
+                        "enum": {
                             "title": "enum",
                             "type": "object",
                             "properties": {
@@ -235,7 +235,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "f": {
+                        "string": {
                             "title": "string",
                             "type": "object",
                             "properties": {
@@ -245,7 +245,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "g": {
+                        "stringM": {
                             "title": "string",
                             "type": "object",
                             "properties": {
@@ -255,7 +255,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "h": {
+                        "number": {
                             "title": "number",
                             "type": "object",
                             "properties": {
@@ -267,7 +267,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "i": {
+                        "integer": {
                             "title": "integer",
                             "type": "object",
                             "properties": {
@@ -279,7 +279,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "j": {
+                        "phone": {
                             "title": "phone",
                             "type": "object",
                             "properties": {
@@ -289,7 +289,7 @@ class Demo extends React.Component<{}, DemoState> {
                             },
                             required: ["c"]
                         },
-                        "k": {
+                        "email": {
                             "title": "email",
                             "type": "object",
                             "properties": {
@@ -325,7 +325,15 @@ class Demo extends React.Component<{}, DemoState> {
                 <UpSchemaForm schema={this.state.schema} onFormEror={this.onFormEror} onFormPayload={this.onFormPayload}>
                 </UpSchemaForm>
                 <hr />
-                <div style={{ color: this.state.hasError ? "red" : "green" }}>
+                <div style={{
+                    color: this.state.hasError ? "red" : "green",
+                    position: "fixed",
+                    bottom: 0,
+                    background: "white",
+                    border: "1px solid black",
+                    width: "100%",
+                    padding: "15px"
+                }}>
                     {this.state.result}
                 </div>
             </div>
