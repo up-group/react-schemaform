@@ -6,7 +6,7 @@ import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelecto
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
-import { UpPanel, UpBox } from "@up-group/react-controls";
+import { UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 
 
 export interface UpSchemaFormProps {
@@ -42,7 +42,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         }
         return (
             <UpPanel title={this.props.schema.title}>
-                <UpBox>
+                <UpGrid >
                     <UpSchemaFormComponentSelector
                         isRequired={false}
                         schema={this.props.schema}
@@ -50,7 +50,8 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                         onFormChange={this.onFormChange}
                         onFormError={this.onFormError} >
                     </UpSchemaFormComponentSelector>
-                </UpBox>
+                </UpGrid >
+
                 <hr />
                 {this.props.children}
             </UpPanel>

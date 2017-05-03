@@ -1,6 +1,7 @@
 ﻿
 import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector"
+import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
 
 export interface UpSchemaObjectProps {
     withHR: boolean;
@@ -35,10 +36,11 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                 onFormError={this.props.onFormError}
             />)
         });
-        return <div className="col-md-12">
+        return <UpRow >
             {this.props.withHR ? <hr /> : null}
             {this.props.SchemaArg.title == null || this.props.node === "" ? "" : <h4>{this.props.SchemaArg.title}</h4>}
-            <div className="row">{elements}</div>
-        </div>
+            {elements}
+        </UpRow>
+
     }
     isRequired(prop) {        var required = false;        if (this.props.SchemaArg.required != undefined) {            required = this.props.SchemaArg.required.indexOf(prop) !== -1;        }        if (required === false) {            required = (this.props.SchemaArg.properties[prop].type as TypeOfSchema[]).indexOf("null") === -1 && this.props.SchemaArg.properties[prop].default != null;        }        return required;    }}

@@ -7,12 +7,13 @@ import { UpFormControl } from "./UpFormControl"
 import ComponentRegistery from "./ComponentRegistery"
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
+import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
 
 export interface UpSchemaFormComponentSelectorProps {
     schema: JsonSchema;
     node: string;
     onFormChange: (newValue: any, node: string) => void;
-    onFormError: (node: string,hasError: boolean) => void;
+    onFormError: (node: string, hasError: boolean) => void;
     isRequired: boolean;
 }
 
@@ -68,17 +69,17 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
             //    return ret;
             //} (element.type);
 
-            var colsize = 6
             //if (typeStr == "UpDate") {
             //    colsize = 3;
             //}
 
-            return <UpFormGroup
-                colSize={isArray ? 12 : colsize}
-                isRequired={this.props.isRequired}
-                title={this.props.schema.title}
-                description={this.props.schema.description}
+            return <UpCol span={isArray ? 24 : 11}>
+                <UpFormGroup
+                    isRequired={this.props.isRequired}
+                    title={this.props.schema.title}
+                    description={this.props.schema.description}
                 >{element}</UpFormGroup >
+            </UpCol>
         }
         return element;
     }
