@@ -300,7 +300,7 @@ class Demo extends React.Component<{}, DemoState> {
                             required: ["c"]
                         }
 
-                    }                   
+                    }
                 },
                 id: "all"
             }
@@ -329,6 +329,7 @@ class Demo extends React.Component<{}, DemoState> {
                     color: this.state.hasError ? "red" : "green",
                     position: "fixed",
                     bottom: 0,
+                    left: 0,
                     background: "white",
                     border: "1px solid black",
                     width: "100%",
