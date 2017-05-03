@@ -26,7 +26,7 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
     renderField() {
         return <UpSelect
             default={null}
-            isNullable={this.isNullable}
+            //isNullable={this.isNullable}
             isRequired={this.props.isRequired}
             //getFullData={false}
             multiple={this.isArray}
@@ -34,7 +34,6 @@ export default class UpEntity<Type> extends UpFormControl<Type> {
             allowClear={!this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
             dataSource={this.schema.entitySource}
-            onError={() => { }}
         />
         //    onError={this.props.onError}
     }

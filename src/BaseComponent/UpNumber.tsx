@@ -15,7 +15,7 @@ export default class UpNumberComp extends UpFormControl<number> {
     }
 
     renderField() {
-        return <UpNumber isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
+        return <UpNumber isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }
 
 }

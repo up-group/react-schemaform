@@ -14,13 +14,13 @@ export default class UpString extends UpFormControl<string> {
 
         switch (this.props.schema.format) {
             case "email":
-                return <UpEmail onChange={this.handleChangeEventGlobal} />;
+                return <UpEmail isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
             case "phone":
-                return <UpPhone onChange={this.handleChangeEventGlobal} />;
+                return <UpPhone isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
             case "multilineText":
-                return <UpText onChange={this.handleChangeEventGlobal} />;
+                return <UpText isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
             default:
-                return <UpInput onChange={this.handleChangeEventGlobal} />;
+                return <UpInput isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
         }
 
     }
