@@ -26,7 +26,7 @@ export default class UpEnum extends UpFormControl<number> {
         }
 
         return <UpSelect
-            default= {this.schema.default}
+            default={this.schema.default}
             isNullable={this.isNullable}
             isRequired={this.props.isRequired}
             //getFullData={false}
@@ -34,15 +34,19 @@ export default class UpEnum extends UpFormControl<number> {
             placeholder="Recherche"
             multiple={this.isArray}
             allowClear={!this.props.isRequired}
-            onChange={this.handleChangeEventGlobal}
+            onChange={this.onChange}
             data={options}
             onError={() => { }}
-            />
-            //onError={this.props.onError}
+        />
+        //onError={this.props.onError}
 
     }
 
-    private get schema() : JsonSchema {
+    private onChange = (cleandata: { id: any, text: string }, event?, error?) => {
+        this.handleChangeEventGlobal(cleandata.id || null, event, error)
+    }
+
+    private get schema(): JsonSchema {
         return this.props.schema.items || this.props.schema
 
     }
@@ -58,5 +62,5 @@ export default class UpEnum extends UpFormControl<number> {
     //    }
     //    return value === null || value === undefined || value === "";
     //}
-    
+
 }
