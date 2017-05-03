@@ -31,7 +31,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
     }
 
-    
+
     abstract renderField(): JSX.Element;
 
 
@@ -62,7 +62,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
     private valueChange = (value: baseType) => {
     }
-    
+
     isEmptyOrNull(value) {
         if (value === null) {
             return true;
@@ -81,15 +81,10 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     }
 
 
-    componentDidMount() {
-        this.handleChangeEventGlobal(null);
-       
-
-    }
     render() {
         return <span>
             {this.renderField()}
-           
+
         </span>
     }
 
