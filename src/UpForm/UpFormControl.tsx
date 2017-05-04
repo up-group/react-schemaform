@@ -7,8 +7,7 @@ import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 export interface baseProp<baseType> {
     schema: JsonSchema;
     isRequired: boolean;
-    onChange: (arg: baseType) => void;
-    onError: (hasError: boolean) => void;
+    onChange: (arg: baseType, hasError: boolean) => void;
 }
 
 export interface baseState<baseType> {
@@ -36,26 +35,26 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
     public checkFormError() {
-        var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
-        if (errorCheck.hasError == true) {
-            this.props.onError(true)
-            //if (this.InputBaseControl != null) {
-            //    this.InputBaseControl.setState({ error: errorCheck.errorMessage });
-            //}
-        } else {
-            this.props.onError(false)
-        }
+        //var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
+        //if (errorCheck.hasError == true) {
+        //    this.props.onError(true)
+        //    //if (this.InputBaseControl != null) {
+        //    //    this.InputBaseControl.setState({ error: errorCheck.errorMessage });
+        //    //}
+        //} else {
+        //    this.props.onError(false)
+        //}
     }
 
-    public handleChangeEventGlobal = (cleandata, event?, eror?) => {
+    public handleChangeEventGlobal = (cleandata, event?, error?) => {
         this.setState({ value: cleandata }, () => {
-            if (eror === false) {
-                this.checkFormError()
+            //if (eror === false) {
+            //    this.checkFormError()
 
-            } else {
-                this.props.onError(eror);
-            }
-            this.props.onChange(this.state.value);
+            //} else {
+            //    this.props.onError(eror);
+            //}
+            this.props.onChange(this.state.value,error);
         });
     }
 

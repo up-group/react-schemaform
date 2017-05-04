@@ -322,7 +322,7 @@ class Demo extends React.Component<{}, DemoState> {
 
                 <textarea value={JSON.stringify(this.state.schema)} className="form-control" cols={100} rows={3} onChange={this.onSchemaChange}></textarea>
                 <hr />
-                <UpSchemaForm schema={this.state.schema} onFormEror={this.onFormEror} onFormPayload={this.onFormPayload}>
+                <UpSchemaForm schema={this.state.schema} onFormPayload={this.onFormPayload}>
                 </UpSchemaForm>
                 <hr />
                 <div style={{
@@ -343,10 +343,6 @@ class Demo extends React.Component<{}, DemoState> {
         </UpThemeProvider >
     }
 
-    onFormEror = (e) => {
-        this.setState({ hasError: e })
-    }
-
     onEditorChange = (e) => {
     }
 
@@ -354,8 +350,8 @@ class Demo extends React.Component<{}, DemoState> {
         this.setState({ result: "", schema: JSON.parse(e.target.value) });
     }
 
-    onFormPayload = (e) => {
-        this.setState({ result: JSON.stringify(e) });
+    onFormPayload = (e, hasError: boolean) => {
+        this.setState({ result: JSON.stringify(e), hasError: hasError });
     }
 
     selectChange = (e) => {

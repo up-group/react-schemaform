@@ -10,8 +10,7 @@ import ErrorMemory from "./ErrorMemory"
 
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
-    onChange: (arg: any) => void;
-    onError: (hasError: boolean) => void;
+    onChange: (arg: any, hasError: boolean) => void;
     isRequired: boolean;
     node: string;
 }
@@ -30,7 +29,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
         var comp = ComponentRegistery.GetComponentBySchema(schema);
 
         if (comp != null && comp.array === true) {
-            return ComponentRegistery.GetComponentInstanceByKey(comp.key, this.props.onError, this.props.onChange, this.props.isRequired, this.props.schema);
+            return ComponentRegistery.GetComponentInstanceByKey(comp.key, this.props.onChange, this.props.isRequired, this.props.schema);
         }
 
         var items = this.state.items.map((value, index, array) => {
@@ -40,7 +39,6 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                 case "object":
                     element = <UpSchemaObject
                         withHR={index !== 0}
-                        onFormError={value.onError}
                         isRequired={this.props.isRequired}
                         SchemaArg={schema}
                         node={""}
@@ -55,7 +53,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                 //        onChange={value.oc} />
                 //    break;
                 default:
-                    element = ComponentRegistery.GetComponentInstance(value.onError, value.onChange, this.props.isRequired, schema);
+                    element = ComponentRegistery.GetComponentInstance(value.onChange, this.props.isRequired, schema);
                     break;            }
 
             return <div key={index}  >
@@ -85,7 +83,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
 
     AddElement = () => {
         var items = this.state.items;
-        items.push(new item(this.onItemChange, this.onItemError));
+        items.push(new item(this.onItemChange));
         this.setState({ items: items });
     }
     RemoveElement = () => {
@@ -96,28 +94,26 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
 
     onItemChange = () => {
         var data = [];
+        var error = false;
         for (var i = 0; i < this.state.items.length; i++) {
             if (this.state.items[i].error === true) {
-                return;
+                error = true;
             }
             data.push(this.state.items[i].value);
         }
-        this.props.onChange(data);
+        this.props.onChange(data, error);
     }
 
-    onItemError = (hasError : boolean) => {
-        this.props.onError(hasError);
-    }
 }
 
 export class item {
     value = null;
     errorMemory = new ErrorMemory();
     error = false;
-    constructor(public onItemChange, public onItemError) {
+    constructor(public onItemChange) {
     }
 
-    onChange = (arg, t?: string) => {
+    onChange = (arg, hasError: boolean, t?: string) => {
         if (t !== undefined) {
             if (this.value === null) {
                 this.value = {};
@@ -130,7 +126,7 @@ export class item {
             }
 
         } else {
-            this.error = false;
+            this.error = hasError;
             this.value = arg;
             this.onItemChange();
 
@@ -139,15 +135,15 @@ export class item {
     }
 
 
-    onError = (/*node, hasError:boolean*/) => {
-        //if (node === undefined) {
-        //    this.error = true;
-        //} else {
-        //    this.errorMemory.errorOn(node, hasError);
-        //}
+    //onError = (/*node, hasError:boolean*/) => {
+    //    //if (node === undefined) {
+    //    //    this.error = true;
+    //    //} else {
+    //    //    this.errorMemory.errorOn(node, hasError);
+    //    //}
 
-        this.onItemError();
-    }
+    //    this.onItemError();
+    //}
 
 }
 

@@ -12,13 +12,12 @@ import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
 export interface UpSchemaFormComponentSelectorProps {
     schema: JsonSchema;
     node: string;
-    onFormChange: (newValue: any, node: string) => void;
-    onFormError: (node: string, hasError: boolean) => void;
+    onFormChange: (newValue: any, hasError: boolean, node: string) => void;
     isRequired: boolean;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<UpSchemaFormComponentSelectorProps, {}> {
-    constructor(p, c) {        super(p, c);        this.onElementChange = this.onElementChange.bind(this);        this.onElementError = this.onElementError.bind(this);    }    Component: { [key: string]: React.ComponentClass<any> } = {};    Register(key: string, Component: React.ComponentClass<any>) {        this.Component[key] = Component;    }    GetComponent(ComponentKey: string): React.ComponentClass<any> {        return this.Component[ComponentKey];    }    private findGetParameter(parameterName) {
+    constructor(p, c) {        super(p, c);        this.onElementChange = this.onElementChange.bind(this);    }    Component: { [key: string]: React.ComponentClass<any> } = {};    Register(key: string, Component: React.ComponentClass<any>) {        this.Component[key] = Component;    }    GetComponent(ComponentKey: string): React.ComponentClass<any> {        return this.Component[ComponentKey];    }    private findGetParameter(parameterName) {
         var result = null,
             tmp = [];
         var items = location.search.substr(1).split("&");
@@ -45,15 +44,15 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
         var type = JsonSchemaHelper.getBaseType(this.props.schema);
         switch (type) {
             case "object":
-                element = <UpSchemaObject withHR={this.props.node !== ""} onFormError={this.props.onFormError} isRequired={this.props.isRequired} SchemaArg={this.props.schema} node={this.props.node} onFormChange={this.props.onFormChange} />
+                element = <UpSchemaObject withHR={this.props.node !== ""} isRequired={this.props.isRequired} SchemaArg={this.props.schema} node={this.props.node} onFormChange={this.props.onFormChange} />
                 isControl = false;
                 break;
             case "array":
-                element = <UpSchemaArray onError={this.onElementError} isRequired={this.props.isRequired} schema={this.props.schema} onChange={this.onElementChange} node={this.props.node} />
+                element = <UpSchemaArray isRequired={this.props.isRequired} schema={this.props.schema} onChange={this.onElementChange} node={this.props.node} />
                 isArray = true;
                 break;
             default:
-                element = ComponentRegistery.GetComponentInstance(this.onElementError, this.onElementChange, this.props.isRequired, this.props.schema);
+                element = ComponentRegistery.GetComponentInstance(this.onElementChange, this.props.isRequired, this.props.schema);
                 break;        }
 
 
@@ -84,12 +83,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
     }
 
 
-    private onElementChange = (arg) => {
-        this.props.onFormChange(arg, this.props.node);
-    }
-
-    private onElementError = (hasError: boolean) => {
-        this.props.onFormError(this.props.node, hasError);
+    private onElementChange = (arg: any, hasError: boolean) => {
+        this.props.onFormChange(arg, hasError, this.props.node);
     }
 
 }

@@ -69,10 +69,9 @@ export default class ComponentRegistery {
         return comp;
     }
 
-    public static GetComponentInstanceByKey(key: string, onError: (hasError: boolean) => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
+    public static GetComponentInstanceByKey(key: string, onChange: (arg, hasError: boolean) => void, isRequired: boolean, schema: JsonSchema) {
         var comp = this.GetComponentByKey(key);
-        var props = {
-            onError: onError,
+        var props = {          
             onChange: onChange,
             isRequired: isRequired,
             schema: schema
@@ -81,11 +80,10 @@ export default class ComponentRegistery {
         return React.createElement(comp.ComponentClass, props);
     }
 
-    public static GetComponentInstance(onError: (hasError: boolean) => void, onChange: (arg) => void, isRequired: boolean, schema: JsonSchema) {
+    public static GetComponentInstance(onChange: (arg, hasError: boolean) => void, isRequired: boolean, schema: JsonSchema) {
         var comp = this.GetComponentBySchema(schema);
 
         var props = {
-            onError: onError,
             onChange: onChange,
             isRequired: isRequired,
             schema: schema

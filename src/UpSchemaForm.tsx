@@ -11,8 +11,7 @@ import { UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 
 export interface UpSchemaFormProps {
     schema: JsonSchema;
-    onFormEror: (data: boolean) => void;
-    onFormPayload: (data: any) => void;
+    onFormPayload: (data: any, hasError: boolean) => void;
 }
 
 export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}> {
@@ -42,15 +41,15 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         }
         return (
             <UpPanel title={this.props.schema.title}>
-              
-                    <UpSchemaFormComponentSelector
-                        isRequired={false}
-                        schema={this.props.schema}
-                        node={""}
-                        onFormChange={this.onFormChange}
-                        onFormError={this.onFormError} >
-                    </UpSchemaFormComponentSelector>
-        
+
+                <UpSchemaFormComponentSelector
+                    isRequired={false}
+                    schema={this.props.schema}
+                    node={""}
+                    onFormChange={this.onFormChange}
+                >
+                </UpSchemaFormComponentSelector>
+
 
                 <hr />
                 {this.props.children}
@@ -58,13 +57,15 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         );
     }
 
-    onFormError = (node: string, hasError: boolean) => {
+    //onFormError = (node: string, hasError: boolean) => {
+    //    this.errorMemory.errorOn(node, hasError);
+    //    this.props.onFormEror(this.errorMemory.hasError);
+
+    //}
+
+    onFormChange = (newValue: any, hasError: boolean, node: string) => {
         this.errorMemory.errorOn(node, hasError);
-        this.props.onFormEror(this.errorMemory.hasError);
 
-    }
-
-    onFormChange = (newValue: any, node: string) => {
         var nodeArray = node.split(".");
         nodeArray.shift();
 
@@ -75,7 +76,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     }
 
     updateState() {
-        this.props.onFormPayload(this.state);
+        this.props.onFormPayload(this.state, this.errorMemory.hasError);
     }
 
     private newObject(nodes, value) {

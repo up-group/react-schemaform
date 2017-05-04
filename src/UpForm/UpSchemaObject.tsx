@@ -8,8 +8,7 @@ export interface UpSchemaObjectProps {
     withHR: boolean;
     SchemaArg: JsonSchema;
     node: string;
-    onFormChange: (newValue: any, node: string) => void;
-    onFormError: (node: string, hasError: boolean) => void;
+    onFormChange: (newValue: any, hasError: boolean, node: string) => void;
     isRequired: boolean;
 }
 
@@ -34,7 +33,6 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                 schema={property}
                 node={this.props.node + '.' + propertiesName[index]}
                 onFormChange={this.props.onFormChange}
-                onFormError={this.props.onFormError}
             /></UpCol>)
         });
         return <UpGrid >
