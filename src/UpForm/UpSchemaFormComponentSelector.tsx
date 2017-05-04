@@ -73,13 +73,12 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
             //    colsize = 3;
             //}
 
-            return <UpCol span={isArray ? 24 : 11}>
-                <UpFormGroup
-                    isRequired={this.props.isRequired}
-                    title={this.props.schema.title}
-                    description={this.props.schema.description}
-                >{element}</UpFormGroup >
-            </UpCol>
+            return <UpFormGroup
+                isRequired={this.props.isRequired}
+                title={this.props.schema.title}
+                description={this.props.schema.description}
+            >{element}</UpFormGroup >
+
         }
         return element;
     }

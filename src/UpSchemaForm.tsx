@@ -42,7 +42,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         }
         return (
             <UpPanel title={this.props.schema.title}>
-                <UpGrid >
+              
                     <UpSchemaFormComponentSelector
                         isRequired={false}
                         schema={this.props.schema}
@@ -50,7 +50,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                         onFormChange={this.onFormChange}
                         onFormError={this.onFormError} >
                     </UpSchemaFormComponentSelector>
-                </UpGrid >
+        
 
                 <hr />
                 {this.props.children}
