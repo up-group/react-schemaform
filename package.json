@@ -2,8 +2,8 @@
   "name": "@up-group/react-schemaform",
   "version": "0.0.10",
   "description": "",
-  "main": "./src/UpSchemaForm.js",
-  "types": "./src/UpSchemaForm.tsx",
+  "main": "lib/src/UpSchemaForm.js",
+  "types": "lib/src/UpSchemaForm.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GuillaumeDumo/React-SchemaForm.git"
