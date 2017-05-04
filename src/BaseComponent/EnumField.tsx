@@ -26,6 +26,7 @@ export default class EnumField extends UpFormControl<number> {
         }
 
         return <UpSelect
+            showError={this.props.showError}
             default={this.schema.default}
             //isNullable={this.isNullable}
             isRequired={this.props.isRequired}

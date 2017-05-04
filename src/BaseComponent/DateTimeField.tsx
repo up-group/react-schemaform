@@ -22,7 +22,7 @@ export default class DateTimeField extends UpFormControl<Date> {
             minDate = new Date(this.props.schema.minimum);
         }
 
-        return <UpDateTime isRequired={this.props.isRequired} maxDate={maxDate} minDate={minDate} onChange={this.handleChangeEventGlobal} />
+        return <UpDateTime showError={this.props.showError} isRequired={this.props.isRequired} maxDate={maxDate} minDate={minDate} onChange={this.handleChangeEventGlobal} />
     }
 
 }

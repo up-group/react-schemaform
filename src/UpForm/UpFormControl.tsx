@@ -8,6 +8,7 @@ export interface baseProp<baseType> {
     schema: JsonSchema;
     isRequired: boolean;
     onChange: (arg: baseType, hasError: boolean) => void;
+    showError: boolean;
 }
 
 export interface baseState<baseType> {
@@ -54,7 +55,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
             //} else {
             //    this.props.onError(eror);
             //}
-            this.props.onChange(this.state.value,error);
+            this.props.onChange(this.state.value, error);
         });
     }
 

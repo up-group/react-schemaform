@@ -12,9 +12,13 @@ import { UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 export interface UpSchemaFormProps {
     schema: JsonSchema;
     onFormPayload: (data: any, hasError: boolean) => void;
+    showError: boolean;
 }
 
 export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}> {
+    static defaultProps = {
+        showError: true
+    }
 
     errorMemory = new ErrorMemory();
 
@@ -47,6 +51,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                     schema={this.props.schema}
                     node={""}
                     onFormChange={this.onFormChange}
+                    showError={this.props.showError}
                 >
                 </UpSchemaFormComponentSelector>
 

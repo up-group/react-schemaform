@@ -45511,18 +45511,20 @@ var ComponentRegistery = (function () {
         }
         return comp;
     };
-    ComponentRegistery.GetComponentInstanceByKey = function (key, onChange, isRequired, schema) {
+    ComponentRegistery.GetComponentInstanceByKey = function (key, onChange, isRequired, schema, showError) {
         var comp = this.GetComponentByKey(key);
         var props = {
+            showError: showError,
             onChange: onChange,
             isRequired: isRequired,
             schema: schema
         };
         return React.createElement(comp.ComponentClass, props);
     };
-    ComponentRegistery.GetComponentInstance = function (onChange, isRequired, schema) {
+    ComponentRegistery.GetComponentInstance = function (onChange, isRequired, schema, showError) {
         var comp = this.GetComponentBySchema(schema);
         var props = {
+            showError: showError,
             onChange: onChange,
             isRequired: isRequired,
             schema: schema
@@ -45660,15 +45662,15 @@ var UpSchemaFormComponentSelector = (function (_super) {
         var type = JsonSchemaHelper_1.default.getBaseType(this.props.schema);
         switch (type) {
             case "object":
-                element = React.createElement(UpSchemaObject_1.default, { withHR: this.props.node !== "", isRequired: this.props.isRequired, SchemaArg: this.props.schema, node: this.props.node, onFormChange: this.props.onFormChange });
+                element = React.createElement(UpSchemaObject_1.default, { showError: this.props.showError, withHR: this.props.node !== "", isRequired: this.props.isRequired, SchemaArg: this.props.schema, node: this.props.node, onFormChange: this.props.onFormChange });
                 isControl = false;
                 break;
             case "array":
-                element = React.createElement(UpSchemaArray_1.default, { isRequired: this.props.isRequired, schema: this.props.schema, onChange: this.onElementChange, node: this.props.node });
+                element = React.createElement(UpSchemaArray_1.default, { showError: this.props.showError, isRequired: this.props.isRequired, schema: this.props.schema, onChange: this.onElementChange, node: this.props.node });
                 isArray = true;
                 break;
             default:
-                element = ComponentRegistery_1.default.GetComponentInstance(this.onElementChange, this.props.isRequired, this.props.schema);
+                element = ComponentRegistery_1.default.GetComponentInstance(this.onElementChange, this.props.isRequired, this.props.schema, this.props.showError);
                 break;
         }
         if (isControl) {
@@ -45728,7 +45730,7 @@ var UpSchemaObject = (function (_super) {
         }
         var elements = properties.map(function (property, index) {
             return (React.createElement(react_controls_1.UpCol, { key: index, span: _this.sizeSpan(property) },
-                React.createElement(UpSchemaFormComponentSelector_1.default, { isRequired: _this.isRequired(propertiesName[index]), key: index, schema: property, node: _this.props.node + '.' + propertiesName[index], onFormChange: _this.props.onFormChange })));
+                React.createElement(UpSchemaFormComponentSelector_1.default, { showError: _this.props.showError, isRequired: _this.isRequired(propertiesName[index]), key: index, schema: property, node: _this.props.node + '.' + propertiesName[index], onFormChange: _this.props.onFormChange })));
         });
         return React.createElement(react_controls_1.UpGrid, null,
             React.createElement(react_controls_1.UpRow, { gutter: 2 },
@@ -45798,7 +45800,7 @@ var UpSchemaForm = (function (_super) {
                 React.createElement("div", { className: "panel-footer" }, this.props.children)));
         }
         return (React.createElement(react_controls_1.UpPanel, { title: this.props.schema.title },
-            React.createElement(UpSchemaFormComponentSelector_1.default, { isRequired: false, schema: this.props.schema, node: "", onFormChange: this.onFormChange }),
+            React.createElement(UpSchemaFormComponentSelector_1.default, { isRequired: false, schema: this.props.schema, node: "", onFormChange: this.onFormChange, showError: this.props.showError }),
             React.createElement("hr", null),
             this.props.children));
     };
@@ -45818,6 +45820,9 @@ var UpSchemaForm = (function (_super) {
     };
     return UpSchemaForm;
 }(React.Component));
+UpSchemaForm.defaultProps = {
+    showError: true
+};
 exports.default = UpSchemaForm;
 
 
@@ -76507,10 +76512,11 @@ var Demo = (function (_super) {
         _this.selectChange = function (e) {
             _this.setState({ schema: JSON.parse(e.target.value) });
         };
-        _this.state = { result: "", schema: {}, hasError: false };
+        _this.state = { result: "", schema: {}, hasError: false, showError: false };
         return _this;
     }
     Demo.prototype.render = function () {
+        var _this = this;
         var schemas = [
             {
                 data: {
@@ -76796,8 +76802,9 @@ var Demo = (function (_super) {
                     return React.createElement("option", { key: schema.id, value: JSON.stringify(schema.data) }, schema.id);
                 })),
                 React.createElement("textarea", { value: JSON.stringify(this.state.schema), className: "form-control", cols: 100, rows: 3, onChange: this.onSchemaChange }),
+                React.createElement(react_controls_1.UpSwitch, { isNullable: false, onChange: function (data) { _this.setState({ showError: data }); } }),
                 React.createElement("hr", null),
-                React.createElement(UpSchemaForm_1.default, { schema: this.state.schema, onFormPayload: this.onFormPayload }),
+                React.createElement(UpSchemaForm_1.default, { showError: this.state.showError, schema: this.state.schema, onFormPayload: this.onFormPayload }),
                 React.createElement("hr", null),
                 React.createElement("div", { style: {
                         color: this.state.hasError ? "red" : "green",
@@ -76888,7 +76895,7 @@ var DateField = (function (_super) {
         if (this.props.schema.minimum !== undefined) {
             minDate = new Date(this.props.schema.minimum);
         }
-        return React.createElement(react_controls_1.UpDate, { isRequired: this.props.isRequired, maxDate: maxDate, minDate: minDate, onChange: this.handleChangeEventGlobal });
+        return React.createElement(react_controls_1.UpDate, { showError: this.props.showError, isRequired: this.props.isRequired, maxDate: maxDate, minDate: minDate, onChange: this.handleChangeEventGlobal });
     };
     return DateField;
 }(UpFormControl_1.UpFormControl));
@@ -76928,7 +76935,7 @@ var DateTimeField = (function (_super) {
         if (this.props.schema.minimum !== undefined) {
             minDate = new Date(this.props.schema.minimum);
         }
-        return React.createElement(react_controls_1.UpDateTime, { isRequired: this.props.isRequired, maxDate: maxDate, minDate: minDate, onChange: this.handleChangeEventGlobal });
+        return React.createElement(react_controls_1.UpDateTime, { showError: this.props.showError, isRequired: this.props.isRequired, maxDate: maxDate, minDate: minDate, onChange: this.handleChangeEventGlobal });
     };
     return DateTimeField;
 }(UpFormControl_1.UpFormControl));
@@ -76961,7 +76968,7 @@ var EntityField = (function (_super) {
         return _super.call(this, p, c) || this;
     }
     EntityField.prototype.renderField = function () {
-        return React.createElement(react_controls_1.UpSelect, { default: null, isRequired: this.props.isRequired, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeEventGlobal, dataSource: this.schema.entitySource });
+        return React.createElement(react_controls_1.UpSelect, { showError: this.props.showError, default: null, isRequired: this.props.isRequired, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeEventGlobal, dataSource: this.schema.entitySource });
     };
     Object.defineProperty(EntityField.prototype, "schema", {
         get: function () {
@@ -77021,7 +77028,7 @@ var EnumField = (function (_super) {
                 options.push({ id: this.schema.enum[i], text: this.schema.enumDescriptions[i] });
             }
         }
-        return React.createElement(react_controls_1.UpSelect, { default: this.schema.default, isRequired: this.props.isRequired, minimumInputLength: 0, placeholder: "Recherche", multiple: this.isArray, allowClear: !this.props.isRequired, onChange: this.onChange, data: options });
+        return React.createElement(react_controls_1.UpSelect, { showError: this.props.showError, default: this.schema.default, isRequired: this.props.isRequired, minimumInputLength: 0, placeholder: "Recherche", multiple: this.isArray, allowClear: !this.props.isRequired, onChange: this.onChange, data: options });
     };
     Object.defineProperty(EnumField.prototype, "schema", {
         get: function () {
@@ -77068,7 +77075,7 @@ var IntegerField = (function (_super) {
         return _super.call(this, p, c) || this;
     }
     IntegerField.prototype.renderField = function () {
-        return React.createElement(react_controls_1.UpNumber, { decimalPlace: 0, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal, max: this.props.schema.maximum, min: this.props.schema.minimum });
+        return React.createElement(react_controls_1.UpNumber, { showError: this.props.showError, decimalPlace: 0, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal, max: this.props.schema.maximum, min: this.props.schema.minimum });
     };
     return IntegerField;
 }(UpFormControl_1.UpFormControl));
@@ -77146,7 +77153,7 @@ var NumberField = (function (_super) {
         return _super.call(this, p, c) || this;
     }
     NumberField.prototype.renderField = function () {
-        return React.createElement(react_controls_1.UpNumber, { isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal, max: this.props.schema.maximum, min: this.props.schema.minimum });
+        return React.createElement(react_controls_1.UpNumber, { showError: this.props.showError, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal, max: this.props.schema.maximum, min: this.props.schema.minimum });
     };
     return NumberField;
 }(UpFormControl_1.UpFormControl));
@@ -77184,13 +77191,13 @@ var StringField = (function (_super) {
     StringField.prototype.renderField = function () {
         switch (this.props.schema.format) {
             case "email":
-                return React.createElement(react_controls_1.UpEmail, { isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
+                return React.createElement(react_controls_1.UpEmail, { showError: this.props.showError, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
             case "phone":
-                return React.createElement(react_controls_1.UpPhone, { isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
+                return React.createElement(react_controls_1.UpPhone, { showError: this.props.showError, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
             case "multilineText":
-                return React.createElement(react_controls_1.UpText, { isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
+                return React.createElement(react_controls_1.UpText, { showError: this.props.showError, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
             default:
-                return React.createElement(react_controls_1.UpInput, { isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
+                return React.createElement(react_controls_1.UpInput, { showError: this.props.showError, isRequired: this.props.isRequired, onChange: this.handleChangeEventGlobal });
         }
     };
     return StringField;
@@ -77433,17 +77440,17 @@ var UpSchemaArray = (function (_super) {
         var schema = this.props.schema.items;
         var comp = ComponentRegistery_1.default.GetComponentBySchema(schema);
         if (comp != null && comp.array === true) {
-            return ComponentRegistery_1.default.GetComponentInstanceByKey(comp.key, this.props.onChange, this.props.isRequired, this.props.schema);
+            return ComponentRegistery_1.default.GetComponentInstanceByKey(comp.key, this.props.onChange, this.props.isRequired, this.props.schema, this.props.showError);
         }
         var items = this.state.items.map(function (value, index, array) {
             var type = JsonSchemaHelper_1.default.getBaseType(schema);
             var element = null;
             switch (type) {
                 case "object":
-                    element = React.createElement(UpSchemaObject_1.default, { withHR: index !== 0, isRequired: _this.props.isRequired, SchemaArg: schema, node: "", onFormChange: value.onChange });
+                    element = React.createElement(UpSchemaObject_1.default, { showError: _this.props.showError, withHR: index !== 0, isRequired: _this.props.isRequired, SchemaArg: schema, node: "", onFormChange: value.onChange });
                     break;
                 default:
-                    element = ComponentRegistery_1.default.GetComponentInstance(value.onChange, _this.props.isRequired, schema);
+                    element = ComponentRegistery_1.default.GetComponentInstance(value.onChange, _this.props.isRequired, schema, _this.props.showError);
                     break;
             }
             return React.createElement("div", { key: index }, element);

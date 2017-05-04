@@ -10,6 +10,7 @@ export interface UpSchemaObjectProps {
     node: string;
     onFormChange: (newValue: any, hasError: boolean, node: string) => void;
     isRequired: boolean;
+    showError: boolean;
 }
 
 export default class UpSchemaObject extends React.Component<UpSchemaObjectProps, {}>  {
@@ -28,6 +29,7 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
         }
         var elements = properties.map((property, index) => {
             return (<UpCol key={index} span={this.sizeSpan(property)}><UpSchemaFormComponentSelector
+                showError={this.props.showError}
                 isRequired={this.isRequired(propertiesName[index])}
                 key={index}
                 schema={property}
@@ -45,7 +47,7 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
 
     }
     private sizeSpan = (schema: JsonSchema) => {        var type = JsonSchemaHelper.getBaseType(schema);
-        if (type === "object" ) {
+        if (type === "object") {
             return 24;
         };
         return 12;

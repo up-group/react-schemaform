@@ -25,6 +25,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
     renderField() {
         return <UpSelect
+            showError={this.props.showError}
             default={null}
             //isNullable={this.isNullable}
             isRequired={this.props.isRequired}

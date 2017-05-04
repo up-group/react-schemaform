@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm"
-import { UpThemeProvider, UpThemeInterface, UpColorMap } from "@up-group/react-controls"
+import { UpThemeProvider, UpThemeInterface, UpColorMap, UpSwitch } from "@up-group/react-controls"
 
 interface DemoState {
     result: string;
     schema: JsonSchema;
     hasError: boolean;
+    showError: boolean;
 }
 
 var theme: UpThemeInterface = {
@@ -17,7 +18,7 @@ theme.colorMap.warning = "orange";
 class Demo extends React.Component<{}, DemoState> {
     constructor(p, c) {
         super(p, c);
-        this.state = { result: "", schema: {}, hasError: false }
+        this.state = { result: "", schema: {}, hasError: false, showError: false }
     }
 
     render() {
@@ -321,8 +322,11 @@ class Demo extends React.Component<{}, DemoState> {
                 </select>
 
                 <textarea value={JSON.stringify(this.state.schema)} className="form-control" cols={100} rows={3} onChange={this.onSchemaChange}></textarea>
+
+                <UpSwitch isNullable={false} onChange={(data) => { this.setState({ showError: data }); }} />
+
                 <hr />
-                <UpSchemaForm schema={this.state.schema} onFormPayload={this.onFormPayload}>
+                <UpSchemaForm showError={this.state.showError} schema={this.state.schema} onFormPayload={this.onFormPayload}>
                 </UpSchemaForm>
                 <hr />
                 <div style={{
