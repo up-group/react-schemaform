@@ -10,7 +10,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publishProd": "npm version patch && npm publish --access public",
+    "clean": "rimraf lib",
+    "prepublish": "npm run clean && npm run build ",
+    "build": "tsc",
+    "publishProd": "npm version patch && npm publish",
     "publishBeta": "npm version patch && npm publish --tag beta"
   },
   "bugs": {
@@ -32,6 +35,7 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "rimraf": "^2.6.1",
     "css-loader": "^0.28.0",
     "file-loader": "^0.11.1",
     "markdown-loader": "^2.0.0",
