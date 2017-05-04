@@ -345,11 +345,9 @@ class Demo extends React.Component<{}, DemoState> {
 
     onFormEror = (e) => {
         this.setState({ hasError: e })
-        console.log("onFormEror", e);
     }
 
     onEditorChange = (e) => {
-        console.log(e);
     }
 
     onSchemaChange = (e) => {
