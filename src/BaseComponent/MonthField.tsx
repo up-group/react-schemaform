@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import {UpFormControl} from "../UpForm/UpFormControl"
-export default class UpMonth extends UpFormControl<number> {
+export default class MonthField extends UpFormControl<number> {
     constructor(p, c) {        super(p, c);
 
     }    renderField() {

@@ -100,28 +100,28 @@ export default class ComponentRegistery {
 
 
 //************************************************  CONGFIG
-import UpDate from "../BaseComponent/UpDate"
-import UpDateTime from "../BaseComponent/UpDateTime"
-import UpTime from "../BaseComponent/UpTime"
-import UpEntity from "../BaseComponent/UpEntity"
-import UpString from "../BaseComponent/UpString"
-import UpNumber from "../BaseComponent/UpNumber"
-import UpInteger from "../BaseComponent/UpInteger"
-import UpBoolean from "../BaseComponent/UpBoolean"
-import UpEnum from "../BaseComponent/UpEnum"
-import UpUpload from "../BaseComponent/UpUpload"
-import UpMonth from "../BaseComponent/UpMonth"
+import DateField from "../BaseComponent/DateField"
+import DateTimeField from "../BaseComponent/DateTimeField"
+import TimeField from "../BaseComponent/TimeField"
+import EntityField from "../BaseComponent/EntityField"
+import StringField from "../BaseComponent/StringField"
+import NumberField from "../BaseComponent/NumberField"
+import IntegerField from "../BaseComponent/IntegerField"
+import BooleanField from "../BaseComponent/BooleanField"
+import EnumField from "../BaseComponent/EnumField"
+import UploadField from "../BaseComponent/UploadField"
+import MonthField from "../BaseComponent/MonthField"
 
-ComponentRegistery.Register("UpNumber", "number", null, UpNumber);
-ComponentRegistery.Register("UpString", "string", null, UpString);
-ComponentRegistery.Register("UpDate", null, "date", UpDate);
-ComponentRegistery.Register("UpDateTime", null, "date-time", UpDateTime);
-ComponentRegistery.Register("UpTime", null, "time", UpTime);
-ComponentRegistery.Register("UpInteger", "integer", null, UpInteger);
-ComponentRegistery.Register("UpBoolean", "boolean", null, UpBoolean);
+ComponentRegistery.Register("UpNumber", "number", null, NumberField);
+ComponentRegistery.Register("String", "string", null, StringField);
+ComponentRegistery.Register("Date", null, "date", DateField);
+ComponentRegistery.Register("DateTime", null, "date-time", DateTimeField);
+ComponentRegistery.Register("Time", null, "time", TimeField);
+ComponentRegistery.Register("Integer", "integer", null, IntegerField);
+ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
 
 
-ComponentRegistery.Register("UpEntity", null, "entityKey", UpEntity, true);
-ComponentRegistery.Register("UpEnum", null, "enum", UpEnum, true);
-ComponentRegistery.Register("UpUpload", null, "upload", UpUpload, false);
-ComponentRegistery.Register("UpMonth", null, "month", UpMonth, false);
+ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
+ComponentRegistery.Register("Enum", null, "enum", EnumField, true);
+ComponentRegistery.Register("Upload", null, "upload", UploadField, false);
+ComponentRegistery.Register("Month", null, "month", MonthField, false);
