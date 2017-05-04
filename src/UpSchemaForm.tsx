@@ -1,5 +1,5 @@
-﻿/// <reference path="./interfaces/JsonSchema.d.ts"/>
-/// <reference path="./interfaces/UpReactComponent.d.ts"/>
+﻿/// <reference path="./interfaces/JsonSchema.ts"/>
+/// <reference path="./interfaces/UpReactComponent.ts"/>
 
 import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
