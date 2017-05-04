@@ -82,10 +82,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
     render() {
-        return <span>
-            {this.renderField()}
-
-        </span>
+        return this.renderField()
     }
 
 }
