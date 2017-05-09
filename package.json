@@ -12,6 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf lib",
     "prepublish": "npm run clean && npm run build ",
+    "start": "node devServer.js",
     "build": "tsc",
     "publishProd": "npm version patch && npm publish",
     "publishBeta": "npm version patch && npm publish --tag beta"
@@ -35,14 +36,19 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
-    "rimraf": "^2.6.1",
     "css-loader": "^0.28.0",
+    "express": "^4.15.2",
     "file-loader": "^0.11.1",
     "markdown-loader": "^2.0.0",
+    "react-hot-loader": "3.0.0-beta.6",
+    "rimraf": "^2.6.1",
     "style-loader": "^0.16.1",
     "svg-inline-loader": "^0.7.1",
     "ts-loader": "^2.0.3",
     "typescript": "^2.2.2",
-    "webpack": "^2.4.1"
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
   }
 }

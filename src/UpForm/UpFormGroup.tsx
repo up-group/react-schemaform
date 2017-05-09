@@ -14,7 +14,8 @@ export interface UpFormGroupProps {
 
 export default class UpFormGroup extends React.Component<UpFormGroupProps, {}>{
 
-    constructor(p, c) {        super(p, c);
+    constructor(p, c) {
+        super(p, c);
     }
 
     componentDidMount() {
@@ -22,7 +23,7 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}>{
     }
 
     render() {
-        return <UpBox >
+        return <div>
             <UpLabel text={this.props.title} >
                 {this.props.description != null ?
                     <a data-toggle="tooltip" data-placement="bottom" data-html="true" title={this.props.description}>
@@ -33,7 +34,9 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}>{
 
                 <span style={{ color: "red" }}  >{this.props.isRequired ? " *" : ""}</span>
             </UpLabel>
-            {this.props.children}        </UpBox>    }
+            {this.props.children}
+        </div>
+    }
 
     onerror = () => {
         console.log("error change")
