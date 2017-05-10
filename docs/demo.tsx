@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm"
-import { UpThemeProvider, UpThemeInterface, UpDefaultTheme, UpSwitch } from "@up-group/react-controls"
+import { UpThemeProvider, UpThemeInterface, UpSwitch } from "@up-group/react-controls"
 
 interface DemoState {
     result: string;
@@ -10,9 +10,8 @@ interface DemoState {
     showError: boolean;
 }
 
-var theme: UpThemeInterface = UpDefaultTheme;
+var theme :any= { };
 
-theme.colorMap.warning = "orange";
 
 class Demo extends React.Component<{}, DemoState> {
     constructor(p, c) {

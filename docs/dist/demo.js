@@ -76495,10 +76495,7 @@ var React = __webpack_require__(0);
 var ReactDOM = __webpack_require__(25);
 var UpSchemaForm_1 = __webpack_require__(305);
 var react_controls_1 = __webpack_require__(18);
-var theme = {
-    colorMap: react_controls_1.UpColorMap
-};
-theme.colorMap.warning = "orange";
+var theme = {};
 var Demo = (function (_super) {
     __extends(Demo, _super);
     function Demo(p, c) {
@@ -76967,10 +76964,14 @@ var react_controls_1 = __webpack_require__(18);
 var EntityField = (function (_super) {
     __extends(EntityField, _super);
     function EntityField(p, c) {
-        return _super.call(this, p, c) || this;
+        var _this = _super.call(this, p, c) || this;
+        _this.onChange = function (cleandata, event, error) {
+            _this.handleChangeEventGlobal(cleandata !== undefined && cleandata[_this.schema.entitySource.id] !== undefined ? cleandata[_this.schema.entitySource.id] : cleandata, event, error);
+        };
+        return _this;
     }
     EntityField.prototype.renderField = function () {
-        return React.createElement(react_controls_1.UpSelect, { showError: this.props.showError, default: null, isRequired: this.props.isRequired, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.handleChangeEventGlobal, dataSource: this.schema.entitySource });
+        return React.createElement(react_controls_1.UpSelect, { showError: this.props.showError, default: null, isRequired: this.props.isRequired, multiple: this.isArray, placeholder: "Recherche", allowClear: !this.props.isRequired, onChange: this.onChange, dataSource: this.schema.entitySource });
     };
     Object.defineProperty(EntityField.prototype, "schema", {
         get: function () {
@@ -77370,7 +77371,7 @@ var UpFormGroup = (function (_super) {
     UpFormGroup.prototype.componentDidMount = function () {
     };
     UpFormGroup.prototype.render = function () {
-        return React.createElement(react_controls_1.UpBox, null,
+        return React.createElement("div", null,
             React.createElement(react_controls_1.UpLabel, { text: this.props.title },
                 this.props.description != null ?
                     React.createElement("a", { "data-toggle": "tooltip", "data-placement": "bottom", "data-html": "true", title: this.props.description },
