@@ -33,7 +33,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
             multiple={this.isArray}
             placeholder="Recherche"
             allowClear={!this.props.isRequired}
-            onChange={this.handleChangeEventGlobal}
+            onChange={this.onChange}
             dataSource={this.schema.entitySource}
         />
         //    onError={this.props.onError}
@@ -45,6 +45,12 @@ export default class EntityField<Type> extends UpFormControl<Type> {
     //    }
     //    return value === null || value === undefined || value === "" || value === "00000000-0000-0000-0000-000000000000";
     //}
+
+
+    private onChange = (cleandata, event?, error?) => {
+        this.handleChangeEventGlobal(cleandata !== undefined && cleandata[this.schema.entitySource.id] !== undefined ? cleandata[this.schema.entitySource.id] : cleandata, event, error)
+    }
+
 
     private get schema(): JsonSchema {
         return this.props.schema.items || this.props.schema
