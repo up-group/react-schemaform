@@ -33,7 +33,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
         var isArray = false;
 
         var parameters = this.props.node.split(".");
-        if (parameters.length != 0) {
+        if (parameters.length !== 0 && this.props.node !== "") {
             var parameter = this.findGetParameter(parameters[parameters.length - 1]);
             if (parameter != null) {
                 this.props.schema.default = parameter;
