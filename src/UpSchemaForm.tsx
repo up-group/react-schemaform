@@ -30,7 +30,8 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     }
 
     render() {
-        if (this.props.schema.type === undefined) {
+     
+        if (this.props.schema == null || this.props.schema.type == null) {
             return (
                 <div className="panel panel-default">
                     <div className="panel-heading">
