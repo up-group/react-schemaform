@@ -26,6 +26,10 @@
     }
 
     static flat(data: JsonSchema, originalDefinitions: { [index: string]: JsonSchema }, flattenedDefinitions: { [index: string]: JsonSchema }): JsonSchema {
+        if (originalDefinitions == undefined) {
+            return data;
+        }
+
         for (var index in data) {
 
             if (index === "definitions" || data.hasOwnProperty(index) == false) {
