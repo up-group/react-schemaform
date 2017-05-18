@@ -10,7 +10,7 @@ interface DemoState {
     showError: boolean;
 }
 
-var theme :any= { };
+var theme: any = {};
 
 
 class Demo extends React.Component<{}, DemoState> {
@@ -46,6 +46,14 @@ class Demo extends React.Component<{}, DemoState> {
                 },
                 id: "DateTime"
             },
+
+            {
+                data: { "title": "number", "type": "object", "properties": { "int1": { "title": "int", "type": "integer", "default": 0 }, "int2": { "title": "intR", "type": "integer", "default": 0 }, "int3": { "title": "int10-25", "type": "integer", "default": 0, "minimum": 10, "maximum": 25 }, "int4": { "title": "int def 10", "type": "integer", "default": 10 }, "dec1": { "title": "decimal", "type": "number", "default": 0 } }, "required": ["int2"] }
+                ,
+                id: "aaaaa"
+            },
+
+
             {
                 data: {
                     "title": "Required",
@@ -353,6 +361,7 @@ class Demo extends React.Component<{}, DemoState> {
     }
 
     onFormPayload = (e, hasError: boolean) => {
+        console.log(e, hasError);
         this.setState({ result: JSON.stringify(e), hasError: hasError });
     }
 

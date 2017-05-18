@@ -6,11 +6,12 @@ import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelecto
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
+import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 
 
 export interface UpSchemaFormProps {
-    schema: JsonSchema;
+    schema: string | JsonSchema;
     onFormPayload: (data: any, hasError: boolean) => void;
     showError: boolean;
 }
@@ -30,8 +31,14 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     }
 
     render() {
-     
-        if (this.props.schema == null || this.props.schema.type == null) {
+        var schema: JsonSchema;
+        if (typeof (this.props.schema) === "string") {
+            schema = JsonSchemaHelper.parseSchema(this.props.schema as string);
+        } else {
+            schema = JsonSchemaHelper.flat(this.props.schema, this.props.schema.definitions, {});
+        }
+
+        if (schema == null || schema.type == null) {
             return (
                 <div className="panel panel-default">
                     <div className="panel-heading">
@@ -45,10 +52,10 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
             );
         }
         return (
-            <UpPanel title={this.props.schema.title}>
+            <UpPanel title={schema.title}>
                 <UpSchemaFormComponentSelector
                     isRequired={false}
-                    schema={this.props.schema}
+                    schema={schema}
                     node={""}
                     onFormChange={this.onFormChange}
                     showError={this.props.showError}

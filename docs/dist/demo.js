@@ -18786,7 +18786,10 @@ var JsonSchemaHelper = (function () {
     function JsonSchemaHelper() {
     }
     JsonSchemaHelper.getBaseType = function (schema) {
-        if (typeof (schema.type) === "string") {
+        if (schema.type == undefined) {
+            return "";
+        }
+        else if (typeof (schema.type) === "string") {
             return schema.type;
         }
         else if (schema.type.indexOf("null") != -1) {
@@ -45712,7 +45715,7 @@ var UpSchemaFormComponentSelector = (function (_super) {
         var isControl = true;
         var isArray = false;
         var parameters = this.props.node.split(".");
-        if (parameters.length != 0) {
+        if (parameters.length !== 0 && this.props.node !== "") {
             var parameter = this.findGetParameter(parameters[parameters.length - 1]);
             if (parameter != null) {
                 this.props.schema.default = parameter;
@@ -45834,6 +45837,7 @@ var React = __webpack_require__(0);
 var UpSchemaFormComponentSelector_1 = __webpack_require__(303);
 var ErrorMemory_1 = __webpack_require__(302);
 var MemoryHelper_1 = __webpack_require__(632);
+var JsonSchemaHelper_1 = __webpack_require__(54);
 var react_controls_1 = __webpack_require__(18);
 var UpSchemaForm = (function (_super) {
     __extends(UpSchemaForm, _super);
@@ -45853,14 +45857,21 @@ var UpSchemaForm = (function (_super) {
     UpSchemaForm.prototype.componentDidMount = function () {
     };
     UpSchemaForm.prototype.render = function () {
-        if (this.props.schema.type === undefined) {
+        var schema;
+        if (typeof (this.props.schema) === "string") {
+            schema = JsonSchemaHelper_1.default.parseSchema(this.props.schema);
+        }
+        else {
+            schema = JsonSchemaHelper_1.default.flat(this.props.schema, this.props.schema.definitions, {});
+        }
+        if (schema == null || schema.type == null) {
             return (React.createElement("div", { className: "panel panel-default" },
                 React.createElement("div", { className: "panel-heading" }),
                 React.createElement("div", { className: "panel-body" }),
                 React.createElement("div", { className: "panel-footer" }, this.props.children)));
         }
-        return (React.createElement(react_controls_1.UpPanel, { title: this.props.schema.title },
-            React.createElement(UpSchemaFormComponentSelector_1.default, { isRequired: false, schema: this.props.schema, node: "", onFormChange: this.onFormChange, showError: this.props.showError }),
+        return (React.createElement(react_controls_1.UpPanel, { title: schema.title },
+            React.createElement(UpSchemaFormComponentSelector_1.default, { isRequired: false, schema: schema, node: "", onFormChange: this.onFormChange, showError: this.props.showError }),
             React.createElement("hr", null),
             this.props.children));
     };
@@ -76506,6 +76517,7 @@ var Demo = (function (_super) {
             _this.setState({ result: "", schema: JSON.parse(e.target.value) });
         };
         _this.onFormPayload = function (e, hasError) {
+            console.log(e, hasError);
             _this.setState({ result: JSON.stringify(e), hasError: hasError });
         };
         _this.selectChange = function (e) {
@@ -76541,6 +76553,10 @@ var Demo = (function (_super) {
                     }
                 },
                 id: "DateTime"
+            },
+            {
+                data: { "title": "number", "type": "object", "properties": { "int1": { "title": "int", "type": "integer", "default": 0 }, "int2": { "title": "intR", "type": "integer", "default": 0 }, "int3": { "title": "int10-25", "type": "integer", "default": 0, "minimum": 10, "maximum": 25 }, "int4": { "title": "int def 10", "type": "integer", "default": 10 }, "dec1": { "title": "decimal", "type": "number", "default": 0 } }, "required": ["int2"] },
+                id: "aaaaa"
             },
             {
                 data: {
