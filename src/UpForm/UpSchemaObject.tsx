@@ -51,4 +51,4 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
             return 24;
         };
         return 12;
-    }    isRequired(prop) {        var required = false;        if (this.props.SchemaArg.required != undefined) {            required = this.props.SchemaArg.required.indexOf(prop) !== -1;        }        if (required === false) {            required = (this.props.SchemaArg.properties[prop].type as TypeOfSchema[]).indexOf("null") === -1 && this.props.SchemaArg.properties[prop].default != null;        }        return required;    }}
+    }    isRequired(prop) {        var required = false;        if (this.props.SchemaArg.required != undefined) {            required = this.props.SchemaArg.required.indexOf(prop) !== -1;        }        return required;    }}
