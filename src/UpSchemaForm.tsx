@@ -32,7 +32,10 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
 
     render() {
         var schema: JsonSchema;
-        if (typeof (this.props.schema) === "string") {
+
+        if (this.props.schema == null) {
+            return <span />
+        } else if (typeof (this.props.schema) === "string") {
             schema = JsonSchemaHelper.parseSchema(this.props.schema as string);
         } else {
             schema = JsonSchemaHelper.flat(this.props.schema, this.props.schema.definitions, {});

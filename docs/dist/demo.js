@@ -10105,6 +10105,9 @@ var JsonSchemaHelper = (function () {
         }
     };
     JsonSchemaHelper.flat = function (data, originalDefinitions, flattenedDefinitions) {
+        if (originalDefinitions == undefined) {
+            return data;
+        }
         for (var index in data) {
             if (index === "definitions" || data.hasOwnProperty(index) == false) {
                 continue;
