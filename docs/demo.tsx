@@ -316,7 +316,6 @@ class Demo extends React.Component<{}, DemoState> {
 
         //   <UpButton fontSize="xlarge">test</UpButton>
         //</UpThemeProvider >
-
         return <UpThemeProvider theme={theme}>
             <div>
                 <select className="form-control" defaultValue="" onChange={this.selectChange} required>

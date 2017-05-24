@@ -21,7 +21,6 @@ module.exports = {
             },
             { test: /\.css$/, loader: 'style-loader!css-loader?url=false' },
             { test: /\.json$/, loader: 'json-loader' },
-            { test: /\.md$/, loader: 'html!markdown-loader' },
             { test: /\.svg$/, loader: 'svg-inline-loader' },
             { test: /\.(eot|ttf|woff|woff2)$/, loader: 'file-loader' }
         ]
