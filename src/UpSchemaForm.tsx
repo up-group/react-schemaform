@@ -21,13 +21,20 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         showError: true
     }
 
-    errorMemory = new ErrorMemory();
+    private errorMemory = new ErrorMemory();
 
     constructor(p, c) {
         super(p, c);
     }
 
     componentDidMount() {
+    }
+
+    componentWillReceiveProps(nextProps: UpSchemaFormProps) {
+        if (nextProps.schema !== this.props.schema) {
+            this.errorMemory = new ErrorMemory();
+            this.setState({});
+        }
     }
 
     render() {
