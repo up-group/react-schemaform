@@ -48,7 +48,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
 
     private onChange = (cleandata, event?, error?) => {
-        this.handleChangeEventGlobal(cleandata !== undefined && cleandata[this.schema.entitySource.id] !== undefined ? cleandata[this.schema.entitySource.id] : cleandata, event, error)
+        this.handleChangeEventGlobal(cleandata != null && cleandata[this.schema.entitySource.id] != null ? cleandata[this.schema.entitySource.id] : cleandata, event, error)
     }
 
 
