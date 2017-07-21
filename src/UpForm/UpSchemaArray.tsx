@@ -78,7 +78,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
         </div >
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         this.AddElement();
     }
 

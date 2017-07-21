@@ -17,10 +17,8 @@ export default class EnumField extends UpFormControl<number> {
     renderField() {
         var options = [];
         for (var i = 0; i < this.schema.enum.length; i++) {
-            if (this.schema.enum[i] == null) {
-                options.push({ id: this.schema.enum[i], text: "null Value" });
-
-            } else {
+            if (this.schema.enum[i] !== null) {
+         
                 options.push({ id: this.schema.enum[i], text: this.schema.enumDescriptions[i] });
             }
         }
@@ -47,7 +45,7 @@ export default class EnumField extends UpFormControl<number> {
     }
 
     private get schema(): JsonSchema {
-        return this.props.schema.items || this.props.schema
+        return (this.props.schema.items as JsonSchema)|| this.props.schema
 
     }
 

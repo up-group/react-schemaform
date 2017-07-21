@@ -53,7 +53,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
 
     private get schema(): JsonSchema {
-        return this.props.schema.items || this.props.schema
+        return (this.props.schema.items as JsonSchema)   || this.props.schema
 
     }
 
