@@ -7,7 +7,7 @@ import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
-import { UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
+import { UpThemeProvider, UpDefaultTheme, UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 
 
 export interface UpSchemaFormProps {
@@ -61,7 +61,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                 </div>
             );
         }
-        return (
+        return (<UpThemeProvider theme={UpDefaultTheme}>
             <UpPanel title={schema.title}>
                 <UpSchemaFormComponentSelector
                     isRequired={false}
@@ -74,42 +74,43 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                 <hr />
                 {this.props.children}
             </UpPanel>
+            </UpThemeProvider >
         );
     }
 
-    //onFormError = (node: string, hasError: boolean) => {
-    //    this.errorMemory.errorOn(node, hasError);
-    //    this.props.onFormEror(this.errorMemory.hasError);
+//onFormError = (node: string, hasError: boolean) => {
+//    this.errorMemory.errorOn(node, hasError);
+//    this.props.onFormEror(this.errorMemory.hasError);
 
-    //}
+//}
 
-    onFormChange = (newValue: any, hasError: boolean, node: string) => {
-        this.errorMemory.errorOn(node, hasError);
+onFormChange = (newValue: any, hasError: boolean, node: string) => {
+    this.errorMemory.errorOn(node, hasError);
 
-        var nodeArray = node.split(".");
-        nodeArray.shift();
+    var nodeArray = node.split(".");
+    nodeArray.shift();
 
-        this.setState(HelperMemory.AssignValue(this.state, nodeArray, newValue), () => {
-            this.updateState();
-        });
+    this.setState(HelperMemory.AssignValue(this.state, nodeArray, newValue), () => {
+        this.updateState();
+    });
 
-    }
+}
 
-    updateState() {
-        this.props.onFormPayload(this.state, this.errorMemory.hasError);
-    }
+updateState() {
+    this.props.onFormPayload(this.state, this.errorMemory.hasError);
+}
 
     private newObject(nodes, value) {
-        var obj = {};
-        var prop = nodes.shift();
-        if (nodes.length == 0) {
-            obj[prop] = value;
-        } else {
-            obj[prop] = this.newObject(nodes, value);
-        }
-        return obj;
-
+    var obj = {};
+    var prop = nodes.shift();
+    if (nodes.length == 0) {
+        obj[prop] = value;
+    } else {
+        obj[prop] = this.newObject(nodes, value);
     }
+    return obj;
+
+}
 
 
 }
