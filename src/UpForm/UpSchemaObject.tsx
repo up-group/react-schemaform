@@ -5,6 +5,7 @@ import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector"
 import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
 
 export interface UpSchemaObjectProps {
+    initData: any;
     withHR: boolean;
     SchemaArg: JsonSchema;
     node: string;
@@ -29,6 +30,7 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
         }
         var elements = properties.map((property, index) => {
             return (<UpCol key={index} span={this.sizeSpan(property)}><UpSchemaFormComponentSelector
+                initData={this.props.initData[propertiesName[index]]}
                 showError={this.props.showError}
                 isRequired={this.isRequired(propertiesName[index])}
                 key={index}

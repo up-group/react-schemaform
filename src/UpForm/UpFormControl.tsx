@@ -9,6 +9,7 @@ export interface baseProp<baseType> {
     isRequired: boolean;
     onChange: (arg: baseType, hasError: boolean) => void;
     showError: boolean;
+    initData:any;
 }
 
 export interface baseState<baseType> {

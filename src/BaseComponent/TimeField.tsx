@@ -9,7 +9,7 @@ export default class TimeField extends UpFormControl<string> {
 
     renderField() {
        
-        return <UpTimePicker 
+        return <UpTimePicker
             //onError = { this.handlErrorEventGlobal }
             onChange={this.handleChangeEventGlobal} hasError={undefined} />
     }
