@@ -331,7 +331,7 @@ class Demo extends React.Component<{}, DemoState> {
                 <UpSwitch isNullable={false} onChange={(data) => { this.setState({ showError: data }); }} />
 
                 <hr />
-                <UpSchemaForm value={{ size: 888 }} showError={this.state.showError} schema={this.state.schema} onFormPayload={this.onFormPayload}>
+                <UpSchemaForm initValue={{ size: 888 }} showError={this.state.showError} schema={this.state.schema} onFormPayload={this.onFormPayload}>
                 </UpSchemaForm>
                 <hr />
                 <div style={{

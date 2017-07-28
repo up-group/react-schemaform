@@ -86640,7 +86640,7 @@ var Demo = (function (_super) {
                 React.createElement("textarea", { value: JSON.stringify(this.state.schema), className: "form-control", cols: 100, rows: 3, onChange: this.onSchemaChange }),
                 React.createElement(react_controls_1.UpSwitch, { isNullable: false, onChange: function (data) { _this.setState({ showError: data }); } }),
                 React.createElement("hr", null),
-                React.createElement(UpSchemaForm_1.default, { value: { size: 888 }, showError: this.state.showError, schema: this.state.schema, onFormPayload: this.onFormPayload }),
+                React.createElement(UpSchemaForm_1.default, { initValue: { size: 888 }, showError: this.state.showError, schema: this.state.schema, onFormPayload: this.onFormPayload }),
                 React.createElement("hr", null),
                 React.createElement("div", { style: {
                         color: this.state.hasError ? "red" : "green",
