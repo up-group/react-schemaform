@@ -19,7 +19,8 @@ export interface UpSchemaFormProps {
 
 export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}> {
     static defaultProps = {
-        showError: true
+        showError: true,
+        initValue: {}
     }
 
     private errorMemory = new ErrorMemory();
@@ -28,6 +29,8 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         super(p, c);
         if (this.props.initValue != null) {
             this.state = this.props.initValue;
+        } else {
+            this.state = {};
         }
     }
 
@@ -39,8 +42,10 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
             this.errorMemory = new ErrorMemory();
             this.setState({});
         }
-        if (nextProps.initValue != this.props.initValue) {
-            this.setState(this.props.initValue);
+        if (nextProps.initValue != null) {
+            this.setState(nextProps.initValue);
+        } else {
+            this.setState({});
         }
     }
 
@@ -71,7 +76,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         return (<UpThemeProvider theme={UpDefaultTheme}>
             <UpPanel title={schema.title}>
                 <UpSchemaFormComponentSelector
-                    initData={this.state}
+                    initData={JSON.parse(JSON.stringify(this.state))}
                     isRequired={false}
                     schema={schema}
                     node={""}
