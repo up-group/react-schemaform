@@ -1,7 +1,7 @@
 ﻿export default class MemoryHelper {
 
     static AssignValue(obj, nodes, value) {
-        var data = obj || {};
+        var data = obj != null ? JSON.parse(JSON.stringify(obj)) : {};
         var prop = nodes.shift();
         if (nodes.length === 0) {
             data[prop] = value;

@@ -9,7 +9,7 @@ export default class BooleanField extends UpFormControl<Boolean>{
     }
 
     renderField() {
-        return <UpSwitch isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
+        return <UpSwitch value={this.props.initData} isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
     }
 
 

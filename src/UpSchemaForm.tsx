@@ -7,10 +7,11 @@ import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import HelperMemory from "./helper/MemoryHelper";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
-import { UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
+import { UpThemeProvider, UpDefaultTheme, UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 
 
 export interface UpSchemaFormProps {
+    initValue?: any;
     schema: string | JsonSchema;
     onFormPayload: (data: any, hasError: boolean) => void;
     showError: boolean;
@@ -18,13 +19,19 @@ export interface UpSchemaFormProps {
 
 export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}> {
     static defaultProps = {
-        showError: true
+        showError: true,
+        initValue: {}
     }
 
     private errorMemory = new ErrorMemory();
 
     constructor(p, c) {
         super(p, c);
+        if (this.props.initValue != null) {
+            this.state = this.props.initValue;
+        } else {
+            this.state = {};
+        }
     }
 
     componentDidMount() {
@@ -33,6 +40,11 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     componentWillReceiveProps(nextProps: UpSchemaFormProps) {
         if (nextProps.schema !== this.props.schema) {
             this.errorMemory = new ErrorMemory();
+            this.setState({});
+        }
+        if (nextProps.initValue != null) {
+            this.setState(nextProps.initValue);
+        } else {
             this.setState({});
         }
     }
@@ -61,9 +73,10 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                 </div>
             );
         }
-        return (
+        return (<UpThemeProvider theme={UpDefaultTheme}>
             <UpPanel title={schema.title}>
                 <UpSchemaFormComponentSelector
+                    initData={JSON.parse(JSON.stringify(this.state))}
                     isRequired={false}
                     schema={schema}
                     node={""}
@@ -74,6 +87,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
                 <hr />
                 {this.props.children}
             </UpPanel>
+        </UpThemeProvider >
         );
     }
 

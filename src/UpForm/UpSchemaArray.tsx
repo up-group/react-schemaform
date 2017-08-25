@@ -39,6 +39,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
             switch (type) {
                 case "object":
                     element = <UpSchemaObject
+                        initData={null}
                         showError={this.props.showError}
                         withHR={index !== 0}
                         isRequired={this.props.isRequired}
@@ -55,7 +56,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                 //        onChange={value.oc} />
                 //    break;
                 default:
-                    element = ComponentRegistery.GetComponentInstance(value.onChange, this.props.isRequired, schema, this.props.showError);
+                    element = ComponentRegistery.GetComponentInstance(value.onChange, this.props.isRequired, schema, this.props.showError,null);
                     break;            }
 
             return <div key={index}  >
