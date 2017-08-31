@@ -30,15 +30,19 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
         }
         var elements = properties.map((property, index) => {
             var value = this.props.initData == null ? undefined : this.props.initData[propertiesName[index]];
-            return (<UpCol key={index} span={this.sizeSpan(property)}><UpSchemaFormComponentSelector
-                initData={value}
-                showError={this.props.showError}
-                isRequired={this.isRequired(propertiesName[index])}
-                key={index}
-                schema={property}
-                node={this.props.node + '.' + propertiesName[index]}
-                onFormChange={this.props.onFormChange}
-            /></UpCol>)
+            return (<UpCol key={index} span={this.sizeSpan(property)}>
+                <div style={{ minHeight: 70, padding: "0 10px" }}>
+                    <UpSchemaFormComponentSelector
+                        initData={value}
+                        showError={this.props.showError}
+                        isRequired={this.isRequired(propertiesName[index])}
+                        key={index}
+                        schema={property}
+                        node={this.props.node + '.' + propertiesName[index]}
+                        onFormChange={this.props.onFormChange}
+                    />
+                </div>
+            </UpCol>)
         });
         return <UpGrid >
             <UpRow gutter={2} >

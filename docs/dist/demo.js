@@ -47049,7 +47049,8 @@ var UpSchemaObject = (function (_super) {
         var elements = properties.map(function (property, index) {
             var value = _this.props.initData == null ? undefined : _this.props.initData[propertiesName[index]];
             return (React.createElement(react_controls_1.UpCol, { key: index, span: _this.sizeSpan(property) },
-                React.createElement(UpSchemaFormComponentSelector_1.default, { initData: value, showError: _this.props.showError, isRequired: _this.isRequired(propertiesName[index]), key: index, schema: property, node: _this.props.node + '.' + propertiesName[index], onFormChange: _this.props.onFormChange })));
+                React.createElement("div", { style: { minHeight: 70, padding: "0 10px" } },
+                    React.createElement(UpSchemaFormComponentSelector_1.default, { initData: value, showError: _this.props.showError, isRequired: _this.isRequired(propertiesName[index]), key: index, schema: property, node: _this.props.node + '.' + propertiesName[index], onFormChange: _this.props.onFormChange }))));
         });
         return React.createElement(react_controls_1.UpGrid, null,
             React.createElement(react_controls_1.UpRow, { gutter: 2 },
@@ -86640,8 +86641,9 @@ var Demo = (function (_super) {
             }
         ];
         var sc = { title: 'MAX / MIN', 'type': 'object', 'properties': { 'size': { 'type': 'number', 'minimum': 5, 'maximum': 10.5 } } };
+        var a = { "title": "RECHERCHE D'ARTICLES", "type": "object", "properties": { "LieuStockId": { "title": "Lieu de stock", "entitySource": { "id": "Id", "name": "LieuStock", "text": "{Nom}", "query": "/AtHome/api/domain/LieuStock/LieuStockSearchQuery", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "PatientId": { "title": "Patient", "entitySource": { "id": "Id", "name": "Patient", "text": "{Prenom} - {Nom}", "query": "/AtHome/api/domain/Patient/PatientSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "LotSerie": { "title": "Lot/S�rie", "type": ["string", "null"], "default": null }, "ProduitIds": { "title": "Produit", "type": ["array", "null"], "default": null, "items": { "title": "Produit", "entitySource": { "id": "Id", "name": "Produit", "text": "{Nom}", "query": "/AtHome/api/domain/Produit/ProduitSearchQuery", "queryParameterName": "args" }, "type": "string", "format": "entityKey" } }, "SortieDuStock": { "title": "Sortie du stock", "type": ["boolean", "null"], "default": null }, "LocalisationState": { "title": "Etat", "enumNames": [null, "Disponible", "SelectionnePourMouvement", "PretAEtreDeplace", "EnDeplacement"], "enumDescriptions": [null, "Disponible", "S�lectionn� pour un mouvement", "Pr�t � �tre d�plac�", "En d�placement"], "type": ["integer", "null"], "default": null, "format": "enum", "enum": [null, 0, 1, 2, 3] } } };
         if (true) {
-            return React.createElement(UpSchemaForm_1.default, { initValue: this.state.dataS, showError: this.state.showError, schema: sc, onFormPayload: this.onFormPayload });
+            return React.createElement(UpSchemaForm_1.default, { initValue: this.state.dataS, showError: this.state.showError, schema: a, onFormPayload: this.onFormPayload });
         }
         return React.createElement(react_controls_1.UpThemeProvider, { theme: theme },
             React.createElement("div", null,

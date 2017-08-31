@@ -319,10 +319,10 @@ class Demo extends React.Component<{}, DemoState> {
 
         var sc: JsonSchema = { title: 'MAX / MIN', 'type': 'object', 'properties': { 'size': { 'type': 'number', 'minimum': 5, 'maximum': 10.5 } } }
 
-
+        var a: JsonSchema= { "title": "RECHERCHE D'ARTICLES", "type": "object", "properties": { "LieuStockId": { "title": "Lieu de stock", "entitySource": { "id": "Id", "name": "LieuStock", "text": "{Nom}", "query": "/AtHome/api/domain/LieuStock/LieuStockSearchQuery", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "PatientId": { "title": "Patient", "entitySource": { "id": "Id", "name": "Patient", "text": "{Prenom} - {Nom}", "query": "/AtHome/api/domain/Patient/PatientSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "LotSerie": { "title": "Lot/Série", "type": ["string", "null"], "default": null }, "ProduitIds": { "title": "Produit", "type": ["array", "null"], "default": null, "items": { "title": "Produit", "entitySource": { "id": "Id", "name": "Produit", "text": "{Nom}", "query": "/AtHome/api/domain/Produit/ProduitSearchQuery", "queryParameterName": "args" }, "type": "string", "format": "entityKey" } }, "SortieDuStock": { "title": "Sortie du stock", "type": ["boolean", "null"], "default": null }, "LocalisationState": { "title": "Etat", "enumNames": [null, "Disponible", "SelectionnePourMouvement", "PretAEtreDeplace", "EnDeplacement"], "enumDescriptions": [null, "Disponible", "Sélectionné pour un mouvement", "Prêt à être déplacé", "En déplacement"], "type": ["integer", "null"], "default": null, "format": "enum", "enum": [null, 0, 1, 2, 3] } } }
 
         if (1 === 1) {
-            return <UpSchemaForm initValue={this.state.dataS} showError={this.state.showError} schema={sc} onFormPayload={this.onFormPayload}>
+            return <UpSchemaForm initValue={this.state.dataS} showError={this.state.showError} schema={a} onFormPayload={this.onFormPayload}>
             </UpSchemaForm>
         }
 
