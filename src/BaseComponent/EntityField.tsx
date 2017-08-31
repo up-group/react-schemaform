@@ -48,12 +48,18 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
 
     private onChange = (cleandata, event?, error?) => {
-        this.handleChangeEventGlobal(cleandata != null && cleandata[this.schema.entitySource.id] != null ? cleandata[this.schema.entitySource.id] : cleandata, event, error)
+        if (cleandata == null) {
+            this.handleChangeEventGlobal(null, event, error)
+        } else if (this.isArray) {
+            this.handleChangeEventGlobal(cleandata.map((v) => { return v[this.schema.entitySource.id] != null ? v[this.schema.entitySource.id] : v }), event, error)
+        } else {
+            this.handleChangeEventGlobal(cleandata != null && cleandata[this.schema.entitySource.id] != null ? cleandata[this.schema.entitySource.id] : cleandata, event, error)
+        }
     }
 
 
     private get schema(): JsonSchema {
-        return (this.props.schema.items as JsonSchema)   || this.props.schema
+        return (this.props.schema.items as JsonSchema) || this.props.schema
 
     }
 
