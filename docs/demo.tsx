@@ -20,7 +20,6 @@ class Demo extends React.Component<{}, DemoState> {
         super(p, c);
         this.state = {
             nb: 55, result: '', schema: {}, hasError: false, showError: false, dataS: {
-                size: 55,
                 LieuStockId: {
                     id: 1,
                     name : "User 1"
@@ -354,6 +353,34 @@ class Demo extends React.Component<{}, DemoState> {
                     "default":null,
                     
                     "format": "entityKey"
+                },
+                "aaaaaaaa": {
+                    "title": "aaaaaaaaaa",
+                    "entitySource": {
+                        id: "id",
+                        name: "Inventaire",
+                        text: "{name}",
+                        query: "https://jsonplaceholder.typicode.com/users",//"http://localhost:9510/api/domain/Inventaire/IInventaireSearchQuery",
+                        queryParameterName: "args"
+                    },
+                    "type": ["string", "null"],
+                    "default": null,
+
+                    "format": "entityKey"
+                },
+                "vbbbbbb": {
+                    "title": "bbbbbbb",
+                    "entitySource": {
+                        id: "id",
+                        name: "Inventaire",
+                        text: "{name}",
+                        query: "https://jsonplaceholder.typicode.com/users",//"http://localhost:9510/api/domain/Inventaire/IInventaireSearchQuery",
+                        queryParameterName: "args"
+                    },
+                    "type": ["string", "null"],
+                    "default": null,
+
+                    "format": "entityKey"
                 }
             }
         }
@@ -414,7 +441,7 @@ class Demo extends React.Component<{}, DemoState> {
     }
 
     onFormPayload = (e, hasError: boolean) => {
-        console.log(e);
+        console.log(e)
         this.setState({ dataS: e });
         //this.setState({ result: JSON.stringify(e), hasError: hasError });
     }

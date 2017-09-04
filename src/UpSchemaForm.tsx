@@ -5,7 +5,6 @@ import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
-import HelperMemory from "./helper/MemoryHelper";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { UpThemeProvider, UpDefaultTheme, UpPanel, UpBox, UpGrid } from "@up-group/react-controls";
 
@@ -24,7 +23,6 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     }
 
     private errorMemory = new ErrorMemory();
-
     constructor(p, c) {
         super(p, c);
         if (this.props.initValue != null) {
@@ -103,9 +101,7 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
         var nodeArray = node.split(".");
         nodeArray.shift();
 
-        this.setState(HelperMemory.AssignValue(this.state, nodeArray, newValue), () => {
-            this.updateState();
-        });
+        this.addToQueue(this.state, nodeArray, newValue);
 
     }
 
@@ -126,6 +122,50 @@ export default class UpSchemaForm extends React.Component<UpSchemaFormProps, {}>
     }
 
 
+
+
+    private inQueue = false;
+    private assingDataOrder: { obj: any, nodes: any, value: any }[] = [];
+
+    private AssignValue(obj, nodes, value) {
+        var data = obj != null ? JSON.parse(JSON.stringify(obj)) : {};
+        var prop = nodes.shift();
+        if (nodes.length === 0) {
+            data[prop] = value;
+            return data;
+        } else if (data.hasOwnProperty(prop) && typeof (data[prop]) === "object") {
+            data[prop] = this.AssignValue(data[prop], nodes, value);
+            return data;
+        } else if (data.hasOwnProperty(prop) === false) {
+            data[prop] = {}
+            data[prop] = this.AssignValue(data[prop], nodes, value);
+            return data
+        }
+    }
+
+    addToQueue = (obj, nodes, value) => {
+        this.assingDataOrder.push({ obj: obj, nodes: nodes, value: value });
+        if (this.inQueue === false) {
+            this.checkQueue();
+        }
+    }
+
+    private checkQueue = () => {
+        var a = this.assingDataOrder[0];
+        this.inQueue = true;
+        this.setState(this.AssignValue(a.obj, a.nodes, a.value), () => {
+            this.assingDataOrder.shift();
+            if (this.assingDataOrder.length == 0) {
+                this.updateState()
+                this.inQueue = false;
+            } else {
+                this.assingDataOrder[0].obj = this.state;
+                this.checkQueue();
+            }
+        });
+    }
+
+    
 }
 
 
