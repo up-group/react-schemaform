@@ -18,7 +18,14 @@ var theme: any = {};
 class Demo extends React.Component<{}, DemoState> {
     constructor(p, c) {
         super(p, c);
-        this.state = { nb: 55, result: '', schema: {}, hasError: false, showError: false, dataS: { size: 55} }
+        this.state = {
+            nb: 55, result: '', schema: {}, hasError: false, showError: false, dataS: {
+                size: 55,
+                LieuStockId: {
+                    id: 1,
+                    name : "User 1"
+                }}
+        }
     }
 
     render() {
@@ -318,10 +325,41 @@ class Demo extends React.Component<{}, DemoState> {
 
 
         var sc: JsonSchema = { title: 'MAX / MIN', 'type': 'object', 'properties': { 'size': { 'type': 'number', 'minimum': 5, 'maximum': 10.5 } } }
+        //var a: JsonSchema = {
+        //    "title": "RECHERCHE D'ARTICLES", "type": "object", "properties":
+        //    {
+        //        "LieuStockId": {
+        //            "title": "Lieu de stock",
+        //            "entitySource": { "id": "Id", "name": "LieuStock", "text": "{Nom}", "query": "/AtHome/api/domain/LieuStock/LieuStockSearchQuery", "queryParameterName": "args" },
+        //            "type": ["string", "null"],
+        //            "default": null,
 
-        var a: JsonSchema= { "title": "RECHERCHE D'ARTICLES", "type": "object", "properties": { "LieuStockId": { "title": "Lieu de stock", "entitySource": { "id": "Id", "name": "LieuStock", "text": "{Nom}", "query": "/AtHome/api/domain/LieuStock/LieuStockSearchQuery", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "PatientId": { "title": "Patient", "entitySource": { "id": "Id", "name": "Patient", "text": "{Prenom} - {Nom}", "query": "/AtHome/api/domain/Patient/PatientSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "LotSerie": { "title": "Lot/Série", "type": ["string", "null"], "default": null }, "ProduitIds": { "title": "Produit", "type": ["array", "null"], "default": null, "items": { "title": "Produit", "entitySource": { "id": "Id", "name": "Produit", "text": "{Nom}", "query": "/AtHome/api/domain/Produit/ProduitSearchQuery", "queryParameterName": "args" }, "type": "string", "format": "entityKey" } }, "SortieDuStock": { "title": "Sortie du stock", "type": ["boolean", "null"], "default": null }, "LocalisationState": { "title": "Etat", "enumNames": [null, "Disponible", "SelectionnePourMouvement", "PretAEtreDeplace", "EnDeplacement"], "enumDescriptions": [null, "Disponible", "Sélectionné pour un mouvement", "Prêt à être déplacé", "En déplacement"], "type": ["integer", "null"], "default": null, "format": "enum", "enum": [null, 0, 1, 2, 3] } } }
+        //            "format": "entityKey"
+        //        }, "PatientId": { "title": "Patient", "entitySource": { "id": "Id", "name": "Patient", "text": "{Prenom} - {Nom}", "query": "/AtHome/api/domain/Patient/PatientSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "LotSerie": { "title": "Lot/Série", "type": ["string", "null"], "default": null }, "ProduitIds": { "title": "Produit", "type": ["array", "null"], "default": null, "items": { "title": "Produit", "entitySource": { "id": "Id", "name": "Produit", "text": "{Nom}", "query": "/AtHome/api/domain/Produit/ProduitSearchQuery", "queryParameterName": "args" }, "type": "string", "format": "entityKey" } }, "SortieDuStock": { "title": "Sortie du stock", "type": ["boolean", "null"], "default": null }, "LocalisationState": { "title": "Etat", "enumNames": [null, "Disponible", "SelectionnePourMouvement", "PretAEtreDeplace", "EnDeplacement"], "enumDescriptions": [null, "Disponible", "Sélectionné pour un mouvement", "Prêt à être déplacé", "En déplacement"], "type": ["integer", "null"], "default": null, "format": "enum", "enum": [null, 0, 1, 2, 3] }
+        //    }
+        //}
+        var a: JsonSchema = {
+            "title": "RECHERCHE D'ARTICLES", "type": "object", "properties":
+            {
+                "LieuStockId": {
+                    "title": "Lieu de stock",
+                    "entitySource": {
+                        id: "id",
+                        name: "Inventaire",
+                        text: "{name}",
+                        query: "https://jsonplaceholder.typicode.com/users",//"http://localhost:9510/api/domain/Inventaire/IInventaireSearchQuery",
+                        queryParameterName: "args"
+                    },
+                    "type": ["string", "null"],
+                    "default":null,
+                    
+                    "format": "entityKey"
+                }
+            }
+        }
 
         if (1 === 1) {
+            
             return <UpSchemaForm initValue={this.state.dataS} showError={this.state.showError} schema={a} onFormPayload={this.onFormPayload}>
             </UpSchemaForm>
         }
@@ -376,6 +414,7 @@ class Demo extends React.Component<{}, DemoState> {
     }
 
     onFormPayload = (e, hasError: boolean) => {
+        console.log(e);
         this.setState({ dataS: e });
         //this.setState({ result: JSON.stringify(e), hasError: hasError });
     }

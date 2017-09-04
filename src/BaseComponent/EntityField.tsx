@@ -15,7 +15,8 @@ interface UpEntityExtendProp {
         text: string,
         query: string,
         queryParameterName: string
-    }
+    },
+    value: any
 }
 
 export default class EntityField<Type> extends UpFormControl<Type> {
@@ -24,9 +25,12 @@ export default class EntityField<Type> extends UpFormControl<Type> {
     }
 
     renderField() {
+
         return <UpSelect
             showError={this.props.showError}
             default={null}
+            value={typeof (this.props.initData) == "object" ? this.props.initData : undefined}
+            returnType="keyId"
             //isNullable={this.isNullable}
             isRequired={this.props.isRequired}
             //getFullData={false}
@@ -36,6 +40,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
             onChange={this.onChange}
             dataSource={this.schema.entitySource}
         />
+
         //    onError={this.props.onError}
     }
 
@@ -48,13 +53,15 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
 
     private onChange = (cleandata, event?, error?) => {
+
         if (cleandata == null) {
             this.handleChangeEventGlobal(null, event, error)
         } else if (this.isArray) {
             this.handleChangeEventGlobal(cleandata.map((v) => { return v[this.schema.entitySource.id] != null ? v[this.schema.entitySource.id] : v }), event, error)
         } else {
-            this.handleChangeEventGlobal(cleandata != null && cleandata[this.schema.entitySource.id] != null ? cleandata[this.schema.entitySource.id] : cleandata, event, error)
+            this.handleChangeEventGlobal(cleandata, event, error);
         }
+
     }
 
 
