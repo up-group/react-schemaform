@@ -384,6 +384,7 @@ class Demo extends React.Component<{}, DemoState> {
                 },
                 "ColonnesToDisplay": {
                     "title": "Colonne",
+                    "advanced": true,
                     "type": [
                         "array",
                         "null"

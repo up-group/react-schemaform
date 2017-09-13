@@ -52,5 +52,6 @@ interface JsonSchema {
     fileExtension?: string;
     readonly?: boolean;
     hide?: boolean;
+    advanced?: boolean;
 }
 

@@ -2,7 +2,7 @@
 import * as React from "react";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector"
-import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
+import { UpSvgIcon, UpButton, UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
 
 export interface UpSchemaObjectProps {
     initData: any;
@@ -14,9 +14,16 @@ export interface UpSchemaObjectProps {
     showError: boolean;
 }
 
-export default class UpSchemaObject extends React.Component<UpSchemaObjectProps, {}>  {
+export interface UpSchemaObjectState {
+    showAdvanced: boolean;
+}
+
+export default class UpSchemaObject extends React.Component<UpSchemaObjectProps, UpSchemaObjectState>  {
 
     constructor(p, c) {        super(p, c);
+        this.state = {
+            showAdvanced: false
+        }
     }
 
     render() {
@@ -28,8 +35,11 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                 propertiesName.push(index);
             }
         }
-        var elements = properties.map((property, index) => {
+        var elements = properties.filter((property: JsonSchema) => { return property.advanced !== true }).map((property: JsonSchema, index) => {
             var value = this.props.initData == null ? undefined : this.props.initData[propertiesName[index]];
+            if (property.advanced === true) {
+                return null;
+            }
             return (<UpCol key={index} span={this.sizeSpan(property)}>
                 <div style={{ minHeight: 70, padding: "0 10px" }}>
                     <UpSchemaFormComponentSelector
@@ -44,12 +54,49 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                 </div>
             </UpCol>)
         });
-        return <UpGrid >
+        var elementsAdvanced = properties.filter((property: JsonSchema) => { return property.advanced === true }).map((property: JsonSchema, index) => {
+            var value = this.props.initData == null ? undefined : this.props.initData[propertiesName[index]];
+
+            return (<UpCol key={index} span={this.sizeSpan(property)}>
+                <div style={{ minHeight: 70, padding: "0 10px" }}>
+                    <UpSchemaFormComponentSelector
+                        initData={value}
+                        showError={this.props.showError}
+                        isRequired={this.isRequired(propertiesName[index])}
+                        key={index}
+                        schema={property}
+                        node={this.props.node + '.' + propertiesName[index]}
+                        onFormChange={this.props.onFormChange}
+                    />
+                </div>
+            </UpCol>)
+        });        return <UpGrid >
             <UpRow gutter={2} >
                 {this.props.withHR ? <hr /> : null}
                 {this.props.SchemaArg.title == null || this.props.node === "" ? "" : <h4>{this.props.SchemaArg.title}</h4>}
                 {elements}
+
             </UpRow>
+            {
+                elementsAdvanced != null && elementsAdvanced.length != 0 ?
+                    <UpRow >
+                        <UpRow gutter={2} >
+                            <UpCol key={index} span={24}>
+                                <div style={{ padding: "10px" }}>  <UpButton intent="default" onClick={() => { this.setState({ showAdvanced: !this.state.showAdvanced }) }} >
+                                    <span style={{ float: "left" }}> + de critères</span>
+                                    <UpSvgIcon iconName={this.state.showAdvanced === true ? "caret-up" : "caret-down"} />
+                                </UpButton>
+                                </div>
+                            </UpCol>
+                        </UpRow>
+                        <UpRow gutter={0} >
+                            {this.state.showAdvanced === true ? elementsAdvanced : null}
+                        </UpRow>
+                    </UpRow>
+                    : null
+            }
+
+
         </UpGrid>
 
     }
