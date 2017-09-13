@@ -381,7 +381,47 @@ class Demo extends React.Component<{}, DemoState> {
                     "default": null,
 
                     "format": "entityKey"
-                }
+                },
+                "ColonnesToDisplay": {
+                    "title": "Colonne",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "default": null,
+                    "items": {
+                        "title": "Colonne",
+                        "enumNames": [
+                            "Marque",
+                            "Categorie",
+                            "Conservation",
+                            "TypeProduit",
+                            "DenominationCommune",
+                            "MedicamentStatut",
+                            "Quantite"
+                        ],
+                        "enumDescriptions": [
+                            "Marque",
+                            "Catégorie",
+                            "Conservation",
+                            "Type de produits",
+                            "Dénomination commune",
+                            "Statut du médicament",
+                            "Quantité"
+                        ],
+                        "type": "integer",
+                        "format": "enum",
+                        "enum": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6
+                        ]
+                    }
+                },
             }
         }
 
