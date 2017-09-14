@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import UpSchemaForm from '../src/UpSchemaForm'
 import { UpNumber, UpThemeProvider, UpThemeInterface, UpSwitch } from '@up-group/react-controls'
@@ -334,97 +334,12 @@ class Demo extends React.Component<{}, DemoState> {
         //            "default": null,
 
         //            "format": "entityKey"
-        //        }, "PatientId": { "title": "Patient", "entitySource": { "id": "Id", "name": "Patient", "text": "{Prenom} - {Nom}", "query": "/AtHome/api/domain/Patient/PatientSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "LotSerie": { "title": "Lot/S�rie", "type": ["string", "null"], "default": null }, "ProduitIds": { "title": "Produit", "type": ["array", "null"], "default": null, "items": { "title": "Produit", "entitySource": { "id": "Id", "name": "Produit", "text": "{Nom}", "query": "/AtHome/api/domain/Produit/ProduitSearchQuery", "queryParameterName": "args" }, "type": "string", "format": "entityKey" } }, "SortieDuStock": { "title": "Sortie du stock", "type": ["boolean", "null"], "default": null }, "LocalisationState": { "title": "Etat", "enumNames": [null, "Disponible", "SelectionnePourMouvement", "PretAEtreDeplace", "EnDeplacement"], "enumDescriptions": [null, "Disponible", "S�lectionn� pour un mouvement", "Pr�t � �tre d�plac�", "En d�placement"], "type": ["integer", "null"], "default": null, "format": "enum", "enum": [null, 0, 1, 2, 3] }
+        //        }, "PatientId": { "title": "Patient", "entitySource": { "id": "Id", "name": "Patient", "text": "{Prenom} - {Nom}", "query": "/AtHome/api/domain/Patient/PatientSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "LotSerie": { "title": "Lot/Série", "type": ["string", "null"], "default": null }, "ProduitIds": { "title": "Produit", "type": ["array", "null"], "default": null, "items": { "title": "Produit", "entitySource": { "id": "Id", "name": "Produit", "text": "{Nom}", "query": "/AtHome/api/domain/Produit/ProduitSearchQuery", "queryParameterName": "args" }, "type": "string", "format": "entityKey" } }, "SortieDuStock": { "title": "Sortie du stock", "type": ["boolean", "null"], "default": null }, "LocalisationState": { "title": "Etat", "enumNames": [null, "Disponible", "SelectionnePourMouvement", "PretAEtreDeplace", "EnDeplacement"], "enumDescriptions": [null, "Disponible", "Sélectionné pour un mouvement", "Prêt à être déplacé", "En déplacement"], "type": ["integer", "null"], "default": null, "format": "enum", "enum": [null, 0, 1, 2, 3] }
         //    }
         //}
-        var a: JsonSchema = {
-            "title": "RECHERCHE D'ARTICLES", "type": "object", "properties":
-            {
-                "LieuStockId": {
-                    "title": "Lieu de stock",
-                    "entitySource": {
-                        id: "id",
-                        name: "Inventaire",
-                        text: "{name}",
-                        query: "https://jsonplaceholder.typicode.com/users",//"http://localhost:9510/api/domain/Inventaire/IInventaireSearchQuery",
-                        queryParameterName: "args"
-                    },
-                    "type": ["string", "null"],
-                    "default":null,
-                    
-                    "format": "entityKey"
-                },
-                "aaaaaaaa": {
-                    "title": "aaaaaaaaaa",
-                    "entitySource": {
-                        id: "id",
-                        name: "Inventaire",
-                        text: "{name}",
-                        query: "https://jsonplaceholder.typicode.com/users",//"http://localhost:9510/api/domain/Inventaire/IInventaireSearchQuery",
-                        queryParameterName: "args"
-                    },
-                    "type": ["string", "null"],
-                    "default": null,
+        var a: JsonSchema = { "type": "object", "properties": { "Reference": { "title": "Référence", "type": ["string", "null"], "default": null }, "Nom": { "title": "Nom", "type": ["string", "null"], "default": null }, "TypeMvt": { "title": "Type", "type": ["array", "null"], "default": null, "items": { "title": "Type", "enumNames": ["Materiel", "Medicament", "Consommable", "KitMateriel", "KitMedicament", "KitConsommable"], "enumDescriptions": ["Matériel", "Médicament", "Consommable", "Kit de matériels", "Kit de médicaments", "Kit de consommables"], "type": "integer", "format": "enum", "enum": [0, 1, 2, 3, 4, 5] } }, "Visible": { "title": "Visible", "type": ["boolean", "null"], "default": null }, "FournisseurId": { "title": "Fournisseur", "advanced": true, "entitySource": { "id": "", "name": "Fournisseur", "text": "{FOURNNOM}", "query": "/api/domain/Fournisseur/FournisseurSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "CategorieId": { "title": "Catégorie", "advanced": true, "entitySource": { "id": "Id", "name": "Categorie", "text": "{Nom}", "query": "/api/domain/Categorie/CategorieSearchQuery", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "DenominationCommuneId": { "title": "Dénomination commune", "advanced": true, "entitySource": { "id": "Id", "name": "DenominationCommune", "text": null, "query": "/api/domain//", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "ConservationId": { "title": "Conservation", "advanced": true, "entitySource": { "id": "Id", "name": "Conservation", "text": null, "query": "/api/domain//", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "MedicamentStatutId": { "title": "Statut", "advanced": true, "entitySource": { "id": "Id", "name": "MedicamentStatut", "text": null, "query": "/api/domain//", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "PrepaHosp": { "title": "Péparation Hospitalière", "advanced": true, "type": "boolean", "default": false }, "LivretTherapeutique": { "title": "Livret thérapeutique", "advanced": true, "type": "boolean", "default": false }, "ColonnesToDisplay": { "title": "Colonne", "advanced": true, "type": ["array", "null"], "default": null, "items": { "title": "Colonne", "advanced": true, "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"], "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"], "type": "integer", "format": "enum", "enum": [0, 1, 2, 3, 4, 5, 6] } }, "Receptionnable": { "title": "Produits réceptionnables", "advanced": true, "type": ["boolean", "null"], "default": null }, "Commandable": { "title": "Produits commandables", "advanced": true, "type": ["boolean", "null"], "default": null } } }
 
-                    "format": "entityKey"
-                },
-                "vbbbbbb": {
-                    "title": "bbbbbbb",
-                    "entitySource": {
-                        id: "id",
-                        name: "Inventaire",
-                        text: "{name}",
-                        query: "https://jsonplaceholder.typicode.com/users",//"http://localhost:9510/api/domain/Inventaire/IInventaireSearchQuery",
-                        queryParameterName: "args"
-                    },
-                    "type": ["string", "null"],
-                    "default": null,
-
-                    "format": "entityKey"
-                },
-                "ColonnesToDisplay": {
-                    "title": "Colonne",
-                    "advanced": true,
-                    "type": [
-                        "array",
-                        "null"
-                    ],
-                    "default": null,
-                    "items": {
-                        "title": "Colonne",
-                        "enumNames": [
-                            "Marque",
-                            "Categorie",
-                            "Conservation",
-                            "TypeProduit",
-                            "DenominationCommune",
-                            "MedicamentStatut",
-                            "Quantite"
-                        ],
-                        "enumDescriptions": [
-                            "Marque",
-                            "Cat�gorie",
-                            "Conservation",
-                            "Type de produits",
-                            "D�nomination commune",
-                            "Statut du m�dicament",
-                            "Quantit�"
-                        ],
-                        "type": "integer",
-                        "format": "enum",
-                        "enum": [
-                            0,
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6
-                        ]
-                    }
-                },
-            }
-        }
+        var b: JsonSchema = { "type": "object", "properties": { "ColonnesToDisplay": { "title": "Colonne", "advanced": false, "type": ["array", "null"], "default": null, "items": { "title": "Colonne", "advanced": false, "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"], "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"], "type": "integer", "format": "enum", "enum": [0, 1, 2, 3, 4, 5, 6] } }} }
 
         if (1 === 1) {
             

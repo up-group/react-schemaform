@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 
-import { UpSwitch } from "@up-group/react-controls";
+import { UpSwitch, UpRadio } from "@up-group/react-controls";
 
 export default class BooleanField extends UpFormControl<Boolean>{
     constructor(p, c) {
@@ -9,11 +9,36 @@ export default class BooleanField extends UpFormControl<Boolean>{
     }
 
     renderField() {
-        return <UpSwitch value={this.props.initData} isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
+
+        if (this.isNullable === false) {
+            return <UpRadio
+                name="modeAdresse"
+                displayMode="horizontal"
+                options={[{ text: "Oui", value: true }, { text: "Non", value: false }]}
+                onChange={this.handleChangeData}
+                defaultValue={false}
+                
+            />
+        } else {
+            return <UpRadio
+                name="modeAdresse"
+                displayMode="horizontal"
+                options={[{ text: "Oui", value: true }, { text: "Non", value: false }, { text: "indifférent", value: "null" }]}
+                onChange={this.handleChangeData}
+                defaultValue={"null"}
+
+            />
+        }
+
+        //return <UpSwitch value={this.props.initData} isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
     }
 
 
-    handleChangeData(args: boolean) {
+    handleChangeData(args: any) {
+        if (args === "null") {
+            return null;
+        }
+
         return {
             hasError: false,
             errorMessage: null,
