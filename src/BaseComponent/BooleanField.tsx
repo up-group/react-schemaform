@@ -23,7 +23,7 @@ export default class BooleanField extends UpFormControl<Boolean>{
             return <UpRadio
                 name="modeAdresse"
                 displayMode="horizontal"
-                options={[{ text: "Oui", value: true }, { text: "Non", value: false }, { text: "indifférent", value: "null" }]}
+                options={[{ text: "Oui", value: true }, { text: "Non", value: false }, { text: "Indifférent", value: "null" }]}
                 onChange={this.handleChangeData}
                 defaultValue={"null"}
 
