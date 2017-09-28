@@ -28,7 +28,7 @@ export default class EnumField extends UpFormControl<number> {
             showError={this.props.showError}
             default={this.schema.default}
             //isNullable={this.isNullable}
-            returnType="keyId"
+            returnType="id"
             isRequired={this.props.isRequired}
             //getFullData={false}
             minimumInputLength={0}

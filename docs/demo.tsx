@@ -22,8 +22,9 @@ class Demo extends React.Component<{}, DemoState> {
             nb: 55, result: '', schema: {}, hasError: false, showError: false, dataS: {
                 LieuStockId: {
                     id: 1,
-                    name : "User 1"
-                }}
+                    name: "User 1"
+                }
+            }
         }
     }
 
@@ -339,12 +340,29 @@ class Demo extends React.Component<{}, DemoState> {
         //}
         var a: JsonSchema = { "type": "object", "properties": { "Reference": { "title": "Référence", "type": ["string", "null"], "default": null }, "Nom": { "title": "Nom", "type": ["string", "null"], "default": null }, "TypeMvt": { "title": "Type", "type": ["array", "null"], "default": null, "items": { "title": "Type", "enumNames": ["Materiel", "Medicament", "Consommable", "KitMateriel", "KitMedicament", "KitConsommable"], "enumDescriptions": ["Matériel", "Médicament", "Consommable", "Kit de matériels", "Kit de médicaments", "Kit de consommables"], "type": "integer", "format": "enum", "enum": [0, 1, 2, 3, 4, 5] } }, "Visible": { "title": "Visible", "type": ["boolean", "null"], "default": null }, "FournisseurId": { "title": "Fournisseur", "advanced": true, "entitySource": { "id": "", "name": "Fournisseur", "text": "{FOURNNOM}", "query": "/api/domain/Fournisseur/FournisseurSearchQuery", "queryParameterName": "args" }, "type": ["number", "null"], "default": null, "format": "entityKey" }, "CategorieId": { "title": "Catégorie", "advanced": true, "entitySource": { "id": "Id", "name": "Categorie", "text": "{Nom}", "query": "/api/domain/Categorie/CategorieSearchQuery", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "DenominationCommuneId": { "title": "Dénomination commune", "advanced": true, "entitySource": { "id": "Id", "name": "DenominationCommune", "text": null, "query": "/api/domain//", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "ConservationId": { "title": "Conservation", "advanced": true, "entitySource": { "id": "Id", "name": "Conservation", "text": null, "query": "/api/domain//", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "MedicamentStatutId": { "title": "Statut", "advanced": true, "entitySource": { "id": "Id", "name": "MedicamentStatut", "text": null, "query": "/api/domain//", "queryParameterName": "args" }, "type": ["string", "null"], "default": null, "format": "entityKey" }, "PrepaHosp": { "title": "Péparation Hospitalière", "advanced": true, "type": "boolean", "default": false }, "LivretTherapeutique": { "title": "Livret thérapeutique", "advanced": true, "type": "boolean", "default": false }, "ColonnesToDisplay": { "title": "Colonne", "advanced": true, "type": ["array", "null"], "default": null, "items": { "title": "Colonne", "advanced": true, "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"], "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"], "type": "integer", "format": "enum", "enum": [0, 1, 2, 3, 4, 5, 6] } }, "Receptionnable": { "title": "Produits réceptionnables", "advanced": true, "type": ["boolean", "null"], "default": null }, "Commandable": { "title": "Produits commandables", "advanced": true, "type": ["boolean", "null"], "default": null } } }
 
-        var b: JsonSchema = { "type": "object", "properties": { "ColonnesToDisplay": { "title": "Colonne", "advanced": false, "type": ["array", "null"], "default": null, "items": { "title": "Colonne", "advanced": false, "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"], "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"], "type": "integer", "format": "enum", "enum": [0, 1, 2, 3, 4, 5, 6] } }} }
+        var b: JsonSchema = {
+            "type": "object", "properties": {
+                "ColonnesToDisplay": {
+
+                    "title": "Colonne",
+                    "advanced": false,
+                    "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"],
+                    "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"],
+                    "type": "integer",
+                    "format": "enum",
+                    "enum": [0, 1, 2, 3, 4, 5, 6]
+
+                }
+            }
+        }
 
         if (1 === 1) {
-            
-            return <UpSchemaForm initValue={this.state.dataS} showError={this.state.showError} schema={a} onFormPayload={this.onFormPayload}>
-            </UpSchemaForm>
+
+            return <div>
+                <UpSchemaForm initValue={this.state.dataS} showError={this.state.showError} schema={b} onFormPayload={this.onFormPayload}>
+                </UpSchemaForm>
+                {JSON.stringify(this.state.dataS)}
+            </div>
         }
 
 
