@@ -14,16 +14,16 @@ export default class BooleanField extends UpFormControl<Boolean>{
             return <UpRadio
                 name="modeAdresse"
                 displayMode="horizontal"
-                options={[{ text: "Oui", value: true }, { text: "Non", value: false }]}
+                options={[{ text: "Oui", value: "true" }, { text: "Non", value: "false" }]}
                 onChange={this.handleChangeData}
-                defaultValue={false}
-                
+                defaultValue={"false"}
+
             />
         } else {
             return <UpRadio
                 name="modeAdresse"
                 displayMode="horizontal"
-                options={[{ text: "Oui", value: true }, { text: "Non", value: false }, { text: "Indifférent", value: "null" }]}
+                options={[{ text: "Oui", value: "true" }, { text: "Non", value: "false" }, { text: "Indifférent", value: "null" }]}
                 onChange={this.handleChangeData}
                 defaultValue={"null"}
 
@@ -34,16 +34,22 @@ export default class BooleanField extends UpFormControl<Boolean>{
     }
 
 
-    handleChangeData(args: any) {
-        if (args === "null") {
-            return null;
+    handleChangeData = (args: any) => {
+        var data;
+        switch (args) {
+            case "null":
+                this.handleChangeEventGlobal(null, null, false);
+                break;
+            case "true":
+                this.handleChangeEventGlobal(true, null, false);
+                break;
+            case "false":
+                this.handleChangeEventGlobal(false, null, false);
+                break;
+            default:
+                this.handleChangeEventGlobal(null, null, false);
         }
 
-        return {
-            hasError: false,
-            errorMessage: null,
-            correctValue: args
-        };
     }
 
 }
