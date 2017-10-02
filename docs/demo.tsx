@@ -425,7 +425,7 @@ class Demo extends React.Component<{}, DemoState> {
                 },
                 LisuS: {
                     "type": ["array", "null"],
-                        "title": "Lieus",
+                    "title": "Lieus",
                     "default": null,
                     "items": {
                         "title": "Lieus",
@@ -439,6 +439,11 @@ class Demo extends React.Component<{}, DemoState> {
                     'title': 'boolean',
                     'type': 'boolean'
                 },
+                'b': { 'type': 'string', 'format': 'date' },
+                'c': {
+                    'title': 'boolean',
+                    'type': ['boolean', "null"]
+                }
             }
         }
 
