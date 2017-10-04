@@ -20,7 +20,7 @@ class Demo extends React.Component<{}, DemoState> {
         super(p, c);
         this.state = {
             nb: 55, result: '', schema: {}, hasError: false, showError: false, dataS: {
-
+                b :new Date()
             }
         }
     }
@@ -435,11 +435,20 @@ class Demo extends React.Component<{}, DemoState> {
                         "format": "entityKey"
                     }
                 },
+                text: {
+                    'title': 'string',
+                    'type': 'string'
+                },
+                nb: {
+                    'title': 'number',
+                    'type': 'number'
+                },
                 'a': {
                     'title': 'boolean',
                     'type': 'boolean'
                 },
                 'b': { 'type': 'string', 'format': 'date' },
+                'ad': { 'type': 'string', 'format': 'date-time' },
                 'c': {
                     'title': 'boolean',
                     'type': ['boolean', "null"]
