@@ -19,8 +19,11 @@ class Demo extends React.Component<{}, DemoState> {
     constructor(p, c) {
         super(p, c);
         this.state = {
-            nb: 55, result: '', schema: {}, hasError: false, showError: false, dataS: {
-                b :new Date()
+            nb: 55, result: '', schema: {}, hasError: false, showError: false,
+            dataS: {
+                b: new Date(),
+                LieuStockId: { id: 5555, name: "test" },
+                ColonnesToDisplay: { id: 8888, text: "bob" }
             }
         }
     }

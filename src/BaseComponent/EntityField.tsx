@@ -29,7 +29,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         return <UpSelect
             showError={this.props.showError}
             default={null}
-            value={this.props.initData !== null && typeof (this.props.initData) === "object" ? this.props.initData : undefined}
+            value={this.state.value}
             returnType="id"
             //isNullable={this.isNullable}
             isRequired={this.props.isRequired}
