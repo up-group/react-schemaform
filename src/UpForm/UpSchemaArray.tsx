@@ -14,6 +14,7 @@ export interface UpSchemaArrayProps {
     isRequired: boolean;
     node: string;
     showError;
+    initData: any;
 }
 
 export interface UpSchemaArrayState {
@@ -30,7 +31,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
         var comp = ComponentRegistery.GetComponentBySchema(schema);
 
         if (comp != null && comp.array === true) {
-            return ComponentRegistery.GetComponentInstanceByKey(comp.key, this.props.onChange, this.props.isRequired, this.props.schema, this.props.showError);
+            return ComponentRegistery.GetComponentInstanceByKey(comp.key, this.props.onChange, this.props.isRequired, this.props.schema, this.props.showError, this.props.initData);
         }
 
         var items = this.state.items.map((value, index, array) => {
@@ -56,7 +57,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                 //        onChange={value.oc} />
                 //    break;
                 default:
-                    element = ComponentRegistery.GetComponentInstance(value.onChange, this.props.isRequired, schema, this.props.showError,null);
+                    element = ComponentRegistery.GetComponentInstance(value.onChange, this.props.isRequired, schema, this.props.showError, null);
                     break;            }
 
             return <div key={index}  >

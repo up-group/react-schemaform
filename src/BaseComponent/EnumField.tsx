@@ -44,14 +44,7 @@ export default class EnumField extends UpFormControl<number> {
     }
 
     private onChange = (cleandata: enumData[] | enumData, event?, error?) => {
-        if (cleandata == null) {
-            this.handleChangeEventGlobal(null, event, error)
-        } else if (this.isArray) {
-            this.handleChangeEventGlobal((cleandata as enumData[]).map((v) => { return v != null && v.id != null ? v.id : v }), event, error)
-        } else {
-            this.handleChangeEventGlobal(cleandata, event, error);
-        }
-
+        this.handleChangeEventGlobal(cleandata, event, error);
     }
 
     private get schema(): JsonSchema {

@@ -23,7 +23,8 @@ class Demo extends React.Component<{}, DemoState> {
             dataS: {
                 b: new Date(),
                 LieuStockId: { id: 5555, name: "test" },
-                ColonnesToDisplay: { id: 8888, text: "bob" }
+                ColonnesToDisplay: { id: 8888, text: "bob" },
+                lieuxS: [{ id: 456, name: "test1" }, { id: 123, name: "test2" }]
             }
         }
     }
@@ -426,7 +427,7 @@ class Demo extends React.Component<{}, DemoState> {
 
                     "format": "entityKey"
                 },
-                LisuS: {
+                lieuxS: {
                     "type": ["array", "null"],
                     "title": "Lieus",
                     "default": null,

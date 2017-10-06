@@ -50,11 +50,11 @@ export default class UpSchemaFormComponentSelector extends React.Component<UpSch
                 isControl = false;
                 break;
             case "array":
-                element = <UpSchemaArray showError={this.props.showError} isRequired={this.props.isRequired} schema={this.props.schema} onChange={this.onElementChange} node={this.props.node} />
+                element = <UpSchemaArray initData={this.props.initData} showError={this.props.showError} isRequired={this.props.isRequired} schema={this.props.schema} onChange={this.onElementChange} node={this.props.node} />
                 isArray = true;
                 break;
             default:
-                element = ComponentRegistery.GetComponentInstance(this.onElementChange, this.props.isRequired, this.props.schema, this.props.showError,this.props.initData);
+                element = ComponentRegistery.GetComponentInstance(this.onElementChange, this.props.isRequired, this.props.schema, this.props.showError, this.props.initData);
                 break;        }
 
 

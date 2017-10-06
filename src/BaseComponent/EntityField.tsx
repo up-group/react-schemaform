@@ -25,7 +25,6 @@ export default class EntityField<Type> extends UpFormControl<Type> {
     }
 
     renderField() {
-
         return <UpSelect
             showError={this.props.showError}
             default={null}
@@ -54,13 +53,8 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
     private onChange = (cleandata, event?, error?) => {
 
-        if (cleandata == null) {
-            this.handleChangeEventGlobal(null, event, error)
-        } else if (this.isArray) {
-            this.handleChangeEventGlobal(cleandata.map((v) => { return v[this.schema.entitySource.id] != null ? v[this.schema.entitySource.id] : v }), event, error)
-        } else {
+      debugger
             this.handleChangeEventGlobal(cleandata, event, error);
-        }
 
     }
 
