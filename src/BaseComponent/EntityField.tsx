@@ -53,7 +53,6 @@ export default class EntityField<Type> extends UpFormControl<Type> {
 
     private onChange = (cleandata, event?, error?) => {
 
-      debugger
             this.handleChangeEventGlobal(cleandata, event, error);
 
     }
