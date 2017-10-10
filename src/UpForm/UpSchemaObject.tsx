@@ -82,10 +82,10 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                     <UpRow >
                         <UpRow gutter={2} >
                             <UpCol key={index} span={24}>
-                                <div style={{ padding: "10px" }}>  <UpButton intent="default" onClick={() => { this.setState({ showAdvanced: !this.state.showAdvanced }) }} >
-                                    <span style={{ float: "left" }}> + de critères</span>
-                                    <UpSvgIcon iconName={this.state.showAdvanced === true ? "caret-up" : "caret-down"} />
-                                </UpButton>
+                                <div style={{ padding: "10px" }}>
+                                    <UpButton iconPosition="right" actionType={this.state.showAdvanced === true ? "caret-up" : "caret-down"} intent="default" onClick={() => { this.setState({ showAdvanced: !this.state.showAdvanced }) }}  >
+                                        + de critères
+                                    </UpButton>
                                 </div>
                             </UpCol>
                         </UpRow>
