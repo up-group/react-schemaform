@@ -24,7 +24,11 @@ class Demo extends React.Component<{}, DemoState> {
                 b: new Date(),
                 LieuStockId: { id: 5555, name: "test" },
                 ColonnesToDisplay: { id: 8888, text: "bob" },
-                lieuxS: [{ id: 456, name: "test1" }, { id: 123, name: "test2" }]
+                lieuxS: [
+                    { id: 456, name: "test1" }
+                    , { id: 123, name: "test2" }
+                ],
+                a: true,
             }
         }
     }
@@ -455,7 +459,8 @@ class Demo extends React.Component<{}, DemoState> {
                 'ad': { 'type': 'string', 'format': 'date-time' },
                 'c': {
                     'title': 'boolean',
-                    'type': ['boolean', "null"]
+                    'type': ['boolean', "null"],
+                    default: true
                 }
             }
         }

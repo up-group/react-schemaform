@@ -15,7 +15,7 @@ export default class BooleanField extends UpFormControl<Boolean>{
                 displayMode="horizontal"
                 options={[{ text: "Oui", value: "true" }, { text: "Non", value: "false" }]}
                 onChange={this.handleChangeData}
-                defaultValue={"false"}
+                defaultValue={this.defaultValue()}
 
             />
         } else {
@@ -24,12 +24,32 @@ export default class BooleanField extends UpFormControl<Boolean>{
                 displayMode="horizontal"
                 options={[{ text: "Oui", value: "true" }, { text: "Non", value: "false" }, { text: "Indifférent", value: "null" }]}
                 onChange={this.handleChangeData}
-                defaultValue={"null"}
+                defaultValue={this.defaultValue()}
             />
         }
 
         //return <UpSwitch value={this.props.initData} isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
     }
+
+    defaultValue = () => {
+        var dafaultValue: any = this.props.initData != undefined ? this.props.initData : this.props.schema.default;
+        if (this.isNullable === false) {
+            if (dafaultValue === true) {
+                return "true";
+            } else {
+                return "false";
+            }
+        } else {
+            if (dafaultValue === false) {
+                return "false";
+            } else if (dafaultValue === true) {
+                return "true";
+            } else {
+                return "null";
+            }
+        }
+    }
+
 
     get randomSting() {
         return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
