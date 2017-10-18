@@ -41,7 +41,7 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                 return null;
             }
             return (<UpCol key={index} span={this.sizeSpan(property)}>
-                <div style={{ minHeight: 70, padding: "0 10px" }}>
+                <div style={{ minHeight: 70, padding: "0 10px", display: property.hide === true ? "none" : "block" }}>
                     <UpSchemaFormComponentSelector
                         initData={value}
                         showError={this.props.showError}
@@ -58,7 +58,7 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
             var value = this.props.initData == null ? undefined : this.props.initData[propertiesName[index]];
 
             return (<UpCol key={index} span={this.sizeSpan(property)}>
-                <div style={{ minHeight: 70, padding: "0 10px" }}>
+                <div style={{ minHeight: 70, padding: "0 10px", display: property.hide === true ? "none" : "block" }}>
                     <UpSchemaFormComponentSelector
                         initData={value}
                         showError={this.props.showError}

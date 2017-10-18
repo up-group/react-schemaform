@@ -460,7 +460,8 @@ class Demo extends React.Component<{}, DemoState> {
                 'c': {
                     'title': 'boolean',
                     'type': ['boolean', "null"],
-                    default: true
+                    default: true,
+                    hide: true
                 }
             }
         }
