@@ -100,7 +100,9 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
         </UpGrid>
 
     }
-    private sizeSpan = (schema: JsonSchema) => {        var type = JsonSchemaHelper.getBaseType(schema);
+    private sizeSpan = (schema: JsonSchema) => {        if (schema.hide === true) {
+            return 0;
+        }        var type = JsonSchemaHelper.getBaseType(schema);
         if (type === "object") {
             return 24;
         };
