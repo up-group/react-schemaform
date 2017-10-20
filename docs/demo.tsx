@@ -457,11 +457,11 @@ class Demo extends React.Component<{}, DemoState> {
                 },
                 'b': { 'type': 'string', 'format': 'date' },
                 'ad': { 'type': 'string', 'format': 'date-time' },
-                'c': {
-                    'title': 'boolean',
+                'caaa': {
+                    'title': 'zzzzzzzzzzzzz',
                     'type': ['boolean', "null"],
                     default: true,
-                    hide: true
+                    advanced: true
                 }
             }
         }

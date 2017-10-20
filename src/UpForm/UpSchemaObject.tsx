@@ -27,50 +27,35 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
     }
 
     render() {
-        var properties = [];
-        var propertiesName = [];
-        for (var index in this.props.SchemaArg.properties) {
-            if (this.props.SchemaArg.properties.hasOwnProperty(index)) {
-                properties.push(this.props.SchemaArg.properties[index]);
-                propertiesName.push(index);
+        var elements = [];        var elementsAdvanced = [];        for (var propertyName in this.props.SchemaArg.properties) {
+            if (this.props.SchemaArg.properties.hasOwnProperty(propertyName)) {
+
+                var property = this.props.SchemaArg.properties[propertyName];
+                var value = this.props.initData == null ? undefined : this.props.initData[propertyName];
+
+                var element = <UpCol key={propertyName} span={this.sizeSpan(property)}>
+                    <div style={{ minHeight: 70, padding: "0 10px", display: property.hide === true ? "none" : "block" }}>
+                        <UpSchemaFormComponentSelector
+                            initData={value}
+                            showError={this.props.showError}
+                            isRequired={this.isRequired(propertyName)}
+                            key={propertyName}
+                            schema={property}
+                            node={this.props.node + '.' + propertyName}
+                            onFormChange={this.props.onFormChange}
+                        />
+                    </div>
+                </UpCol>
+
+                if (property.advanced === true) {
+                    elementsAdvanced.push(element);
+                } else {
+                    elements.push(element);
+                }
             }
         }
-        var elements = properties.filter((property: JsonSchema) => { return property.advanced !== true }).map((property: JsonSchema, index) => {
-            var value = this.props.initData == null ? undefined : this.props.initData[propertiesName[index]];
-            if (property.advanced === true) {
-                return null;
-            }
-            return (<UpCol key={index} span={this.sizeSpan(property)}>
-                <div style={{ minHeight: 70, padding: "0 10px", display: property.hide === true ? "none" : "block" }}>
-                    <UpSchemaFormComponentSelector
-                        initData={value}
-                        showError={this.props.showError}
-                        isRequired={this.isRequired(propertiesName[index])}
-                        key={index}
-                        schema={property}
-                        node={this.props.node + '.' + propertiesName[index]}
-                        onFormChange={this.props.onFormChange}
-                    />
-                </div>
-            </UpCol>)
-        });
-        var elementsAdvanced = properties.filter((property: JsonSchema) => { return property.advanced === true }).map((property: JsonSchema, index) => {
-            var value = this.props.initData == null ? undefined : this.props.initData[propertiesName[index]];
 
-            return (<UpCol key={index} span={this.sizeSpan(property)}>
-                <div style={{ minHeight: 70, padding: "0 10px", display: property.hide === true ? "none" : "block" }}>
-                    <UpSchemaFormComponentSelector
-                        initData={value}
-                        showError={this.props.showError}
-                        isRequired={this.isRequired(propertiesName[index])}
-                        key={index}
-                        schema={property}
-                        node={this.props.node + '.' + propertiesName[index]}
-                        onFormChange={this.props.onFormChange}
-                    />
-                </div>
-            </UpCol>)
-        });        return <UpGrid >
+        return <UpGrid >
             <UpRow gutter={2} >
                 {this.props.withHR ? <hr /> : null}
                 {this.props.SchemaArg.title == null || this.props.node === "" ? "" : <h4>{this.props.SchemaArg.title}</h4>}
@@ -81,7 +66,7 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                 elementsAdvanced != null && elementsAdvanced.length != 0 ?
                     <UpRow >
                         <UpRow gutter={2} >
-                            <UpCol key={index} span={24}>
+                            <UpCol span={24}>
                                 <div style={{ padding: "10px" }}>
                                     <UpButton iconPosition="right" actionType={this.state.showAdvanced === true ? "caret-up" : "caret-down"} intent="default" onClick={() => { this.setState({ showAdvanced: !this.state.showAdvanced }) }}  >
                                         + de critères
@@ -90,16 +75,15 @@ export default class UpSchemaObject extends React.Component<UpSchemaObjectProps,
                             </UpCol>
                         </UpRow>
                         <UpRow gutter={0} >
-                            {this.state.showAdvanced === true ? elementsAdvanced : null}
+                            <div style={{ display: this.state.showAdvanced === true ? "block" : "none" }}>
+                                {elementsAdvanced}
+                            </div>
                         </UpRow>
                     </UpRow>
                     : null
             }
-
-
         </UpGrid>
-
-    }
+    }
     private sizeSpan = (schema: JsonSchema) => {        if (schema.hide === true) {
             return 0;
         }        var type = JsonSchemaHelper.getBaseType(schema);
