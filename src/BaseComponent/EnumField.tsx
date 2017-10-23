@@ -7,6 +7,7 @@ interface UpEnumExtendProp {
     enumDescriptions: String[];
     multiple: boolean;
 }
+type enumData = { id: any, text: string };
 
 export default class EnumField extends UpFormControl<number> {
 
@@ -18,15 +19,17 @@ export default class EnumField extends UpFormControl<number> {
         var options = [];
         for (var i = 0; i < this.schema.enum.length; i++) {
             if (this.schema.enum[i] !== null) {
-         
+
                 options.push({ id: this.schema.enum[i], text: this.schema.enumDescriptions[i] });
             }
         }
 
         return <UpSelect
+            value={this.state.value}
             showError={this.props.showError}
             default={this.schema.default}
             //isNullable={this.isNullable}
+            returnType="id"
             isRequired={this.props.isRequired}
             //getFullData={false}
             minimumInputLength={0}
@@ -40,12 +43,12 @@ export default class EnumField extends UpFormControl<number> {
 
     }
 
-    private onChange = (cleandata: { id: any, text: string }, event?, error?) => {
-        this.handleChangeEventGlobal(cleandata ? cleandata.id : null, event, error)
+    private onChange = (cleandata: enumData[] | enumData, event?, error?) => {
+        this.handleChangeEventGlobal(cleandata, event, error);
     }
 
     private get schema(): JsonSchema {
-        return (this.props.schema.items as JsonSchema)|| this.props.schema
+        return (this.props.schema.items as JsonSchema) || this.props.schema
 
     }
 

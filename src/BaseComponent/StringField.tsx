@@ -14,13 +14,13 @@ export default class StringField extends UpFormControl<string> {
 
         switch (this.props.schema.format) {
             case "email":
-                return <UpEmail value={this.props.initData} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
+                return <UpEmail value={this.state.value} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
             case "phone":
-                return <UpPhone value={this.props.initData} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
+                return <UpPhone value={this.state.value} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
             case "multilineText":
-                return <UpText value={this.props.initData} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
+                return <UpText value={this.state.value} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
             default:
-                return <UpInput value={this.props.initData} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
+                return <UpInput value={this.state.value} showError={this.props.showError} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} />;
         }
 
     }

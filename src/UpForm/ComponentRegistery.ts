@@ -69,9 +69,10 @@ export default class ComponentRegistery {
         return comp;
     }
 
-    public static GetComponentInstanceByKey(key: string, onChange: (arg, hasError: boolean) => void, isRequired: boolean, schema: JsonSchema, showError: boolean) {
+    public static GetComponentInstanceByKey(key: string, onChange: (arg, hasError: boolean) => void, isRequired: boolean, schema: JsonSchema, showError: boolean, initData: any) {
         var comp = this.GetComponentByKey(key);
         var props = {
+            initData: initData,
             showError: showError,
             onChange: onChange,
             isRequired: isRequired,

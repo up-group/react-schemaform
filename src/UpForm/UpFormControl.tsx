@@ -9,7 +9,7 @@ export interface baseProp<baseType> {
     isRequired: boolean;
     onChange: (arg: baseType, hasError: boolean) => void;
     showError: boolean;
-    initData:any;
+    initData: any;
 }
 
 export interface baseState<baseType> {
@@ -26,7 +26,7 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     constructor(props?, context?) {
         super(props, context);
         this.state = {
-            value: null
+            value: this.props.initData != undefined ? this.props.initData : this.props.schema.default
         };
         this._ControlErrorCentral = new ControlErrorCentral();
         this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
@@ -49,6 +49,9 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     }
 
     public handleChangeEventGlobal = (cleandata, event?, error?) => {
+
+
+
         this.setState({ value: cleandata }, () => {
             //if (eror === false) {
             //    this.checkFormError()

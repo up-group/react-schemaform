@@ -8,7 +8,8 @@ export default class IntegerField extends UpFormControl<number> {
     }
 
     renderField() {
-        return <UpNumber value={this.props.initData} showError={this.props.showError} decimalPlace={0} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
+
+        return <UpNumber value={this.state.value} showError={this.props.showError} decimalPlace={0} isRequired={this.props.isRequired} onChange={this.handleChangeEventGlobal} max={this.props.schema.maximum} min={this.props.schema.minimum} />
     }
 
 }
