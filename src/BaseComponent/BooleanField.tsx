@@ -9,14 +9,15 @@ export default class BooleanField extends UpFormControl<Boolean>{
     }
 
     renderField() {
+        debugger
         if (this.isNullable === false) {
             return <UpRadio
                 name={this.randomSting}
                 displayMode="horizontal"
                 options={[{ text: "Oui", value: "true" }, { text: "Non", value: "false" }]}
                 onChange={this.handleChangeData}
-                defaultValue={this.defaultValue()}
-
+                defaultValue={this.convert(this.default(false))}
+                value={this.convert(this.state.value)}
             />
         } else {
             return <UpRadio
@@ -24,30 +25,30 @@ export default class BooleanField extends UpFormControl<Boolean>{
                 displayMode="horizontal"
                 options={[{ text: "Oui", value: "true" }, { text: "Non", value: "false" }, { text: "Indifférent", value: "null" }]}
                 onChange={this.handleChangeData}
-                defaultValue={this.defaultValue()}
+                defaultValue={this.convert(this.default(null))}
+                value={this.convert(this.state.value)}
             />
         }
 
-        //return <UpSwitch value={this.props.initData} isNullable={this.isNullable} onChange={this.handleChangeEventGlobal} default={true} />
     }
 
-    defaultValue = () => {
-        var dafaultValue: any = this.props.initData != undefined ? this.props.initData : this.props.schema.default;
+    convert = (value) => {
         if (this.isNullable === false) {
-            if (dafaultValue === true) {
+            if (value === true) {
                 return "true";
-            } else {
+            } else if (value === false) {
                 return "false";
-            }
+            } 
         } else {
-            if (dafaultValue === false) {
+            if (value === false) {
                 return "false";
-            } else if (dafaultValue === true) {
+            } else if (value === true) {
                 return "true";
-            } else {
+            } else if (value === null) {
                 return "null";
-            }
+            } 
         }
+        return undefined;
     }
 
 
