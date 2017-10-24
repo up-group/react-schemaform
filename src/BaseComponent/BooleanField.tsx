@@ -9,7 +9,6 @@ export default class BooleanField extends UpFormControl<Boolean>{
     }
 
     renderField() {
-        debugger
         if (this.isNullable === false) {
             return <UpRadio
                 name={this.randomSting}
@@ -29,7 +28,6 @@ export default class BooleanField extends UpFormControl<Boolean>{
                 value={this.convert(this.state.value)}
             />
         }
-
     }
 
     convert = (value) => {
