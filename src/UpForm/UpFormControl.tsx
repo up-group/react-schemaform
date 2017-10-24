@@ -26,13 +26,17 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     constructor(props?, context?) {
         super(props, context);
         this.state = {
-            value: this.props.initData != undefined ? this.props.initData : this.props.schema.default
+            value: this.props.initData != undefined ? this.props.initData : this.default()
         };
         this._ControlErrorCentral = new ControlErrorCentral();
         this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
     }
 
-
+    componentWillReceiveProps(nextProps) {
+        if (this.state.value != nextProps.initData) {
+            this.setState({ value: nextProps.initData != undefined ? nextProps.initData : this.default() });
+        }  
+    }
     abstract renderField(): JSX.Element;
 
 
@@ -84,6 +88,9 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         return JsonSchemaHelper.isNullable(this.props.schema);
     }
 
+    default = (fallback?: baseType): baseType => {
+        return this.props.schema.default !== undefined ? this.props.schema.default : fallback;
+    }
 
     render() {
         return this.renderField()
