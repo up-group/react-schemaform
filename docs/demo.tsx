@@ -1,4 +1,5 @@
 ﻿import * as React from 'react';
+import * as update from 'react-addons-update'
 import * as ReactDOM from 'react-dom';
 import UpSchemaForm from '../src/UpSchemaForm'
 import { UpNumber, UpThemeProvider, UpThemeInterface, UpSwitch } from '@up-group/react-controls'
@@ -21,18 +22,31 @@ class Demo extends React.Component<{}, DemoState> {
         this.state = {
             nb: 55, result: '', schema: {}, hasError: false, showError: false,
             dataS: {
-                b: new Date(),
-                LieuStockId: { id: 5555, name: "test" },
-                ColonnesToDisplay: { id: 8888, text: "bob" },
-                lieuxS: [
-                    { id: 456, name: "test1" }
-                    , { id: 123, name: "test2" }
-                ],
-                a: true,
+                //b: new Date(),
+                //LieuStockId: { id: 5555, name: "test" },
+                //ColonnesToDisplay: { id: 8888, text: "bob" },
+                //lieuxS: [
+                //    { id: 456, name: "test1" }
+                //    , { id: 123, name: "test2" }
+                //],
+                //a: true,
             }
         }
     }
 
+
+    test = () => {
+        const daa = this.state.dataS;
+        daa.aaaaa = !daa.aaaaa;
+        this.forceUpdate();
+
+    }
+    test2 = () => {
+        const daa = this.state.dataS;
+        daa.aaaaa = undefined;
+        this.forceUpdate();
+
+    }
     render() {
         var schemas: { id: string, data: JsonSchema }[] = [
             {
@@ -412,56 +426,61 @@ class Demo extends React.Component<{}, DemoState> {
 
         var b: JsonSchema = {
             "type": "object", "properties": {
-                "ColonnesToDisplay": {
+                //"ColonnesToDisplay": {
 
-                    "title": "Colonne",
-                    "advanced": false,
-                    "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"],
-                    "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"],
-                    "type": "integer",
-                    "format": "enum",
-                    "enum": [0, 1, 2, 3, 4, 5, 6]
+                //    "title": "Colonne",
+                //    "advanced": false,
+                //    "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"],
+                //    "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"],
+                //    "type": "integer",
+                //    "format": "enum",
+                //    "enum": [0, 1, 2, 3, 4, 5, 6]
 
-                },
-                "LieuStockId": {
-                    "title": "Lieu de stock",
-                    "entitySource": { "id": "id", "name": "LieuStock", "text": "{name}", "query": "https://jsonplaceholder.typicode.com/users", "queryParameterName": "args" },
-                    "type": ["string", "null"],
-                    "default": null,
+                //},
+                //"LieuStockId": {
+                //    "title": "Lieu de stock",
+                //    "entitySource": { "id": "id", "name": "LieuStock", "text": "{name}", "query": "https://jsonplaceholder.typicode.com/users", "queryParameterName": "args" },
+                //    "type": ["string", "null"],
+                //    "default": null,
 
-                    "format": "entityKey"
-                },
-                lieuxS: {
-                    "type": ["array", "null"],
-                    "title": "Lieus",
-                    "default": null,
-                    "items": {
-                        "title": "Lieus",
-                        "entitySource": { "id": "id", "name": "LieuStock", "text": "{name}", "query": "https://jsonplaceholder.typicode.com/users", "queryParameterName": "args" },
-                        "type": ["string", "null"],
-                        "default": null,
-                        "format": "entityKey"
-                    }
-                },
-                text: {
-                    'title': 'string',
-                    'type': 'string'
-                },
-                nb: {
-                    'title': 'number',
-                    'type': 'number'
-                },
-                'a': {
-                    'title': 'boolean',
-                    'type': 'boolean'
-                },
-                'b': { 'type': 'string', 'format': 'date' },
-                'ad': { 'type': 'string', 'format': 'date-time' },
+                //    "format": "entityKey"
+                //},
+                //lieuxS: {
+                //    "type": ["array", "null"],
+                //    "title": "Lieus",
+                //    "default": null,
+                //    "items": {
+                //        "title": "Lieus",
+                //        "entitySource": { "id": "id", "name": "LieuStock", "text": "{name}", "query": "https://jsonplaceholder.typicode.com/users", "queryParameterName": "args" },
+                //        "type": ["string", "null"],
+                //        "default": null,
+                //        "format": "entityKey"
+                //    }
+                //},
+                //text: {
+                //    'title': 'string',
+                //    'type': 'string'
+                //},
+                //nb: {
+                //    'title': 'number',
+                //    'type': 'number'
+                //},
+                //'a': {
+                //    'title': 'boolean',
+                //    'type': 'boolean'
+                //},
+                //'b': { 'type': 'string', 'format': 'date' },
+                //'ad': { 'type': 'string', 'format': 'date-time' },
                 'caaa': {
                     'title': 'zzzzzzzzzzzzz',
-                    'type': ['boolean', "null"],
-                    default: true,
-                    advanced: true
+                    'type': 'number',
+                    default: 10
+                },
+
+                'aaaaa': {
+                    'title': 'zzzzzzzzzzzzz',
+                    'type': 'boolean',
+                    default: true
                 }
             }
         }
@@ -471,6 +490,8 @@ class Demo extends React.Component<{}, DemoState> {
             return <div>
                 <UpSchemaForm initValue={this.state.dataS} showError={this.state.showError} schema={b} onFormPayload={this.onFormPayload}>
                 </UpSchemaForm>
+                <button onClick={this.test} >123</button>
+                <button onClick={this.test2}>456</button>
                 {JSON.stringify(this.state.dataS)}
             </div>
         }
