@@ -426,17 +426,7 @@ class Demo extends React.Component<{}, DemoState> {
 
         var b: JsonSchema = {
             "type": "object", "properties": {
-                //"ColonnesToDisplay": {
 
-                //    "title": "Colonne",
-                //    "advanced": false,
-                //    "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"],
-                //    "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"],
-                //    "type": "integer",
-                //    "format": "enum",
-                //    "enum": [0, 1, 2, 3, 4, 5, 6]
-
-                //},
                 //"LieuStockId": {
                 //    "title": "Lieu de stock",
                 //    "entitySource": { "id": "id", "name": "LieuStock", "text": "{name}", "query": "https://jsonplaceholder.typicode.com/users", "queryParameterName": "args" },
@@ -481,7 +471,17 @@ class Demo extends React.Component<{}, DemoState> {
                     'title': 'zzzzzzzzzzzzz',
                     'type': 'boolean',
                     default: true
-                }
+                },
+
+                "enum": {
+                    "title": "Colonne",
+                    "enumNames": ["Marque", "Categorie", "Conservation", "TypeProduit", "DenominationCommune", "MedicamentStatut", "Quantite"],
+                    "enumDescriptions": ["Marque", "Catégorie", "Conservation", "Type de produits", "Dénomination commune", "Statut du médicament", "Quantité"],
+                    "type": "integer",
+                    "format": "enum",
+                    "enum": [0, 1, 2, 3, 4, 5, 6]
+
+                },
             }
         }
 
