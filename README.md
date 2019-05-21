@@ -2,13 +2,12 @@
  
  ## Instalation
 
-
  ``` javascript
  npm install @up-group/up-react-schemaform
  ```
 
 
- Ce projet a été testé et fonctionne avec l'usilisation de [WebPack](https://webpack.github.io/docs/)
+ Ce projet a Ã©tÃ© testÃ© et fonctionne avec l'usilisation de [WebPack](https://webpack.github.io/docs/)
 
  Exemple de webpack.config.js:
   ``` javascript
@@ -38,14 +37,14 @@ Les composants de ce projet provienne de [react-controls](https://github.com/Up-
 
  ## Projet
 
- Ce projet a pour objectif la génération automatique d'un formulaire à partir d'un JsonSchema. 
+ Ce projet a pour objectif la gÃ©nÃ©ration automatique d'un formulaire Ã  partir d'un JsonSchema. 
 
- Site de référence :
+ Site de rÃ©fÃ©rence :
 
 - [Guide spacetelescope](https://spacetelescope.github.io/understanding-json-schema/)
 - [json-schema.org](http://json-schema.org/)
 
-  Il est a noté que si dans les grandes lignes les normes officiels du JsonSchema sont respecté, elles ont été adaptées pour répondre à nos besoin.
+  Il est a notÃ© que si dans les grandes lignes les normes officiels du JsonSchema sont respectÃ©, elles ont Ã©tÃ© adaptÃ©es pour rÃ©pondre Ã  nos besoin.
 
 ## demo
 
@@ -109,14 +108,14 @@ Disponible avec les types `number` et `integer`.
 
 Cette partie ne suis pas les normes de JSONSchema.
 
-Deux champs suplmentaire ont été rajouté :
+Deux champs suplmentaire ont Ã©tÃ© rajoutÃ© :
 - `enumNames`
 - `enumDescriptions` 
 
 Ainsi que le format :
 - `enum`
 
-Ce fonctionnement est orirenté specifiquement pour la génèration de formulaire.
+Ce fonctionnement est orirentÃ© specifiquement pour la gÃ©nÃ¨ration de formulaire.
 
 
 ```javascript
@@ -134,11 +133,11 @@ Ce fonctionnement est orirenté specifiquement pour la génèration de formulaire.
 Nouveau format `entityKey`
 
 Nouveau propiete de JsonSchema: `entitySource` qui contient : 
-- `id` : nom de la propriété qui sera renvoyé.
-- `name` : nom de l’agrégat
-- `text` : nom à afficher à l’utilisateur
-- `query` : url de l’api de recherche
-- `queryParameterName` : nom de l’argument
+- `id` : nom de la propriÃ©tÃ© qui sera renvoyÃ©.
+- `name` : nom de lâ€™agrÃ©gat
+- `text` : nom Ã  afficher Ã  lâ€™utilisateur
+- `query` : url de lâ€™api de recherche
+- `queryParameterName` : nom de lâ€™argument
 
 ``` javascript
 {
@@ -158,10 +157,10 @@ Nouveau propiete de JsonSchema: `entitySource` qui contient :
 
 ### Upload
 
-Gestion d’upload de fichier, permet d’envoyer un fichier transformé en byte array.
+Gestion dâ€™upload de fichier, permet dâ€™envoyer un fichier transformÃ© en byte array.
 
 Nouveau format `upload`
-Nouvelle propiété JsonSchema `fileExtension`
+Nouvelle propiÃ©tÃ© JsonSchema `fileExtension`
 
 ```javascript
 {

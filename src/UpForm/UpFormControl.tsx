@@ -4,18 +4,16 @@ import TypeNullControl from "../ControlError/TypeNullControl";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
 
-
 export interface baseProp<baseType> {
     schema: JsonSchema;
     isRequired: boolean;
-    onChange: (arg: baseType) => void;
-    onError: () => void;
+    onChange: (arg: baseType, hasError: boolean) => void;
+    showError: boolean;
+    initData: any;
 }
 
 export interface baseState<baseType> {
     value?: baseType;
-    hasError?: boolean;
-    errorMessage?: string;
 }
 
 export abstract class UpFormControl<baseType> extends React.Component<baseProp<baseType>, baseState<baseType>> {
@@ -25,57 +23,61 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
     _ControlErrorCentral: ControlErrorCentral;
 
 
-    constructor(props?, context?) {        super(props, context);        this.state = {
-            hasError: false,
-            value: null
-        };        this.handleChangeJsEventGlobal = this.handleChangeJsEventGlobal.bind(this);        this._ControlErrorCentral = new ControlErrorCentral();        this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNuallble, this.props.schema.default, this));    }
-    abstract handleChangeJsEvent(args: any): baseType;
-    abstract isEmpty(value: baseType): boolean;
-    abstract setInput(args: baseType);
-    abstract _componentDidMount(): void;
+    constructor(props?, context?) {
+        super(props, context);
+        this.state = {
+            value: this.props.initData != undefined ? this.props.initData : this.default()
+        };
+        this._ControlErrorCentral = new ControlErrorCentral();
+        this._ControlErrorCentral.addControl(new TypeNullControl(this.props.isRequired, this.isNullable, this.props.schema.default, this));
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.value != nextProps.initData) {
+            this.setState({ value: nextProps.initData != undefined ? nextProps.initData : this.default() });
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (shallowEqual(this.state.value, nextState.value) === true) {
+            return false;
+        }      
+        return true
+    }
+
+
     abstract renderField(): JSX.Element;
 
 
-    public handleChangeJsEventGlobal(event) {
-        var cleandata = this.handleChangeJsEvent(event);
-        this.handleChangeEventGlobal(cleandata);
+    public checkFormError() {
+        //var errorCheck = this._ControlErrorCentral.isValidValue(this.state.value);
+        //if (errorCheck.hasError == true) {
+        //    this.props.onError(true)
+        //    //if (this.InputBaseControl != null) {
+        //    //    this.InputBaseControl.setState({ error: errorCheck.errorMessage });
+        //    //}
+        //} else {
+        //    this.props.onError(false)
+        //}
     }
 
-    public handleChangeEventGlobal = (cleandata) => {
-        var result = this._ControlErrorCentral.isValidValue(cleandata);
-        if (result.hasError) {
-            this.setSpecificError(result.errorMessage);
-        } else {
-            this.unSetSpecifiError();
-            this.valueChange(result.correctValue);
-            this.setInput(result.correctValue);
-        }
+    public handleChangeEventGlobal = (cleandata, event?, error?) => {
+
+
+
+        this.setState({ value: cleandata }, () => {
+            //if (eror === false) {
+            //    this.checkFormError()
+
+            //} else {
+            //    this.props.onError(eror);
+            //}
+            this.props.onChange(this.state.value, error);
+        });
     }
 
 
     private valueChange = (value: baseType) => {
-        this.setState({ value: value },
-            () => {
-                this.props.onChange(value);
-            });
-    }
-    setSpecificError = (errorMesssage: string) => {
-
-        this.setState({
-            hasError: true,
-            errorMessage: errorMesssage
-        });
-        this.props.onError();
-    }
-
-    private unSetSpecifiError = () => {
-        if (this.state.hasError == true) {
-            this.setState({
-                hasError: false,
-                errorMessage: null
-            });
-        }
-
     }
 
     isEmptyOrNull(value) {
@@ -91,20 +93,16 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
         return false;
     }
 
-    get isNuallble() {
+    get isNullable() {
         return JsonSchemaHelper.isNullable(this.props.schema);
     }
 
+    default = (fallback?: baseType): baseType => {
+        return this.props.schema.default !== undefined ? this.props.schema.default : fallback;
+    }
 
-    componentDidMount() {        this._componentDidMount();        if (this.props.schema.default !== undefined) {            this.handleChangeEventGlobal(this.props.schema.default);            this.setInput(this.props.schema.default);        } else {            this.handleChangeEventGlobal(null);            this.setInput(null);        }    }    render() {
-        return <span>
-            {this.renderField()}
-            {
-                (this.state.hasError && this.state.errorMessage != null) ?
-                    <span className="text-danger">{this.state.errorMessage}</span>
-                    : null
-            }
-        </span>
+    render() {
+        return this.renderField()
     }
 
 }
@@ -112,4 +110,53 @@ export abstract class UpFormControl<baseType> extends React.Component<baseProp<b
 
 
 
+
+
+
+function is(x, y) {
+    if (x === y) {
+        // Steps 1-5, 7-10
+        // Steps 6.b-6.e: +0 != -0
+        // Added the nonzero y check to make Flow happy, but it is redundant
+        return x !== 0 || y !== 0 || 1 / x === 1 / y;
+    } else {
+        // Step 6.a: NaN == NaN
+        return x !== x && y !== y;
+    }
+}
+
+function shallowEqual(objA, objB) {
+    if (is(objA, objB)) {
+        return true;
+    }
+
+    if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+        return false;
+    }
+
+    var keysA = Object.keys(objA);
+    var keysB = Object.keys(objB);
+
+    if (keysA.length !== keysB.length) {
+        return false;
+    }
+
+    for (var i = 0; i < keysA.length; i++) {
+        if (objA[keysA[i]] && objA[keysA[i]].constructor === Array) {
+            for (var j = 0; j < objA[keysA[i]].lenght; j++) {
+                if (shallowEqual(objA[keysA[i]][j], objA[keysB[i]][j]) === false) {
+                    return false;
+                }
+            }
+        } else if (objB.hasOwnProperty(keysA[i]) && typeof (objA[keysA[i]]) === "object") {
+            if (shallowEqual(objA[keysA[i]], objB[keysA[i]]) == false) {
+                return false;
+            }
+        } else if (!objB.hasOwnProperty(keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+            return false;
+        }
+    }
+
+    return true;
+};
 

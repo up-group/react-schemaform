@@ -1,6 +1,8 @@
 ﻿export default class JsonSchemaHelper {
     static getBaseType(schema: JsonSchema): string {
-        if (typeof (schema.type) === "string") {
+        if (schema.type == undefined){
+            return "";
+        } else if (typeof (schema.type) === "string") {
             return schema.type as string;
         } else if (schema.type.indexOf("null") != -1) {
             return schema.type[0];
@@ -8,7 +10,7 @@
     };
 
     static isNullable(schema: JsonSchema): boolean {
-        return schema.type.indexOf("null") != -1;
+        return (schema.type as TypeOfSchema[]).indexOf("null") != -1;
     }
 
 
@@ -24,6 +26,10 @@
     }
 
     static flat(data: JsonSchema, originalDefinitions: { [index: string]: JsonSchema }, flattenedDefinitions: { [index: string]: JsonSchema }): JsonSchema {
+        if (originalDefinitions == undefined) {
+            return data;
+        }
+
         for (var index in data) {
 
             if (index === "definitions" || data.hasOwnProperty(index) == false) {

@@ -1,15 +1,21 @@
 {
-  "name": "@up-group/up-react-schemaform",
-  "version": "0.0.5",
+  "name": "@up-group/react-schemaform",
+  "version": "0.0.72",
   "description": "",
-  "main": "./src/UpSchemaForm.js",
-  "types": "./src/UpSchemaForm.tsx",
+  "main": "lib/src/UpSchemaForm.js",
+  "types": "lib/src/UpSchemaForm.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GuillaumeDumo/React-SchemaForm.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf lib",
+    "prepublish": "npm run clean && npm run build ",
+    "start": "node devServer.js",
+    "build": "tsc",
+    "publishProd": "npm version patch && npm publish",
+    "publishBeta": "npm version patch && npm publish --tag beta"
   },
   "bugs": {
     "url": "https://github.com/Up-Group/react-schemaform/issues"
@@ -20,10 +26,9 @@
   "dependencies": {
     "@types/bootstrap": "*",
     "@types/jquery": "^2.0.41",
-    "@types/react": "^15.0.21",
+    "@types/react": "^15.6.1",
     "@types/react-dom": "^0.14.23",
-    "@up-group/up-react-controls": "*",
-    "awesome-typescript-loader": "^3.1.2",
+    "@up-group/react-controls": "*",
     "bootstrap3": "^3.3.5",
     "jquery": "^3.2.1",
     "react": "^15.4.2",
@@ -31,7 +36,20 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.0",
+    "express": "^4.15.2",
+    "file-loader": "^0.11.1",
+    "markdown-loader": "^2.0.0",
+    "node-sass": "^4.5.3",
+    "react-hot-loader": "3.0.0-beta.6",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.6",
     "style-loader": "^0.16.1",
-    "typescript": "^2.2.2"
+    "svg-inline-loader": "^0.7.1",
+    "ts-loader": "^2.3.2",
+    "typescript": "^2.2.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.7.0",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
   }
 }
