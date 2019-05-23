@@ -2,7 +2,7 @@
 import * as update from 'react-addons-update'
 import * as ReactDOM from 'react-dom';
 import UpSchemaForm from '../src/UpSchemaForm'
-import { UpNumber, UpThemeProvider, UpThemeInterface, UpSwitch } from '@up-group/react-controls'
+import { UpNumber, UpThemeProvider, UpThemeInterface } from '@up-group/react-controls'
 
 interface DemoState {
     result: string;
@@ -514,7 +514,7 @@ class Demo extends React.Component<{}, DemoState> {
 
                 <textarea value={JSON.stringify(this.state.schema)} className='form-control' cols={100} rows={3} onChange={this.onSchemaChange}></textarea>
 
-                <UpNumber onChange={(data) => { this.setState({ nb: data as number }); }} />
+                <UpNumber onChange={(e, value) => { this.setState({ nb: value as number }); }} />
 
                 <hr />
                 <UpSchemaForm initValue={{ size: this.state.nb }} showError={this.state.showError} schema={this.state.schema} onFormPayload={this.onFormPayload}>
