@@ -10,7 +10,7 @@
   }
 
   static isNullable(schema: JsonSchema): boolean {
-    return (schema.type as TypeOfSchema[]).indexOf("null") != -1;
+    return (schema.type as InternalTypeOfSchema[]).indexOf("null") != -1;
   }
 
   static parseSchema(schema: string): JsonSchema {

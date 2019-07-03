@@ -53,6 +53,8 @@ export default class EnumField extends UpFormControl<number> {
   }
 
   private get isArray() {
-    return (this.props.schema.type as TypeOfSchema[]).indexOf("array") !== -1;
+    return (
+      (this.props.schema.type as InternalTypeOfSchema[]).indexOf("array") !== -1
+    );
   }
 }
