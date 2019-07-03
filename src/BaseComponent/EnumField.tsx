@@ -42,11 +42,10 @@ export default class EnumField extends UpFormControl<number> {
         data={options}
       />
     );
-    //onError={this.props.onError}
   }
 
   private onChange = (e, cleandata: enumData[] | enumData, error?) => {
-    this.handleChangeEventGlobal(cleandata, event, error);
+    this.handleChangeEventGlobal(cleandata, e, error);
   };
 
   private get schema(): JsonSchema {
@@ -56,11 +55,4 @@ export default class EnumField extends UpFormControl<number> {
   private get isArray() {
     return (this.props.schema.type as TypeOfSchema[]).indexOf("array") !== -1;
   }
-
-  //isEmpty(value) {
-  //    if (this.isArray && value != null && value.length === 0) {
-  //        return true;
-  //    }
-  //    return value === null || value === undefined || value === "";
-  //}
 }

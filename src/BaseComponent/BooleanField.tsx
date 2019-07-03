@@ -68,9 +68,9 @@ export default class BooleanField extends UpFormControl<Boolean> {
       .substr(0, 5);
   }
 
-  handleChangeData = (args: any) => {
+  handleChangeData = (e, value: any) => {
     var data;
-    switch (args) {
+    switch (value) {
       case "null":
         this.handleChangeEventGlobal(null, null, false);
         break;

@@ -14,7 +14,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf lib",
     "prepublish": "npm run clean && npm run build ",
-    "start": "node --inspect-brk=18764 devServer.js",
+    "start": "webpack-dev-server --config webpack.config.js --port 1337 --progress --colors",
+    "start:inspect": "webpack-dev-server --config webpack.config.js --port 1337 --progress --colors --inspect-brk=18764",
     "build": "tsc",
     "publishProd": "npm version patch && npm publish",
     "publishBeta": "npm version patch && npm publish --tag beta"
@@ -28,10 +29,16 @@
   "dependencies": {
     "@types/react-dom": "^0.14.23",
     "@up-group/react-controls": "0.1.202",
+    "ajv": "^6.10.0",
     "bootstrap3": "^3.3.5",
+    "brace": "^0.11.1",
+    "formik": "^1.5.7",
     "jquery": "^3.2.1",
+    "jsoneditor": "^5.32.5",
+    "jsoneditor-react": "^1.0.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "react-json-editor-ajrm": "^2.5.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -63,14 +70,18 @@
     "babel-loader": "^8.0.5",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.6.1",
+    "copy-webpack-plugin": "^5.0.3",
     "copyfiles": "^1.2.0",
     "css-loader": "^2.1.0",
     "enzyme": "^2.8.2",
     "enzyme-to-json": "^1.6.0",
     "file-loader": "^3.0.1",
+    "fork-ts-checker-webpack-plugin": "^1.3.4",
+    "html-webpack-plugin": "^3.2.0",
     "jest": "^24.5.0",
     "json-loader": "^0.5.7",
     "markdown-loader": "^4.0.0",
+    "mini-css-extract-plugin": "^0.6.0",
     "node-sass": "^4.11.0",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
@@ -83,6 +94,11 @@
     "typescript": "3.1.6",
     "url-loader": "^1.1.2",
     "webpack": "^4.24.0",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-manifest-plugin": "^2.0.3",
+    "webpack-merge": "^4.1.3",
     "yarn": "^1.12.1"
   }
 }

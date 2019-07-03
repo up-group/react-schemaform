@@ -7,13 +7,14 @@
     "allowJs": false,
     "jsx": "react",
     "removeComments": true,
-    "outDir": "lib",
-    "allowUnreachableCode": false
+    "outDir": "dist",
+    "allowUnreachableCode": false,
+    "resolveJsonModule": true
   },
 
   "exclude": [
     "node_modules/",
-    "lib/",
+    "dist/",
     "docs/lib/"
   ],
 
