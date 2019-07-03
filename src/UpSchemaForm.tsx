@@ -54,7 +54,6 @@ export default class UpSchemaForm extends React.Component<
         {}
       );
     }
-    console.log(schema);
 
     if (schema == null || schema.type == null) {
       return (

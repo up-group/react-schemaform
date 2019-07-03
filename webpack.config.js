@@ -11,10 +11,10 @@ const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
     entry: {
-        demo: "./docs/demo.tsx"
+        demo: devMode ? "./docs/demo.tsx" : "./src/index.tsx"
     },
     output: {
-        filename: "[name].js"
+        filename: devMode ? [name].js : "dist/[name].js"
     },
     devtool: 'inline-source-map',
     resolve: {
