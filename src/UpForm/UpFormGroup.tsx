@@ -1,5 +1,4 @@
 ﻿import * as $ from "jquery";
-import * as bootstrap from "bootstrap";
 import * as React from "react";
 
 import { UpLabel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
