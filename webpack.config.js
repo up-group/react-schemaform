@@ -14,7 +14,7 @@ module.exports = {
         demo: devMode ? "./docs/demo.tsx" : "./src/index.tsx"
     },
     output: {
-        filename: devMode ? [name].js : "dist/[name].js"
+        filename: devMode ? "[name].js" : "dist/[name].js"
     },
     devtool: 'inline-source-map',
     resolve: {
