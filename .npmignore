@@ -1,8 +1,11 @@
 
-.vs/
-docs/
-node_modules/
-resources/
-lib/docs/
+.vscode
+docs
+node_modules
+resources
+lib/docs
 devServer.js
 npm-debug.log
+.gitignore
+tsconfig.json
+webpack*
