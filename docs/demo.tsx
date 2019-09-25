@@ -36,48 +36,18 @@ class Demo extends React.Component<{}, DemoState> {
       schema: {
         type: "object",
         properties: {
-          Reference: {
-            title: "Référence",
-            type: ["string", "null"],
-            default: null
+          Id: {
+            type: "string",
+            default: "00000000-0000-0000-0000-000000000000"
           },
-          Nom: {
-            title: "Nom",
-            type: ["string", "null"],
-            default: null
+          Name: { title: "Nom", type: ["string", "null"], default: null },
+          Date: {
+            title: "Date de création",
+            type: "string",
+            default: "0001-01-01T00:00:00",
+            format: "date-time"
           },
-          TypeMvt: {
-            title: "Type",
-            type: ["array", "null"],
-            default: null,
-            items: {
-              title: "Type",
-              enumNames: [
-                "Materiel",
-                "Medicament",
-                "Consommable",
-                "KitMateriel",
-                "KitMedicament",
-                "KitConsommable"
-              ],
-              enumDescriptions: [
-                "Matériel",
-                "Médicament",
-                "Consommable",
-                "Kit de matériels",
-                "Kit de médicaments",
-                "Kit de consommables"
-              ],
-              type: "integer",
-              format: "enum",
-              enum: [0, 1, 2, 3, 4, 5]
-            }
-          },
-          Visible: {
-            title: "Visible",
-            type: ["boolean", "null"],
-            default: null
-          }
+          IsEnabled: { title: "Actif", type: "boolean", default: false }
         }
       },
       hasError: false,

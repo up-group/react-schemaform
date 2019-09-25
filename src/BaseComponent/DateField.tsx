@@ -4,7 +4,9 @@ import * as ReactDOM from "react-dom";
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpDate } from "@up-group/react-controls";
 
-export default class DateField extends UpFormControl<Date> {
+import { Moment } from "moment";
+
+export default class DateField extends UpFormControl<Moment> {
   inputElementGroup: HTMLDivElement;
   constructor(p, c) {
     super(p, c);

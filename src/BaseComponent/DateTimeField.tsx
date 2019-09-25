@@ -3,7 +3,10 @@ import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpDate, UpTimePicker } from "@up-group/react-controls";
 
-export default class DateTimeField extends UpFormControl<Date> {
+import { Moment } from "moment";
+import * as moment from "moment";
+
+export default class DateTimeField extends UpFormControl<Moment> {
   inputElementGroup: HTMLDivElement;
   constructor(p, c) {
     super(p, c);
@@ -22,7 +25,7 @@ export default class DateTimeField extends UpFormControl<Date> {
 
     return (
       <UpDate
-        value={this.state.value}
+        value={moment(this.state.value)}
         showError={this.props.showError}
         isRequired={this.props.isRequired}
         maxDate={maxDate}
