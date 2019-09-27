@@ -9,6 +9,7 @@ export default class MonthField extends UpFormControl<number> {
   renderField() {
     return (
       <select
+        name={this.props.name}
         className="form-control" /*onChange={this.handleChangeJsEventGlobal}*/
       >
         <option value="-1">--Select Month--</option>

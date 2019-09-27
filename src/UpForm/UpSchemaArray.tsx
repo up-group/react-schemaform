@@ -7,17 +7,19 @@ import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
 
+import { eventFactory } from "@up-group/react-controls";
+
 export interface UpSchemaArrayProps {
   schema: JsonSchema;
-  onChange: (arg: any, hasError: boolean) => void;
+  onChange: (e: React.ChangeEvent<any>, value: any, hasError: boolean) => void;
   isRequired: boolean;
   node: string;
   showError;
-  initData: any;
+  value: any;
 }
 
 export interface UpSchemaArrayState {
-  items: item[];
+  items: Item[];
 }
 
 export default class UpSchemaArray extends React.Component<
@@ -40,24 +42,24 @@ export default class UpSchemaArray extends React.Component<
         this.props.isRequired,
         this.props.schema,
         this.props.showError,
-        this.props.initData
+        this.props.value
       );
     }
 
-    var items = this.state.items.map((value, index, array) => {
+    var items = this.state.items.map((item, index, array) => {
       var type = JsonSchemaHelper.getBaseType(schema);
       var element = null;
       switch (type) {
         case "object":
           element = (
             <UpSchemaObject
-              initData={null}
+              value={null}
               showError={this.props.showError}
               withHR={index !== 0}
               isRequired={this.props.isRequired}
-              SchemaArg={schema}
+              schema={schema}
               node={""}
-              onFormChange={value.onChange}
+              onChange={item.onChange}
             />
           );
           break;
@@ -71,10 +73,11 @@ export default class UpSchemaArray extends React.Component<
         //    break;
         default:
           element = ComponentRegistery.GetComponentInstance(
-            value.onChange,
+            item.onChange,
             this.props.isRequired,
             schema,
             this.props.showError,
+            null,
             null
           );
           break;
@@ -115,7 +118,7 @@ export default class UpSchemaArray extends React.Component<
 
   AddElement = () => {
     var items = this.state.items;
-    items.push(new item(this.onItemChange));
+    items.push(new Item(this.onItemChange));
     this.setState({ items: items });
   };
   RemoveElement = () => {
@@ -133,30 +136,35 @@ export default class UpSchemaArray extends React.Component<
       }
       data.push(this.state.items[i].value);
     }
-    this.props.onChange(data, error);
+    this.props.onChange(eventFactory("", data), data, error);
   };
 }
 
-export class item {
+export class Item {
   value = null;
   errorMemory = new ErrorMemory();
   error = false;
   constructor(public onItemChange) {}
 
-  onChange = (arg, hasError: boolean, t?: string) => {
+  onChange = (
+    e: React.ChangeEvent<any>,
+    value,
+    hasError: boolean,
+    t?: string
+  ) => {
     if (t !== undefined) {
       if (this.value === null) {
         this.value = {};
       }
       this.errorMemory.cleanErrorOn(t);
-      this.value[t.split(".")[1]] = arg;
+      this.value[t.split(".")[1]] = value;
 
       if (this.errorMemory.hasError === false) {
         this.onItemChange();
       }
     } else {
       this.error = hasError;
-      this.value = arg;
+      this.value = value;
       this.onItemChange();
     }
   };

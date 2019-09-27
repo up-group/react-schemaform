@@ -25,6 +25,7 @@ export default class DateField extends UpFormControl<Moment> {
 
     return (
       <UpDate
+        name={this.props.name}
         value={this.state.value}
         showError={this.props.showError}
         isRequired={this.props.isRequired}

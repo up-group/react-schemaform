@@ -10,6 +10,7 @@ export default class IntegerField extends UpFormControl<number> {
   renderField() {
     return (
       <UpNumber
+        name={this.props.name}
         value={this.state.value}
         showError={this.props.showError}
         decimalPlace={0}

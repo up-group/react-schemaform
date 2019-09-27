@@ -1,16 +1,19 @@
 ﻿import * as React from "react";
-import { UpFormControl } from "../UpForm/UpFormControl"
-import { UpFile } from "@up-group/react-controls";
+import { UpFormControl } from "../UpForm/UpFormControl";
+import { UpDropFile } from "@up-group/react-controls";
 
 export default class UploadField extends UpFormControl<number[]> {
+  constructor(p, c) {
+    super(p, c);
+  }
 
-    constructor(p, c) {
-        super(p, c);
-    }
-
-    renderField() {
-        /* onError={this.handlErrorEventGlobal}*/
-        return <UpFile hasError={undefined} onChange={this.handleChangeEventGlobal} fileExtension={this.props.schema.fileExtension} />
-    }
-
+  renderField() {
+    return (
+      <UpDropFile
+        name={this.props.name}
+        onChange={this.handleChangeEventGlobal}
+        allowedExtensions={[this.props.schema.fileExtension]}
+      />
+    );
+  }
 }

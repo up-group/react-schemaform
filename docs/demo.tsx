@@ -5,7 +5,8 @@ import UpSchemaForm from "../src/UpSchemaForm";
 import {
   UpNumber,
   UpThemeProvider,
-  UpThemeInterface
+  UpThemeInterface,
+  UpDefaultTheme
 } from "@up-group/react-controls";
 
 import { JsonEditor as Editor } from "jsoneditor-react";
@@ -24,8 +25,6 @@ interface DemoState {
   nb?: number;
   dataS: any;
 }
-
-var theme: any = {};
 
 class Demo extends React.Component<{}, DemoState> {
   constructor(p, c) {
@@ -58,7 +57,7 @@ class Demo extends React.Component<{}, DemoState> {
 
   render() {
     return (
-      <UpThemeProvider theme={theme}>
+      <UpThemeProvider theme={UpDefaultTheme}>
         <>
           <JSONInput
             id="a_unique_id"
@@ -71,12 +70,11 @@ class Demo extends React.Component<{}, DemoState> {
             height="550px"
             onChange={this.onSchemaChange}
           />
-
           <UpSchemaForm
             initValue={{ size: this.state.nb }}
             showError={this.state.showError}
             schema={this.state.schema}
-            onFormPayload={this.onFormPayload}
+            onFormChange={this.onFormPayload}
           />
         </>
       </UpThemeProvider>
@@ -88,6 +86,7 @@ class Demo extends React.Component<{}, DemoState> {
   onSchemaChange = value => {
     this.setState({ result: "", schema: value.jsObject });
   };
+
   onFormPayload = (e, hasError: boolean) => {
     this.setState({ dataS: e });
   };

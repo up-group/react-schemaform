@@ -12,7 +12,7 @@ export default class BooleanField extends UpFormControl<Boolean> {
     if (this.isNullable === false) {
       return (
         <UpRadio
-          name={this.randomSting}
+          name={this.props.name}
           displayMode="normal"
           alignMode="horizontal"
           options={[
@@ -27,7 +27,7 @@ export default class BooleanField extends UpFormControl<Boolean> {
     } else {
       return (
         <UpRadio
-          name={this.randomSting}
+          name={this.props.name}
           displayMode="normal"
           options={[
             { text: "Oui", value: "true" },
@@ -61,27 +61,20 @@ export default class BooleanField extends UpFormControl<Boolean> {
     return undefined;
   };
 
-  get randomSting() {
-    return Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "")
-      .substr(0, 5);
-  }
-
   handleChangeData = (e, value: any) => {
     var data;
     switch (value) {
       case "null":
-        this.handleChangeEventGlobal(null, null, false);
+        this.handleChangeEventGlobal(e, null, false);
         break;
       case "true":
-        this.handleChangeEventGlobal(true, null, false);
+        this.handleChangeEventGlobal(e, true, false);
         break;
       case "false":
-        this.handleChangeEventGlobal(false, null, false);
+        this.handleChangeEventGlobal(e, false, false);
         break;
       default:
-        this.handleChangeEventGlobal(null, null, false);
+        this.handleChangeEventGlobal(e, null, false);
     }
   };
 }

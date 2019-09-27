@@ -5,10 +5,11 @@ import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
 export interface BaseProp<BaseType> {
   schema: JsonSchema;
+  name: string;
   isRequired: boolean;
   onChange: (e, arg: BaseType, error: string) => void;
   showError: boolean;
-  initData: any;
+  value: any;
 }
 
 export interface BaseState<BaseType> {
@@ -25,8 +26,7 @@ export abstract class UpFormControl<BaseType> extends React.Component<
   constructor(props?, context?) {
     super(props, context);
     this.state = {
-      value:
-        this.props.initData != undefined ? this.props.initData : this.default()
+      value: this.props.value != undefined ? this.props.value : this.default()
     };
     this.controlErrorCentral = new ControlErrorCentral();
     this.controlErrorCentral.addControl(
@@ -40,10 +40,9 @@ export abstract class UpFormControl<BaseType> extends React.Component<
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.value != nextProps.initData) {
+    if (this.state.value != nextProps.value) {
       this.setState({
-        value:
-          nextProps.initData != undefined ? nextProps.initData : this.default()
+        value: nextProps.value != undefined ? nextProps.value : this.default()
       });
     }
   }
@@ -57,7 +56,7 @@ export abstract class UpFormControl<BaseType> extends React.Component<
 
   abstract renderField(): JSX.Element;
 
-  public handleChangeEventGlobal = (cleandata, event?, error?) => {
+  public handleChangeEventGlobal = (event, cleandata, error?) => {
     this.setState({ value: cleandata }, () => {
       this.props.onChange(event, this.state.value, error);
     });

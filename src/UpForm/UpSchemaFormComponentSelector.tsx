@@ -9,10 +9,16 @@ import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
 
 export interface UpSchemaFormComponentSelectorProps {
-  initData: any;
+  value: any;
   schema: JsonSchema;
   node: string;
-  onFormChange: (newValue: any, hasError: boolean, node: string) => void;
+  name?: string;
+  onChange: (
+    e: React.ChangeEvent<any>,
+    newValue: any,
+    hasError: boolean,
+    node: string
+  ) => void;
   isRequired: boolean;
   showError: boolean;
 }
@@ -66,13 +72,13 @@ export default class UpSchemaFormComponentSelector extends React.Component<
       case "object":
         element = (
           <UpSchemaObject
-            initData={this.props.initData}
+            value={this.props.value}
             showError={this.props.showError}
             withHR={this.props.node !== ""}
             isRequired={this.props.isRequired}
-            SchemaArg={this.props.schema}
+            schema={this.props.schema}
             node={this.props.node}
-            onFormChange={this.props.onFormChange}
+            onChange={this.props.onChange}
           />
         );
         isControl = false;
@@ -80,7 +86,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
       case "array":
         element = (
           <UpSchemaArray
-            initData={this.props.initData}
+            value={this.props.value}
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             schema={this.props.schema}
@@ -96,7 +102,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.isRequired,
           this.props.schema,
           this.props.showError,
-          this.props.initData
+          this.props.value,
+          this.props.name
         );
         break;
     }
@@ -126,7 +133,11 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     return element;
   }
 
-  private onElementChange = (arg: any, hasError: boolean) => {
-    this.props.onFormChange(arg, hasError, this.props.node);
+  private onElementChange = (
+    e: React.ChangeEvent<any>,
+    value: any,
+    hasError: boolean
+  ) => {
+    this.props.onChange(e, value, hasError, this.props.node);
   };
 }

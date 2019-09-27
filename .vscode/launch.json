@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "type": "node",
             "request": "attach",
@@ -14,9 +15,9 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "App on 1337",
-            "url": "http://localhost:1337",
-            "webRoot": "${workspaceFolder}/client"
+            "name": "App on 1338",
+            "url": "http://localhost:1338",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

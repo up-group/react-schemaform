@@ -27,6 +27,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
   renderField() {
     return (
       <UpSelect
+        name={this.props.name}
         showError={this.props.showError}
         default={null}
         value={this.state.value}
@@ -35,15 +36,11 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         multiple={this.isArray}
         placeholder="Recherche"
         allowClear={!this.props.isRequired}
-        onChange={this.onChange}
+        onChange={this.handleChangeEventGlobal}
         dataSource={this.schema.entitySource}
       />
     );
   }
-
-  private onChange = (cleandata, event?, error?) => {
-    this.handleChangeEventGlobal(cleandata, event, error);
-  };
 
   private get schema(): JsonSchema {
     return (this.props.schema.items as JsonSchema) || this.props.schema;

@@ -85,15 +85,15 @@ export default class ComponentRegistery {
 
   public static GetComponentInstanceByKey(
     key: string,
-    onChange: (arg, hasError: boolean) => void,
+    onChange: (e: React.ChangeEvent<any>, value, hasError: boolean) => void,
     isRequired: boolean,
     schema: JsonSchema,
     showError: boolean,
-    initData: any
+    value: any
   ) {
     var comp = this.GetComponentByKey(key);
     var props = {
-      initData: initData,
+      value,
       showError: showError,
       onChange: onChange,
       isRequired: isRequired,
@@ -104,16 +104,18 @@ export default class ComponentRegistery {
   }
 
   public static GetComponentInstance(
-    onChange: (arg, hasError: boolean) => void,
+    onChange: (e: React.ChangeEvent<any>, value, hasError: boolean) => void,
     isRequired: boolean,
     schema: JsonSchema,
     showError: boolean,
-    initData: any
+    value: any,
+    name: string
   ) {
     var comp = this.GetComponentBySchema(schema);
 
     var props = {
-      initData: initData,
+      value,
+      name,
       showError: showError,
       onChange: onChange,
       isRequired: isRequired,

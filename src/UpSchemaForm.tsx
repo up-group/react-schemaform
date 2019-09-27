@@ -3,21 +3,15 @@
 
 import * as React from "react";
 import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
-import { UpFormControl } from "./UpForm/UpFormControl";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
-import {
-  UpThemeProvider,
-  UpDefaultTheme,
-  UpPanel,
-  UpBox,
-  UpGrid
-} from "@up-group/react-controls";
+import { UpPanel } from "@up-group/react-controls";
 
 export interface UpSchemaFormProps {
   initValue?: any;
+  value?: any;
   schema: string | JsonSchema;
-  onFormPayload: (data: any, hasError: boolean) => void;
+  onFormChange: (data: any, hasError: boolean) => void;
   showError: boolean;
 }
 
@@ -36,12 +30,12 @@ export default class UpSchemaForm extends React.Component<
     if (this.props.initValue != null) {
       this.state = this.props.initValue;
     } else {
-      this.state = {};
+      this.state = this.props.value || {};
     }
   }
 
   render() {
-    var schema: JsonSchema;
+    let schema: JsonSchema;
 
     if (this.props.schema == null) {
       return <span />;
@@ -65,40 +59,45 @@ export default class UpSchemaForm extends React.Component<
       );
     }
 
+    // Clone the state used as value in order to avoid manipulation by UpSchemaFormComponentSelector
+    const value = JSON.parse(JSON.stringify(this.state));
+
     return (
-      <UpThemeProvider theme={UpDefaultTheme}>
-        <UpPanel title={schema.title}>
-          <UpSchemaFormComponentSelector
-            initData={JSON.parse(JSON.stringify(this.state))}
-            isRequired={false}
-            schema={schema}
-            node={""}
-            onFormChange={this.onFormChange}
-            showError={this.props.showError}
-          />
-          <hr />
-          {this.props.children}
-        </UpPanel>
-      </UpThemeProvider>
+      <UpPanel title={schema.title}>
+        <UpSchemaFormComponentSelector
+          value={value}
+          isRequired={false}
+          schema={schema}
+          node={""}
+          onChange={this.onChange}
+          showError={this.props.showError}
+        />
+        {this.props.children}
+      </UpPanel>
     );
   }
 
-  onFormChange = (newValue: any, hasError: boolean, node: string) => {
+  onChange = (
+    e: React.ChangeEvent<any>,
+    newValue: any,
+    hasError: boolean,
+    node: string
+  ) => {
     this.errorMemory.errorOn(node, hasError);
 
-    var nodeArray = node.split(".");
+    let nodeArray = node.split(".");
     nodeArray.shift();
 
     this.addToQueue(this.state, nodeArray, newValue);
   };
 
   updateState() {
-    this.props.onFormPayload(this.state, this.errorMemory.hasError);
+    this.props.onFormChange(this.state, this.errorMemory.hasError);
   }
 
   private newObject(nodes, value) {
-    var obj = {};
-    var prop = nodes.shift();
+    let obj = {};
+    let prop = nodes.shift();
     if (nodes.length == 0) {
       obj[prop] = value;
     } else {
@@ -111,8 +110,8 @@ export default class UpSchemaForm extends React.Component<
   private assingDataOrder: { obj: any; nodes: any; value: any }[] = [];
 
   private AssignValue(obj, nodes, value) {
-    var data = obj != null ? JSON.parse(JSON.stringify(obj)) : {};
-    var prop = nodes.shift();
+    let data = obj != null ? JSON.parse(JSON.stringify(obj)) : {};
+    let prop = nodes.shift();
     if (nodes.length === 0) {
       data[prop] = value;
       return data;
@@ -127,14 +126,14 @@ export default class UpSchemaForm extends React.Component<
   }
 
   addToQueue = (obj, nodes, value) => {
-    this.assingDataOrder.push({ obj: obj, nodes: nodes, value: value });
+    this.assingDataOrder.push({ obj, nodes, value });
     if (this.inQueue === false) {
       this.checkQueue();
     }
   };
 
   private checkQueue = () => {
-    var a = this.assingDataOrder[0];
+    let a = this.assingDataOrder[0];
     this.inQueue = true;
     this.setState(this.AssignValue(a.obj, a.nodes, a.value), () => {
       this.assingDataOrder.shift();
@@ -175,16 +174,16 @@ function shallowEqual(objA, objB) {
     return false;
   }
 
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
+  let keysA = Object.keys(objA);
+  let keysB = Object.keys(objB);
 
   if (keysA.length !== keysB.length) {
     return false;
   }
 
-  for (var i = 0; i < keysA.length; i++) {
+  for (let i = 0; i < keysA.length; i++) {
     if (objA[keysA[i]] && objA[keysA[i]].constructor === Array) {
-      for (var j = 0; j < objA[keysA[i]].lenght; j++) {
+      for (let j = 0; j < objA[keysA[i]].lenght; j++) {
         if (shallowEqual(objA[keysA[i]][j], objA[keysB[i]][j]) === false) {
           return false;
         }

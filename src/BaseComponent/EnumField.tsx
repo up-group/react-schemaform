@@ -27,6 +27,7 @@ export default class EnumField extends UpFormControl<number> {
 
     return (
       <UpSelect
+        name={this.props.name}
         value={this.state.value}
         showError={this.props.showError}
         default={this.schema.default}
@@ -38,15 +39,11 @@ export default class EnumField extends UpFormControl<number> {
         placeholder="Recherche"
         multiple={this.isArray}
         allowClear={!this.props.isRequired}
-        onChange={this.onChange}
+        onChange={this.handleChangeEventGlobal}
         data={options}
       />
     );
   }
-
-  private onChange = (e, cleandata: enumData[] | enumData, error?) => {
-    this.handleChangeEventGlobal(cleandata, e, error);
-  };
 
   private get schema(): JsonSchema {
     return (this.props.schema.items as JsonSchema) || this.props.schema;

@@ -12,11 +12,16 @@ import {
 } from "@up-group/react-controls";
 
 export interface UpSchemaObjectProps {
-  initData: any;
+  value: any;
   withHR: boolean;
-  SchemaArg: JsonSchema;
+  schema: JsonSchema;
   node: string;
-  onFormChange: (newValue: any, hasError: boolean, node: string) => void;
+  onChange: (
+    e: React.ChangeEvent<any>,
+    newValue: any,
+    hasError: boolean,
+    node: string
+  ) => void;
   isRequired: boolean;
   showError: boolean;
 }
@@ -37,17 +42,15 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
-    var elements = [];
-    var elementsAdvanced = [];
-    for (var propertyName in this.props.SchemaArg.properties) {
-      if (this.props.SchemaArg.properties.hasOwnProperty(propertyName)) {
-        var property = this.props.SchemaArg.properties[propertyName];
-        var value =
-          this.props.initData == null
-            ? undefined
-            : this.props.initData[propertyName];
+    let elements = [];
+    let elementsAdvanced = [];
+    for (let propertyName in this.props.schema.properties) {
+      if (this.props.schema.properties.hasOwnProperty(propertyName)) {
+        let property = this.props.schema.properties[propertyName];
+        let value =
+          this.props.value == null ? null : this.props.value[propertyName];
 
-        var element = (
+        let element = (
           <UpCol key={propertyName} span={this.sizeSpan(property)}>
             <div
               style={{
@@ -57,13 +60,14 @@ export default class UpSchemaObject extends React.Component<
               }}
             >
               <UpSchemaFormComponentSelector
-                initData={value}
+                value={value}
+                name={propertyName}
                 showError={this.props.showError}
                 isRequired={this.isRequired(propertyName)}
                 key={propertyName}
                 schema={property}
                 node={this.props.node + "." + propertyName}
-                onFormChange={this.props.onFormChange}
+                onChange={this.props.onChange}
               />
             </div>
           </UpCol>
@@ -81,10 +85,10 @@ export default class UpSchemaObject extends React.Component<
       <UpGrid>
         <UpRow gutter={2}>
           {this.props.withHR ? <hr /> : null}
-          {this.props.SchemaArg.title == null || this.props.node === "" ? (
+          {this.props.schema.title == null || this.props.node === "" ? (
             ""
           ) : (
-            <h4>{this.props.SchemaArg.title}</h4>
+            <h4>{this.props.schema.title}</h4>
           )}
           {elements}
         </UpRow>
@@ -129,7 +133,7 @@ export default class UpSchemaObject extends React.Component<
     if (schema.hide === true) {
       return 0;
     }
-    var type = JsonSchemaHelper.getBaseType(schema);
+    let type = JsonSchemaHelper.getBaseType(schema);
     if (type === "object") {
       return 24;
     }
@@ -137,9 +141,9 @@ export default class UpSchemaObject extends React.Component<
   };
 
   isRequired(prop) {
-    var required = false;
-    if (this.props.SchemaArg.required != undefined) {
-      required = this.props.SchemaArg.required.indexOf(prop) !== -1;
+    let required = false;
+    if (this.props.schema.required != undefined) {
+      required = this.props.schema.required.indexOf(prop) !== -1;
     }
     return required;
   }
