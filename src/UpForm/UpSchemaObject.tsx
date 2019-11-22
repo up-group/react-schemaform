@@ -83,7 +83,7 @@ export default class UpSchemaObject extends React.Component<
 
     return (
       <UpGrid>
-        <UpRow gutter={2}>
+        <UpRow gutter={3}>
           {this.props.withHR ? <hr /> : null}
           {this.props.schema.title == null || this.props.node === "" ? (
             ""
@@ -93,7 +93,7 @@ export default class UpSchemaObject extends React.Component<
           {elements}
         </UpRow>
         {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
-          <UpRow>
+          <UpRow> 
             <UpRow gutter={2}>
               <UpCol span={24}>
                 <div style={{ padding: "10px" }}>
@@ -134,10 +134,10 @@ export default class UpSchemaObject extends React.Component<
       return 0;
     }
     let type = JsonSchemaHelper.getBaseType(schema);
-    if (type === "object") {
+    if (type === "object" || type === "array") {
       return 24;
     }
-    return 12;
+    return 24;
   };
 
   isRequired(prop) {

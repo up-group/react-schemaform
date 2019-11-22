@@ -33,23 +33,7 @@ class Demo extends React.Component<{}, DemoState> {
     this.state = {
       nb: 55,
       result: "",
-      schema: {
-        type: "object",
-        properties: {
-          Id: {
-            type: "string",
-            default: "00000000-0000-0000-0000-000000000000"
-          },
-          Name: { title: "Nom", type: ["string", "null"], default: null },
-          Date: {
-            title: "Date de création",
-            type: "string",
-            default: "0001-01-01T00:00:00",
-            format: "date-time"
-          },
-          IsEnabled: { title: "Actif", type: "boolean", default: false }
-        }
-      },
+      schema: {},
       hasError: false,
       showError: false,
       dataS: {}
