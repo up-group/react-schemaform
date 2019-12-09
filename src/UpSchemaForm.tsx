@@ -13,12 +13,14 @@ export interface UpSchemaFormProps {
   schema: string | JsonSchema;
   onFormChange: (data: any, hasError: boolean) => void;
   showError: boolean;
+  ignoredProperties?: string[];
+  wrapperClassName?: string;
 }
 
 export default class UpSchemaForm extends React.Component<
   UpSchemaFormProps,
   {}
-> {
+  > {
   static defaultProps = {
     showError: true,
     initValue: {}
@@ -48,7 +50,6 @@ export default class UpSchemaForm extends React.Component<
         {}
       );
     }
-
     if (schema == null || schema.type == null) {
       return (
         <div className="panel panel-default">
@@ -63,7 +64,7 @@ export default class UpSchemaForm extends React.Component<
     const value = JSON.parse(JSON.stringify(this.state));
 
     return (
-      <UpPanel title={schema.title}>
+      <UpPanel title={schema.title} className={this.props.wrapperClassName}>
         <UpSchemaFormComponentSelector
           value={value}
           isRequired={false}
@@ -71,6 +72,7 @@ export default class UpSchemaForm extends React.Component<
           node={""}
           onChange={this.onChange}
           showError={this.props.showError}
+          ignoredProperties={this.props.ignoredProperties}
         />
         {this.props.children}
       </UpPanel>

@@ -138,6 +138,7 @@ import BooleanField from "../BaseComponent/BooleanField";
 import EnumField from "../BaseComponent/EnumField";
 import UploadField from "../BaseComponent/UploadField";
 import MonthField from "../BaseComponent/MonthField";
+import EnumFieldAsFilters from "../BaseComponent/EnumFieldAsFilters";
 
 ComponentRegistery.Register("UpNumber", "number", null, NumberField);
 ComponentRegistery.Register("String", "string", null, StringField);
@@ -148,6 +149,6 @@ ComponentRegistery.Register("Integer", "integer", null, IntegerField);
 ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
 
 ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
-ComponentRegistery.Register("Enum", null, "enum", EnumField, true);
+ComponentRegistery.Register("Enum", null, "enum", EnumFieldAsFilters, true);
 ComponentRegistery.Register("Upload", null, "upload", UploadField, false);
 ComponentRegistery.Register("Month", null, "month", MonthField, false);

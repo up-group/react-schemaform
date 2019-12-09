@@ -24,6 +24,7 @@ export interface UpSchemaObjectProps {
   ) => void;
   isRequired: boolean;
   showError: boolean;
+  ignoredProperties: string[];
 }
 
 export interface UpSchemaObjectState {
@@ -33,7 +34,7 @@ export interface UpSchemaObjectState {
 export default class UpSchemaObject extends React.Component<
   UpSchemaObjectProps,
   UpSchemaObjectState
-> {
+  > {
   constructor(p, c) {
     super(p, c);
     this.state = {
@@ -46,9 +47,9 @@ export default class UpSchemaObject extends React.Component<
     let elementsAdvanced = [];
     for (let propertyName in this.props.schema.properties) {
       if (this.props.schema.properties.hasOwnProperty(propertyName)) {
+        if (this.props.ignoredProperties.indexOf(propertyName) !== -1) continue;
         let property = this.props.schema.properties[propertyName];
-        let value =
-          this.props.value == null ? null : this.props.value[propertyName];
+        let value = this.props.value == null ? null : this.props.value[propertyName];
 
         let element = (
           <UpCol key={propertyName} span={this.sizeSpan(property)}>
@@ -68,6 +69,7 @@ export default class UpSchemaObject extends React.Component<
                 schema={property}
                 node={this.props.node + "." + propertyName}
                 onChange={this.props.onChange}
+                ignoredProperties={this.props.ignoredProperties}
               />
             </div>
           </UpCol>
@@ -88,12 +90,12 @@ export default class UpSchemaObject extends React.Component<
           {this.props.schema.title == null || this.props.node === "" ? (
             ""
           ) : (
-            <h4>{this.props.schema.title}</h4>
-          )}
+              <h4>{this.props.schema.title}</h4>
+            )}
           {elements}
         </UpRow>
         {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
-          <UpRow> 
+          <UpRow>
             <UpRow gutter={2}>
               <UpCol span={24}>
                 <div style={{ padding: "10px" }}>

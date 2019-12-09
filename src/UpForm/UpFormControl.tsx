@@ -9,7 +9,7 @@ export interface BaseProp<BaseType> {
   isRequired: boolean;
   onChange: (e, arg: BaseType, error: string) => void;
   showError: boolean;
-  value: any;
+  value: BaseType;
 }
 
 export interface BaseState<BaseType> {
@@ -48,9 +48,9 @@ export abstract class UpFormControl<BaseType> extends React.Component<
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (shallowEqual(this.state.value, nextState.value) === true) {
-      return false;
-    }
+    // if (shallowEqual(this.state.value, nextState.value) === true) {
+    //   return false;
+    // }
     return true;
   }
 
