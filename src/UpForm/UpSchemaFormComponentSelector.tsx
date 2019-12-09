@@ -2,7 +2,6 @@
 import UpFormGroup from "./UpFormGroup";
 import UpSchemaArray from "./UpSchemaArray";
 import UpSchemaObject from "./UpSchemaObject";
-import { UpFormControl } from "./UpFormControl";
 import ComponentRegistery from "./ComponentRegistery";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
@@ -21,6 +20,7 @@ export interface UpSchemaFormComponentSelectorProps {
   ) => void;
   isRequired: boolean;
   showError: boolean;
+  ignoredProperties? : string[];
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
@@ -79,6 +79,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             schema={this.props.schema}
             node={this.props.node}
             onChange={this.props.onChange}
+            ignoredProperties={this.props.ignoredProperties}
           />
         );
         isControl = false;
@@ -92,6 +93,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             schema={this.props.schema}
             onChange={this.onElementChange}
             node={this.props.node}
+            ignoredProperties={this.props.ignoredProperties}
           />
         );
         isArray = true;

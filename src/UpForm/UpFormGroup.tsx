@@ -16,9 +16,9 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
   }
   
   render() {
-    return (
+    return ( 
       <div>
-        <UpLabel text={this.props.title}>
+        {this.props.title && <UpLabel text={this.props.title}>
           {this.props.description != null ? (
             <a
               data-toggle="tooltip"
@@ -33,7 +33,7 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
           <span style={{ color: "red" }}>
             {this.props.isRequired ? " *" : ""}
           </span>
-        </UpLabel>
+        </UpLabel>}
         {this.props.children}
       </div>
     );

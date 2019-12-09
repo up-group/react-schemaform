@@ -16,6 +16,7 @@ export interface UpSchemaArrayProps {
   node: string;
   showError;
   value: any;
+  ignoredProperties: string[];
 }
 
 export interface UpSchemaArrayState {
@@ -25,7 +26,7 @@ export interface UpSchemaArrayState {
 export default class UpSchemaArray extends React.Component<
   UpSchemaArrayProps,
   UpSchemaArrayState
-> {
+  > {
   constructor(p, c) {
     super(p, c);
     this.state = { items: [] };
@@ -60,6 +61,7 @@ export default class UpSchemaArray extends React.Component<
               schema={schema}
               node={""}
               onChange={item.onChange}
+              ignoredProperties={this.props.ignoredProperties}
             />
           );
           break;
@@ -144,7 +146,7 @@ export class Item {
   value = null;
   errorMemory = new ErrorMemory();
   error = false;
-  constructor(public onItemChange) {}
+  constructor(public onItemChange) { }
 
   onChange = (
     e: React.ChangeEvent<any>,
