@@ -9,6 +9,8 @@ import {
   UpDefaultTheme
 } from "@up-group/react-controls";
 
+import axios, { AxiosResponse } from "axios";
+
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
 
@@ -42,46 +44,47 @@ class Demo extends React.Component<{}, DemoState> {
 
   removeUnSupportedFeatures(argumentsSchema: JsonSchema) {
     for (const key in argumentsSchema.definitions) {
-        if (argumentsSchema.definitions.hasOwnProperty(key)) {
-            const element = argumentsSchema.definitions[key];
-            if (element.format === "date-time")
-                element.format = null
-            this.removeUnSupportedFeatures(element)
-        }
+      if (argumentsSchema.definitions.hasOwnProperty(key)) {
+        const element = argumentsSchema.definitions[key];
+        if (element.format === "date-time") element.format = null;
+        this.removeUnSupportedFeatures(element);
+      }
     }
     for (const key in argumentsSchema.properties) {
-        if (argumentsSchema.properties.hasOwnProperty(key)) {
-            const element = argumentsSchema.properties[key];
-            if (element.type === undefined) {
-                delete argumentsSchema.properties[key];
-            } else {
-                if (element.format === "date-time") element.format = null;
-                argumentsSchema.properties[key].title = key;
-                this.removeUnSupportedFeatures(element);
-            }
+      if (argumentsSchema.properties.hasOwnProperty(key)) {
+        const element = argumentsSchema.properties[key];
+        if (element.type === undefined) {
+          delete argumentsSchema.properties[key];
+        } else {
+          if (element.format === "date-time") element.format = null;
+          argumentsSchema.properties[key].title = key;
+          this.removeUnSupportedFeatures(element);
         }
+      }
     }
   }
 
-componentDidMount(){
-  fetch("http://localhost:5000/api/v2/subscriptiontheme/metadatas/create")
-  .then(response => {
-      if (!response.ok) {
-          throw new Error(response.statusText)
-      }
-      return response.json();
-  })
-  .then(metadata => {
-      if (metadata == null) {
-          return;
-      }
-      var argumentsSchema = JsonSchemaHelper.parseSchema(metadata.argumentsSchema);
-      this.removeUnSupportedFeatures(argumentsSchema)
-      this.setState({
-        schema : argumentsSchema
+  componentDidMount() {
+    fetch("http://localhost:5000/api/v2/subscriptiontheme/metadatas/create")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
       })
-  })
-}
+      .then(metadata => {
+        if (metadata == null) {
+          return;
+        }
+        var argumentsSchema = JsonSchemaHelper.parseSchema(
+          metadata.argumentsSchema
+        );
+        this.removeUnSupportedFeatures(argumentsSchema);
+        this.setState({
+          schema: argumentsSchema
+        });
+      });
+  }
   render() {
     return (
       <UpThemeProvider theme={UpDefaultTheme}>

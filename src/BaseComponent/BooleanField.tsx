@@ -14,6 +14,7 @@ export default class BooleanField extends UpFormControl<Boolean> {
         <UpRadio
           name={this.props.name}
           displayMode="normal"
+          gutter={8}
           alignMode="horizontal"
           options={[
             { text: "Oui", value: "true" },
