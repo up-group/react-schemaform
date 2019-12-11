@@ -14,7 +14,7 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
     const filterStyle = style({
       boxSizing: "border-box", height: "36px", width: "109.16px", border: " 1px solid #979797", borderRadius: "22px", boxShadow: "0 2px 0 0 rgba(0,0,0,0.2)",
       padding: "7px 0", color: "#979797", fontFamily: "Roboto", fontSize: "12px", fontWeight: "bold", textAlign: "center", lineHeight: "16px",
-      cursor: "pointer"
+      cursor: "pointer", margin : "0 10px"
     });
 
     const activeFilterStyle = style({
@@ -23,7 +23,7 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
     });
 
     const wrapperStyle = style({
-      display: "flex", flexDirection: "row", justifyContent: "space-between"
+      display: "flex", flexDirection: "row"
     });
 
     var filters: FilterData[] = [];
