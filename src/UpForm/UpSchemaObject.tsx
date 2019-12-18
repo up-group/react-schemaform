@@ -54,8 +54,9 @@ export default class UpSchemaObject extends React.Component<
     let elementsAdvanced = [];
     for (let propertyName in this.props.schema.properties) {
       if (this.props.schema.properties.hasOwnProperty(propertyName)) {
-        if (this.isIgnored(propertyName)) continue;
         let property = this.props.schema.properties[propertyName];
+        if (this.isIgnored(propertyName) || property.title == null) continue;
+
         let value =
           this.props.value == null ? null : this.props.value[propertyName];
 
