@@ -111,7 +111,7 @@ export default class UpSchemaForm extends React.Component<
   private assingDataOrder: { obj: any; nodes: any; value: any }[] = [];
 
   private AssignValue(obj, nodes, value) {
-    let data = obj != null ? JSON.parse(JSON.stringify(obj)) : {};
+    let data = obj != null ? _.cloneDeep(obj) : {};
     let prop = nodes.shift();
     if (nodes.length === 0) {
       data[prop] = value;
