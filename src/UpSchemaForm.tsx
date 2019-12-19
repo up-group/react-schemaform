@@ -6,6 +6,7 @@ import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelecto
 import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { UpPanel } from "@up-group/react-controls";
+import * as _ from "lodash";
 
 export interface UpSchemaFormProps {
   initValue?: any;
@@ -20,7 +21,7 @@ export interface UpSchemaFormProps {
 export default class UpSchemaForm extends React.Component<
   UpSchemaFormProps,
   {}
-  > {
+> {
   static defaultProps = {
     showError: true,
     initValue: {}
@@ -60,9 +61,7 @@ export default class UpSchemaForm extends React.Component<
       );
     }
 
-    // Clone the state used as value in order to avoid manipulation by UpSchemaFormComponentSelector
-    const value = JSON.parse(JSON.stringify(this.state));
-
+    const value = _.cloneDeep(this.state);
     return (
       <UpPanel title={schema.title} className={this.props.wrapperClassName}>
         <UpSchemaFormComponentSelector

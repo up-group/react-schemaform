@@ -5,7 +5,6 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpDate } from "@up-group/react-controls";
 
 import { Moment } from "moment";
-import moment = require("moment");
 
 const MIN_DATE = "01/01/0001";
 

@@ -3,7 +3,7 @@ import ControlErrorCentral from "../ControlError/ControlErrorCentral";
 import TypeNullControl from "../ControlError/TypeNullControl";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
-export interface BaseProp<BaseType> {
+export interface BaseProps<BaseType> {
   schema: JsonSchema;
   name: string;
   isRequired: boolean;
@@ -17,7 +17,7 @@ export interface BaseState<BaseType> {
 }
 
 export abstract class UpFormControl<BaseType> extends React.Component<
-  BaseProp<BaseType>,
+  BaseProps<BaseType>,
   BaseState<BaseType>
 > {
   inputElement: HTMLInputElement;
@@ -42,7 +42,7 @@ export abstract class UpFormControl<BaseType> extends React.Component<
   componentWillReceiveProps(nextProps) {
     if (this.state.value != nextProps.value) {
       this.setState({
-        value: nextProps.value != undefined ? nextProps.value : this.default()
+        value: nextProps.value !== undefined ? nextProps.value : this.default()
       });
     }
   }
