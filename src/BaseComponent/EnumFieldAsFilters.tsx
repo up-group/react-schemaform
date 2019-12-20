@@ -3,7 +3,7 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 
 import { style } from 'typestyle';
 
-export type FilterData = { type: any; label: string, value?: string, selected: boolean};
+export type FilterData = { type: any; label: string, value?: string };
 
 export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
   constructor(p, c) {
@@ -14,7 +14,7 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
     const filterStyle = style({
       boxSizing: "border-box", height: "36px", width: "109.16px", border: " 1px solid #979797", borderRadius: "22px", boxShadow: "0 2px 0 0 rgba(0,0,0,0.2)",
       padding: "7px 0", color: "#979797", fontFamily: "Roboto", fontSize: "12px", fontWeight: "bold", textAlign: "center", lineHeight: "16px",
-      cursor: "pointer", margin : "0 10px"
+      cursor: "pointer", margin: "0 10px"
     });
 
     const activeFilterStyle = style({
@@ -31,24 +31,33 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
       if (this.schema.enum[i] !== null) {
         let filter: FilterData = {
           type: this.schema.enum[i],
-          label: this.schema.enumDescriptions[i],
-          selected : this.props.value && (this.props.value.type === this.schema.enum[i])
+          label: this.schema.enumDescriptions[i]
         };
         filters.push(filter);
+      } else {
+        filters.push({
+          type: -1,
+          label: "Undefined"
+        });
       }
     }
     return (<div className={wrapperStyle}>
       {filters.map(filter => {
-        return (<div key={filter.type} className={`${filterStyle} ${(filter.selected) ? activeFilterStyle : ""}`} onClick={(e)=> this.onFilterSelect(e, filter)}>
-          {filter.label}
+        return (<div key={filter.type} className={`${filterStyle} ${(this.isSelected(filter)) ? activeFilterStyle : ""}`} onClick={(e) => this.onFilterSelect(e, filter)}>
+          {this.props.translate ? this.props.translate(filter.label) : filter.label}
           {(filter.value) && `: ${filter.value}`}
         </div>)
       })}
     </div>)
   }
 
-  private onFilterSelect(e, filter){
-    this.handleChangeEventGlobal(e, {...filter})
+  isSelected(filter: FilterData): boolean {
+    return this.props.value && (this.props.value.type === filter.type)
+  }
+
+  private onFilterSelect(e, filter) {
+    console.log(filter)
+    this.handleChangeEventGlobal(e, { ...filter })
   }
 
   private get schema(): JsonSchema {

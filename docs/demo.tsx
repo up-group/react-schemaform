@@ -17,6 +17,8 @@ import "jsoneditor-react/es/editor.min.css";
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 import { JsonSchemaHelper } from "../src";
+import { style } from "typestyle";
+import { PropertyConfiguration } from "../src/UpForm/UpSchemaFormComponentSelector";
 
 //ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-07.json"));
 
@@ -35,7 +37,111 @@ class Demo extends React.Component<{}, DemoState> {
     this.state = {
       nb: 55,
       result: "",
-      schema: {},
+      schema: {
+        "definitions": {
+          "PaginationProperties": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "default": null,
+            "properties": {
+              "page_number": {
+                "type": "integer",
+                "default": 0
+              },
+              "page_size": {
+                "type": "integer",
+                "default": 0
+              },
+              "sort_property_name": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "default": null
+              },
+              "sort_order": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "default": null
+              }
+            }
+          }
+        },
+        "type": "object",
+        "properties": {
+          "pagination_properties": {
+            "$ref": "#/definitions/PaginationProperties"
+          },
+          "establishment_id": {
+            "title": "Establishment",
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": null
+          },
+          "start_date": {
+            "title": "Date de début",
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": null,
+            "format": "date"
+          },
+          "end_date": {
+            "title": "Date de fin",
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": null,
+            "format": "date"
+          },
+          "settlement_reference": {
+            "title": "Numéro de télécollecte",
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": null
+          },
+          "transaction_status": {
+            "title": "Status",
+            "enumNames": [
+              null,
+              "Authorized",
+              "Validated",
+              "Canceled",
+              "Denied"
+            ],
+            "enumDescriptions": [
+              null,
+              "Authorized",
+              "Validated",
+              "Canceled",
+              "Denied"
+            ],
+            "type": [
+              "integer",
+              "null"
+            ],
+            "default": null,
+            "format": "enum",
+            "enum": [
+              null,
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        }
+      },
       hasError: false,
       showError: false,
       dataS: {}
@@ -64,28 +170,33 @@ class Demo extends React.Component<{}, DemoState> {
     }
   }
 
-  componentDidMount() {
-    fetch("http://localhost:5000/api/v2/subscriptiontheme/metadatas/create")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(metadata => {
-        if (metadata == null) {
-          return;
-        }
-        var argumentsSchema = JsonSchemaHelper.parseSchema(
-          metadata.argumentsSchema
-        );
-        this.removeUnSupportedFeatures(argumentsSchema);
-        this.setState({
-          schema: argumentsSchema
-        });
-      });
-  }
   render() {
+    var propertiesConfiguration: PropertyConfiguration[] = [
+      {
+        colspan: 16,
+        order: 3,
+        name: "establishment_id"
+      }, {
+        colspan: 10,
+        order: 4,
+        name: "settlement_reference"
+      },
+      {
+        colspan: 4,
+        order: 1,
+        name: "start_date"
+      }, {
+        colspan: 4,
+        order: 2,
+        name: "end_date"
+      },
+      {
+        colspan : 24,
+        name:"transaction_status",
+        order: 5
+      }
+    ]
+
     return (
       <UpThemeProvider theme={UpDefaultTheme}>
         <>
@@ -94,6 +205,14 @@ class Demo extends React.Component<{}, DemoState> {
             showError={this.state.showError}
             schema={this.state.schema}
             onFormChange={this.onFormPayload}
+            wrapperClassName={style({
+              padding: "10px"
+            })}
+            propertiesConfiguration={propertiesConfiguration}
+            translate = {(text) => {
+              if(text === "Authorized") return "Authorisée"
+              return text;
+            }}
           />
           <JSONInput
             id="a_unique_id"
@@ -110,7 +229,7 @@ class Demo extends React.Component<{}, DemoState> {
     );
   }
 
-  onEditorChange = e => {};
+  onEditorChange = e => { };
 
   onSchemaChange = value => {
     this.setState({ result: "", schema: value.jsObject });

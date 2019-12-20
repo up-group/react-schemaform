@@ -2,12 +2,13 @@
 
 import ComponentRegistery from "./ComponentRegistery";
 
-import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector, { PropertyConfiguration } from "./UpSchemaFormComponentSelector";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
 
 import { eventFactory } from "@up-group/react-controls";
+import { string } from "prop-types";
 
 export interface UpSchemaArrayProps {
   schema: JsonSchema;
@@ -17,6 +18,8 @@ export interface UpSchemaArrayProps {
   showError;
   value: any;
   ignoredProperties: string[];
+  propertiesConfiguration: PropertyConfiguration[];
+  translate : (text: string) => any
 }
 
 export interface UpSchemaArrayState {
@@ -62,6 +65,8 @@ export default class UpSchemaArray extends React.Component<
               node={""}
               onChange={item.onChange}
               ignoredProperties={this.props.ignoredProperties}
+              propertiesConfiguration = {this.props.propertiesConfiguration}
+              translate ={this.props.translate}
             />
           );
           break;
@@ -80,7 +85,8 @@ export default class UpSchemaArray extends React.Component<
             schema,
             this.props.showError,
             null,
-            null
+            null,
+            this.props.translate
           );
           break;
       }

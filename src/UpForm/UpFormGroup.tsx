@@ -17,7 +17,7 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
   
   render() {
     return ( 
-      <div>
+      <React.Fragment>
         {this.props.title && <UpLabel text={this.props.title}>
           {this.props.description != null ? (
             <a
@@ -35,7 +35,7 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
           </span>
         </UpLabel>}
         {this.props.children}
-      </div>
+      </React.Fragment>
     );
   }
 

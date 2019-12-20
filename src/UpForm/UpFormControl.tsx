@@ -10,6 +10,7 @@ export interface BaseProps<BaseType> {
   onChange: (e, arg: BaseType, error: string) => void;
   showError: boolean;
   value: BaseType;
+  translate : (text: string) => any
 }
 
 export interface BaseState<BaseType> {

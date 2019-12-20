@@ -5,7 +5,12 @@ import UpSchemaObject from "./UpSchemaObject";
 import ComponentRegistery from "./ComponentRegistery";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
-import { UpPanel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
+export interface PropertyConfiguration {
+  order: number;
+  colspan: number;
+  component?: string;
+  name: string;
+}
 
 export interface UpSchemaFormComponentSelectorProps {
   value: any;
@@ -20,13 +25,15 @@ export interface UpSchemaFormComponentSelectorProps {
   ) => void;
   isRequired: boolean;
   showError: boolean;
-  ignoredProperties? : string[];
+  ignoredProperties?: string[];
+  propertiesConfiguration: PropertyConfiguration[];
+  translate : (text: string) => any;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
   UpSchemaFormComponentSelectorProps,
   {}
-> {
+  > {
   constructor(p, c) {
     super(p, c);
     this.onElementChange = this.onElementChange.bind(this);
@@ -54,6 +61,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
   }
 
   render() {
+
+   
     var element = null;
     var isControl = true;
     var isArray = false;
@@ -80,6 +89,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             node={this.props.node}
             onChange={this.props.onChange}
             ignoredProperties={this.props.ignoredProperties}
+            propertiesConfiguration = {this.props.propertiesConfiguration}
+            translate = {this.props.translate}
           />
         );
         isControl = false;
@@ -94,6 +105,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             onChange={this.onElementChange}
             node={this.props.node}
             ignoredProperties={this.props.ignoredProperties}
+            propertiesConfiguration = {this.props.propertiesConfiguration}
+            translate = {this.props.translate}
           />
         );
         isArray = true;
@@ -105,23 +118,13 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.schema,
           this.props.showError,
           this.props.value,
-          this.props.name
+          this.props.name,
+          this.props.translate
         );
         break;
     }
 
     if (isControl) {
-      //var typeStr = function (fun) {
-      //    var ret = fun.toString();
-      //    ret = ret.substr('function '.length);
-      //    ret = ret.substr(0, ret.indexOf('('));
-      //    return ret;
-      //} (element.type);
-
-      //if (typeStr == "UpDate") {
-      //    colsize = 3;
-      //}
-
       return (
         <UpFormGroup
           isRequired={this.props.isRequired}
