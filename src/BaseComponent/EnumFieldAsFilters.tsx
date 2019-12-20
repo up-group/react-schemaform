@@ -37,7 +37,7 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
       } else {
         filters.push({
           type: -1,
-          label: "All"
+          label: "Undefined"
         });
       }
     }

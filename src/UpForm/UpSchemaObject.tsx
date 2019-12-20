@@ -26,7 +26,7 @@ export interface UpSchemaObjectProps {
   showError: boolean;
   ignoredProperties: string[];
   propertiesConfiguration: PropertyConfiguration[];
-  translate : (text: string) => any;
+  translate: (text: string) => any;
 }
 
 export interface UpSchemaObjectState {
@@ -85,6 +85,18 @@ export default class UpSchemaObject extends React.Component<
 
   render() {
     const rows = groupByRow(this.props.propertiesConfiguration.filter(a => !(this.isIgnored(a.name) || this.props.schema.properties[a.name].title == null)));
+    Object.keys(this.props.schema.properties)
+      .filter(a => !(this.isIgnored(a) || this.props.schema.properties[a].title == null))
+      .forEach(a => {
+        if (!this.props.propertiesConfiguration.some(pc => pc.name === a)) {
+          rows.push([{
+            colspan: 24,
+            name: a,
+            order: rows.length
+          }])
+        }
+      })
+
     let elements = {};
     let elementsAdvanced = [];
     for (let propertyName in this.props.schema.properties) {
@@ -96,27 +108,27 @@ export default class UpSchemaObject extends React.Component<
           this.props.value == null ? null : this.props.value[propertyName];
 
         let element = (
-            <div
-              style={{
-                minHeight: 70,
-                padding: "0 10px",
-                display: property.hide === true ? "none" : "block"
-              }}
-            >
-              <UpSchemaFormComponentSelector
-                value={value}
-                name={propertyName}
-                showError={this.props.showError}
-                isRequired={this.isRequired(propertyName)}
-                key={propertyName}
-                schema={property}
-                node={this.props.node + "." + propertyName}
-                onChange={this.props.onChange}
-                ignoredProperties={this.props.ignoredProperties}
-                propertiesConfiguration={this.props.propertiesConfiguration}
-                translate={this.props.translate}
-              />
-            </div>
+          <div
+            style={{
+              minHeight: 70,
+              padding: "0 10px",
+              display: property.hide === true ? "none" : "block"
+            }}
+          >
+            <UpSchemaFormComponentSelector
+              value={value}
+              name={propertyName}
+              showError={this.props.showError}
+              isRequired={this.isRequired(propertyName)}
+              key={propertyName}
+              schema={property}
+              node={this.props.node + "." + propertyName}
+              onChange={this.props.onChange}
+              ignoredProperties={this.props.ignoredProperties}
+              propertiesConfiguration={this.props.propertiesConfiguration}
+              translate={this.props.translate}
+            />
+          </div>
         );
 
         if (property.advanced === true) {
@@ -137,8 +149,8 @@ export default class UpSchemaObject extends React.Component<
             ) : (
                 <h4>{this.props.schema.title}</h4>
               )}
-            {row.map(p => {
-              return <UpCol key={p.order} md={p.colspan}>{elements[p.name]}</UpCol>
+            {row.map((p, index) => {
+              return <UpCol key={index} md={p.colspan}>{elements[p.name]}</UpCol>
             })}
           </UpRow>)
         })}
