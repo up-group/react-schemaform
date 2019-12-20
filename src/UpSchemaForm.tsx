@@ -18,8 +18,8 @@ export interface UpSchemaFormProps {
   showError: boolean;
   ignoredProperties?: string[];
   wrapperClassName?: string;
-  viewModels: PropertyViewModel[];
-  translate: (text: string) => any;
+  viewModels?: PropertyViewModel[];
+  translate?: (text: string) => any;
 }
 
 export default class UpSchemaForm extends React.Component<
