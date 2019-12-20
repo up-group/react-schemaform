@@ -109,7 +109,8 @@ export default class ComponentRegistery {
     schema: JsonSchema,
     showError: boolean,
     value: any,
-    name: string
+    name: string,
+    translate : (text: string) => any
   ) {
     var comp = this.GetComponentBySchema(schema);
 
@@ -119,7 +120,8 @@ export default class ComponentRegistery {
       showError: showError,
       onChange: onChange,
       isRequired: isRequired,
-      schema: schema
+      schema: schema,
+      translate
     };
 
     return React.createElement(comp.ComponentClass, props);

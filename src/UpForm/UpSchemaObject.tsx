@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
-import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector, { PropertyConfiguration } from "./UpSchemaFormComponentSelector";
 import {
   UpSvgIcon,
   UpButton,
@@ -25,16 +25,50 @@ export interface UpSchemaObjectProps {
   isRequired: boolean;
   showError: boolean;
   ignoredProperties: string[];
+  propertiesConfiguration: PropertyConfiguration[];
+  translate : (text: string) => any;
 }
 
 export interface UpSchemaObjectState {
   showAdvanced: boolean;
 }
 
+
+function compareItems<T extends { order: number }>(a: T, b: T): number {
+  if (a.order > b.order) return 1;
+  if (a.order === b.order) return 0;
+  return -1;
+}
+
+export function groupByRow<T extends { colspan: number, order: number }>(items: T[]): T[][] {
+  let usedColSpan = 0;
+  const rows = items
+    .sort(compareItems)
+    .reduce((rows: T[][], configuration: T) => {
+      usedColSpan += configuration.colspan;
+      let currentRow: T[];
+      if (rows.length === 0) {
+        currentRow = [];
+        rows.push(currentRow);
+      } else {
+        currentRow = rows[rows.length - 1];
+      }
+      if (usedColSpan > 24) {
+        currentRow = [];
+        rows.push(currentRow);
+        usedColSpan = configuration.colspan;
+      }
+      currentRow.push(configuration);
+      return rows;
+    }, []);
+  return rows;
+}
+
+
 export default class UpSchemaObject extends React.Component<
   UpSchemaObjectProps,
   UpSchemaObjectState
-> {
+  > {
   constructor(p, c) {
     super(p, c);
     this.state = {
@@ -50,7 +84,8 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
-    let elements = [];
+    const rows = groupByRow(this.props.propertiesConfiguration.filter(a => !(this.isIgnored(a.name) || this.props.schema.properties[a.name].title == null)));
+    let elements = {};
     let elementsAdvanced = [];
     for (let propertyName in this.props.schema.properties) {
       if (this.props.schema.properties.hasOwnProperty(propertyName)) {
@@ -61,7 +96,6 @@ export default class UpSchemaObject extends React.Component<
           this.props.value == null ? null : this.props.value[propertyName];
 
         let element = (
-          <UpCol key={propertyName} span={this.sizeSpan(property)}>
             <div
               style={{
                 minHeight: 70,
@@ -79,30 +113,35 @@ export default class UpSchemaObject extends React.Component<
                 node={this.props.node + "." + propertyName}
                 onChange={this.props.onChange}
                 ignoredProperties={this.props.ignoredProperties}
+                propertiesConfiguration={this.props.propertiesConfiguration}
+                translate={this.props.translate}
               />
             </div>
-          </UpCol>
         );
 
         if (property.advanced === true) {
           elementsAdvanced.push(element);
         } else {
-          elements.push(element);
+          elements[propertyName] = element;
         }
       }
     }
 
     return (
       <UpGrid>
-        <UpRow gutter={3}>
-          {this.props.withHR ? <hr /> : null}
-          {this.props.schema.title == null || this.props.node === "" ? (
-            ""
-          ) : (
-            <h4>{this.props.schema.title}</h4>
-          )}
-          {elements}
-        </UpRow>
+        {rows.map((row, i) => {
+          return (<UpRow key={i}>
+            {this.props.withHR ? <hr /> : null}
+            {this.props.schema.title == null || this.props.node === "" ? (
+              ""
+            ) : (
+                <h4>{this.props.schema.title}</h4>
+              )}
+            {row.map(p => {
+              return <UpCol key={p.order} md={p.colspan}>{elements[p.name]}</UpCol>
+            })}
+          </UpRow>)
+        })}
         {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
           <UpRow>
             <UpRow gutter={2}>
