@@ -5,7 +5,7 @@ import UpSchemaObject from "./UpSchemaObject";
 import ComponentRegistery from "./ComponentRegistery";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 
-export interface PropertyConfiguration {
+export interface PropertyViewModel {
   order: number;
   colspan: number;
   component?: string;
@@ -26,14 +26,14 @@ export interface UpSchemaFormComponentSelectorProps {
   isRequired: boolean;
   showError: boolean;
   ignoredProperties?: string[];
-  propertiesConfiguration: PropertyConfiguration[];
-  translate : (text: string) => any;
+  viewModels: PropertyViewModel[];
+  translate: (text: string) => any;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
   UpSchemaFormComponentSelectorProps,
   {}
-  > {
+> {
   constructor(p, c) {
     super(p, c);
     this.onElementChange = this.onElementChange.bind(this);
@@ -61,8 +61,6 @@ export default class UpSchemaFormComponentSelector extends React.Component<
   }
 
   render() {
-
-   
     var element = null;
     var isControl = true;
     var isArray = false;
@@ -89,8 +87,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             node={this.props.node}
             onChange={this.props.onChange}
             ignoredProperties={this.props.ignoredProperties}
-            propertiesConfiguration = {this.props.propertiesConfiguration}
-            translate = {this.props.translate}
+            viewModels={this.props.viewModels}
+            translate={this.props.translate}
           />
         );
         isControl = false;
@@ -105,8 +103,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             onChange={this.onElementChange}
             node={this.props.node}
             ignoredProperties={this.props.ignoredProperties}
-            propertiesConfiguration = {this.props.propertiesConfiguration}
-            translate = {this.props.translate}
+            viewsModel={this.props.viewModels}
+            translate={this.props.translate}
           />
         );
         isArray = true;

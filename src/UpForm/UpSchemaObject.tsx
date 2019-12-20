@@ -1,6 +1,8 @@
 ﻿import * as React from "react";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
-import UpSchemaFormComponentSelector, { PropertyConfiguration } from "./UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector, {
+  PropertyViewModel
+} from "./UpSchemaFormComponentSelector";
 import {
   UpSvgIcon,
   UpButton,
@@ -25,7 +27,7 @@ export interface UpSchemaObjectProps {
   isRequired: boolean;
   showError: boolean;
   ignoredProperties: string[];
-  propertiesConfiguration: PropertyConfiguration[];
+  viewModels: PropertyViewModel[];
   translate: (text: string) => any;
 }
 
@@ -33,14 +35,15 @@ export interface UpSchemaObjectState {
   showAdvanced: boolean;
 }
 
-
 function compareItems<T extends { order: number }>(a: T, b: T): number {
   if (a.order > b.order) return 1;
   if (a.order === b.order) return 0;
   return -1;
 }
 
-export function groupByRow<T extends { colspan: number, order: number }>(items: T[]): T[][] {
+export function groupByRow<T extends { colspan: number; order: number }>(
+  items: T[]
+): T[][] {
   let usedColSpan = 0;
   const rows = items
     .sort(compareItems)
@@ -64,11 +67,10 @@ export function groupByRow<T extends { colspan: number, order: number }>(items: 
   return rows;
 }
 
-
 export default class UpSchemaObject extends React.Component<
   UpSchemaObjectProps,
   UpSchemaObjectState
-  > {
+> {
   constructor(p, c) {
     super(p, c);
     this.state = {
@@ -84,18 +86,31 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
-    const rows = groupByRow(this.props.propertiesConfiguration.filter(a => !(this.isIgnored(a.name) || this.props.schema.properties[a.name].title == null)));
+    const rows = groupByRow(
+      this.props.viewModels.filter(
+        a =>
+          !(
+            this.isIgnored(a.name) ||
+            this.props.schema.properties[a.name].title == null
+          )
+      )
+    );
     Object.keys(this.props.schema.properties)
-      .filter(a => !(this.isIgnored(a) || this.props.schema.properties[a].title == null))
+      .filter(
+        a =>
+          !(this.isIgnored(a) || this.props.schema.properties[a].title == null)
+      )
       .forEach(a => {
-        if (!this.props.propertiesConfiguration.some(pc => pc.name === a)) {
-          rows.push([{
-            colspan: 24,
-            name: a,
-            order: rows.length
-          }])
+        if (!this.props.viewModels.some(pc => pc.name === a)) {
+          rows.push([
+            {
+              colspan: 24,
+              name: a,
+              order: rows.length
+            }
+          ]);
         }
-      })
+      });
 
     let elements = {};
     let elementsAdvanced = [];
@@ -125,7 +140,7 @@ export default class UpSchemaObject extends React.Component<
               node={this.props.node + "." + propertyName}
               onChange={this.props.onChange}
               ignoredProperties={this.props.ignoredProperties}
-              propertiesConfiguration={this.props.propertiesConfiguration}
+              viewModels={this.props.viewModels}
               translate={this.props.translate}
             />
           </div>
@@ -142,17 +157,23 @@ export default class UpSchemaObject extends React.Component<
     return (
       <UpGrid>
         {rows.map((row, i) => {
-          return (<UpRow key={i}>
-            {this.props.withHR ? <hr /> : null}
-            {this.props.schema.title == null || this.props.node === "" ? (
-              ""
-            ) : (
+          return (
+            <UpRow key={i}>
+              {this.props.withHR ? <hr /> : null}
+              {this.props.schema.title == null || this.props.node === "" ? (
+                ""
+              ) : (
                 <h4>{this.props.schema.title}</h4>
               )}
-            {row.map((p, index) => {
-              return <UpCol key={index} md={p.colspan}>{elements[p.name]}</UpCol>
-            })}
-          </UpRow>)
+              {row.map((p, index) => {
+                return (
+                  <UpCol key={index} md={p.colspan}>
+                    {elements[p.name]}
+                  </UpCol>
+                );
+              })}
+            </UpRow>
+          );
         })}
         {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
           <UpRow>

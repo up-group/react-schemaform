@@ -2,7 +2,9 @@
 
 import ComponentRegistery from "./ComponentRegistery";
 
-import UpSchemaFormComponentSelector, { PropertyConfiguration } from "./UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector, {
+  PropertyViewModel
+} from "./UpSchemaFormComponentSelector";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
@@ -18,8 +20,8 @@ export interface UpSchemaArrayProps {
   showError;
   value: any;
   ignoredProperties: string[];
-  propertiesConfiguration: PropertyConfiguration[];
-  translate : (text: string) => any
+  viewsModel: PropertyViewModel[];
+  translate: (text: string) => any;
 }
 
 export interface UpSchemaArrayState {
@@ -29,7 +31,7 @@ export interface UpSchemaArrayState {
 export default class UpSchemaArray extends React.Component<
   UpSchemaArrayProps,
   UpSchemaArrayState
-  > {
+> {
   constructor(p, c) {
     super(p, c);
     this.state = { items: [] };
@@ -65,8 +67,8 @@ export default class UpSchemaArray extends React.Component<
               node={""}
               onChange={item.onChange}
               ignoredProperties={this.props.ignoredProperties}
-              propertiesConfiguration = {this.props.propertiesConfiguration}
-              translate ={this.props.translate}
+              viewModels={this.props.viewsModel}
+              translate={this.props.translate}
             />
           );
           break;
@@ -152,7 +154,7 @@ export class Item {
   value = null;
   errorMemory = new ErrorMemory();
   error = false;
-  constructor(public onItemChange) { }
+  constructor(public onItemChange) {}
 
   onChange = (
     e: React.ChangeEvent<any>,

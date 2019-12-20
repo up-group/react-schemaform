@@ -18,7 +18,7 @@ import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 import { JsonSchemaHelper } from "../src";
 import { style } from "typestyle";
-import { PropertyConfiguration } from "../src/UpForm/UpSchemaFormComponentSelector";
+import { PropertyViewModel } from "../src/UpForm/UpSchemaFormComponentSelector";
 
 //ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-07.json"));
 
@@ -38,107 +38,71 @@ class Demo extends React.Component<{}, DemoState> {
       nb: 55,
       result: "",
       schema: {
-        "definitions": {
-          "PaginationProperties": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "default": null,
-            "properties": {
-              "page_number": {
-                "type": "integer",
-                "default": 0
+        definitions: {
+          PaginationProperties: {
+            type: ["object", "null"],
+            default: null,
+            properties: {
+              page_number: {
+                type: "integer",
+                default: 0
               },
-              "page_size": {
-                "type": "integer",
-                "default": 0
+              page_size: {
+                type: "integer",
+                default: 0
               },
-              "sort_property_name": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "default": null
+              sort_property_name: {
+                type: ["string", "null"],
+                default: null
               },
-              "sort_order": {
-                "type": [
-                  "integer",
-                  "null"
-                ],
-                "default": null
+              sort_order: {
+                type: ["integer", "null"],
+                default: null
               }
             }
           }
         },
-        "type": "object",
-        "properties": {
-          "pagination_properties": {
-            "$ref": "#/definitions/PaginationProperties"
+        type: "object",
+        properties: {
+          pagination_properties: {
+            $ref: "#/definitions/PaginationProperties"
           },
-          "establishment_id": {
-            "title": "Establishment",
-            "type": [
-              "string",
-              "null"
-            ],
-            "default": null
+          establishment_id: {
+            title: "Establishment",
+            type: ["string", "null"],
+            default: null
           },
-          "start_date": {
-            "title": "Date de début",
-            "type": [
-              "string",
-              "null"
-            ],
-            "default": null,
-            "format": "date"
+          start_date: {
+            title: "Date de début",
+            type: ["string", "null"],
+            default: null,
+            format: "date"
           },
-          "end_date": {
-            "title": "Date de fin",
-            "type": [
-              "string",
-              "null"
-            ],
-            "default": null,
-            "format": "date"
+          end_date: {
+            title: "Date de fin",
+            type: ["string", "null"],
+            default: null,
+            format: "date"
           },
-          "settlement_reference": {
-            "title": "Numéro de télécollecte",
-            "type": [
-              "string",
-              "null"
-            ],
-            "default": null
+          settlement_reference: {
+            title: "Numéro de télécollecte",
+            type: ["string", "null"],
+            default: null
           },
-          "transaction_status": {
-            "title": "Status",
-            "enumNames": [
+          transaction_status: {
+            title: "Status",
+            enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
+            enumDescriptions: [
               null,
               "Authorized",
               "Validated",
               "Canceled",
               "Denied"
             ],
-            "enumDescriptions": [
-              null,
-              "Authorized",
-              "Validated",
-              "Canceled",
-              "Denied"
-            ],
-            "type": [
-              "integer",
-              "null"
-            ],
-            "default": null,
-            "format": "enum",
-            "enum": [
-              null,
-              1,
-              2,
-              3,
-              4
-            ]
+            type: ["integer", "null"],
+            default: null,
+            format: "enum",
+            enum: [null, 1, 2, 3, 4]
           }
         }
       },
@@ -171,12 +135,13 @@ class Demo extends React.Component<{}, DemoState> {
   }
 
   render() {
-    var propertiesConfiguration: PropertyConfiguration[] = [
+    var viewModels: PropertyViewModel[] = [
       {
         colspan: 16,
         order: 3,
         name: "establishment_id"
-      }, {
+      },
+      {
         colspan: 10,
         order: 4,
         name: "settlement_reference"
@@ -185,17 +150,18 @@ class Demo extends React.Component<{}, DemoState> {
         colspan: 4,
         order: 1,
         name: "start_date"
-      }, {
+      },
+      {
         colspan: 4,
         order: 2,
         name: "end_date"
       },
       {
-        colspan : 24,
-        name:"transaction_status",
+        colspan: 24,
+        name: "transaction_status",
         order: 5
       }
-    ]
+    ];
 
     return (
       <UpThemeProvider theme={UpDefaultTheme}>
@@ -208,9 +174,9 @@ class Demo extends React.Component<{}, DemoState> {
             wrapperClassName={style({
               padding: "10px"
             })}
-            propertiesConfiguration={propertiesConfiguration}
-            translate = {(text) => {
-              if(text === "Authorized") return "Authorisée"
+            viewModels={viewModels}
+            translate={text => {
+              if (text === "Authorized") return "Authorisée";
               return text;
             }}
           />
@@ -229,7 +195,7 @@ class Demo extends React.Component<{}, DemoState> {
     );
   }
 
-  onEditorChange = e => { };
+  onEditorChange = e => {};
 
   onSchemaChange = value => {
     this.setState({ result: "", schema: value.jsObject });

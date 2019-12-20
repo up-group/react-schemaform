@@ -2,7 +2,9 @@
 /// <reference path="./interfaces/UpReactComponent.ts"/>
 
 import * as React from "react";
-import UpSchemaFormComponentSelector, { PropertyConfiguration } from "./UpForm/UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector, {
+  PropertyViewModel
+} from "./UpForm/UpSchemaFormComponentSelector";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { UpPanel } from "@up-group/react-controls";
@@ -16,14 +18,14 @@ export interface UpSchemaFormProps {
   showError: boolean;
   ignoredProperties?: string[];
   wrapperClassName?: string;
-  propertiesConfiguration: PropertyConfiguration[];
-  translate: (text:string)=> any;
+  viewModels: PropertyViewModel[];
+  translate: (text: string) => any;
 }
 
 export default class UpSchemaForm extends React.Component<
   UpSchemaFormProps,
   {}
-  > {
+> {
   static defaultProps = {
     showError: true,
     initValue: {}
@@ -64,20 +66,22 @@ export default class UpSchemaForm extends React.Component<
     }
 
     const value = _.cloneDeep(this.state);
-    let content = (<div className={this.props.wrapperClassName}>
-      <UpSchemaFormComponentSelector
-        value={value}
-        isRequired={false}
-        schema={schema}
-        node={""}
-        onChange={this.onChange}
-        showError={this.props.showError}
-        ignoredProperties={this.props.ignoredProperties}
-        propertiesConfiguration = {this.props.propertiesConfiguration}
-        translate = {this.props.translate}
-      />
-      {this.props.children}
-    </div>);
+    let content = (
+      <div className={this.props.wrapperClassName}>
+        <UpSchemaFormComponentSelector
+          value={value}
+          isRequired={false}
+          schema={schema}
+          node={""}
+          onChange={this.onChange}
+          showError={this.props.showError}
+          ignoredProperties={this.props.ignoredProperties}
+          viewModels={this.props.viewModels}
+          translate={this.props.translate}
+        />
+        {this.props.children}
+      </div>
+    );
     if (schema.title)
       return (
         <UpPanel title={schema.title} className={this.props.wrapperClassName}>
