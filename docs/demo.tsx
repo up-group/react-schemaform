@@ -167,7 +167,7 @@ class Demo extends React.Component<{}, DemoState> {
       <UpThemeProvider theme={UpDefaultTheme}>
         <>
           <UpSchemaForm
-            initValue={{ size: this.state.nb }}
+            initValue={{ transaction_status: {type : 2} }}
             showError={this.state.showError}
             schema={this.state.schema}
             onFormChange={this.onFormPayload}
