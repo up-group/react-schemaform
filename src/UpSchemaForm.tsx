@@ -106,7 +106,7 @@ export default class UpSchemaForm extends React.Component<
   };
 
   updateState() {
-    this.props.onFormChange(this.state, this.errorMemory.hasError);
+    this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError);
   }
 
   private newObject(nodes, value) {
