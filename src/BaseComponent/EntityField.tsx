@@ -23,6 +23,15 @@ export default class EntityField<Type> extends UpFormControl<Type> {
   constructor(p, c) {
     super(p, c);
   }
+  onChange = (event, cleandata, error?)=>{
+    let idText = this.schema.entitySource.id || "id";
+    this.setState({internalData : cleandata}, () => this.handleChangeEventGlobal(event, cleandata[idText], error))
+  }
+  getValue = ()=>{
+    let idText = this.schema.entitySource.id || "id";
+    if(this.state.internalData  && this.state.internalData[idText] === this.state.value) return this.state.internalData;
+    return this.state.value;
+  }
 
   renderField() {
     return (
@@ -30,14 +39,15 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         name={this.props.name}
         showError={this.props.showError}
         default={null}
-        value={this.state.value}
-        returnType="id"
+        value={this.getValue()}
+        returnType="full"
         isRequired={this.props.isRequired}
         multiple={this.isArray}
         placeholder="Recherche"
         allowClear={!this.props.isRequired}
-        onChange={this.handleChangeEventGlobal}
+        onChange={this.onChange}
         dataSource={this.schema.entitySource}
+        
       />
     );
   }
