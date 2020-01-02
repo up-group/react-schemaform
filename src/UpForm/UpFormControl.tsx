@@ -15,6 +15,7 @@ export interface BaseProps<BaseType> {
 
 export interface BaseState<BaseType> {
   value?: BaseType;
+  internalData? : any
 }
 
 export abstract class UpFormControl<BaseType> extends React.Component<

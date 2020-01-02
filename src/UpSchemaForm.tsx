@@ -25,7 +25,7 @@ export interface UpSchemaFormProps {
 export default class UpSchemaForm extends React.Component<
   UpSchemaFormProps,
   {}
-> {
+  > {
   static defaultProps = {
     showError: true,
     initValue: {}
@@ -41,20 +41,22 @@ export default class UpSchemaForm extends React.Component<
     }
   }
 
-  render() {
-    let schema: JsonSchema;
-
+  private getSchema(): JsonSchema {
     if (this.props.schema == null) {
-      return <span />;
+      return null;
     } else if (typeof this.props.schema === "string") {
-      schema = JsonSchemaHelper.parseSchema(this.props.schema as string);
+      return JsonSchemaHelper.parseSchema(this.props.schema as string);
     } else {
-      schema = JsonSchemaHelper.flat(
+      return JsonSchemaHelper.flat(
         this.props.schema,
         this.props.schema.definitions,
         {}
       );
     }
+  }
+  render() {
+    let schema: JsonSchema = this.getSchema();
+    if (schema == null) return <span />;
     if (schema == null || schema.type == null) {
       return (
         <div className="panel panel-default">
@@ -106,7 +108,16 @@ export default class UpSchemaForm extends React.Component<
   };
 
   updateState() {
-    this.props.onFormChange(this.state, this.errorMemory.hasError);
+    let schema: JsonSchema = this.getSchema();
+    if(schema && schema.properties["start_date"] && schema.properties["end_date"] && schema.properties["start_date"].format=="date" && schema.properties["end_date"].format=="date"){
+      if(this.state["start_date"]){
+        schema.properties["end_date"].minimum = this.state["start_date"].format()
+      }
+      if(this.state["end_date"]){
+        schema.properties["start_date"].maximum = this.state["end_date"].format()
+      }
+    }
+    this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError);
   }
 
   private newObject(nodes, value) {

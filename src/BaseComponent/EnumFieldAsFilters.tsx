@@ -56,7 +56,6 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
   }
 
   private onFilterSelect(e, filter) {
-    console.log(filter)
     this.handleChangeEventGlobal(e, { ...filter })
   }
 

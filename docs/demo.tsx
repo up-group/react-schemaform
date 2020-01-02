@@ -24,7 +24,7 @@ import { PropertyViewModel } from "../src/UpForm/UpSchemaFormComponentSelector";
 
 interface DemoState {
   result: string;
-  schema: JsonSchema;
+  schema: any;
   hasError: boolean;
   showError: boolean;
   nb?: number;
@@ -37,144 +37,33 @@ class Demo extends React.Component<{}, DemoState> {
     this.state = {
       nb: 55,
       result: "",
-      schema: {
-        definitions: {
-          PaginationProperties: {
-            type: ["object", "null"],
-            default: null,
-            properties: {
-              page_number: {
-                type: "integer",
-                default: 0
-              },
-              page_size: {
-                type: "integer",
-                default: 0
-              },
-              sort_property_name: {
-                type: ["string", "null"],
-                default: null
-              },
-              sort_order: {
-                type: ["integer", "null"],
-                default: null
-              }
-            }
-          }
-        },
-        type: "object",
-        properties: {
-          pagination_properties: {
-            $ref: "#/definitions/PaginationProperties"
-          },
-          establishment_id: {
-            title: "Establishment",
-            type: ["string", "null"],
-            default: null
-          },
-          start_date: {
-            title: "Date de début",
-            type: ["string", "null"],
-            default: null,
-            format: "date"
-          },
-          end_date: {
-            title: "Date de fin",
-            type: ["string", "null"],
-            default: null,
-            format: "date"
-          },
-          settlement_reference: {
-            title: "Numéro de télécollecte",
-            type: ["string", "null"],
-            default: null
-          },
-          transaction_status: {
-            title: "Status",
-            enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
-            enumDescriptions: [
-              null,
-              "Authorized",
-              "Validated",
-              "Canceled",
-              "Denied"
-            ],
-            type: ["integer", "null"],
-            default: null,
-            format: "enum",
-            enum: [null, 1, 2, 3, 4]
-          }
-        }
-      },
+      schema:  {"definitions":{"PaginationProperties":{"type":["object","null"],"default":null,"properties":{"page_number":{"type":"integer","default":0},"page_size":{"type":"integer","default":0},"sort_property_name":{"type":["string","null"],"default":null},"sort_order":{"type":["integer","null"],"default":null}}}},"type":"object","properties":{"pagination_properties":{"$ref":"#/definitions/PaginationProperties"},"establishment_id":{"title":"Établissement","type":["string","null"],"default":null,"format":"entityKey","entitySource":{"endPoint":"http://localhost:44319","queryParameterName":"search","text":"name","query":"v1/establishements/searchestablishment","extraParams":{"api-version":"1.0"}}},"start_date":{"title":"Date de début","type":["string","null"],"default":null,"format":"date"},"end_date":{"title":"Date de fin","type":["string","null"],"default":null,"format":"date"},"settlement_reference":{"title":"Numéro de télécollecte","type":["string","null"],"default":null},"transaction_status":{"title":"Status","enumNames":[null,"Authorized","Validated","Canceled","Denied"],"enumDescriptions":[null,"Authorized","Validated","Canceled","Denied"],"type":["integer","null"],"default":null,"format":"enum","enum":[null,1,2,3,4]}}},
       hasError: false,
       showError: false,
       dataS: {}
     };
-  }
-
-  removeUnSupportedFeatures(argumentsSchema: JsonSchema) {
-    for (const key in argumentsSchema.definitions) {
-      if (argumentsSchema.definitions.hasOwnProperty(key)) {
-        const element = argumentsSchema.definitions[key];
-        if (element.format === "date-time") element.format = null;
-        this.removeUnSupportedFeatures(element);
-      }
-    }
-    for (const key in argumentsSchema.properties) {
-      if (argumentsSchema.properties.hasOwnProperty(key)) {
-        const element = argumentsSchema.properties[key];
-        if (element.type === undefined) {
-          delete argumentsSchema.properties[key];
-        } else {
-          if (element.format === "date-time") element.format = null;
-          argumentsSchema.properties[key].title = key;
-          this.removeUnSupportedFeatures(element);
-        }
-      }
-    }
+    this.state.schema.properties["establishment_id"]["format"] = "entityKey"
+    this.state.schema.properties["establishment_id"]["entitySource"] = {
+      "endPoint": "http://localhost:44319",
+      "queryParameterName": "search",
+      "text": "name",
+      "query": "v1/establishements/searchestablishment",
+    };
   }
 
   render() {
-    var viewModels: PropertyViewModel[] = [
-      {
-        colspan: 16,
-        order: 3,
-        name: "establishment_id"
-      },
-      {
-        colspan: 10,
-        order: 4,
-        name: "settlement_reference"
-      },
-      {
-        colspan: 4,
-        order: 1,
-        name: "start_date"
-      },
-      {
-        colspan: 4,
-        order: 2,
-        name: "end_date"
-      },
-      {
-        colspan: 24,
-        name: "transaction_status",
-        order: 5
-      }
-    ];
-
     return (
       <UpThemeProvider theme={UpDefaultTheme}>
         <>
           <UpSchemaForm
-            initValue={{ size: this.state.nb }}
+            initValue={{ }}
             showError={this.state.showError}
             schema={this.state.schema}
             onFormChange={this.onFormPayload}
             wrapperClassName={style({
               padding: "10px"
             })}
-            viewModels={viewModels}
+            viewModels={[]}
             translate={text => {
               if (text === "Authorized") return "Authorisée";
               return text;
@@ -202,6 +91,7 @@ class Demo extends React.Component<{}, DemoState> {
   };
 
   onFormPayload = (e, hasError: boolean) => {
+    console.log(e)
     this.setState({ dataS: e });
   };
 }
