@@ -3,35 +3,28 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 
 import { UpSelect } from "@up-group/react-controls";
 
-interface UpEntityExtendProp {
-  getFullData: boolean;
-  multiple: boolean;
-  placeholder?: string;
-  allowClear?: boolean;
-  minimumInputLength?: number;
-
-  dataSource: {
-    id: string;
-    text: string;
-    query: string;
-    queryParameterName: string;
-  };
-  value: any;
-}
-
 export default class EntityField<Type> extends UpFormControl<Type> {
   constructor(p, c) {
     super(p, c);
   }
-  onChange = (event, cleandata, error?)=>{
+
+  onChange = (event, cleandata, error?) => {
     let idText = this.schema.entitySource.id || "id";
-    this.setState({internalData : cleandata}, () => this.handleChangeEventGlobal(event, cleandata[idText], error))
-  }
-  getValue = ()=>{
-    let idText = this.schema.entitySource.id || "id";
-    if(this.state.internalData  && this.state.internalData[idText] === this.state.value) return this.state.internalData;
+    this.setState({ internalData: cleandata }, () =>
+      this.handleChangeEventGlobal(event, cleandata[idText], error)
+    );
+  };
+
+  getValue = () => {
+    if (
+      this.state.internalData &&
+      this.state.internalData[this.schema.entitySource.id || "id"] ===
+        this.state.value
+    ) {
+      return this.state.internalData;
+    }
     return this.state.value;
-  }
+  };
 
   renderField() {
     return (
@@ -47,7 +40,6 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         allowClear={!this.props.isRequired}
         onChange={this.onChange}
         dataSource={this.schema.entitySource}
-        
       />
     );
   }
