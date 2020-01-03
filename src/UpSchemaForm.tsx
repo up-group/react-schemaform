@@ -10,6 +10,14 @@ import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { UpPanel } from "@up-group/react-controls";
 import * as _ from "lodash";
 
+type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;
+
+interface UpdateRule{
+  trackedField: string; 
+  targetField: string;
+  shouldUpdate : string
+}
+
 export interface UpSchemaFormProps {
   initValue?: any;
   value?: any;
@@ -20,6 +28,9 @@ export interface UpSchemaFormProps {
   wrapperClassName?: string;
   viewModels?: PropertyViewModel[];
   translate?: (text: string) => any;
+  shouldApplyUpdateRulePolicies? : ShouldApplyUpdateRulePolicy[];
+  updateRules? : UpdateRule[];
+  onSearchButtonClick: (text: string) => any;
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -80,6 +91,7 @@ export default class UpSchemaForm extends React.Component<
           ignoredProperties={this.props.ignoredProperties}
           viewModels={this.props.viewModels}
           translate={this.props.translate}
+          onSearchButtonClick={this.props.onSearchButtonClick}
         />
         {this.props.children}
       </div>
@@ -117,6 +129,19 @@ export default class UpSchemaForm extends React.Component<
         schema.properties["start_date"].maximum = this.state["end_date"].format()
       }
     }
+
+    this.props.updateRules.forEach(updateRule => {
+      let shouldApplyUpdateRulePolicy = this.props.shouldApplyUpdateRulePolicies.filter(p => p.name === updateRule.shouldUpdate);
+      if(shouldApplyUpdateRulePolicy.length >0){
+        let newValue = shouldApplyUpdateRulePolicy[0](_.get(this.state, updateRule.trackedField));
+        if(newValue !== null)
+          {
+            let changes = _.set({}, updateRule.targetField, newValue);
+            this.setState({...changes})
+          }
+      }
+    });
+
     this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError);
   }
 

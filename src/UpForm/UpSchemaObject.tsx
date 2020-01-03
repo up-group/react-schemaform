@@ -29,6 +29,7 @@ export interface UpSchemaObjectProps {
   ignoredProperties: string[];
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
+  onSearchButtonClick: (text: string) => any;
 }
 
 export interface UpSchemaObjectState {
@@ -142,6 +143,7 @@ export default class UpSchemaObject extends React.Component<
               ignoredProperties={this.props.ignoredProperties}
               viewModels={this.props.viewModels}
               translate={this.props.translate}
+              onSearchButtonClick={this.props.onSearchButtonClick}
             />
           </div>
         );

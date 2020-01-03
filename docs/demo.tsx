@@ -37,18 +37,18 @@ class Demo extends React.Component<{}, DemoState> {
     this.state = {
       nb: 55,
       result: "",
-      schema:  {"definitions":{"PaginationProperties":{"type":["object","null"],"default":null,"properties":{"page_number":{"type":"integer","default":0},"page_size":{"type":"integer","default":0},"sort_property_name":{"type":["string","null"],"default":null},"sort_order":{"type":["integer","null"],"default":null}}}},"type":"object","properties":{"pagination_properties":{"$ref":"#/definitions/PaginationProperties"},"establishment_id":{"title":"Établissement","type":["string","null"],"default":null,"format":"entityKey","entitySource":{"endPoint":"http://localhost:44319","queryParameterName":"search","text":"name","query":"v1/establishements/searchestablishment","extraParams":{"api-version":"1.0"}}},"start_date":{"title":"Date de début","type":["string","null"],"default":null,"format":"date"},"end_date":{"title":"Date de fin","type":["string","null"],"default":null,"format":"date"},"settlement_reference":{"title":"Numéro de télécollecte","type":["string","null"],"default":null},"transaction_status":{"title":"Status","enumNames":[null,"Authorized","Validated","Canceled","Denied"],"enumDescriptions":[null,"Authorized","Validated","Canceled","Denied"],"type":["integer","null"],"default":null,"format":"enum","enum":[null,1,2,3,4]}}},
+      schema:  {"definitions":{"PaginationProperties":{"type":["object","null"],"default":null,"properties":{"items_per_page":{"type":"integer","default":0},"request_page":{"type":"integer","default":0}}}},"type":"object","properties":{"pagination_properties":{"$ref":"#/definitions/PaginationProperties"},"search":{"title":"Recherche","type":["string","null"],"default":null},"data_type":{"title":"Type","enumNames":["Crt","Siret","EtablishmentName"],"enumDescriptions":["Crt","Siret","Raison social"],"type":"integer","default":0,"format":"enum","enum":[1,2,3]}}},
       hasError: false,
       showError: false,
       dataS: {}
     };
-    this.state.schema.properties["establishment_id"]["format"] = "entityKey"
-    this.state.schema.properties["establishment_id"]["entitySource"] = {
-      "endPoint": "http://localhost:44319",
-      "queryParameterName": "search",
-      "text": "name",
-      "query": "v1/establishements/searchestablishment",
-    };
+    this.state.schema.properties["search"]["format"] = "search"
+    // this.state.schema.properties["establishment_id"]["entitySource"] = {
+    //   "endPoint": "http://localhost:44319",
+    //   "queryParameterName": "search",
+    //   "text": "name",
+    //   "query": "v1/establishements/searchestablishment",
+    // };
   }
 
   render() {
@@ -68,6 +68,19 @@ class Demo extends React.Component<{}, DemoState> {
               if (text === "Authorized") return "Authorisée";
               return text;
             }}
+            updateRules={[
+              {
+                targetField : "data_type",
+                trackedField : "search",
+                shouldUpdate : "format"
+              }
+            ]}
+            shouldApplyUpdateRulePolicies={[
+              function format(value: any){ 
+                return {type : parseInt(value)};
+              }
+            ]}
+            onSearchButtonClick={value => console.log(value)}
           />
           <JSONInput
             id="a_unique_id"
@@ -92,7 +105,7 @@ class Demo extends React.Component<{}, DemoState> {
 
   onFormPayload = (e, hasError: boolean) => {
     console.log(e)
-    this.setState({ dataS: e });
+   // this.setState({ dataS: e });
   };
 }
 

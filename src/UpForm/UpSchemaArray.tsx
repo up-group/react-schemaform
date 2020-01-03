@@ -22,6 +22,7 @@ export interface UpSchemaArrayProps {
   ignoredProperties: string[];
   viewsModel: PropertyViewModel[];
   translate: (text: string) => any;
+  onSearchButtonClick: (text: string) => any;
 }
 
 export interface UpSchemaArrayState {
@@ -69,6 +70,7 @@ export default class UpSchemaArray extends React.Component<
               ignoredProperties={this.props.ignoredProperties}
               viewModels={this.props.viewsModel}
               translate={this.props.translate}
+              onSearchButtonClick={this.props.onSearchButtonClick}
             />
           );
           break;
@@ -88,7 +90,8 @@ export default class UpSchemaArray extends React.Component<
             this.props.showError,
             null,
             null,
-            this.props.translate
+            this.props.translate,
+            this.props.onSearchButtonClick
           );
           break;
       }
