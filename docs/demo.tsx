@@ -72,10 +72,10 @@ class Demo extends React.Component<{}, DemoState> {
               {
                 targetField : "data_type",
                 trackedField : "search",
-                shouldUpdate : "format"
+                policyName : "format"
               }
             ]}
-            shouldApplyUpdateRulePolicies={[
+            updateRulePolicies={[
               function format(value: any){ 
                 return {type : parseInt(value)};
               }

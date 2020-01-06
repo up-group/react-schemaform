@@ -12,10 +12,10 @@ import * as _ from "lodash";
 
 type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;
 
-interface UpdateRule{
-  trackedField: string; 
+interface UpdateRule {
+  trackedField: string;
   targetField: string;
-  shouldUpdate : string
+  policyName: string
 }
 
 export interface UpSchemaFormProps {
@@ -28,8 +28,8 @@ export interface UpSchemaFormProps {
   wrapperClassName?: string;
   viewModels?: PropertyViewModel[];
   translate?: (text: string) => any;
-  shouldApplyUpdateRulePolicies? : ShouldApplyUpdateRulePolicy[];
-  updateRules? : UpdateRule[];
+  updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
+  updateRules?: UpdateRule[];
   onSearchButtonClick: (text: string) => any;
 }
 
@@ -116,31 +116,39 @@ export default class UpSchemaForm extends React.Component<
     let nodeArray = node.split(".");
     nodeArray.shift();
 
-    this.addToQueue(this.state, nodeArray, newValue);
+    this.addToQueue(this.state, nodeArray, newValue, node);
   };
 
-  updateState() {
+  updateState(node: string) {
     let schema: JsonSchema = this.getSchema();
-    if(schema && schema.properties["start_date"] && schema.properties["end_date"] && schema.properties["start_date"].format=="date" && schema.properties["end_date"].format=="date"){
-      if(this.state["start_date"]){
+    if (schema && schema.properties["start_date"] && schema.properties["end_date"] && schema.properties["start_date"].format == "date" && schema.properties["end_date"].format == "date") {
+      if (this.state["start_date"]) {
         schema.properties["end_date"].minimum = this.state["start_date"].format()
       }
-      if(this.state["end_date"]){
+      if (this.state["end_date"]) {
         schema.properties["start_date"].maximum = this.state["end_date"].format()
       }
     }
 
-    this.props.updateRules.forEach(updateRule => {
-      let shouldApplyUpdateRulePolicy = this.props.shouldApplyUpdateRulePolicies.filter(p => p.name === updateRule.shouldUpdate);
-      if(shouldApplyUpdateRulePolicy.length >0){
-        let newValue = shouldApplyUpdateRulePolicy[0](_.get(this.state, updateRule.trackedField));
-        if(newValue !== null)
-          {
-            let changes = _.set({}, updateRule.targetField, newValue);
-            this.setState({...changes})
-          }
+    if (this.props.updateRules.length > 0) {
+      let policies = this.props.updateRules
+        .filter(rule => node.substring(1) === rule.trackedField)
+        .map(rule => {
+          let policy = this.props.updateRulePolicies.filter(p => p.name === rule.policyName);
+          return { rule, policy: policy.length > 0 ? policy[0] : null };
+        })
+        .filter(policy => policy.policy !== null)
+        ;
+      if (policies.length > 0) {
+        let changes = {};
+        for (const policy of policies) {
+          let newValue = policy.policy(_.get(this.state, policy.rule.trackedField));
+          _.set(changes, policy.rule.targetField, newValue);
+        }
+        this.setState({ ...changes }, () => this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError))
+        return;
       }
-    });
+    }
 
     this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError);
   }
@@ -157,7 +165,7 @@ export default class UpSchemaForm extends React.Component<
   }
 
   private inQueue = false;
-  private assingDataOrder: { obj: any; nodes: any; value: any }[] = [];
+  private assingDataOrder: { obj: any; nodes: any; value: any, node: string }[] = [];
 
   private AssignValue(obj, nodes, value) {
     let data = obj != null ? _.cloneDeep(obj) : {};
@@ -175,8 +183,8 @@ export default class UpSchemaForm extends React.Component<
     }
   }
 
-  addToQueue = (obj, nodes, value) => {
-    this.assingDataOrder.push({ obj, nodes, value });
+  addToQueue = (obj, nodes, value, node) => {
+    this.assingDataOrder.push({ obj, nodes, value, node });
     if (this.inQueue === false) {
       this.checkQueue();
     }
@@ -188,7 +196,7 @@ export default class UpSchemaForm extends React.Component<
     this.setState(this.AssignValue(a.obj, a.nodes, a.value), () => {
       this.assingDataOrder.shift();
       if (this.assingDataOrder.length == 0) {
-        this.updateState();
+        this.updateState(a.node);
         this.inQueue = false;
       } else {
         this.assingDataOrder[0].obj = this.state;
