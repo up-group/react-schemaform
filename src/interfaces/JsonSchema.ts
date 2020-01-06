@@ -19,7 +19,8 @@ type InternalFormatOfSchema =
   | "phone"
   | "multilineText"
   | "imageUrl"
-  | "uri";
+  | "uri"
+  | "search";
 
 interface JsonSchema {
   $ref?: string;

@@ -28,6 +28,7 @@ export interface UpSchemaFormComponentSelectorProps {
   ignoredProperties?: string[];
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
+  onSearchButtonClick: (text: string) => any;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
@@ -89,6 +90,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             ignoredProperties={this.props.ignoredProperties}
             viewModels={this.props.viewModels}
             translate={this.props.translate}
+            onSearchButtonClick={this.props.onSearchButtonClick}
           />
         );
         isControl = false;
@@ -105,6 +107,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             ignoredProperties={this.props.ignoredProperties}
             viewsModel={this.props.viewModels}
             translate={this.props.translate}
+            onSearchButtonClick={this.props.onSearchButtonClick}
           />
         );
         isArray = true;
@@ -117,7 +120,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.showError,
           this.props.value,
           this.props.name,
-          this.props.translate
+          this.props.translate,
+          this.props.onSearchButtonClick
         );
         break;
     }
