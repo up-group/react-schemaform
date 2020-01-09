@@ -37,7 +37,7 @@ class Demo extends React.Component<{}, DemoState> {
     this.state = {
       nb: 55,
       result: "",
-      schema:  {"definitions":{"PaginationProperties":{"type":["object","null"],"default":null,"properties":{"items_per_page":{"type":"integer","default":0},"request_page":{"type":"integer","default":0}}}},"type":"object","properties":{"pagination_properties":{"$ref":"#/definitions/PaginationProperties"},"search":{"title":"Recherche","type":["string","null"],"default":null},"data_type":{"title":"Type","enumNames":["Crt","Siret","EtablishmentName"],"enumDescriptions":["Crt","Siret","Raison social"],"type":"integer","default":0,"format":"enum","enum":[1,2,3]}}},
+      schema:  {"definitions":{"PaginationProperties":{"type":["object","null"],"default":null,"properties":{"items_per_page":{"type":"integer","default":0},"request_page":{"type":"integer","default":0}}}},"type":"object","properties":{"pagination_properties":{hide: true, "$ref":"#/definitions/PaginationProperties"},"search":{"type":["string","null"],"default":null},"data_type":{"title":"Type","enumNames":["Crt","Siret","EtablishmentName"],"enumDescriptions":["Crt","Siret","Raison social"],"type":"integer","default":0,"format":"enum","enum":[1,2,3]}}},
       hasError: false,
       showError: false,
       dataS: {}
@@ -81,6 +81,7 @@ class Demo extends React.Component<{}, DemoState> {
               }
             ]}
             onSearchButtonClick={value => console.log(value)}
+            //ignoredProperties={["pagination_properties"]}
           />
           <JSONInput
             id="a_unique_id"

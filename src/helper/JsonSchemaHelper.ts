@@ -38,11 +38,12 @@
       }
 
       if (data[index] != null && data[index]["$ref"] !== undefined) {
-        data[index] = this.getFromDefinition(
+        data[index] = {...data[index], ...this.getFromDefinition(
           data[index]["$ref"],
           originalDefinitions,
           flattenedDefinitions
-        );
+        )};
+        delete data[index]["$ref"];
       } else if (typeof data[index] !== "string") {
         this.flat(data[index], originalDefinitions, flattenedDefinitions);
       }

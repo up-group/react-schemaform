@@ -89,17 +89,13 @@ export default class UpSchemaObject extends React.Component<
   render() {
     const rows = groupByRow(
       this.props.viewModels.filter(
-        a =>
-          !(
-            this.isIgnored(a.name) ||
-            this.props.schema.properties[a.name].title == null
-          )
+        a => !this.isIgnored(a.name)
       )
     );
+
     Object.keys(this.props.schema.properties)
       .filter(
-        a =>
-          !(this.isIgnored(a) || this.props.schema.properties[a].title == null)
+        a =>!this.isIgnored(a) //&& !this.props.schema.properties[a].hide
       )
       .forEach(a => {
         if (!this.props.viewModels.some(pc => pc.name === a)) {
@@ -118,7 +114,7 @@ export default class UpSchemaObject extends React.Component<
     for (let propertyName in this.props.schema.properties) {
       if (this.props.schema.properties.hasOwnProperty(propertyName)) {
         let property = this.props.schema.properties[propertyName];
-        if (this.isIgnored(propertyName) || property.title == null) continue;
+        if (this.isIgnored(propertyName)) continue;
 
         let value =
           this.props.value == null ? null : this.props.value[propertyName];
