@@ -10,7 +10,7 @@ export default class StringField extends UpFormControl<string> {
     var pattern = new RegExp(this.props.schema.pattern);
     var patternErrorMessage = this.props.schema.patternErrorMessage;
   }
-
+ 
   renderField() {
     switch (this.props.schema.format) {
       case "email":

@@ -35,7 +35,7 @@ export interface UpSchemaFormProps {
 
 export default class UpSchemaForm extends React.Component<
   UpSchemaFormProps,
-  {}
+  {data: any}
   > {
   static defaultProps = {
     showError: true,
@@ -46,9 +46,16 @@ export default class UpSchemaForm extends React.Component<
   constructor(p, c) {
     super(p, c);
     if (this.props.initValue != null) {
-      this.state = this.props.initValue;
+      this.state = {data: this.props.initValue};
     } else {
-      this.state = this.props.value || {};
+      this.state = {data: this.props.value || {}};
+    }
+  }
+
+  componentWillReceiveProps(newProps: UpSchemaFormProps){
+    if(this.props.value != newProps.value){
+      const newState = { ..._.cloneDeep(newProps.value) };
+      this.setState({data: newState}, () => {this.forceUpdate()});
     }
   }
 
@@ -78,7 +85,7 @@ export default class UpSchemaForm extends React.Component<
       );
     }
 
-    const value = _.cloneDeep(this.state);
+    const value = _.cloneDeep(this.state.data);
     let content = (
       <div className={this.props.wrapperClassName}>
         <UpSchemaFormComponentSelector
@@ -116,21 +123,21 @@ export default class UpSchemaForm extends React.Component<
     let nodeArray = node.split(".");
     nodeArray.shift();
 
-    this.addToQueue(this.state, nodeArray, newValue, node);
+    this.addToQueue(this.state.data, nodeArray, newValue, node);
   };
 
   updateState(node: string) {
     let schema: JsonSchema = this.getSchema();
     if (schema && schema.properties["start_date"] && schema.properties["end_date"] && schema.properties["start_date"].format == "date" && schema.properties["end_date"].format == "date") {
-      if (this.state["start_date"]) {
-        schema.properties["end_date"].minimum = this.state["start_date"].format()
+      if (this.state.data["start_date"]) {
+        schema.properties["end_date"].minimum = this.state.data["start_date"].format()
       }
-      if (this.state["end_date"]) {
-        schema.properties["start_date"].maximum = this.state["end_date"].format()
+      if (this.state.data["end_date"]) {
+        schema.properties["start_date"].maximum = this.state.data["end_date"].format()
       }
     }
 
-    if (this.props.updateRules.length > 0) {
+    if (this.props.updateRules && this.props.updateRules.length > 0) {
       let policies = this.props.updateRules
         .filter(rule => node.substring(1) === rule.trackedField)
         .map(rule => {
@@ -142,15 +149,15 @@ export default class UpSchemaForm extends React.Component<
       if (policies.length > 0) {
         let changes = {};
         for (const policy of policies) {
-          let newValue = policy.policy(_.get(this.state, policy.rule.trackedField));
+          let newValue = policy.policy(_.get(this.state.data, policy.rule.trackedField));
           _.set(changes, policy.rule.targetField, newValue);
         }
-        this.setState({ ...changes }, () => this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError))
+        this.setState({data: { ...changes }}, () => this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError))
         return;
       }
     }
 
-    this.props.onFormChange(_.cloneDeep(this.state), this.errorMemory.hasError);
+    this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError);
   }
 
   private newObject(nodes, value) {
@@ -193,13 +200,13 @@ export default class UpSchemaForm extends React.Component<
   private checkQueue = () => {
     let a = this.assingDataOrder[0];
     this.inQueue = true;
-    this.setState(this.AssignValue(a.obj, a.nodes, a.value), () => {
+    this.setState({data: this.AssignValue(a.obj, a.nodes, a.value)}, () => {
       this.assingDataOrder.shift();
       if (this.assingDataOrder.length == 0) {
         this.updateState(a.node);
         this.inQueue = false;
       } else {
-        this.assingDataOrder[0].obj = this.state;
+        this.assingDataOrder[0].obj = this.state.data;
         this.checkQueue();
       }
     });

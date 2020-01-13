@@ -15,7 +15,7 @@ export default class DateField extends UpFormControl<Moment> {
   }
 
   get currentValue(): Moment {
-    if (this.state.value && this.state.value.toString() == MIN_DATE) {
+    if (this.state.value && this.state.value.toString() == MIN_DATE || this.state.value && !this.state.value["_isAMomentObject"]) {
       return null;
     }
     return this.state.value;
