@@ -145,14 +145,14 @@ export default class UpSchemaForm extends React.Component<
           return { rule, policy: policy.length > 0 ? policy[0] : null };
         })
         .filter(policy => policy.policy !== null)
-        ;
+        ;      
       if (policies.length > 0) {
         let changes = {};
         for (const policy of policies) {
           let newValue = policy.policy(_.get(this.state.data, policy.rule.trackedField));
           _.set(changes, policy.rule.targetField, newValue);
         }
-        this.setState({data: { ...changes }}, () => this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError))
+        this.setState({data: {...this.state.data, ...changes }}, () => this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError))
         return;
       }
     }
