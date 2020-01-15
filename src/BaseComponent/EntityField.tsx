@@ -9,9 +9,8 @@ export default class EntityField<Type> extends UpFormControl<Type> {
   }
 
   onChange = (event, cleandata, error?) => {
-    let idText = this.schema.entitySource.id || "id";
     this.setState({ internalData: cleandata }, () =>
-      this.handleChangeEventGlobal(event, cleandata ? cleandata[idText] : null, error)
+      this.handleChangeEventGlobal(event, cleandata, error)
     );
   };
 
