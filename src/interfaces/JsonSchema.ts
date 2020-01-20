@@ -71,5 +71,5 @@ interface JsonSchema {
   readonly?: boolean;
   hide?: boolean;
   advanced?: boolean;
-  order?: boolean;
+  order?: number;
 }
