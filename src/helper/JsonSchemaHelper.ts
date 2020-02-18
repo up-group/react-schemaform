@@ -1,4 +1,6 @@
-﻿export default class JsonSchemaHelper {
+﻿import * as _ from 'lodash'
+
+export default class JsonSchemaHelper {
   static getBaseType(schema: JsonSchema): string {
     if (schema.type == undefined) {
       return "";
@@ -57,9 +59,11 @@
     originalDefinitions: { [index: string]: JsonSchema },
     flattenedDefinitions: { [index: string]: JsonSchema }
   ) {
-    var isAlreadyFlattened = flattenedDefinitions[id] == undefined;
-    if (isAlreadyFlattened) {
-      flattenedDefinitions[id] = originalDefinitions[id.split("/")[2]];
+    var isNotAlreadyFlattened = flattenedDefinitions[id] == undefined;
+    if (isNotAlreadyFlattened) {
+      var pathToDefinition = id.replace("#/definitions/", "").replace(/\//g, ".");
+      flattenedDefinitions[id] = _.get(originalDefinitions, pathToDefinition);
+      
       this.flat(
         flattenedDefinitions[id],
         originalDefinitions,
