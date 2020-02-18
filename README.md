@@ -1,41 +1,16 @@
 # React-SchemaForm
  
- ## Instalation
+ ## Setup
 
  ``` javascript
  npm install @up-group/up-react-schemaform
  ```
 
+ ## Dependency
 
- Ce projet a été testé et fonctionne avec l'usilisation de [WebPack](https://webpack.github.io/docs/)
+Components : [react-controls](https://github.com/Up-Group/react-controls) 
 
- Exemple de webpack.config.js:
-  ``` javascript
- module.exports = {
-    entry: {
-        'docs/dist/demo': './docs/demo.tsx'
-    },
-    output: {
-        path: './',
-        filename: '[name].js'
-    }          ,
-    devtool: "source-map",
-    resolve: {
-        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
-    },
-    module: {
-        loaders: [
-            { test: /\.tsx?|.ts?$/, loader: "awesome-typescript-loader" },
-        ],
-    }
-};
- ```
-
- ## Dependance
-
-Les composants de ce projet provienne de [react-controls](https://github.com/Up-Group/react-controls) 
-
- ## Projet
+ ## Project
 
  Ce projet a pour objectif la génération automatique d'un formulaire à partir d'un JsonSchema. 
 
@@ -44,11 +19,9 @@ Les composants de ce projet provienne de [react-controls](https://github.com/Up-
 - [Guide spacetelescope](https://spacetelescope.github.io/understanding-json-schema/)
 - [json-schema.org](http://json-schema.org/)
 
-  Il est a noté que si dans les grandes lignes les normes officiels du JsonSchema sont respecté, elles ont été adaptées pour répondre à nos besoin.
+  Il est à noter que si dans les grandes lignes les normes officielles du JsonSchema sont respectées, elles ont été adaptées pour répondre au besoin.
 
-## demo
-
-La demo suivante permet de de voir la generation.
+## Demo
 
 [demo](https://up-group.github.io/react-schemaform/)
 
@@ -76,7 +49,6 @@ La demo suivante permet de de voir la generation.
 
 ### Required
 
-Cette valeur est definie au niveau du parent pour dire qu'elle enfant sont requis.
 
 ``` javascript
 {
@@ -88,8 +60,6 @@ Cette valeur est definie au niveau du parent pour dire qu'elle enfant sont requi
     "required": ["age"]
 }
 ```
-
-Dans cette exemple l'a valeur age est requise mais pas la hauteur.
 
 
 ### Minimum et Maximum
@@ -104,19 +74,14 @@ Disponible avec les types `number` et `integer`.
 }
 ```
 
-### Enum
+### Enum (custom JSONShcema)
 
-Cette partie ne suis pas les normes de JSONSchema.
-
-Deux champs suplmentaire ont été rajouté :
+Deux champs supplémentaires ont été ajoutés :
 - `enumNames`
 - `enumDescriptions` 
 
 Ainsi que le format :
 - `enum`
-
-Ce fonctionnement est orirenté specifiquement pour la génèration de formulaire.
-
 
 ```javascript
 {
@@ -128,12 +93,12 @@ Ce fonctionnement est orirenté specifiquement pour la génèration de formulair
 }
 ```
 
-### EntityKey EntitySource
+### EntityKey / EntitySource
 
-Nouveau format `entityKey`
+Nouveau format : `entityKey`
 
-Nouveau propiete de JsonSchema: `entitySource` qui contient : 
-- `id` : nom de la propriété qui sera renvoyé.
+Nouvel propriété : `entitySource` qui contient : 
+- `id` : nom de la propriété "clé" des objets retours
 - `name` : nom de l’agrégat
 - `text` : nom à afficher à l’utilisateur
 - `query` : url de l’api de recherche
@@ -145,7 +110,7 @@ Nouveau propiete de JsonSchema: `entitySource` qui contient :
         "id":"Id",
         "name":"Inventaire",
         "text":"{Nom}",
-        "query":"/AtHome/api/queries/IInventaireSearchQuery",
+        "query":"/Product/api/queries/IInventaireSearchQuery",
         "queryParameterName":"args"
     },
     "type":"string",
@@ -156,8 +121,6 @@ Nouveau propiete de JsonSchema: `entitySource` qui contient :
 ```
 
 ### Upload
-
-Gestion d’upload de fichier, permet d’envoyer un fichier transformé en byte array.
 
 Nouveau format `upload`
 Nouvelle propiété JsonSchema `fileExtension`
