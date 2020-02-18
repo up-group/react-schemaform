@@ -6,28 +6,6 @@
  npm install @up-group/up-react-schemaform
  ```
 
- Exemple de webpack.config.js:
-  ``` javascript
- module.exports = {
-    entry: {
-        'docs/dist/demo': './docs/demo.tsx'
-    },
-    output: {
-        path: './',
-        filename: '[name].js'
-    }          ,
-    devtool: "source-map",
-    resolve: {
-        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
-    },
-    module: {
-        loaders: [
-            { test: /\.tsx?|.ts?$/, loader: "awesome-typescript-loader" },
-        ],
-    }
-};
- ```
-
  ## Dependency
 
 Components : [react-controls](https://github.com/Up-Group/react-controls) 
