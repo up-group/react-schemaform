@@ -10,7 +10,6 @@ import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
 
 import { eventFactory } from "@up-group/react-controls";
-import { string } from "prop-types";
 
 export interface UpSchemaArrayProps {
   schema: JsonSchema;
@@ -40,6 +39,9 @@ export default class UpSchemaArray extends React.Component<
   render() {
     var schema: JsonSchema = this.props.schema.items as JsonSchema;
 
+    if(this.props.schema.referenceTo){
+      return this.props.schema.getEntitySelector((data, error)=> this.props.onChange(eventFactory("", data), data, error))
+    }
     var comp = ComponentRegistery.GetComponentBySchema(schema);
 
     if (comp != null && comp.array === true) {
