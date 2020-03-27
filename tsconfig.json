@@ -15,7 +15,10 @@
   "exclude": [
     "node_modules/",
     "dist/",
-    "docs/lib/"
+    "docs/lib/",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.mock.*"
   ],
 
   "compileOnSave": false
