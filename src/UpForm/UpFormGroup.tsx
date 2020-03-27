@@ -1,7 +1,7 @@
 ﻿import * as $ from "jquery";
 import * as React from "react";
 
-import { UpLabel, UpBox, UpGrid, UpCol, UpRow } from "@up-group/react-controls";
+import { UpLabel, UpBox, UpGrid, UpCol, UpRow } from "@up-group-ui/react-controls";
 
 export interface UpFormGroupProps {
   hasError?: boolean;

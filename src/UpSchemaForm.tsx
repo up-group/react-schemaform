@@ -7,7 +7,7 @@ import UpSchemaFormComponentSelector, {
 } from "./UpForm/UpSchemaFormComponentSelector";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
-import { UpPanel } from "@up-group/react-controls";
+import { UpPanel } from "@up-group-ui/react-controls";
 import * as _ from "lodash";
 
 type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;

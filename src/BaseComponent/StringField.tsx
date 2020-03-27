@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpInput, UpEmail, UpPhone, UpText, UpButton } from "@up-group/react-controls";
-import SvgIcon from '@up-group/react-controls/dist/src/Components/Display/SvgIcon';
+import { UpInput, UpEmail, UpPhone, UpText, UpButton } from "@up-group-ui/react-controls";
+import SvgIcon from '@up-group-ui/react-controls/dist/Components/Display/SvgIcon';
 import { style } from 'typestyle';
 
 export default class StringField extends UpFormControl<string> {

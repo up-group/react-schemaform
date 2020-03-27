@@ -11,7 +11,7 @@ import {
   UpGrid,
   UpCol,
   UpRow
-} from "@up-group/react-controls";
+} from "@up-group-ui/react-controls";
 
 export interface UpSchemaObjectProps {
   value: any;

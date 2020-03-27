@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpTimePicker } from "@up-group/react-controls";
+import { UpTimePicker } from "@up-group-ui/react-controls";
 
 export default class TimeField extends UpFormControl<string> {
   constructor(p, c) {

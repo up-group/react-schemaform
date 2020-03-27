@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpNumber } from "@up-group/react-controls";
+import { UpNumber } from "@up-group-ui/react-controls";
 
 export default class IntegerField extends UpFormControl<number> {
   constructor(p, c) {

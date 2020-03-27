@@ -9,7 +9,7 @@ import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
 
-import { eventFactory } from "@up-group/react-controls";
+import { eventFactory, UpGrid} from "@up-group-ui/react-controls";
 
 export interface UpSchemaArrayProps {
   schema: JsonSchema;
