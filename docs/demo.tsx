@@ -7,7 +7,7 @@ import {
   UpThemeProvider,
   UpThemeInterface,
   UpDefaultTheme
-} from "@up-group/react-controls";
+} from "@up-group-ui/react-controls";
 
 import axios, { AxiosResponse } from "axios";
 
