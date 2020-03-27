@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 
-import { UpToggle, UpRadio } from "@up-group/react-controls";
+import { UpToggle, UpRadio } from "@up-group-ui/react-controls";
 
 export default class BooleanField extends UpFormControl<Boolean> {
   constructor(p, c) {

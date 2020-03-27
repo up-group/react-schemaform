@@ -72,4 +72,6 @@ interface JsonSchema {
   hide?: boolean;
   advanced?: boolean;
   order?: number;
+  referenceTo?: string;
+  getEntitySelector?: (itemsSetter: (data: any, error: any) => void) => JSX.Element;
 }

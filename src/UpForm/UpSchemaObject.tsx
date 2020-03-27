@@ -11,7 +11,7 @@ import {
   UpGrid,
   UpCol,
   UpRow
-} from "@up-group/react-controls";
+} from "@up-group-ui/react-controls";
 
 export interface UpSchemaObjectProps {
   value: any;
@@ -95,7 +95,7 @@ export default class UpSchemaObject extends React.Component<
 
     Object.keys(this.props.schema.properties)
       .filter(
-        a =>!this.isIgnored(a) //&& !this.props.schema.properties[a].hide
+        a =>!this.isIgnored(a) && !this.props.schema.properties[a].hide
       )
       .forEach(a => {
         if (!this.props.viewModels.some(pc => pc.name === a)) {
@@ -114,7 +114,7 @@ export default class UpSchemaObject extends React.Component<
     for (let propertyName in this.props.schema.properties) {
       if (this.props.schema.properties.hasOwnProperty(propertyName)) {
         let property = this.props.schema.properties[propertyName];
-        if (this.isIgnored(propertyName)) continue;
+        if (this.isIgnored(propertyName) || property.hide) continue;
 
         let value =
           this.props.value == null ? null : this.props.value[propertyName];

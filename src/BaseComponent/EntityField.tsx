@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 
-import { UpSelect } from "@up-group/react-controls";
+import { UpSelect } from "@up-group-ui/react-controls";
 
 export default class EntityField<Type> extends UpFormControl<Type> {
   constructor(p, c) {

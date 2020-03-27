@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpInput, UpEmail, UpPhone, UpText, UpButton } from "@up-group/react-controls";
-import SvgIcon from '@up-group/react-controls/dist/src/Components/Display/SvgIcon';
+import { UpInput, UpEmail, UpPhone, UpText, UpButton } from "@up-group-ui/react-controls";
+import { UpSvgIcon } from "@up-group-ui/react-controls";
 import { style } from 'typestyle';
 
 export default class StringField extends UpFormControl<string> {
@@ -73,7 +73,7 @@ export default class StringField extends UpFormControl<string> {
         });
         return (
           <div className={`${searchInputStyle} search-input-wrapper`}>
-            <SvgIcon
+            <UpSvgIcon
               iconName="search"
               width={24}
               height={24}

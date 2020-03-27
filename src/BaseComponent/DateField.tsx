@@ -2,7 +2,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpDate } from "@up-group/react-controls";
+import { UpDate } from "@up-group-ui/react-controls";
 
 import { Moment } from "moment";
 

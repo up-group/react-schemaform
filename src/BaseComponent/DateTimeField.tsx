@@ -1,7 +1,7 @@
 ﻿import * as $ from "jquery";
 import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpDate, UpTimePicker } from "@up-group/react-controls";
+import { UpDate, UpTimePicker } from "@up-group-ui/react-controls";
 
 import { Moment } from "moment";
 import * as moment from "moment";
