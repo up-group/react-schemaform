@@ -74,4 +74,5 @@ interface JsonSchema {
   order?: number;
   referenceTo?: string;
   getEntitySelector?: (itemsSetter: (data: any, error: any) => void) => JSX.Element;
+  isToggle?: boolean;
 }

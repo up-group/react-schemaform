@@ -10,8 +10,15 @@ export default class BooleanField extends UpFormControl<Boolean> {
 
   renderField() {
     if (this.isNullable === false) {
-      return (
-        <UpRadio
+      if(this.props.schema.isToggle) {
+        return (
+          <UpToggle
+            onChange={this.handleChangeEventGlobal}
+            value={this.state.value}
+          />
+        );
+      } else {
+        return <UpRadio
           name={this.props.name}
           displayMode="normal"
           gutter={8}
@@ -24,7 +31,7 @@ export default class BooleanField extends UpFormControl<Boolean> {
           defaultValue={this.convert(this.default(false))}
           value={this.convert(this.state.value)}
         />
-      );
+      }
     } else {
       return (
         <UpRadio
