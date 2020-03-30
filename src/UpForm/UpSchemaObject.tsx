@@ -29,7 +29,7 @@ export interface UpSchemaObjectProps {
   ignoredProperties: string[];
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
-  onSearchButtonClick: (text: string) => any;
+  onSearchButtonClick?: (text: string) => any;
 }
 
 export interface UpSchemaObjectState {

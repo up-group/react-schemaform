@@ -11,7 +11,7 @@ export interface BaseProps<BaseType> {
   showError: boolean;
   value: BaseType;
   translate : (text: string) => any,
-  onSearchButtonClick: (text: string) => any;
+  onSearchButtonClick?: (text: string) => any;
 }
 
 export interface BaseState<BaseType> {
@@ -49,14 +49,7 @@ export abstract class UpFormControl<BaseType> extends React.Component<
       });
     }
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    // if (shallowEqual(this.state.value, nextState.value) === true) {
-    //   return false;
-    // }
-    return true;
-  }
-
+  
   abstract renderField(): JSX.Element;
 
   public handleChangeEventGlobal = (event, cleandata, error?) => {

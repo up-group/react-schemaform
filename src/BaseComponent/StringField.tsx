@@ -85,11 +85,10 @@ export default class StringField extends UpFormControl<string> {
               value={this.state.value || ""}
               onChange={e => this.handleChangeEventGlobal(e, e.target.value)}
             />
-
             <UpButton
               intent="primary"
               actionType="search"
-              onClick={(e: any) => this.props.onSearchButtonClick(e.target.value)}>
+              onClick={(e: any) => this.props.onSearchButtonClick && this.props.onSearchButtonClick(e.target.value)}>
               Rechercher
           </UpButton>
           </div>

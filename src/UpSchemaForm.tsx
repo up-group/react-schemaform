@@ -30,7 +30,7 @@ export interface UpSchemaFormProps {
   translate?: (text: string) => any;
   updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
   updateRules?: UpdateRule[];
-  onSearchButtonClick: (text: string) => any;
+  onSearchButtonClick?: (text: string) => any;
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -158,17 +158,6 @@ export default class UpSchemaForm extends React.Component<
     }
 
     this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError);
-  }
-
-  private newObject(nodes, value) {
-    let obj = {};
-    let prop = nodes.shift();
-    if (nodes.length == 0) {
-      obj[prop] = value;
-    } else {
-      obj[prop] = this.newObject(nodes, value);
-    }
-    return obj;
   }
 
   private inQueue = false;

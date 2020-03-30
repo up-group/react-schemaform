@@ -28,7 +28,7 @@ export interface UpSchemaFormComponentSelectorProps {
   ignoredProperties?: string[];
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
-  onSearchButtonClick: (text: string) => any;
+  onSearchButtonClick?: (text: string) => any;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
