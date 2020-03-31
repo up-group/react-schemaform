@@ -61,7 +61,7 @@ export default class StringField extends UpFormControl<string> {
               outline: 'none',
               width: '85%'
             },
-            '& .up-icon-wrapper': {
+            '&.search-input-wrapper > .up-icon-wrapper': {
               position: 'absolute',
               zIndex: 2,
               display: "block",
