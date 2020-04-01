@@ -92,7 +92,6 @@ export default class StringField extends UpFormControl<string> {
               Rechercher
           </UpButton>
           </div>
-
         );
       default:
         return (

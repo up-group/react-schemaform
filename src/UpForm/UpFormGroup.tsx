@@ -17,7 +17,7 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
   
   render() {
     return ( 
-      <React.Fragment>
+      <>
         {this.props.title && <UpLabel text={this.props.title}>
           {this.props.description != null ? (
             <a
@@ -29,13 +29,12 @@ export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
               <i className="glyphicon glyphicon-info-sign" />
             </a>
           ) : null}
-
           <span style={{ color: "red" }}>
             {this.props.isRequired ? " *" : ""}
           </span>
         </UpLabel>}
         {this.props.children}
-      </React.Fragment>
+      </>
     );
   }
 

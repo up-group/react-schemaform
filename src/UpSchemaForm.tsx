@@ -9,6 +9,8 @@ import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { UpPanel } from "@up-group-ui/react-controls";
 import * as _ from "lodash";
+import * as classnames from "classnames";
+import {style} from "typestyle";
 
 type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;
 
@@ -103,13 +105,27 @@ export default class UpSchemaForm extends React.Component<
         {this.props.children}
       </div>
     );
+
     if (schema.title)
       return (
-        <UpPanel title={schema.title} className={this.props.wrapperClassName}>
+        <UpPanel title={schema.title} className={classnames(this.props.wrapperClassName, style({
+          $nest : {
+            "& .up-select-wrapper" : {
+              marginTop : '14px' /** TEMP FIX ;  */
+            }
+          }
+        }))}>
           {content}
         </UpPanel>
       );
-    return content;
+
+    return (<div className={classnames(this.props.wrapperClassName, style({
+      $nest : {
+        "& .up-select-wrapper" : {
+          marginTop : '14px' /** TEMP FIX ;  */
+        }
+      }
+    }))}>{content}</div>)
   }
 
   onChange = (
@@ -163,18 +179,18 @@ export default class UpSchemaForm extends React.Component<
   private inQueue = false;
   private assingDataOrder: { obj: any; nodes: any; value: any, node: string }[] = [];
 
-  private AssignValue(obj, nodes, value) {
+  private assignValue(obj, nodes, value) {
     let data = obj != null ? _.cloneDeep(obj) : {};
     let prop = nodes.shift();
     if (nodes.length === 0) {
       data[prop] = value;
       return data;
     } else if (data.hasOwnProperty(prop) && typeof data[prop] === "object") {
-      data[prop] = this.AssignValue(data[prop], nodes, value);
+      data[prop] = this.assignValue(data[prop], nodes, value);
       return data;
     } else if (data.hasOwnProperty(prop) === false) {
       data[prop] = {};
-      data[prop] = this.AssignValue(data[prop], nodes, value);
+      data[prop] = this.assignValue(data[prop], nodes, value);
       return data;
     }
   }
@@ -189,7 +205,7 @@ export default class UpSchemaForm extends React.Component<
   private checkQueue = () => {
     let a = this.assingDataOrder[0];
     this.inQueue = true;
-    this.setState({data: this.AssignValue(a.obj, a.nodes, a.value)}, () => {
+    this.setState({data: this.assignValue(a.obj, a.nodes, a.value)}, () => {
       this.assingDataOrder.shift();
       if (this.assingDataOrder.length == 0) {
         this.updateState(a.node);
