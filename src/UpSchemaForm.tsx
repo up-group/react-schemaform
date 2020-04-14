@@ -89,7 +89,8 @@ export default class UpSchemaForm extends React.Component<
 
     const value = _.cloneDeep(this.state.data);
     let content = (
-      <div className={this.props.wrapperClassName}>
+      <div className={this.props.wrapperClassName} style={{ display : 'flex' , width : '100%', 
+        flexDirection : 'column'}}>
         <UpSchemaFormComponentSelector
           value={value}
           isRequired={false}
@@ -228,50 +229,4 @@ function is(x, y) {
     // Step 6.a: NaN == NaN
     return x !== x && y !== y;
   }
-}
-
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
-
-  if (
-    typeof objA !== "object" ||
-    objA === null ||
-    typeof objB !== "object" ||
-    objB === null
-  ) {
-    return false;
-  }
-
-  let keysA = Object.keys(objA);
-  let keysB = Object.keys(objB);
-
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  for (let i = 0; i < keysA.length; i++) {
-    if (objA[keysA[i]] && objA[keysA[i]].constructor === Array) {
-      for (let j = 0; j < objA[keysA[i]].lenght; j++) {
-        if (shallowEqual(objA[keysA[i]][j], objA[keysB[i]][j]) === false) {
-          return false;
-        }
-      }
-    } else if (
-      objB.hasOwnProperty(keysA[i]) &&
-      typeof objA[keysA[i]] === "object"
-    ) {
-      if (shallowEqual(objA[keysA[i]], objB[keysA[i]]) == false) {
-        return false;
-      }
-    } else if (
-      !objB.hasOwnProperty(keysA[i]) ||
-      !is(objA[keysA[i]], objB[keysA[i]])
-    ) {
-      return false;
-    }
-  }
-
-  return true;
 }

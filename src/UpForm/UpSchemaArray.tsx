@@ -98,7 +98,9 @@ export default class UpSchemaArray extends React.Component<
           break;
       }
 
-      return <div key={index}>{element}</div>;
+      return <div key={index} style={{
+        display: 'flex', width: '100%', flexDirection: 'column'
+      }}>{element}</div>;
     });
 
     return (
