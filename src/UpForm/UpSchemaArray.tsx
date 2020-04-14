@@ -8,6 +8,7 @@ import UpSchemaFormComponentSelector, {
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
+import { JsonSchema } from "../interfaces/JsonSchema";
 
 import { eventFactory, UpGrid} from "@up-group-ui/react-controls";
 

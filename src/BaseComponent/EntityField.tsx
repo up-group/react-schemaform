@@ -2,6 +2,7 @@
 import { UpFormControl } from "../UpForm/UpFormControl";
 
 import { UpSelect } from "@up-group-ui/react-controls";
+import { JsonSchema, InternalTypeOfSchema } from "../interfaces/JsonSchema";
 
 export default class EntityField<Type> extends UpFormControl<Type> {
   constructor(p, c) {

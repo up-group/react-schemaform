@@ -1,4 +1,5 @@
 ﻿import * as _ from 'lodash'
+import { JsonSchema, InternalTypeOfSchema} from "../interfaces/JsonSchema";
 
 export default class JsonSchemaHelper {
   static getBaseType(schema: JsonSchema): string {

@@ -1,4 +1,4 @@
-type InternalTypeOfSchema =
+export type InternalTypeOfSchema =
   | "null"
   | "object"
   | "string"
@@ -7,7 +7,7 @@ type InternalTypeOfSchema =
   | "boolean"
   | "array";
 
-type InternalFormatOfSchema =
+export type InternalFormatOfSchema =
   | "date"
   | "date-time"
   | "time"
@@ -22,7 +22,7 @@ type InternalFormatOfSchema =
   | "uri"
   | "search";
 
-interface JsonSchema {
+export interface JsonSchema {
   $ref?: string;
   id?: string;
   $schema?: JsonSchema;

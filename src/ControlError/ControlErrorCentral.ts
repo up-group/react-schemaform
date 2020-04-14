@@ -1,4 +1,6 @@
-﻿export default class ControlErrorCentral {
+﻿import { ErrorControl, ErrorControlType} from "../interfaces/UpReactComponent";
+
+export default class ControlErrorCentral {
   private ErrorControl: ErrorControl<any>[] = [];
 
   constructor() {}

@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-
+import { JsonSchema, InternalTypeOfSchema} from "../interfaces/JsonSchema";
 import { style } from 'typestyle';
 
 export type FilterData = { type: any; label: string, value?: string };

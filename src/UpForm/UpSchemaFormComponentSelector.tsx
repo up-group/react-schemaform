@@ -4,6 +4,7 @@ import UpSchemaArray from "./UpSchemaArray";
 import UpSchemaObject from "./UpSchemaObject";
 import ComponentRegistery from "./ComponentRegistery";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
+import { JsonSchema } from "../interfaces/JsonSchema";
 
 export interface PropertyViewModel {
   order: number;

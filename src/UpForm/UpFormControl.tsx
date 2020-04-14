@@ -2,6 +2,7 @@
 import ControlErrorCentral from "../ControlError/ControlErrorCentral";
 import TypeNullControl from "../ControlError/TypeNullControl";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
+import { JsonSchema } from "../interfaces/JsonSchema";
 
 export interface BaseProps<BaseType> {
   schema: JsonSchema;

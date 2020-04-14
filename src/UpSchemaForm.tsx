@@ -1,4 +1,4 @@
-﻿/// <reference path="./interfaces/JsonSchema.ts"/>
+﻿
 /// <reference path="./interfaces/UpReactComponent.ts"/>
 
 import * as React from "react";
@@ -7,6 +7,7 @@ import UpSchemaFormComponentSelector, {
 } from "./UpForm/UpSchemaFormComponentSelector";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
+import { JsonSchema } from "./interfaces/JsonSchema";
 import { UpPanel } from "@up-group-ui/react-controls";
 import * as _ from "lodash";
 import * as classnames from "classnames";

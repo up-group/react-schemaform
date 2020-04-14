@@ -2,6 +2,8 @@
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpSelect } from "@up-group-ui/react-controls";
 
+import { JsonSchema, InternalTypeOfSchema} from "../interfaces/JsonSchema";
+
 interface UpEnumExtendProp {
   _enum: Number[];
   enumDescriptions: String[];

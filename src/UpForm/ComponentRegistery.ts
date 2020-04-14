@@ -1,5 +1,6 @@
 ﻿import * as React from "react";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
+import { JsonSchema } from "../interfaces/JsonSchema";
 
 export interface ComponentRegisteryEntry {
   key: string;

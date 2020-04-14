@@ -1,4 +1,6 @@
 ﻿import { UpFormControl } from "../UpForm/UpFormControl";
+import { ErrorControlType, ErrorControl} from "../interfaces/UpReactComponent";
+
 
 export default class TypeNullControl implements ErrorControl<any> {
   private _isNullable: boolean;
