@@ -122,6 +122,9 @@ export default class UpSchemaForm extends React.Component<
       );
 
     return (<div className={classnames(this.props.wrapperClassName, style({
+      display: "flex",
+      width: "100%",
+      flexDirection: "column",
       $nest : {
         "& .up-select-wrapper" : {
           marginTop : '14px' /** TEMP FIX ;  */
