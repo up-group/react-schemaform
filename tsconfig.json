@@ -7,12 +7,20 @@
     "allowJs": false,
     "jsx": "react",
     "removeComments": true,
-    "outDir": "dist",
+    "outDir": "dist/",
     "allowUnreachableCode": false,
     "resolveJsonModule": true,
     "importHelpers": true,
+    "baseUrl": ".", 
+    "paths": {
+      "*": [
+        "src/*"
+      ]
+    }
   },
-
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules/",
     "dist/",
