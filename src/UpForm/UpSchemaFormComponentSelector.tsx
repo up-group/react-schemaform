@@ -63,8 +63,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     return result;
   }
   renderElement(parametersForm) {
-    let {formWithFloatingLabel,element,isControl,isArray,type} = parametersForm
-    const floatingLabel = formWithFloatingLabel && this.props.schema.title
+    let {withFloatingLabel,element,isControl,isArray,type} = parametersForm
+    const floatingLabel = withFloatingLabel && this.props.schema.title
     switch (type) {
       case "object":
         element = (
@@ -139,14 +139,14 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     if (isControl) {
       return (
         <UpFormContextConsumer>
-          {({ formWithFloatingLabel }) => (
+          {({ withFloatingLabel }) => (
             <UpFormGroup
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
-              formWithFloatingLabel={type === 'string' && formWithFloatingLabel}
+              withFloatingLabel={type === 'string' && withFloatingLabel}
             >
-              {this.renderElement({formWithFloatingLabel,element,isArray,isControl,type})}
+              {this.renderElement({withFloatingLabel,element,isArray,isControl,type})}
             </UpFormGroup>
           )}
         </UpFormContextConsumer>

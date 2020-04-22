@@ -35,7 +35,7 @@ export interface UpSchemaFormProps {
   updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
-  formWithFloatingLabel?: boolean
+  withFloatingLabel?: boolean
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -113,7 +113,7 @@ export default class UpSchemaForm extends React.Component<
 
     if (schema.title)
       return (
-        <UpPanel title={schema.title} className={classnames(this.props.wrapperClassName, style({
+        <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
           $nest : {
             "& .up-select-wrapper" : {
               marginTop : '14px' /** TEMP FIX ;  */
@@ -126,7 +126,7 @@ export default class UpSchemaForm extends React.Component<
 
     return (
       <UpFormContextProvider
-        value={{ formWithFloatingLabel: this.props.formWithFloatingLabel }}
+        value={{ withFloatingLabel: this.props.withFloatingLabel }}
       >
         <div
           className={classnames(

@@ -155,7 +155,7 @@ class Demo extends React.Component<{}, DemoState> {
               }
             ]} 
             onSearchButtonClick={value => console.log(value)}
-            formWithFloatingLabel={true}
+            withFloatingLabel={true}
             //ignoredProperties={["pagination_properties"]}
           />
           <button onClick={(e:any) => this.setState({dataS: {}})}>Reset</button>
