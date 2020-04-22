@@ -12,6 +12,7 @@ import { UpPanel } from "@up-group-ui/react-controls";
 import * as _ from "lodash";
 import * as classnames from "classnames";
 import {style} from "typestyle";
+import { UpFormContextProvider } from './UpForm/UpFormContext';
 
 type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;
 
@@ -34,6 +35,7 @@ export interface UpSchemaFormProps {
   updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
+  formWithFloatingLabel?: boolean
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -76,6 +78,7 @@ export default class UpSchemaForm extends React.Component<
     }
   }
   render() {
+    
     let schema: JsonSchema = this.getSchema();
     if (schema == null) return <span />;
     if (schema == null || schema.type == null) {
@@ -121,16 +124,29 @@ export default class UpSchemaForm extends React.Component<
         </UpPanel>
       );
 
-    return (<div className={classnames(this.props.wrapperClassName, style({
-      display: "flex",
-      width: "100%",
-      flexDirection: "column",
-      $nest : {
-        "& .up-select-wrapper" : {
-          marginTop : '14px' /** TEMP FIX ;  */
-        }
-      }
-    }))}>{content}</div>)
+    return (
+      <UpFormContextProvider
+        value={{ formWithFloatingLabel: this.props.formWithFloatingLabel }}
+      >
+        <div
+          className={classnames(
+            this.props.wrapperClassName,
+            style({
+              display: "flex",
+              width: "100%",
+              flexDirection: "column",
+              $nest: {
+                "& .up-select-wrapper": {
+                  marginTop: "14px" /** TEMP FIX ;  */,
+                },
+              },
+            })
+          )}
+        >
+          {content}
+        </div>
+      </UpFormContextProvider>
+    );
   }
 
   onChange = (

@@ -112,7 +112,8 @@ export default class ComponentRegistery {
     value: any,
     name: string,
     translate : (text: string) => any,
-    onSearchButtonClick: (text: string) => any
+    onSearchButtonClick: (text: string) => any,
+    floatingLabel?: string,
   ) {
     var comp = this.GetComponentBySchema(schema);
 
@@ -124,7 +125,8 @@ export default class ComponentRegistery {
       isRequired: isRequired,
       schema: schema,
       translate,
-      onSearchButtonClick
+      onSearchButtonClick,
+      floatingLabel
     };
 
     return React.createElement(comp.ComponentClass, props);

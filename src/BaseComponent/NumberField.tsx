@@ -23,6 +23,7 @@ export default class NumberField extends UpFormControl<number> {
         onChange={this.handleChangeEventGlobal}
         max={this.props.schema.maximum}
         min={this.props.schema.minimum}
+        floatingLabel={this.props.floatingLabel}
       />
     );
   }

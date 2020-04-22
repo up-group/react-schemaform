@@ -13,6 +13,7 @@ export interface BaseProps<BaseType> {
   value: BaseType;
   translate : (text: string) => any,
   onSearchButtonClick?: (text: string) => any;
+  floatingLabel?: string
 }
 
 export interface BaseState<BaseType> {

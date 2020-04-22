@@ -21,6 +21,7 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
+            floatingLabel={this.props.floatingLabel}
           />
         );
       case "phone":
@@ -41,6 +42,7 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
+            
           />
         );
       case "search":
@@ -101,6 +103,7 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
+            floatingLabel={this.props.floatingLabel}
           />
         );
     }

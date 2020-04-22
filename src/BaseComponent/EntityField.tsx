@@ -40,6 +40,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         allowClear={!this.props.isRequired}
         onChange={this.onChange}
         dataSource={this.schema.entitySource}
+        floatingLabel={this.props.floatingLabel}
       />
     );
   }

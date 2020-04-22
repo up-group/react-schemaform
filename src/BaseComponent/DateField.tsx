@@ -41,6 +41,7 @@ export default class DateField extends UpFormControl<Moment> {
         maxDate={maxDate}
         minDate={minDate}
         onChange={this.handleChangeEventGlobal}
+        floatingLabel={this.props.floatingLabel}
       />
     );
   }
