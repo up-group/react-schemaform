@@ -1,5 +1,4 @@
 ﻿import * as React from "react";
-import * as update from "react-addons-update";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm";
 import {
