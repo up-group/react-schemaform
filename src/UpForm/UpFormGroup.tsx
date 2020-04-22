@@ -1,44 +1,65 @@
 ﻿import * as $ from "jquery";
 import * as React from "react";
 
-import { UpLabel, UpBox, UpGrid, UpCol, UpRow } from "@up-group-ui/react-controls";
+import {
+  UpLabel,
+  UpBox,
+  UpGrid,
+  UpCol,
+  UpRow,
+} from "@up-group-ui/react-controls";
 
 export interface UpFormGroupProps {
   hasError?: boolean;
   title: string;
   description: string;
   isRequired: boolean;
+  children: any;
+  formWithFloatingLabel?: boolean;
 }
 
-export default class UpFormGroup extends React.Component<UpFormGroupProps, {}> {
-  constructor(p, c) {
-    super(p, c);
-  }
-  
-  render() {
-    return ( 
+const UpFormGroup = (props: UpFormGroupProps) => {
+  const {
+    title,
+    description,
+    isRequired,
+    children,
+    formWithFloatingLabel,
+  } = props;
+  const onerror = () => {
+    console.log("error change");
+  };
+
+  let additionalElements = (
+    <>
+      {description != null ? (
+        <a
+          data-toggle="tooltip"
+          data-placement="bottom"
+          data-html="true"
+          title={description}
+        >
+          <i className="glyphicon glyphicon-info-sign" />
+        </a>
+      ) : null}
+      <span style={{ color: "red" }}>{isRequired ? " *" : ""}</span>
+    </>
+  );
+
+  if (formWithFloatingLabel) {
+    return (
       <>
-        {this.props.title && <UpLabel text={this.props.title}>
-          {this.props.description != null ? (
-            <a
-              data-toggle="tooltip"
-              data-placement="bottom"
-              data-html="true"
-              title={this.props.description}
-            >
-              <i className="glyphicon glyphicon-info-sign" />
-            </a>
-          ) : null}
-          <span style={{ color: "red" }}>
-            {this.props.isRequired ? " *" : ""}
-          </span>
-        </UpLabel>}
-        {this.props.children}
+        <span style={{ color: "red" }}>{isRequired ? " *" : ""}</span>
+        {title && children}
       </>
     );
   }
+  return (
+    <>
+      {title && <UpLabel text={title}>{additionalElements}</UpLabel>}
+      {children}
+    </>
+  );
+};
 
-  onerror = () => {
-    console.log("error change");
-  };
-}
+export default UpFormGroup;

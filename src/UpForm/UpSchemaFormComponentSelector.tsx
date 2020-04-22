@@ -5,6 +5,7 @@ import UpSchemaObject from "./UpSchemaObject";
 import ComponentRegistery from "./ComponentRegistery";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import { JsonSchema } from "../interfaces/JsonSchema";
+import { UpFormContextConsumer } from './UpFormContext';
 
 export interface PropertyViewModel {
   order: number;
@@ -61,22 +62,9 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
     return result;
   }
-
-  render() {
-    var element = null;
-    var isControl = true;
-    var isArray = false;
-
-    var parameters = this.props.node.split(".");
-    if (parameters.length !== 0 && this.props.node !== "") {
-      var parameter = this.findGetParameter(parameters[parameters.length - 1]);
-      if (parameter != null) {
-        this.props.schema.default = parameter;
-        this.props.schema.readonly = true;
-      }
-    }
-
-    var type = JsonSchemaHelper.getBaseType(this.props.schema);
+  renderElement(parametersForm) {
+    let {formWithFloatingLabel,element,isControl,isArray,type} = parametersForm
+    const floatingLabel = formWithFloatingLabel && this.props.schema.title
     switch (type) {
       case "object":
         element = (
@@ -122,20 +110,46 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.value,
           this.props.name,
           this.props.translate,
-          this.props.onSearchButtonClick
+          this.props.onSearchButtonClick,
+          floatingLabel
         );
         break;
     }
+    return element
 
+  }
+
+  render() {
+    var element = null;
+    var isControl = true;
+    var isArray = false;
+
+    var parameters = this.props.node.split(".");
+    if (parameters.length !== 0 && this.props.node !== "") {
+      var parameter = this.findGetParameter(parameters[parameters.length - 1]);
+      if (parameter != null) {
+        this.props.schema.default = parameter;
+        this.props.schema.readonly = true;
+      }
+    }
+
+    var type = JsonSchemaHelper.getBaseType(this.props.schema);
+    
+    
     if (isControl) {
       return (
-        <UpFormGroup
-          isRequired={this.props.isRequired}
-          title={this.props.schema.title}
-          description={this.props.schema.description}
-        >
-          {element}
-        </UpFormGroup>
+        <UpFormContextConsumer>
+          {({ formWithFloatingLabel }) => (
+            <UpFormGroup
+              isRequired={this.props.isRequired}
+              title={this.props.schema.title}
+              description={this.props.schema.description}
+              formWithFloatingLabel={type === 'string' && formWithFloatingLabel}
+            >
+              {this.renderElement({formWithFloatingLabel,element,isArray,isControl,type})}
+            </UpFormGroup>
+          )}
+        </UpFormContextConsumer>
       );
     }
     return element;
