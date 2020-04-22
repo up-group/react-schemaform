@@ -3,7 +3,7 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 
 import { UpToggle, UpRadio } from "@up-group-ui/react-controls";
 
-export default class BooleanField extends UpFormControl<Boolean> {
+export default class BooleanField extends UpFormControl<boolean> {
   constructor(p, c) {
     super(p, c);
   }
@@ -14,6 +14,7 @@ export default class BooleanField extends UpFormControl<Boolean> {
         return (
           <UpToggle
             onChange={this.handleChangeEventGlobal}
+            checked={this.state.value}
             value={this.state.value}
           />
         );

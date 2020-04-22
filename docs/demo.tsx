@@ -90,7 +90,7 @@ class Demo extends React.Component<{}, DemoState> {
             title: "Activé",
             type: "boolean",
             default: false,
-            isToggle: false,
+            isToggle: true,
           },
           transaction_status: {
             title: "Status",
@@ -118,7 +118,9 @@ class Demo extends React.Component<{}, DemoState> {
       },
       hasError: false,
       showError: false,
-      dataS: {},
+      dataS: {
+        active: true
+      },
     };
   }
 
