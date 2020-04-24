@@ -1,5 +1,4 @@
 ﻿import * as React from "react";
-import * as update from "react-addons-update";
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm";
 import {
@@ -91,7 +90,7 @@ class Demo extends React.Component<{}, DemoState> {
             title: "Activé",
             type: "boolean",
             default: false,
-            isToggle: false,
+            isToggle: true,
           },
           transaction_status: {
             title: "Status",
@@ -119,7 +118,9 @@ class Demo extends React.Component<{}, DemoState> {
       },
       hasError: false,
       showError: false,
-      dataS: {},
+      dataS: {
+        active: true
+      },
     };
   }
 
@@ -155,7 +156,7 @@ class Demo extends React.Component<{}, DemoState> {
               }
             ]} 
             onSearchButtonClick={value => console.log(value)}
-            formWithFloatingLabel={false}
+            withFloatingLabel={false}
             columnNumber={2}
             columnSpacing={0}
             rowSpacing={25}

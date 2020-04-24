@@ -15,7 +15,7 @@ export interface UpFormGroupProps {
   description: string;
   isRequired: boolean;
   children: any;
-  formWithFloatingLabel?: boolean;
+  withFloatingLabel?: boolean;
 }
 
 const UpFormGroup = (props: UpFormGroupProps) => {
@@ -24,7 +24,7 @@ const UpFormGroup = (props: UpFormGroupProps) => {
     description,
     isRequired,
     children,
-    formWithFloatingLabel,
+    withFloatingLabel,
   } = props;
   const onerror = () => {
     console.log("error change");
@@ -46,7 +46,7 @@ const UpFormGroup = (props: UpFormGroupProps) => {
     </>
   );
 
-  if (formWithFloatingLabel) {
+  if (withFloatingLabel) {
     return (
       <>
         <span style={{ color: "red" }}>{isRequired ? " *" : ""}</span>

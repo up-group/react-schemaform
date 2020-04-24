@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 const UpFormContext = React.createContext<{
-  formWithFloatingLabel: boolean;
+  withFloatingLabel: boolean;
   columnNumber?: number;
   rowSpacing?: number;
   columnSpacing?: number
   
 }>({
-  formWithFloatingLabel: false,
+  withFloatingLabel: false,
   columnNumber: 1,
   rowSpacing: 5,
   columnSpacing: 5,

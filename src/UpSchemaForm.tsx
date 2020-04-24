@@ -35,7 +35,7 @@ export interface UpSchemaFormProps {
   updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
-  formWithFloatingLabel?: boolean,
+  withFloatingLabel?: boolean,
   columnNumber?: number,
   rowSpacing?:number,
   columnSpacing?:number,
@@ -116,7 +116,7 @@ export default class UpSchemaForm extends React.Component<
 
     if (schema.title)
       return (
-        <UpPanel title={schema.title} className={classnames(this.props.wrapperClassName, style({
+        <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
           $nest : {
             "& .up-select-wrapper" : {
               marginTop : '14px' /** TEMP FIX ;  */
@@ -130,7 +130,7 @@ export default class UpSchemaForm extends React.Component<
     return (
       <UpFormContextProvider
         value={{
-          formWithFloatingLabel: this.props.formWithFloatingLabel,
+          withFloatingLabel: this.props.withFloatingLabel,
           columnNumber: this.props.columnNumber,
           rowSpacing: this.props.rowSpacing,
           columnSpacing: this.props.columnSpacing,
