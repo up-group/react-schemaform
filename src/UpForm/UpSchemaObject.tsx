@@ -188,7 +188,7 @@ export default class UpSchemaObject extends React.Component<
                     this.props.node === "" ? (
                       ""
                     ) : (
-                      <h4>{this.props.schema.title} hello</h4>
+                      <h4>{this.props.schema.title}</h4>
                     )}
                     {elements[p.name]}
                   </div>
