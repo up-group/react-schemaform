@@ -14,6 +14,8 @@ import {
   UpCol,
   UpRow
 } from "@up-group-ui/react-controls";
+import {style} from 'typestyle'
+import { UpFormContextConsumer } from './UpFormContext';
 
 export interface UpSchemaObjectProps {
   value: any;
@@ -37,6 +39,26 @@ export interface UpSchemaObjectProps {
 export interface UpSchemaObjectState {
   showAdvanced: boolean;
 }
+
+
+const getStyles = (props) => {
+  const { columnSpacing, columnNumber, rowSpacing } = props;
+  return style({
+    display: "grid",
+    gridTemplateColumns: `repeat(${columnNumber},${
+      (100 - columnSpacing * columnNumber) / columnNumber
+    }%)`,
+    alignItems: "center",
+
+    gridColumnGap: `${columnSpacing}%`,
+    gridRowGap: `${rowSpacing}px`,
+    $nest: {
+      "& .grid-element": {
+        alignSelf: "center",
+      },
+    },
+  });
+};
 
 function compareItems<T extends { order: number }>(a: T, b: T): number {
   if (a.order > b.order) return 1;
@@ -153,64 +175,66 @@ export default class UpSchemaObject extends React.Component<
         }
       }
     }
-
     return (
-      <UpGrid>
-        {rows.map((row, i) => {
-          return (
-            <UpRow key={i}>
-              {this.props.withHR ? <hr /> : null}
-              {this.props.schema.title == null || this.props.node === "" ? (
-                ""
-              ) : (
-                <h4>{this.props.schema.title}</h4>
-              )}
-              {row.map((p, index) => {
+      <UpFormContextConsumer>
+        {({columnNumber,columnSpacing,rowSpacing}) => (
+          <div className={getStyles({columnNumber,columnSpacing,rowSpacing})}>
+            {rows.map((row, i) => {
+              return row.map((p, index) => {
                 return (
-                  <UpCol key={index} md={p.colspan}>
+                  <div key={index} className="grid-element">
+                    {this.props.withHR ? <hr /> : null}
+                    {this.props.schema.title == null ||
+                    this.props.node === "" ? (
+                      ""
+                    ) : (
+                      <h4>{this.props.schema.title} hello</h4>
+                    )}
                     {elements[p.name]}
-                  </UpCol>
+                  </div>
                 );
-              })}
-            </UpRow>
-          );
-        })}
-        {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
-          <UpRow>
-            <UpRow gutter={2}>
-              <UpCol span={24}>
-                <div style={{ padding: "10px" }}>
-                  <UpButton
-                    iconPosition="right"
-                    actionType={
-                      this.state.showAdvanced === true
-                        ? "caret-up"
-                        : "caret-down"
-                    }
-                    intent="default"
-                    onClick={() => {
-                      this.setState({ showAdvanced: !this.state.showAdvanced });
+              });
+            })}
+            {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
+              <UpRow>
+                <UpRow gutter={2}>
+                  <UpCol span={24}>
+                    <div style={{ padding: "10px" }}>
+                      <UpButton
+                        iconPosition="right"
+                        actionType={
+                          this.state.showAdvanced === true
+                            ? "caret-up"
+                            : "caret-down"
+                        }
+                        intent="default"
+                        onClick={() => {
+                          this.setState({
+                            showAdvanced: !this.state.showAdvanced,
+                          });
+                        }}
+                      >
+                        + de critères
+                      </UpButton>
+                    </div>
+                  </UpCol>
+                </UpRow>
+                <UpRow gutter={0}>
+                  <div
+                    style={{
+                      display:
+                        this.state.showAdvanced === true ? "block" : "none",
                     }}
                   >
-                    + de critères
-                  </UpButton>
-                </div>
-              </UpCol>
-            </UpRow>
-            <UpRow gutter={0}>
-              <div
-                style={{
-                  display: this.state.showAdvanced === true ? "block" : "none"
-                }}
-              >
-                {elementsAdvanced}
-              </div>
-            </UpRow>
-          </UpRow>
-        ) : null}
-      </UpGrid>
-    );
-  }
+                    {elementsAdvanced}
+                  </div>
+                </UpRow>
+              </UpRow>
+            ) : null}
+          </div>
+        )}
+      </UpFormContextConsumer>
+    );}
 
   private sizeSpan = (schema: JsonSchema) => {
     if (schema.hide === true) {
