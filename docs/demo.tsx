@@ -156,7 +156,11 @@ class Demo extends React.Component<{}, DemoState> {
               }
             ]} 
             onSearchButtonClick={value => console.log(value)}
-            withFloatingLabel={true}
+            withFloatingLabel={false}
+            columnNumber={2}
+            columnSpacing={0}
+            rowSpacing={25}
+
             //ignoredProperties={["pagination_properties"]}
           />
           <button onClick={(e:any) => this.setState({dataS: {}})}>Reset</button>
