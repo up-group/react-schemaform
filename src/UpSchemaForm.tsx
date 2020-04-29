@@ -116,15 +116,23 @@ export default class UpSchemaForm extends React.Component<
 
     if (schema.title)
       return (
-        <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
-          $nest : {
-            "& .up-select-wrapper" : {
-              marginTop : '14px' /** TEMP FIX ;  */
+        <UpFormContextProvider
+            value={{
+              withFloatingLabel: this.props.withFloatingLabel,
+              rowSpacing: this.props.rowSpacing,
+              gutter: this.props.gutter,
+            }}
+          >
+          <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
+            $nest : {
+              "& .up-select-wrapper" : {
+                marginTop : '14px' /** TEMP FIX ;  */
+              }
             }
-          }
-        }))}>
-          {content}
-        </UpPanel>
+          }))}>
+            {content}
+          </UpPanel>
+        </UpFormContextProvider>
       );
 
     return (
@@ -132,7 +140,7 @@ export default class UpSchemaForm extends React.Component<
         value={{
           withFloatingLabel: this.props.withFloatingLabel,
           rowSpacing: this.props.rowSpacing,
-          columnSpacing: this.props.gutter,
+          gutter: this.props.gutter,
           defaultColspan: this.props.defaultColspan,
         }}
       >

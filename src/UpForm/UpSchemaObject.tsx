@@ -189,7 +189,7 @@ export default class UpSchemaObject extends React.Component<
 
     return (
       <UpFormContextConsumer>
-        {({ columnSpacing, rowSpacing }) => (
+        {({ gutter: columnSpacing, rowSpacing }) => (
           <UpGrid gutter={columnSpacing}>
             {rows.map((row, i) => {
               return (
