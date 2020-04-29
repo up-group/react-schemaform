@@ -1,3 +1,9 @@
+
+# React-Schemaform (version: 0.1.57)
+
+## Main changes
+- Add new prop to UpSchemaForm in order to  define the gutter and a defaultColspan
+
 # React-Schemaform (version: 0.1.56)
 
 ## Main changes
