@@ -34,6 +34,7 @@ export interface UpSchemaObjectProps {
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick?: (text: string) => any;
+  defaultColspan?: number;
 }
 
 export interface UpSchemaObjectState {
@@ -66,29 +67,36 @@ function compareItems<T extends { order: number }>(a: T, b: T): number {
   return -1;
 }
 
-export function groupByRow<T extends { colspan: number; order: number }>(
-  items: T[]
-): T[][] {
+export function groupByRow<
+  T extends { colspan?: number; order: number; isSeparator?: boolean }
+>(items: T[], defaultColspan: number): T[][] {
   let usedColSpan = 0;
-  const rows = items
-    .sort(compareItems)
-    .reduce((rows: T[][], configuration: T) => {
-      usedColSpan += configuration.colspan;
-      let currentRow: T[];
-      if (rows.length === 0) {
-        currentRow = [];
-        rows.push(currentRow);
-      } else {
-        currentRow = rows[rows.length - 1];
-      }
-      if (usedColSpan > 24) {
-        currentRow = [];
-        rows.push(currentRow);
-        usedColSpan = configuration.colspan;
-      }
-      currentRow.push(configuration);
-      return rows;
-    }, []);
+  let colspan = 0;
+  const spanLimit = defaultColspan;
+  const rows = items.sort(compareItems).reduce((rows: T[][], viewModel: T) => {
+    colspan = viewModel.colspan;
+    usedColSpan += colspan;
+    let currentRow;
+    if (rows.length === 0) {
+      currentRow = [];
+      rows.push(currentRow);
+    } else {
+      currentRow = rows[rows.length - 1];
+    }
+
+    if (usedColSpan > spanLimit || viewModel.isSeparator) {
+      currentRow = [];
+      rows.push(currentRow);
+      usedColSpan = colspan;
+    }
+    if (viewModel.isSeparator) {
+      currentRow.push({ ...viewModel, colspan: spanLimit });
+      usedColSpan = spanLimit;
+    } else {
+      currentRow.push(viewModel);
+    }
+    return rows;
+  }, []);
   return rows;
 }
 
@@ -111,10 +119,13 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
+    const viewModels = this.props.viewModels.filter(
+      a => !this.isIgnored(a.name)
+    )
+
     const rows = groupByRow(
-      this.props.viewModels.filter(
-        a => !this.isIgnored(a.name)
-      )
+      viewModels,
+      this.props.defaultColspan
     );
 
     Object.keys(this.props.schema.properties)
@@ -122,7 +133,7 @@ export default class UpSchemaObject extends React.Component<
         a =>!this.isIgnored(a) && !this.props.schema.properties[a].hide
       )
       .forEach(a => {
-        if (!this.props.viewModels.some(pc => pc.name === a)) {
+        if (!this.props.viewModels.some(pc =>  pc.name === a)) {
           rows.push([
             {
               colspan: 24,
@@ -175,25 +186,35 @@ export default class UpSchemaObject extends React.Component<
         }
       }
     }
+
     return (
       <UpFormContextConsumer>
-        {({columnNumber,columnSpacing,rowSpacing}) => (
-          <div className={getStyles({columnNumber,columnSpacing,rowSpacing})}>
+        {({ columnSpacing, rowSpacing }) => (
+          <UpGrid gutter={columnSpacing}>
             {rows.map((row, i) => {
-              return row.map((p, index) => {
-                return (
-                  <div key={index} className="grid-element">
-                    {this.props.withHR ? <hr /> : null}
-                    {this.props.schema.title == null ||
-                    this.props.node === "" ? (
-                      ""
-                    ) : (
-                      <h4>{this.props.schema.title}</h4>
-                    )}
-                    {elements[p.name]}
-                  </div>
-                );
-              });
+              return (
+                <UpRow key={i}>
+                  {this.props.withHR ? <hr /> : null}
+                  {this.props.schema.title == null || this.props.node === "" ? (
+                    ""
+                  ) : (
+                    <h4>{this.props.schema.title}</h4>
+                  )}
+                  {row.map((p, index) => {
+                    return (
+                      <UpCol
+                        key={index}
+                        xs={24}
+                        sm={p.colspan}
+                        md={p.colspan}
+                        lg={p.colspan}
+                      >
+                        {elements[p.name]}
+                      </UpCol>
+                    );
+                  })}
+                </UpRow>
+              );
             })}
             {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
               <UpRow>
@@ -231,7 +252,7 @@ export default class UpSchemaObject extends React.Component<
                 </UpRow>
               </UpRow>
             ) : null}
-          </div>
+          </UpGrid>
         )}
       </UpFormContextConsumer>
     );}
