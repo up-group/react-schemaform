@@ -15,4 +15,11 @@
 # React-Schemaform (version: 0.1.54)
 
 ## Main changes
-- Add new prop to UpSchemaForm in order to use floating label for all fields
+- Add new prop to UpSchemaForm in order to use floating label for all fields, define the gutter and a defaultColspan
+
+## Components
+
+- UpSchemaForm props : 
+    - `withFloatingLabel?:boolean`
+    - `gutter?:number` 
+    -  `defaultColspan?:number`: a number between 0 and 24
