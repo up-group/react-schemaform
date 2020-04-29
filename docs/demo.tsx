@@ -112,8 +112,10 @@ class Demo extends React.Component<{}, DemoState> {
           { colspan: 5, order: 1, name: "settlement_reference" },
           { colspan: 5, order: 2, name: "start_date" },
           { colspan: 5, order: 3, name: "end_date" },
-          { colspan: 5, order: 4, name: "establishment_id" },
-          { colspan: 24, order: 5, name: "transaction_status" },
+          { order: 4, isSeparator : true},
+
+          { colspan: 5, order: 5, name: "establishment_id" },
+          { colspan: 24, order: 6, name: "transaction_status" },
         ],
       },
       hasError: false,
@@ -137,7 +139,7 @@ class Demo extends React.Component<{}, DemoState> {
             wrapperClassName={style({
               padding: "10px"
             })}
-            viewModels={[]}
+            viewModels={this.state.schema.viewModels}
             translate={text => {
               if (text === "Authorized") return "Authorisée";
               return text;
@@ -157,9 +159,9 @@ class Demo extends React.Component<{}, DemoState> {
             ]} 
             onSearchButtonClick={value => console.log(value)}
             withFloatingLabel={false}
-            columnNumber={2}
-            columnSpacing={0}
+            gutter={10}
             rowSpacing={25}
+            defaultColspan={24}
 
             //ignoredProperties={["pagination_properties"]}
           />

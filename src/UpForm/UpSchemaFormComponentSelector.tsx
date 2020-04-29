@@ -9,9 +9,10 @@ import { UpFormContextConsumer } from './UpFormContext';
 
 export interface PropertyViewModel {
   order: number;
-  colspan: number;
+  colspan?: number;
   component?: string;
-  name: string;
+  name?: string;
+  isSeparator?: boolean;
 }
 
 export interface UpSchemaFormComponentSelectorProps {
@@ -63,7 +64,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     return result;
   }
   renderElement(parametersForm) {
-    let {withFloatingLabel,element,isControl,isArray,type} = parametersForm
+    let {withFloatingLabel,element,isControl,isArray,type,defaultColspan} = parametersForm
     const floatingLabel = withFloatingLabel && this.props.schema.title
     switch (type) {
       case "object":
@@ -80,6 +81,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             viewModels={this.props.viewModels}
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
+            defaultColspan={defaultColspan}
           />
         );
         isControl = false;
@@ -139,14 +141,14 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     if (isControl) {
       return (
         <UpFormContextConsumer>
-          {({ withFloatingLabel }) => (
+          {({ withFloatingLabel,defaultColspan }) => (
             <UpFormGroup
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
               withFloatingLabel={type === 'string' && withFloatingLabel}
             >
-              {this.renderElement({withFloatingLabel,element,isArray,isControl,type})}
+              {this.renderElement({withFloatingLabel,element,isArray,isControl,type,defaultColspan})}
             </UpFormGroup>
           )}
         </UpFormContextConsumer>

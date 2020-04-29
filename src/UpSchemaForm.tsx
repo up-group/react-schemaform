@@ -36,9 +36,9 @@ export interface UpSchemaFormProps {
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
   withFloatingLabel?: boolean,
-  columnNumber?: number,
   rowSpacing?:number,
-  columnSpacing?:number,
+  gutter?:number,
+  defaultColspan?:number
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -131,9 +131,9 @@ export default class UpSchemaForm extends React.Component<
       <UpFormContextProvider
         value={{
           withFloatingLabel: this.props.withFloatingLabel,
-          columnNumber: this.props.columnNumber,
           rowSpacing: this.props.rowSpacing,
-          columnSpacing: this.props.columnSpacing,
+          columnSpacing: this.props.gutter,
+          defaultColspan: this.props.defaultColspan,
         }}
       >
         <div
