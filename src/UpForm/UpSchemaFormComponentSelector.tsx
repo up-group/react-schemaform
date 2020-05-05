@@ -63,6 +63,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
     return result;
   }
+
   renderElement(parametersForm) {
     let {withFloatingLabel,element,isControl,isArray,type,defaultColspan} = parametersForm
     const floatingLabel = withFloatingLabel && this.props.schema.title
@@ -118,7 +119,6 @@ export default class UpSchemaFormComponentSelector extends React.Component<
         break;
     }
     return element
-
   }
 
   render() {
@@ -136,7 +136,6 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
 
     var type = JsonSchemaHelper.getBaseType(this.props.schema);
-    
     
     if (isControl) {
       return (

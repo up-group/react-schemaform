@@ -72,9 +72,9 @@ export function groupByRow<
 >(items: T[], defaultColspan: number): T[][] {
   let usedColSpan = 0;
   let colspan = 0;
-  const spanLimit = defaultColspan;
+  const spanLimit = 24;
   const rows = items.sort(compareItems).reduce((rows: T[][], viewModel: T) => {
-    colspan = viewModel.colspan;
+    colspan = viewModel.colspan || defaultColspan ;
     usedColSpan += colspan;
     let currentRow;
     if (rows.length === 0) {
@@ -83,18 +83,20 @@ export function groupByRow<
     } else {
       currentRow = rows[rows.length - 1];
     }
+    if(viewModel.isSeparator) {
+      usedColSpan = spanLimit
+    }
 
-    if (usedColSpan > spanLimit || viewModel.isSeparator) {
+    if (usedColSpan > spanLimit ) {
       currentRow = [];
       rows.push(currentRow);
       usedColSpan = colspan;
     }
-    if (viewModel.isSeparator) {
-      currentRow.push({ ...viewModel, colspan: spanLimit });
-      usedColSpan = spanLimit;
-    } else {
+
+    if (!viewModel.isSeparator) {
       currentRow.push(viewModel);
     }
+    
     return rows;
   }, []);
   return rows;
@@ -119,9 +121,10 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
+
     const viewModels = this.props.viewModels.filter(
       a => !this.isIgnored(a.name)
-    )
+    ).map( vm => ({...vm, colspan : vm.colspan || this.props.defaultColspan})) ;
 
     const rows = groupByRow(
       viewModels,
@@ -136,7 +139,7 @@ export default class UpSchemaObject extends React.Component<
         if (!this.props.viewModels.some(pc =>  pc.name === a)) {
           rows.push([
             {
-              colspan: 24,
+              colspan: this.props.defaultColspan,
               name: a,
               order: rows.length
             }
@@ -193,7 +196,7 @@ export default class UpSchemaObject extends React.Component<
           <UpGrid gutter={columnSpacing}>
             {rows.map((row, i) => {
               return (
-                <UpRow key={i}>
+                <UpRow key={i} style={{marginBottom: `${rowSpacing || 10}px`}}>
                   {this.props.withHR ? <hr /> : null}
                   {this.props.schema.title == null || this.props.node === "" ? (
                     ""

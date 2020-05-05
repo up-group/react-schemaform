@@ -109,13 +109,14 @@ class Demo extends React.Component<{}, DemoState> {
           },
         },
         viewModels: [
-          { colspan: 5, order: 1, name: "settlement_reference" },
-          { colspan: 5, order: 2, name: "start_date" },
-          { colspan: 5, order: 3, name: "end_date" },
-          { order: 4, isSeparator : true},
-
-          { colspan: 5, order: 5, name: "establishment_id" },
-          { colspan: 24, order: 6, name: "transaction_status" },
+          { order: 1, name: "settlement_reference" },
+          { order: 2, name: "start_date" },
+          { order: 3, name: "end_date" },
+          { order: 4, name: "settlement_reference" },
+          { colspan: 8, order: 5, name: "establishment_id" },
+          { order: 6, isSeparator : true},
+          { colspan: 4, order: 7, name: "establishment_id" },
+          { colspan: 24, order: 8, name: "transaction_status" },
         ],
       },
       hasError: false,
@@ -149,19 +150,17 @@ class Demo extends React.Component<{}, DemoState> {
               trackedField: "search",
               policyName: "searchDataTypeGetter"
             }]}
-
             updateRulePolicies={[
               function searchDataTypeGetter(value: any) {
                 if (value.length === 14)
                   return { type: 2 };
                 return { type: 3 };
               }
-            ]} 
-            onSearchButtonClick={value => console.log(value)}
+            ]}
             withFloatingLabel={false}
             gutter={10}
             rowSpacing={25}
-            defaultColspan={24}
+            defaultColspan={8}
 
             //ignoredProperties={["pagination_properties"]}
           />
