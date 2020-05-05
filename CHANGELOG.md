@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.58)
+
+## Bug Fixes
+- Fix col span, col gutter and row spacing in form fields layout
 
 # React-Schemaform (version: 0.1.57)
 
