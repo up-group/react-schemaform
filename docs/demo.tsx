@@ -148,15 +148,12 @@ class Demo extends React.Component<{}, DemoState> {
             updateRules={[{
               targetField: "data_type",
               trackedField: "search",
-              policyName: "searchDataTypeGetter"
-            }]}
-            updateRulePolicies={[
-              function searchDataTypeGetter(value: any) {
+              handler: (value: any) => {
                 if (value.length === 14)
                   return { type: 2 };
                 return { type: 3 };
               }
-            ]}
+            }]}
             withFloatingLabel={false}
             gutter={10}
             rowSpacing={25}

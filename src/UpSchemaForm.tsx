@@ -19,7 +19,7 @@ type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;
 interface UpdateRule {
   trackedField: string;
   targetField: string;
-  policyName: string
+  handler: ShouldApplyUpdateRulePolicy
 }
 
 export interface UpSchemaFormProps {
@@ -32,7 +32,6 @@ export interface UpSchemaFormProps {
   wrapperClassName?: string;
   viewModels?: PropertyViewModel[];
   translate?: (text: string) => any;
-  updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
   withFloatingLabel?: boolean,
@@ -184,19 +183,12 @@ export default class UpSchemaForm extends React.Component<
     }
 
     if (this.props.updateRules && this.props.updateRules.length > 0) {
-      let policies = this.props.updateRules
-        .filter(rule => node.substring(1) === rule.trackedField)
-        .map(rule => {
-          let policy = this.props.updateRulePolicies.filter(p => p.name === rule.policyName);
-          return { rule, policy: policy.length > 0 ? policy[0] : null };
-        })
-        .filter(policy => policy.policy !== null)
-        ;      
+      let policies = this.props.updateRules.filter(rule => node.substring(1) === rule.trackedField && rule.handler != null)
       if (policies.length > 0) {
         let changes = {};
         for (const policy of policies) {
-          let newValue = policy.policy(_.get(this.state.data, policy.rule.trackedField));
-          _.set(changes, policy.rule.targetField, newValue);
+          let newValue = policy.handler(_.get(this.state.data, policy.trackedField));
+          _.set(changes, policy.targetField, newValue);
         }
         this.setState({data: {...this.state.data, ...changes }}, () => this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError))
         return;
