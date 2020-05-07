@@ -1,3 +1,9 @@
+
+# React-Schemaform (version: 0.1.59)
+
+## Main changes
+- remove updateRulesPolicies on UpSchemaForm
+
 # React-Schemaform (version: 0.1.58)
 
 ## Bug Fixes
