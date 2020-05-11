@@ -39,8 +39,9 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         placeholder="Recherche"
         allowClear={!this.props.isRequired}
         onChange={this.onChange}
-        dataSource={this.schema.entitySource}
+        dataSource={this.schema.entitySource && !this.schema.entitySource.data ? this.schema.entitySource : undefined}
         floatingLabel={this.props.floatingLabel}
+        data={this.schema.entitySource ? this.schema.entitySource.data : undefined}
       />
     );
   }
