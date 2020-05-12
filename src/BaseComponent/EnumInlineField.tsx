@@ -1,11 +1,11 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { JsonSchema, InternalTypeOfSchema} from "../interfaces/JsonSchema";
+import { JsonSchema } from "../interfaces/JsonSchema";
 import { style } from 'typestyle';
 
-export type FilterData = { type: any; label: string, value?: string };
+export type EnumData = { type: any; label: string, value?: string };
 
-export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
+export default class EnumInlineField extends UpFormControl<EnumData> {
   constructor(p, c) {
     super(p, c);
   }
@@ -26,10 +26,10 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
       display: "flex", flexDirection: "row"
     });
 
-    var filters: FilterData[] = [];
+    var filters: EnumData[] = [];
     for (var i = 0; i < this.schema.enum.length; i++) {
       if (this.schema.enum[i] !== null) {
-        let filter: FilterData = {
+        let filter: EnumData = {
           type: this.schema.enum[i],
           label: this.schema.enumDescriptions[i]
         };
@@ -41,6 +41,7 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
         });
       }
     }
+
     return (<div className={wrapperStyle}>
       {filters.map(filter => {
         return (<div key={filter.type} className={`${filterStyle} ${(this.isSelected(filter)) ? activeFilterStyle : ""}`} onClick={(e) => this.onFilterSelect(e, filter)}>
@@ -51,7 +52,7 @@ export default class EnumFieldAsFilters extends UpFormControl<FilterData> {
     </div>)
   }
 
-  isSelected(filter: FilterData): boolean {
+  isSelected(filter: EnumData): boolean {
     return this.props.value && (this.props.value.type === filter.type)
   }
 
