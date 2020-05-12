@@ -107,6 +107,21 @@ class Demo extends React.Component<{}, DemoState> {
             format: "enum",
             enum: [null, 1, 2, 3, 4],
           },
+          inline_status: {
+            title: "Status",
+            enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
+            enumDescriptions: [
+              null,
+              "Authorized",
+              "Validated",
+              "Canceled",
+              "Denied",
+            ],
+            type: ["number"],
+            default: null,
+            format: "enumInline",
+            enum: [null, 1, 2, 3, 4],
+          },
         },
         viewModels: [
           { order: 1, name: "settlement_reference" },

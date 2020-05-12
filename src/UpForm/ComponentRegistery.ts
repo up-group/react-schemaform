@@ -116,7 +116,7 @@ export default class ComponentRegistery {
     floatingLabel?: string,
   ) {
     var comp = this.GetComponentBySchema(schema);
-
+    
     var props = {
       value,
       name,
@@ -156,7 +156,7 @@ ComponentRegistery.Register("Integer", "integer", null, IntegerField);
 ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
 
 ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
-ComponentRegistery.Register("Enum", null, "enumInline", EnumInlineField, true);
+ComponentRegistery.Register("EnumInline", null, "enumInline", EnumInlineField, true);
 ComponentRegistery.Register("Enum", null, "enum", EnumField, true);
 ComponentRegistery.Register("Upload", null, "upload", UploadField, false);
 ComponentRegistery.Register("Month", null, "month", MonthField, false);
