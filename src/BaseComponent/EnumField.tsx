@@ -37,7 +37,7 @@ export default class EnumField extends UpFormControl<number | number[]> {
       if (this.schema.enum[i] !== null) {
         options.push({
           id: this.schema.enum[i],
-          text: this.schema.enumDescriptions[i]
+          text: this.props.translate ? this.props.translate(this.schema.enumDescriptions[i]) : this.schema.enumDescriptions[i]
         });
       }
     }
