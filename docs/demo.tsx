@@ -102,7 +102,7 @@ class Demo extends React.Component<{}, DemoState> {
               "Canceled",
               "Denied",
             ],
-            type: ["integer", "null"],
+            type: ["array"],
             default: null,
             format: "enum",
             enum: [null, 1, 2, 3, 4],
