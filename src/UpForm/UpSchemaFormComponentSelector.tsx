@@ -17,6 +17,7 @@ export interface PropertyViewModel {
 
 export interface UpSchemaFormComponentSelectorProps {
   value: any;
+  values?: {[ key : string] : any };
   schema: JsonSchema;
   node: string;
   name?: string;
@@ -114,7 +115,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.name,
           this.props.translate,
           this.props.onSearchButtonClick,
-          floatingLabel
+          floatingLabel,
+          this.props.values
         );
         break;
     }

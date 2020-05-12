@@ -50,6 +50,7 @@ export default class UpSchemaForm extends React.Component<
   };
 
   private errorMemory = new ErrorMemory();
+  
   constructor(p, c) {
     super(p, c);
     if (this.props.initValue != null) {
@@ -61,7 +62,7 @@ export default class UpSchemaForm extends React.Component<
 
   componentWillReceiveProps(newProps: UpSchemaFormProps){
     if(this.props.value != newProps.value){
-      const newState = { ..._.cloneDeep(newProps.value) };
+      const newState = {...this.props.value, ..._.cloneDeep(newProps.value)};
       this.setState({data: newState}, () => {this.forceUpdate()});
     }
   }
@@ -79,6 +80,7 @@ export default class UpSchemaForm extends React.Component<
       );
     }
   }
+
   render() {
 
     let schema: JsonSchema = this.getSchema();
@@ -99,6 +101,7 @@ export default class UpSchemaForm extends React.Component<
         flexDirection : 'column'}}>
         <UpSchemaFormComponentSelector
           value={value}
+          values={value}
           isRequired={false}
           schema={schema}
           node={""}

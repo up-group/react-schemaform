@@ -68,6 +68,7 @@ export interface JsonSchema {
     queryParameterName: string;
     data? : any;
     autoload?: boolean;
+    defaultParameters?: {[key: string] : any}
   };
   fileExtension?: string;
   readonly?: boolean;

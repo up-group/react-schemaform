@@ -167,6 +167,7 @@ export default class UpSchemaObject extends React.Component<
           >
             <UpSchemaFormComponentSelector
               value={value}
+              values={this.props.value}
               name={propertyName}
               showError={this.props.showError}
               isRequired={this.isRequired(propertyName)}

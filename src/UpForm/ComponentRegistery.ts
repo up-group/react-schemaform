@@ -114,16 +114,25 @@ export default class ComponentRegistery {
     translate : (text: string) => any,
     onSearchButtonClick: (text: string) => any,
     floatingLabel?: string,
+    values?: {[ key: string]: any }
   ) {
     var comp = this.GetComponentBySchema(schema);
     
+    // TODO : clean code
+    const newSchema = {...schema}
+    if(newSchema.entitySource && newSchema.entitySource.defaultParameters) {
+      for(const key in newSchema.entitySource.defaultParameters) {
+        newSchema.entitySource.defaultParameters[key] = values ? values[key] : null ;
+      }
+    }
+
     var props = {
       value,
       name,
       showError: showError,
       onChange: onChange,
       isRequired: isRequired,
-      schema: schema,
+      schema: newSchema,
       translate,
       onSearchButtonClick,
       floatingLabel
