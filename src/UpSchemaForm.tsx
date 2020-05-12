@@ -46,7 +46,7 @@ export default class UpSchemaForm extends React.Component<
   > {
   static defaultProps = {
     showError: true,
-    initValue: {}
+    initValue: null
   };
 
   private errorMemory = new ErrorMemory();
