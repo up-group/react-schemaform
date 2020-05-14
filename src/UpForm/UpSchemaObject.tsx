@@ -123,29 +123,29 @@ export default class UpSchemaObject extends React.Component<
   render() {
 
     const viewModels = this.props.viewModels.filter(
-      a => !this.isIgnored(a.name)
+      a => !this.isIgnored(a.name) && !this.props.schema.properties[a.name].hide
     ).map( vm => ({...vm, colspan : vm.colspan || this.props.defaultColspan})) ;
-
-    const rows = groupByRow(
-      viewModels,
-      this.props.defaultColspan
-    );
-
+    
     Object.keys(this.props.schema.properties)
       .filter(
         a =>!this.isIgnored(a) && !this.props.schema.properties[a].hide
       )
       .forEach(a => {
         if (!this.props.viewModels.some(pc =>  pc.name === a)) {
-          rows.push([
+          viewModels.push(
             {
               colspan: this.props.defaultColspan,
               name: a,
-              order: rows.length
+              order: viewModels.length
             }
-          ]);
+          );
         }
-      });
+    });
+
+    const rows = groupByRow(
+      viewModels,
+      this.props.defaultColspan
+    );
 
     let elements = {};
     let elementsAdvanced = [];
