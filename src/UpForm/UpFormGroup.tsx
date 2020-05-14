@@ -26,10 +26,7 @@ const UpFormGroup = (props: UpFormGroupProps) => {
     children,
     withFloatingLabel,
   } = props;
-  const onerror = () => {
-    console.log("error change");
-  };
-
+  
   let additionalElements = (
     <>
       {description != null ? (
@@ -49,7 +46,6 @@ const UpFormGroup = (props: UpFormGroupProps) => {
   if (withFloatingLabel) {
     return (
       <>
-        <span style={{ color: "red" }}>{isRequired ? " *" : ""}</span>
         {title && children}
       </>
     );

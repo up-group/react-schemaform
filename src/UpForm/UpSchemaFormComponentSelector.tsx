@@ -124,21 +124,21 @@ export default class UpSchemaFormComponentSelector extends React.Component<
   }
 
   render() {
-    var element = null;
-    var isControl = true;
-    var isArray = false;
+    const element = null;
+    const isControl = true;
+    const isArray = false;
 
-    var parameters = this.props.node.split(".");
+    const parameters = this.props.node.split(".");
     if (parameters.length !== 0 && this.props.node !== "") {
-      var parameter = this.findGetParameter(parameters[parameters.length - 1]);
+      const parameter = this.findGetParameter(parameters[parameters.length - 1]);
       if (parameter != null) {
         this.props.schema.default = parameter;
         this.props.schema.readonly = true;
       }
     }
 
-    var type = JsonSchemaHelper.getBaseType(this.props.schema);
-    
+    const type = JsonSchemaHelper.getBaseType(this.props.schema);
+
     if (isControl) {
       return (
         <UpFormContextConsumer>
@@ -147,7 +147,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
-              withFloatingLabel={type === 'string' && withFloatingLabel}
+              withFloatingLabel={(type === 'string' || this.props.schema.format === 'enum') && withFloatingLabel}
             >
               {this.renderElement({withFloatingLabel,element,isArray,isControl,type,defaultColspan})}
             </UpFormGroup>

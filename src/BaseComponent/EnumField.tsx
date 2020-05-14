@@ -48,14 +48,13 @@ export default class EnumField extends UpFormControl<number | number[]> {
         value={this.selectedOptions(options)}
         showError={this.props.showError}
         default={this.schema.default}
-        //isNullable={this.isNullable}
         returnType="id"
         isRequired={this.props.isRequired}
-        //getFullData={false}
         minimumInputLength={0}
         placeholder="Recherche"
         multiple={this.isArray}
         allowClear={!this.props.isRequired}
+        floatingLabel={this.props.floatingLabel}
         onChange={this.handleChangeEventGlobal}
         data={options}
       />
