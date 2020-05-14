@@ -80,6 +80,18 @@ const schema = {
       type: ["string", "null"],
       default: null,
     },
+    email: {
+      title: "Email",
+      type: ["string", "null"],
+      format: 'email',
+      default: null,
+    },
+    phone: {
+      title: "Phone",
+      type: ["string", "null"],
+      format: 'phone',
+      default: null,
+    },
     active: {
       title: "Activé",
       type: "boolean",
@@ -148,6 +160,7 @@ class Demo extends React.Component<{}, DemoState> {
             wrapperClassName={style({
               padding: "10px"
             })}
+            withFloatingLabel={true}
             viewModels={this.state.schema.viewModels}
             translate={text => {
               if (text === "Authorized") return "Authorisée";
@@ -162,7 +175,6 @@ class Demo extends React.Component<{}, DemoState> {
                 return { type: 3 };
               }
             }]}
-            withFloatingLabel={false}
             gutter={10}
             rowSpacing={25}
             defaultColspan={8}

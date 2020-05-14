@@ -7,8 +7,6 @@ import { style } from 'typestyle';
 export default class StringField extends UpFormControl<string> {
   constructor(p, c) {
     super(p, c);
-    var pattern = new RegExp(this.props.schema.pattern);
-    var patternErrorMessage = this.props.schema.patternErrorMessage;
   }
  
   renderField() {
@@ -32,6 +30,7 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
+            floatingLabel={this.props.floatingLabel}
           />
         );
       case "multilineText":
@@ -42,11 +41,9 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
-            
           />
         );
       case "search":
-
         const searchInputStyle = style({
           position: 'relative',
           height: '44px',
