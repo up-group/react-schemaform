@@ -123,7 +123,7 @@ export default class UpSchemaObject extends React.Component<
   render() {
 
     const viewModels = this.props.viewModels.filter(
-      a => !this.isIgnored(a.name) && !this.props.schema.properties[a.name].hide
+      a => !this.isIgnored(a.name) && this.props.schema.properties[a.name] && !this.props.schema.properties[a.name].hide
     ).map( vm => ({...vm, colspan : vm.colspan || this.props.defaultColspan})) ;
     
     Object.keys(this.props.schema.properties)
