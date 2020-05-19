@@ -13,6 +13,7 @@ export type InternalFormatOfSchema =
   | "time"
   | "entityKey"
   | "enum"
+  | "enumInline"
   | "upload"
   | "month"
   | "email"
