@@ -1,6 +1,6 @@
 {
   "name": "@up-group-ui/react-schemaform",
-  "version": "0.1.71",
+  "version": "0.1.72",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
