@@ -1,4 +1,11 @@
+# React-Schemaform (version: 0.1.72)
 
+## Main changes
+- Update react-controls
+  
+## Bug Fixes
+- Fix enumField value
+  
 # React-Schemaform (version: 0.1.59)
 
 ## Main changes
