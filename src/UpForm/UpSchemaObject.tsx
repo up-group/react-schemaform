@@ -16,6 +16,7 @@ import {
 } from "@up-group-ui/react-controls";
 import {style} from 'typestyle'
 import { UpFormContextConsumer } from './UpFormContext';
+import _ = require('lodash');
 
 export interface UpSchemaObjectProps {
   value: any;
@@ -121,8 +122,9 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
-
-    const viewModels = this.props.viewModels.filter(
+    let viewModels = (!_.isEmpty(this.props.viewModels) ? this.props.viewModels : this.props.schema['viewModels']) || [] ;
+    
+    const inferViewModels : {name: string, colspan : number, order : number}[] = viewModels.filter(
       a => !this.isIgnored(a.name) && this.props.schema.properties[a.name] && !this.props.schema.properties[a.name].hide
     ).map( vm => ({...vm, colspan : vm.colspan || this.props.defaultColspan})) ;
     
@@ -131,19 +133,19 @@ export default class UpSchemaObject extends React.Component<
         a =>!this.isIgnored(a) && !this.props.schema.properties[a].hide
       )
       .forEach(a => {
-        if (!this.props.viewModels.some(pc =>  pc.name === a)) {
-          viewModels.push(
+        if (!viewModels.some(pc =>  pc.name === a)) {
+          inferViewModels.push(
             {
               colspan: this.props.defaultColspan,
               name: a,
-              order: viewModels.length
+              order: inferViewModels.length
             }
           );
         }
     });
 
     const rows = groupByRow(
-      viewModels,
+      inferViewModels,
       this.props.defaultColspan
     );
 
@@ -176,7 +178,7 @@ export default class UpSchemaObject extends React.Component<
               node={this.props.node + "." + propertyName}
               onChange={this.props.onChange}
               ignoredProperties={this.props.ignoredProperties}
-              viewModels={this.props.viewModels}
+              viewModels={inferViewModels}
               translate={this.props.translate}
               onSearchButtonClick={this.props.onSearchButtonClick}
             />
@@ -209,7 +211,7 @@ export default class UpSchemaObject extends React.Component<
                       <UpCol
                         key={index}
                         xs={24}
-                        sm={p.colspan}
+                        sm={p.colspan > 12 ? p.colspan : 12}
                         md={p.colspan}
                         lg={p.colspan}
                       >
