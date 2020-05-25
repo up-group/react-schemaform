@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.74)
+
+## Main changes
+- Add new props isReadonly
+- Update react-controls to v0.2.40
+
 # React-Schemaform (version: 0.1.72)
 
 ## Main changes
