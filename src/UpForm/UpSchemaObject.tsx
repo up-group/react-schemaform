@@ -35,6 +35,7 @@ export interface UpSchemaObjectProps {
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick?: (text: string) => any;
+  isReadOnly? : (property: string) => boolean;
   defaultColspan?: number;
 }
 
@@ -181,6 +182,7 @@ export default class UpSchemaObject extends React.Component<
               viewModels={inferViewModels}
               translate={this.props.translate}
               onSearchButtonClick={this.props.onSearchButtonClick}
+              isReadOnly={this.props.isReadOnly}
             />
           </div>
         );

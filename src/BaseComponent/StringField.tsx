@@ -100,6 +100,7 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
+            readonly= {this.props.isReadOnly(this.props.name)}
             floatingLabel={this.props.floatingLabel}
           />
         );

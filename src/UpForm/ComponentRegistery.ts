@@ -113,6 +113,7 @@ export default class ComponentRegistery {
     name: string,
     translate : (text: string) => any,
     onSearchButtonClick: (text: string) => any,
+    isReadOnly?: (property:string) => boolean,
     floatingLabel?: string,
     values?: {[ key: string]: any }
   ) {
@@ -135,7 +136,8 @@ export default class ComponentRegistery {
       schema: newSchema,
       translate,
       onSearchButtonClick,
-      floatingLabel
+      floatingLabel,
+      isReadOnly
     };
 
     return React.createElement(comp.ComponentClass, props);

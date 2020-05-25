@@ -33,6 +33,7 @@ export interface UpSchemaFormComponentSelectorProps {
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick?: (text: string) => any;
+  isReadOnly? : (property: string) => boolean;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
@@ -83,6 +84,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             viewModels={this.props.viewModels}
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
+            isReadOnly={this.props.isReadOnly}
             defaultColspan={defaultColspan}
           />
         );
@@ -115,6 +117,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.name,
           this.props.translate,
           this.props.onSearchButtonClick,
+          this.props.isReadOnly,
           floatingLabel,
           this.props.values
         );
