@@ -16,6 +16,7 @@ import {
 } from "@up-group-ui/react-controls";
 import {style} from 'typestyle'
 import { UpFormContextConsumer } from './UpFormContext';
+import _ = require('lodash');
 
 export interface UpSchemaObjectProps {
   value: any;
@@ -34,6 +35,7 @@ export interface UpSchemaObjectProps {
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick?: (text: string) => any;
+  isReadOnly? : (property: string) => boolean;
   defaultColspan?: number;
 }
 
@@ -72,9 +74,9 @@ export function groupByRow<
 >(items: T[], defaultColspan: number): T[][] {
   let usedColSpan = 0;
   let colspan = 0;
-  const spanLimit = defaultColspan;
+  const spanLimit = 24;
   const rows = items.sort(compareItems).reduce((rows: T[][], viewModel: T) => {
-    colspan = viewModel.colspan;
+    colspan = viewModel.colspan || defaultColspan ;
     usedColSpan += colspan;
     let currentRow;
     if (rows.length === 0) {
@@ -83,18 +85,20 @@ export function groupByRow<
     } else {
       currentRow = rows[rows.length - 1];
     }
+    if(viewModel.isSeparator) {
+      usedColSpan = spanLimit
+    }
 
-    if (usedColSpan > spanLimit || viewModel.isSeparator) {
+    if (usedColSpan > spanLimit ) {
       currentRow = [];
       rows.push(currentRow);
       usedColSpan = colspan;
     }
-    if (viewModel.isSeparator) {
-      currentRow.push({ ...viewModel, colspan: spanLimit });
-      usedColSpan = spanLimit;
-    } else {
+
+    if (!viewModel.isSeparator) {
       currentRow.push(viewModel);
     }
+    
     return rows;
   }, []);
   return rows;
@@ -119,30 +123,32 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
-    const viewModels = this.props.viewModels.filter(
-      a => !this.isIgnored(a.name)
-    )
-
-    const rows = groupByRow(
-      viewModels,
-      this.props.defaultColspan
-    );
-
+    let viewModels = (!_.isEmpty(this.props.viewModels) ? this.props.viewModels : this.props.schema['viewModels']) || [] ;
+    
+    const inferViewModels : {name: string, colspan : number, order : number}[] = viewModels.filter(
+      a => !this.isIgnored(a.name) && this.props.schema.properties[a.name] && !this.props.schema.properties[a.name].hide
+    ).map( vm => ({...vm, colspan : vm.colspan || this.props.defaultColspan})) ;
+    
     Object.keys(this.props.schema.properties)
       .filter(
         a =>!this.isIgnored(a) && !this.props.schema.properties[a].hide
       )
       .forEach(a => {
-        if (!this.props.viewModels.some(pc =>  pc.name === a)) {
-          rows.push([
+        if (!viewModels.some(pc =>  pc.name === a)) {
+          inferViewModels.push(
             {
-              colspan: 24,
+              colspan: this.props.defaultColspan,
               name: a,
-              order: rows.length
+              order: inferViewModels.length
             }
-          ]);
+          );
         }
-      });
+    });
+
+    const rows = groupByRow(
+      inferViewModels,
+      this.props.defaultColspan
+    );
 
     let elements = {};
     let elementsAdvanced = [];
@@ -164,6 +170,7 @@ export default class UpSchemaObject extends React.Component<
           >
             <UpSchemaFormComponentSelector
               value={value}
+              values={this.props.value}
               name={propertyName}
               showError={this.props.showError}
               isRequired={this.isRequired(propertyName)}
@@ -172,9 +179,10 @@ export default class UpSchemaObject extends React.Component<
               node={this.props.node + "." + propertyName}
               onChange={this.props.onChange}
               ignoredProperties={this.props.ignoredProperties}
-              viewModels={this.props.viewModels}
+              viewModels={inferViewModels}
               translate={this.props.translate}
               onSearchButtonClick={this.props.onSearchButtonClick}
+              isReadOnly={this.props.isReadOnly}
             />
           </div>
         );
@@ -189,11 +197,11 @@ export default class UpSchemaObject extends React.Component<
 
     return (
       <UpFormContextConsumer>
-        {({ columnSpacing, rowSpacing }) => (
+        {({ gutter: columnSpacing, rowSpacing }) => (
           <UpGrid gutter={columnSpacing}>
             {rows.map((row, i) => {
               return (
-                <UpRow key={i}>
+                <UpRow key={i} style={{marginBottom: `${rowSpacing || 10}px`}}>
                   {this.props.withHR ? <hr /> : null}
                   {this.props.schema.title == null || this.props.node === "" ? (
                     ""
@@ -205,7 +213,7 @@ export default class UpSchemaObject extends React.Component<
                       <UpCol
                         key={index}
                         xs={24}
-                        sm={p.colspan}
+                        sm={p.colspan > 12 ? p.colspan : 12}
                         md={p.colspan}
                         lg={p.colspan}
                       >

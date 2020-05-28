@@ -113,9 +113,19 @@ export default class ComponentRegistery {
     name: string,
     translate : (text: string) => any,
     onSearchButtonClick: (text: string) => any,
+    isReadOnly?: (property:string) => boolean,
     floatingLabel?: string,
+    values?: {[ key: string]: any }
   ) {
     var comp = this.GetComponentBySchema(schema);
+    
+    // TODO : clean code
+    const newSchema = {...schema}
+    if(newSchema.entitySource && newSchema.entitySource.defaultParameters) {
+      for(const key in newSchema.entitySource.defaultParameters) {
+        newSchema.entitySource.defaultParameters[key] = values ? values[key] : null ;
+      }
+    }
 
     var props = {
       value,
@@ -123,10 +133,11 @@ export default class ComponentRegistery {
       showError: showError,
       onChange: onChange,
       isRequired: isRequired,
-      schema: schema,
+      schema: newSchema,
       translate,
       onSearchButtonClick,
-      floatingLabel
+      floatingLabel,
+      isReadOnly
     };
 
     return React.createElement(comp.ComponentClass, props);
@@ -145,7 +156,7 @@ import BooleanField from "../BaseComponent/BooleanField";
 import EnumField from "../BaseComponent/EnumField";
 import UploadField from "../BaseComponent/UploadField";
 import MonthField from "../BaseComponent/MonthField";
-import EnumFieldAsFilters from "../BaseComponent/EnumFieldAsFilters";
+import EnumInlineField from "../BaseComponent/EnumInlineField";
 
 ComponentRegistery.Register("UpNumber", "number", null, NumberField);
 ComponentRegistery.Register("String", "string", null, StringField);
@@ -156,6 +167,7 @@ ComponentRegistery.Register("Integer", "integer", null, IntegerField);
 ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
 
 ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
-ComponentRegistery.Register("Enum", null, "enum", EnumFieldAsFilters, true);
+ComponentRegistery.Register("EnumInline", null, "enumInline", EnumInlineField, true);
+ComponentRegistery.Register("Enum", null, "enum", EnumField, true);
 ComponentRegistery.Register("Upload", null, "upload", UploadField, false);
 ComponentRegistery.Register("Month", null, "month", MonthField, false);

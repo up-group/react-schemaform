@@ -30,94 +30,115 @@ interface DemoState {
   dataS: any;
 }
 
+const schema = {
+  definitions: {
+    PaginationProperties: {
+      type: ["object", "null"],
+      default: null,
+      properties: {
+        page_number: { type: "integer", default: 0 },
+        page_size: { type: "integer", default: 0 },
+        sort_property_name: { type: ["string", "null"], default: null },
+        sort_order: { type: ["integer", "null"], default: null },
+      },
+    },
+  },
+  type: "object",
+  properties: {
+    pagination_properties: {
+      $ref: "#/definitions/PaginationProperties",
+      hide: true,
+    },
+    establishment_id: {
+      title: "Établissement",
+      type: ["string", "null"],
+      default: null,
+      format: "entityKey",
+      entitySource: {
+        endPoint:
+          "https://up-france-odi-services-customer-test-app.azurewebsites.net/",
+        queryParameterName: "search",
+        text: "name",
+        id: "id",
+        query: "v1/establishements/searchestablishment",
+      },
+    },
+    start_date: {
+      title: "Date de début",
+      type: ["string", "null"],
+      default: null,
+      format: "date",
+    },
+    end_date: {
+      title: "Date de fin",
+      type: ["string", "null"],
+      default: null,
+      format: "date",
+    },
+    settlement_reference: {
+      title: "Numéro de télécollecte",
+      type: ["string", "null"],
+      default: null,
+    },
+    email: {
+      title: "Email",
+      type: ["string", "null"],
+      format: 'email',
+      default: null,
+    },
+    phone: {
+      title: "Phone",
+      type: ["string", "null"],
+      format: 'phone',
+      default: null,
+    },
+    active: {
+      title: "Activé",
+      type: "boolean",
+      default: false,
+      isToggle: true,
+    },
+    transaction_status: {
+      title: "Status",
+      enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
+      enumDescriptions: [
+        null,
+        "Authorized",
+        "Validated",
+        "Canceled",
+        "Denied",
+      ],
+      type: ["array"],
+      default: null,
+      format: "enum",
+      enum: [null, 1, 2, 3, 4],
+    },
+    inline_status: {
+      title: "Status",
+      enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
+      enumDescriptions: [
+        null,
+        "Authorized",
+        "Validated",
+        "Canceled",
+        "Denied",
+      ],
+      type: ["number"],
+      default: null,
+      format: "enumInline",
+      enum: [null, 1, 2, 3, 4],
+    },
+  },
+  viewModels: [],
+}
+
 class Demo extends React.Component<{}, DemoState> {
   constructor(p, c) {
     super(p, c);
     this.state = {
       nb: 55,
       result: "",
-      schema: {
-        definitions: {
-          PaginationProperties: {
-            type: ["object", "null"],
-            default: null,
-            properties: {
-              page_number: { type: "integer", default: 0 },
-              page_size: { type: "integer", default: 0 },
-              sort_property_name: { type: ["string", "null"], default: null },
-              sort_order: { type: ["integer", "null"], default: null },
-            },
-          },
-        },
-        type: "object",
-        properties: {
-          pagination_properties: {
-            $ref: "#/definitions/PaginationProperties",
-            hide: true,
-          },
-          establishment_id: {
-            title: "Établissement",
-            type: ["string", "null"],
-            default: null,
-            format: "entityKey",
-            entitySource: {
-              endPoint:
-                "https://up-france-odi-services-customer-test-app.azurewebsites.net/",
-              queryParameterName: "search",
-              text: "name",
-              id: "id",
-              query: "v1/establishements/searchestablishment",
-            },
-          },
-          start_date: {
-            title: "Date de début",
-            type: ["string", "null"],
-            default: null,
-            format: "date",
-          },
-          end_date: {
-            title: "Date de fin",
-            type: ["string", "null"],
-            default: null,
-            format: "date",
-          },
-          settlement_reference: {
-            title: "Numéro de télécollecte",
-            type: ["string", "null"],
-            default: null,
-          },
-          active: {
-            title: "Activé",
-            type: "boolean",
-            default: false,
-            isToggle: true,
-          },
-          transaction_status: {
-            title: "Status",
-            enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
-            enumDescriptions: [
-              null,
-              "Authorized",
-              "Validated",
-              "Canceled",
-              "Denied",
-            ],
-            type: ["integer", "null"],
-            default: null,
-            format: "enum",
-            enum: [null, 1, 2, 3, 4],
-          },
-        },
-        viewModels: [
-          { colspan: 5, order: 1, name: "settlement_reference" },
-          { colspan: 5, order: 2, name: "start_date" },
-          { colspan: 5, order: 3, name: "end_date" },
-          { order: 4, isSeparator : true},
-
-          { colspan: 5, order: 5, name: "establishment_id" },
-          { colspan: 24, order: 6, name: "transaction_status" },
-        ],
-      },
+      schema: schema,
       hasError: false,
       showError: false,
       dataS: {
@@ -139,6 +160,7 @@ class Demo extends React.Component<{}, DemoState> {
             wrapperClassName={style({
               padding: "10px"
             })}
+            withFloatingLabel={true}
             viewModels={this.state.schema.viewModels}
             translate={text => {
               if (text === "Authorized") return "Authorisée";
@@ -147,21 +169,15 @@ class Demo extends React.Component<{}, DemoState> {
             updateRules={[{
               targetField: "data_type",
               trackedField: "search",
-              policyName: "searchDataTypeGetter"
-            }]}
-
-            updateRulePolicies={[
-              function searchDataTypeGetter(value: any) {
+              handler: (value: any) => {
                 if (value.length === 14)
                   return { type: 2 };
                 return { type: 3 };
               }
-            ]} 
-            onSearchButtonClick={value => console.log(value)}
-            withFloatingLabel={false}
+            }]}
             gutter={10}
             rowSpacing={25}
-            defaultColspan={24}
+            defaultColspan={8}
 
             //ignoredProperties={["pagination_properties"]}
           />

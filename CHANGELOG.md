@@ -1,3 +1,32 @@
+# React-Schemaform (version: 0.1.74)
+
+## Main changes
+- Add new props isReadonly
+- Update react-controls to v0.2.40
+
+# React-Schemaform (version: 0.1.72)
+
+## Main changes
+- Update react-controls
+  
+## Bug Fixes
+- Fix enumField value
+  
+# React-Schemaform (version: 0.1.59)
+
+## Main changes
+- remove updateRulesPolicies on UpSchemaForm
+
+# React-Schemaform (version: 0.1.58)
+
+## Bug Fixes
+- Fix col span, col gutter and row spacing in form fields layout
+
+# React-Schemaform (version: 0.1.57)
+
+## Main changes
+- Add new prop to UpSchemaForm in order to  define the gutter and a defaultColspan
+
 # React-Schemaform (version: 0.1.56)
 
 ## Main changes

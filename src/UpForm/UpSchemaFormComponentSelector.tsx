@@ -17,6 +17,7 @@ export interface PropertyViewModel {
 
 export interface UpSchemaFormComponentSelectorProps {
   value: any;
+  values?: {[ key : string] : any };
   schema: JsonSchema;
   node: string;
   name?: string;
@@ -32,6 +33,7 @@ export interface UpSchemaFormComponentSelectorProps {
   viewModels: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick?: (text: string) => any;
+  isReadOnly? : (property: string) => boolean;
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
@@ -63,6 +65,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
     return result;
   }
+
   renderElement(parametersForm) {
     let {withFloatingLabel,element,isControl,isArray,type,defaultColspan} = parametersForm
     const floatingLabel = withFloatingLabel && this.props.schema.title
@@ -81,6 +84,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             viewModels={this.props.viewModels}
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
+            isReadOnly={this.props.isReadOnly}
             defaultColspan={defaultColspan}
           />
         );
@@ -113,31 +117,32 @@ export default class UpSchemaFormComponentSelector extends React.Component<
           this.props.name,
           this.props.translate,
           this.props.onSearchButtonClick,
-          floatingLabel
+          this.props.isReadOnly,
+          floatingLabel,
+          this.props.values
         );
         break;
     }
     return element
-
   }
 
   render() {
-    var element = null;
-    var isControl = true;
-    var isArray = false;
+    const element = null;
+    const isControl = true;
+    const isArray = false;
 
-    var parameters = this.props.node.split(".");
+    const parameters = this.props.node.split(".");
     if (parameters.length !== 0 && this.props.node !== "") {
-      var parameter = this.findGetParameter(parameters[parameters.length - 1]);
+      const parameter = this.findGetParameter(parameters[parameters.length - 1]);
       if (parameter != null) {
         this.props.schema.default = parameter;
         this.props.schema.readonly = true;
       }
     }
 
-    var type = JsonSchemaHelper.getBaseType(this.props.schema);
-    const format = JsonSchemaHelper.getBaseFormat(this.props.schema);    
-    
+    const type = JsonSchemaHelper.getBaseType(this.props.schema);
+    const format = this.props.schema.format;    
+
     if (isControl) {
       return (
         <UpFormContextConsumer>
@@ -146,7 +151,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
-              withFloatingLabel={type === 'string' && format !=='multilineText'  && withFloatingLabel}
+              withFloatingLabel={(type === 'string' || format === 'enum') && format !=='multilineText' && withFloatingLabel}
             >
               {this.renderElement({withFloatingLabel,element,isArray,isControl,type,defaultColspan})}
             </UpFormGroup>

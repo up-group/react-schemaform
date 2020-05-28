@@ -13,6 +13,7 @@ export type InternalFormatOfSchema =
   | "time"
   | "entityKey"
   | "enum"
+  | "enumInline"
   | "upload"
   | "month"
   | "email"
@@ -66,6 +67,9 @@ export interface JsonSchema {
     text: string;
     query: string;
     queryParameterName: string;
+    data? : any;
+    autoload?: boolean;
+    defaultParameters?: {[key: string] : any}
   };
   fileExtension?: string;
   readonly?: boolean;

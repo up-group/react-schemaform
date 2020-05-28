@@ -3,13 +3,13 @@ import * as React from 'react';
 const UpFormContext = React.createContext<{
   withFloatingLabel: boolean;
   rowSpacing?: number;
-  columnSpacing?: number;
+  gutter?: number;
   defaultColspan?: number;
   
 }>({
   withFloatingLabel: false,
   rowSpacing: 5,
-  columnSpacing: 5,
+  gutter: 5,
   defaultColspan: 24,
 });
 

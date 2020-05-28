@@ -19,7 +19,7 @@ type ShouldApplyUpdateRulePolicy = (trackedFieldValue: any) => any;
 interface UpdateRule {
   trackedField: string;
   targetField: string;
-  policyName: string
+  handler: ShouldApplyUpdateRulePolicy
 }
 
 export interface UpSchemaFormProps {
@@ -32,9 +32,9 @@ export interface UpSchemaFormProps {
   wrapperClassName?: string;
   viewModels?: PropertyViewModel[];
   translate?: (text: string) => any;
-  updateRulePolicies?: ShouldApplyUpdateRulePolicy[];
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
+  isReadOnly?: (property:string,data) => boolean;
   withFloatingLabel?: boolean,
   rowSpacing?:number,
   gutter?:number,
@@ -47,10 +47,11 @@ export default class UpSchemaForm extends React.Component<
   > {
   static defaultProps = {
     showError: true,
-    initValue: {}
+    initValue: null
   };
 
   private errorMemory = new ErrorMemory();
+  
   constructor(p, c) {
     super(p, c);
     if (this.props.initValue != null) {
@@ -62,7 +63,7 @@ export default class UpSchemaForm extends React.Component<
 
   componentWillReceiveProps(newProps: UpSchemaFormProps){
     if(this.props.value != newProps.value){
-      const newState = { ..._.cloneDeep(newProps.value) };
+      const newState = {...this.props.value, ..._.cloneDeep(newProps.value)};
       this.setState({data: newState}, () => {this.forceUpdate()});
     }
   }
@@ -80,6 +81,7 @@ export default class UpSchemaForm extends React.Component<
       );
     }
   }
+
   render() {
 
     let schema: JsonSchema = this.getSchema();
@@ -100,6 +102,7 @@ export default class UpSchemaForm extends React.Component<
         flexDirection : 'column'}}>
         <UpSchemaFormComponentSelector
           value={value}
+          values={value}
           isRequired={false}
           schema={schema}
           node={""}
@@ -109,6 +112,7 @@ export default class UpSchemaForm extends React.Component<
           viewModels={this.props.viewModels}
           translate={this.props.translate}
           onSearchButtonClick={this.props.onSearchButtonClick}
+          isReadOnly = {this.props.isReadOnly? (name) => this.props.isReadOnly(name, value): ()=>false}
         />
         {this.props.children}
       </div>
@@ -116,15 +120,23 @@ export default class UpSchemaForm extends React.Component<
 
     if (schema.title)
       return (
-        <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
-          $nest : {
-            "& .up-select-wrapper" : {
-              marginTop : '14px' /** TEMP FIX ;  */
+        <UpFormContextProvider
+            value={{
+              withFloatingLabel: this.props.withFloatingLabel,
+              rowSpacing: this.props.rowSpacing,
+              gutter: this.props.gutter,
+            }}
+          >
+          <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
+            $nest : {
+              "& .up-select-wrapper" : {
+                marginTop : '14px' /** TEMP FIX ;  */
+              }
             }
-          }
-        }))}>
-          {content}
-        </UpPanel>
+          }))}>
+            {content}
+          </UpPanel>
+        </UpFormContextProvider>
       );
 
     return (
@@ -132,7 +144,7 @@ export default class UpSchemaForm extends React.Component<
         value={{
           withFloatingLabel: this.props.withFloatingLabel,
           rowSpacing: this.props.rowSpacing,
-          columnSpacing: this.props.gutter,
+          gutter: this.props.gutter,
           defaultColspan: this.props.defaultColspan,
         }}
       >
@@ -176,19 +188,12 @@ export default class UpSchemaForm extends React.Component<
     }
 
     if (this.props.updateRules && this.props.updateRules.length > 0) {
-      let policies = this.props.updateRules
-        .filter(rule => node.substring(1) === rule.trackedField)
-        .map(rule => {
-          let policy = this.props.updateRulePolicies.filter(p => p.name === rule.policyName);
-          return { rule, policy: policy.length > 0 ? policy[0] : null };
-        })
-        .filter(policy => policy.policy !== null)
-        ;      
+      let policies = this.props.updateRules.filter(rule => node.substring(1) === rule.trackedField && rule.handler != null)
       if (policies.length > 0) {
         let changes = {};
         for (const policy of policies) {
-          let newValue = policy.policy(_.get(this.state.data, policy.rule.trackedField));
-          _.set(changes, policy.rule.targetField, newValue);
+          let newValue = policy.handler(_.get(this.state.data, policy.trackedField));
+          _.set(changes, policy.targetField, newValue);
         }
         this.setState({data: {...this.state.data, ...changes }}, () => this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError))
         return;
