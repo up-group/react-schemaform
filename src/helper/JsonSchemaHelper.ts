@@ -16,6 +16,10 @@ export default class JsonSchemaHelper {
     return (schema.type as InternalTypeOfSchema[]).indexOf("null") != -1;
   }
 
+  static getBaseFormat(schema: JsonSchema): string {
+    return schema.format
+  }
+
   static parseSchema(schema: string): JsonSchema {
     var data = JSON.parse(schema) as JsonSchema;
 
