@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.75)
+
+## Bug Fixes
+
+- No floating label for UpText
+
 # React-Schemaform (version: 0.1.74)
 
 ## Main changes
