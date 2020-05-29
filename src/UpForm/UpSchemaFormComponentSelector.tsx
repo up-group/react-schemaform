@@ -141,6 +141,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
 
     const type = JsonSchemaHelper.getBaseType(this.props.schema);
+    const format = this.props.schema.format;    
 
     if (isControl) {
       return (
@@ -150,7 +151,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
-              withFloatingLabel={(type === 'string' || this.props.schema.format === 'enum') && withFloatingLabel}
+              withFloatingLabel={(type === 'string' || format === 'enum') && format !=='multilineText' && withFloatingLabel}
             >
               {this.renderElement({withFloatingLabel,element,isArray,isControl,type,defaultColspan})}
             </UpFormGroup>
