@@ -69,14 +69,23 @@ function compareItems<T extends { order: number }>(a: T, b: T): number {
   return -1;
 }
 
-export function groupByRow<
-  T extends { colspan?: number; order: number; isSeparator?: boolean }
->(items: T[], defaultColspan: number): T[][] {
-  let usedColSpan = 0;
-  let colspan = 0;
-  const spanLimit = 24;
-  const rows = items.sort(compareItems).reduce((rows: T[][], viewModel: T) => {
-    colspan = viewModel.colspan || defaultColspan ;
+export function manageColspan<
+  T extends {
+    colspan?: number;
+    order: number;
+    isSeparator?: boolean;
+    group?: string;
+  }
+>(items: T[], defaultColspan: number, group?: string) {
+  return items.sort(compareItems).reduce((rows, viewModel) => {
+    let usedColSpan = 0;
+    let colspan = 0;
+    const spanLimit = 24;
+    if (group) {
+      viewModel.group = group === "undefined" ? "Autre" : group;
+    }
+
+    colspan = viewModel.colspan || defaultColspan;
     usedColSpan += colspan;
     let currentRow;
     if (rows.length === 0) {
@@ -85,11 +94,11 @@ export function groupByRow<
     } else {
       currentRow = rows[rows.length - 1];
     }
-    if(viewModel.isSeparator) {
-      usedColSpan = spanLimit
+    if (viewModel.isSeparator) {
+      usedColSpan = spanLimit;
     }
 
-    if (usedColSpan > spanLimit ) {
+    if (usedColSpan > spanLimit) {
       currentRow = [];
       rows.push(currentRow);
       usedColSpan = colspan;
@@ -98,10 +107,32 @@ export function groupByRow<
     if (!viewModel.isSeparator) {
       currentRow.push(viewModel);
     }
-    
+
     return rows;
   }, []);
-  return rows;
+}
+
+export function groupByRow<
+  T extends {
+    colspan?: number;
+    order: number;
+    isSeparator?: boolean;
+    group?: string;
+  }
+>(items: T[], defaultColspan: number): T[][] {
+  const oneGroupAtLeast = items.find((item) => !_.isUndefined(item.group));
+
+  if (!_.isUndefined(oneGroupAtLeast)) {
+    const groupedByGroup = _.groupBy(items, "group");
+
+    const managedGroup = _.forIn(groupedByGroup, (values, key) => {
+      manageColspan(values, defaultColspan, key);
+    });
+    return _.values(managedGroup);
+  } else {
+    const rows = manageColspan(items, defaultColspan);
+    return rows;
+  }
 }
 
 export default class UpSchemaObject extends React.Component<
@@ -125,9 +156,9 @@ export default class UpSchemaObject extends React.Component<
   render() {
     let viewModels = (!_.isEmpty(this.props.viewModels) ? this.props.viewModels : this.props.schema['viewModels']) || [] ;
     
-    const inferViewModels : {name: string, colspan : number, order : number}[] = viewModels.filter(
+    const inferViewModels : {name: string, colspan : number, order : number,group: string}[] = viewModels.filter(
       a => !this.isIgnored(a.name) && this.props.schema.properties[a.name] && !this.props.schema.properties[a.name].hide
-    ).map( vm => ({...vm, colspan : vm.colspan || this.props.defaultColspan})) ;
+    ).map( vm => ({...vm, group: this.props.schema.properties[vm.name]['group'], colspan :vm.colspan || this.props.defaultColspan})) ;
     
     Object.keys(this.props.schema.properties)
       .filter(
@@ -139,7 +170,8 @@ export default class UpSchemaObject extends React.Component<
             {
               colspan: this.props.defaultColspan,
               name: a,
-              order: inferViewModels.length
+              order: inferViewModels.length,
+              group: this.props.schema.properties[a]['group']
             }
           );
         }
@@ -150,11 +182,27 @@ export default class UpSchemaObject extends React.Component<
       this.props.defaultColspan
     );
 
+    const groupedRow = rows.map(row =>_.groupBy(row,'group'))
+    
+    let unknownsGroupIndex = -1;
+    groupedRow.forEach((element,index)=>{
+      const unknownGroupExist = element['Autre']
+      if(unknownGroupExist) unknownsGroupIndex = index
+    } )
+    if(unknownsGroupIndex !== -1) {
+      const unknownGroup = groupedRow[unknownsGroupIndex]
+      groupedRow.splice(unknownsGroupIndex,1)
+      groupedRow.push(unknownGroup)
+    }
+
+
     let elements = {};
     let elementsAdvanced = [];
+ 
     for (let propertyName in this.props.schema.properties) {
       if (this.props.schema.properties.hasOwnProperty(propertyName)) {
         let property = this.props.schema.properties[propertyName];
+
         if (this.isIgnored(propertyName) || property.hide) continue;
 
         let value =
@@ -195,34 +243,69 @@ export default class UpSchemaObject extends React.Component<
       }
     }
 
+    
+
+   
+
     return (
       <UpFormContextConsumer>
         {({ gutter: columnSpacing, rowSpacing }) => (
           <UpGrid gutter={columnSpacing}>
-            {rows.map((row, i) => {
-              return (
-                <UpRow key={i} style={{marginBottom: `${rowSpacing || 10}px`}}>
-                  {this.props.withHR ? <hr /> : null}
-                  {this.props.schema.title == null || this.props.node === "" ? (
-                    ""
-                  ) : (
-                    <h4>{this.props.schema.title}</h4>
-                  )}
-                  {row.map((p, index) => {
-                    return (
-                      <UpCol
-                        key={index}
-                        xs={24}
-                        sm={p.colspan > 12 ? p.colspan : 12}
-                        md={p.colspan}
-                        lg={p.colspan}
-                      >
-                        {elements[p.name]}
-                      </UpCol>
-                    );
-                  })}
-                </UpRow>
-              );
+            {groupedRow.map((group) => {
+              for (let element in group) {
+                const Rows = element !== "undefined" ? (
+                  <fieldset key={element}>
+                    <legend>{element}</legend>
+                    <UpRow
+                      key={element}
+                      style={{ marginBottom: `${rowSpacing || 10}px` }}
+                    >
+                      {this.props.withHR ? <hr /> : null}
+                      {this.props.schema.title == null || this.props.node === "" ? (
+                        ""
+                      ) : (
+                        <h4>{this.props.schema.title}</h4>
+                      )}
+                      {group[element].map((p, index) => {
+                        return (
+                          <UpCol
+                            key={index}
+                            xs={24}
+                            sm={p.colspan > 12 ? p.colspan : 12}
+                            md={p.colspan}
+                            lg={p.colspan}
+                          >
+                            {elements[p.name]}
+                          </UpCol>
+                        );
+                      })}
+                    </UpRow>
+                  </fieldset>
+                ) : (
+                  <UpRow key={element} style={{ marginBottom: `${rowSpacing || 10}px` }}>
+                    {this.props.withHR ? <hr /> : null}
+                    {this.props.schema.title == null || this.props.node === "" ? (
+                      ""
+                    ) : (
+                      <h4>{this.props.schema.title}</h4>
+                    )}
+                    {group[element].map((p, index) => {
+                      return (
+                        <UpCol
+                          key={index}
+                          xs={24}
+                          sm={p.colspan > 12 ? p.colspan : 12}
+                          md={p.colspan}
+                          lg={p.colspan}
+                        >
+                          {elements[p.name]}
+                        </UpCol>
+                      );
+                    })}
+                  </UpRow>
+                );
+                return Rows
+              }
             })}
             {elementsAdvanced != null && elementsAdvanced.length != 0 ? (
               <UpRow>
