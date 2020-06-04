@@ -43,7 +43,6 @@ export interface UpSchemaObjectState {
   showAdvanced: boolean;
 }
 
-
 const getStyles = (props) => {
   const { columnSpacing, columnNumber, rowSpacing } = props;
   return style({
@@ -155,10 +154,13 @@ export default class UpSchemaObject extends React.Component<
 
   render() {
     let viewModels = (!_.isEmpty(this.props.viewModels) ? this.props.viewModels : this.props.schema['viewModels']) || [] ;
-    
-    const inferViewModels : {name: string, colspan : number, order : number,group: string}[] = viewModels.filter(
+    Object.keys(this.props.schema.properties).forEach((key, index) => 
+      this.props.schema.properties[key]['order'] =  this.props.schema.properties[key]['order'] || index+1
+    );
+
+    let inferViewModels : {name: string, colspan : number, order : number,group: string}[] = viewModels.filter(
       a => !this.isIgnored(a.name) && this.props.schema.properties[a.name] && !this.props.schema.properties[a.name].hide
-    ).map( vm => ({...vm, group: this.props.schema.properties[vm.name]['group'], colspan :vm.colspan || this.props.defaultColspan})) ;
+    ).map( vm => ({...vm, order: this.props.schema.properties[vm.name]['order'], group: this.props.schema.properties[vm.name]['group'], colspan :vm.colspan || this.props.defaultColspan})) ;
     
     Object.keys(this.props.schema.properties)
       .filter(
@@ -176,6 +178,8 @@ export default class UpSchemaObject extends React.Component<
           );
         }
     });
+    
+    inferViewModels = inferViewModels.sort(compareItems);
 
     const rows = groupByRow(
       inferViewModels,
