@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.76)
+
+## Main changes
+
+- Add handler of group name on field properties
+
 # React-Schemaform (version: 0.1.75)
 
 ## Bug Fixes
