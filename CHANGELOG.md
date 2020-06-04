@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.77)
+
+## Bug Fixes
+
+- Fix order properties with group
+
 # React-Schemaform (version: 0.1.76)
 
 ## Main changes
