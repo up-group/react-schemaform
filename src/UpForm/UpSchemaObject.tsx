@@ -188,13 +188,13 @@ export default class UpSchemaObject extends React.Component<
     groupedRow.forEach((element,index)=>{
       const unknownGroupExist = element['Autre']
       if(unknownGroupExist) unknownsGroupIndex = index
-    } )
+    })
+
     if(unknownsGroupIndex !== -1) {
       const unknownGroup = groupedRow[unknownsGroupIndex]
       groupedRow.splice(unknownsGroupIndex,1)
       groupedRow.push(unknownGroup)
     }
-
 
     let elements = {};
     let elementsAdvanced = [];
@@ -243,10 +243,6 @@ export default class UpSchemaObject extends React.Component<
       }
     }
 
-    
-
-   
-
     return (
       <UpFormContextConsumer>
         {({ gutter: columnSpacing, rowSpacing }) => (
@@ -256,53 +252,28 @@ export default class UpSchemaObject extends React.Component<
                 const Rows = element !== "undefined" ? (
                   <fieldset key={element}>
                     <legend>{element}</legend>
-                    <UpRow
+                    <SchemaRow 
+                      title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
+                      withHR={this.props.withHR}
                       key={element}
-                      style={{ marginBottom: `${rowSpacing || 10}px` }}
-                    >
-                      {this.props.withHR ? <hr /> : null}
-                      {this.props.schema.title == null || this.props.node === "" ? (
-                        ""
-                      ) : (
-                        <h4>{this.props.schema.title}</h4>
-                      )}
-                      {group[element].map((p, index) => {
-                        return (
-                          <UpCol
-                            key={index}
-                            xs={24}
-                            sm={p.colspan > 12 ? p.colspan : 12}
-                            md={p.colspan}
-                            lg={p.colspan}
-                          >
-                            {elements[p.name]}
-                          </UpCol>
-                        );
-                      })}
-                    </UpRow>
+                      rowSpacing={rowSpacing}
+                      elements={group[element].map(element => ({
+                        colspan: element.colspan,
+                        name: element.name,
+                        render : elements[element.name]
+                      }))} />
                   </fieldset>
                 ) : (
-                  <UpRow key={element} style={{ marginBottom: `${rowSpacing || 10}px` }}>
-                    {this.props.withHR ? <hr /> : null}
-                    {this.props.schema.title == null || this.props.node === "" ? (
-                      ""
-                    ) : (
-                      <h4>{this.props.schema.title}</h4>
-                    )}
-                    {group[element].map((p, index) => {
-                      return (
-                        <UpCol
-                          key={index}
-                          xs={24}
-                          sm={p.colspan > 12 ? p.colspan : 12}
-                          md={p.colspan}
-                          lg={p.colspan}
-                        >
-                          {elements[p.name]}
-                        </UpCol>
-                      );
-                    })}
-                  </UpRow>
+                  <SchemaRow 
+                      title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
+                      withHR={this.props.withHR}
+                      key={element}
+                      rowSpacing={rowSpacing}
+                      elements={group[element].map(element => ({
+                        colspan: element.colspan,
+                        name: element.name,
+                        render : elements[element.name]
+                      }))} />
                 );
                 return Rows
               }
@@ -366,4 +337,35 @@ export default class UpSchemaObject extends React.Component<
     }
     return required;
   }
+}
+
+interface SchemaRowProps {
+  rowSpacing: number;
+  withHR: boolean;
+  title: string;
+  elements: {colspan : number, name : string, render : React.ReactNode}[];
+}
+
+const SchemaRow : React.FunctionComponent<SchemaRowProps> = ({rowSpacing, withHR, title, elements})  => {
+  return <UpRow style={{ marginBottom: `${rowSpacing || 10}px` }}>
+          {withHR ? <hr /> : null}
+          {title == null ? (
+            ""
+          ) : (
+            <h4>{title}</h4>
+          )}
+          {elements.map((element, index) => {
+            return (
+              <UpCol
+                key={index}
+                xs={24}
+                sm={element.colspan > 12 ? element.colspan : 12}
+                md={element.colspan}
+                lg={element.colspan}
+              >
+                {element.render}
+              </UpCol>
+            );
+          })}
+        </UpRow>
 }
