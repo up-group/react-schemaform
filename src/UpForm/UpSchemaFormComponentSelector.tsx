@@ -103,6 +103,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             viewsModel={this.props.viewModels}
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
+            floatingLabel={floatingLabel}
           />
         );
         isArray = true;
@@ -141,7 +142,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
 
     const type = JsonSchemaHelper.getBaseType(this.props.schema);
-    const format = this.props.schema.format;    
+    const format = this.props.schema.format || (this.props.schema.items && this.props.schema.items['format']);  
 
     if (isControl) {
       return (

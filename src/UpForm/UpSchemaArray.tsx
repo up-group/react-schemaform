@@ -23,6 +23,7 @@ export interface UpSchemaArrayProps {
   viewsModel: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick: (text: string) => any;
+  floatingLabel?: string
 }
 
 export interface UpSchemaArrayState {
@@ -52,7 +53,8 @@ export default class UpSchemaArray extends React.Component<
         this.props.isRequired,
         this.props.schema,
         this.props.showError,
-        this.props.value
+        this.props.value,
+        this.props.floatingLabel
       );
     }
 
@@ -94,7 +96,7 @@ export default class UpSchemaArray extends React.Component<
             null,
             null,
             this.props.translate,
-            this.props.onSearchButtonClick
+            this.props.onSearchButtonClick,
           );
           break;
       }
