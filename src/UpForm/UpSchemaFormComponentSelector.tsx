@@ -103,6 +103,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             viewsModel={this.props.viewModels}
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
+            floatingLabel={floatingLabel}
             isReadOnly={this.props.isReadOnly}
           />
         );
@@ -142,6 +143,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
 
     const type = JsonSchemaHelper.getBaseType(this.props.schema);
+    const format = this.props.schema.format || (this.props.schema.items && this.props.schema.items['format']);  
 
     if (isControl) {
       return (
@@ -151,7 +153,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
-              withFloatingLabel={(type === 'string' || this.props.schema.format === 'enum') && withFloatingLabel}
+              withFloatingLabel={(type === 'string' || format === 'enum') && format !=='multilineText' && withFloatingLabel}
             >
               {this.renderElement({withFloatingLabel,element,isArray,isControl,type,defaultColspan})}
             </UpFormGroup>

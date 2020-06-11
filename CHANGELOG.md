@@ -1,3 +1,27 @@
+# React-Schemaform (version: 0.1.77)
+
+## Bug Fixes
+
+- Fix order properties with group
+
+# React-Schemaform (version: 0.1.76)
+
+## Main changes
+
+- Add handler of group name on field properties
+
+# React-Schemaform (version: 0.1.75)
+
+## Bug Fixes
+
+- No floating label for UpText
+
+# React-Schemaform (version: 0.1.74)
+
+## Main changes
+- Add new props isReadonly
+- Update react-controls to v0.2.40
+
 # React-Schemaform (version: 0.1.72)
 
 ## Main changes

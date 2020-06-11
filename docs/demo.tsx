@@ -127,6 +127,7 @@ const schema = {
       default: null,
       format: "enumInline",
       enum: [null, 1, 2, 3, 4],
+      group:'Group 1'
     },
   },
   viewModels: [],

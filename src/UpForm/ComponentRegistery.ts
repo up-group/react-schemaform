@@ -91,6 +91,7 @@ export default class ComponentRegistery {
     schema: JsonSchema,
     showError: boolean,
     value: any,
+    floatingLabel,
     isReadOnly: (property: string) => boolean
   ) {
     var comp = this.GetComponentByKey(key);
@@ -100,6 +101,7 @@ export default class ComponentRegistery {
       onChange: onChange,
       isRequired: isRequired,
       schema: schema,
+      floatingLabel,
       isReadOnly
     };
 
