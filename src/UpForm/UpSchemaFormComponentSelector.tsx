@@ -103,6 +103,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             viewsModel={this.props.viewModels}
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
+            isReadOnly={this.props.isReadOnly}
           />
         );
         isArray = true;

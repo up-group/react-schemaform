@@ -23,6 +23,7 @@ export interface UpSchemaArrayProps {
   viewsModel: PropertyViewModel[];
   translate: (text: string) => any;
   onSearchButtonClick: (text: string) => any;
+  isReadOnly? : (property: string) => boolean;
 }
 
 export interface UpSchemaArrayState {
@@ -52,7 +53,8 @@ export default class UpSchemaArray extends React.Component<
         this.props.isRequired,
         this.props.schema,
         this.props.showError,
-        this.props.value
+        this.props.value,
+        this.props.isReadOnly
       );
     }
 
@@ -74,6 +76,7 @@ export default class UpSchemaArray extends React.Component<
               viewModels={this.props.viewsModel}
               translate={this.props.translate}
               onSearchButtonClick={this.props.onSearchButtonClick}
+              isReadOnly={this.props.isReadOnly}
             />
           );
           break;
@@ -94,7 +97,8 @@ export default class UpSchemaArray extends React.Component<
             null,
             null,
             this.props.translate,
-            this.props.onSearchButtonClick
+            this.props.onSearchButtonClick,
+            this.props.isReadOnly
           );
           break;
       }

@@ -90,7 +90,8 @@ export default class ComponentRegistery {
     isRequired: boolean,
     schema: JsonSchema,
     showError: boolean,
-    value: any
+    value: any,
+    isReadOnly: (property: string) => boolean
   ) {
     var comp = this.GetComponentByKey(key);
     var props = {
@@ -98,7 +99,8 @@ export default class ComponentRegistery {
       showError: showError,
       onChange: onChange,
       isRequired: isRequired,
-      schema: schema
+      schema: schema,
+      isReadOnly
     };
 
     return React.createElement(comp.ComponentClass, props);
