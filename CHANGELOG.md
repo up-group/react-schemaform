@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.78)
+
+## Main changes
+
+- Add new prop isReadonly enabling to handle input state
+
 # React-Schemaform (version: 0.1.77)
 
 ## Bug Fixes
