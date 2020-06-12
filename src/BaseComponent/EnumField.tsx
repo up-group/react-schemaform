@@ -51,6 +51,7 @@ export default class EnumField extends UpFormControl<number | number[]> {
         returnType="id"
         isRequired={this.props.isRequired}
         minimumInputLength={0}
+        disabled={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
         placeholder="Recherche"
         multiple={this.isArray}
         allowClear={!this.props.isRequired}

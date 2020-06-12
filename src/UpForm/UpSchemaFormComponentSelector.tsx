@@ -104,6 +104,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
             floatingLabel={floatingLabel}
+            isReadOnly={this.props.isReadOnly}
           />
         );
         isArray = true;

@@ -92,6 +92,7 @@ export default class ComponentRegistery {
     showError: boolean,
     value: any,
     floatingLabel,
+    isReadOnly: (property: string) => boolean
   ) {
     var comp = this.GetComponentByKey(key);
     var props = {
@@ -101,6 +102,7 @@ export default class ComponentRegistery {
       isRequired: isRequired,
       schema: schema,
       floatingLabel,
+      isReadOnly
     };
 
     return React.createElement(comp.ComponentClass, props);
