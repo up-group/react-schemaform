@@ -91,6 +91,11 @@ const schema = {
       type: ["string", "null"],
       format: 'phone',
       default: null,
+    }, 
+    number: {
+      title: "Nombre",
+      type: "number",
+      default: null,
     },
     active: {
       title: "Activé",
