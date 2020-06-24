@@ -104,6 +104,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             translate={this.props.translate}
             onSearchButtonClick={this.props.onSearchButtonClick}
             floatingLabel={floatingLabel}
+            isReadOnly={this.props.isReadOnly}
           />
         );
         isArray = true;
@@ -152,7 +153,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
               isRequired={this.props.isRequired}
               title={this.props.schema.title}
               description={this.props.schema.description}
-              withFloatingLabel={(type === 'string' || format === 'enum') && format !=='multilineText' && withFloatingLabel}
+              withFloatingLabel={(type === 'string' || format === 'enum' || type=="number") && format !=='multilineText' && withFloatingLabel}
             >
               {this.renderElement({withFloatingLabel,element,isArray,isControl,type,defaultColspan})}
             </UpFormGroup>

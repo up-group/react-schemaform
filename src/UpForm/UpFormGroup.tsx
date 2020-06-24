@@ -46,7 +46,7 @@ const UpFormGroup = (props: UpFormGroupProps) => {
   if (withFloatingLabel) {
     return (
       <>
-        {title && children}
+        {children}
       </>
     );
   }
