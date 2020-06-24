@@ -37,6 +37,7 @@ export interface UpSchemaObjectProps {
   onSearchButtonClick?: (text: string) => any;
   isReadOnly? : (property: string) => boolean;
   defaultColspan?: number;
+  hideEmptyTitle?:boolean
 }
 
 export interface UpSchemaObjectState {
@@ -180,13 +181,14 @@ export default class UpSchemaObject extends React.Component<
         group: this.props.schema.properties[vm.name]["group"],
         colspan: vm.colspan || this.props.defaultColspan,
       }));
-
+      console.log(this.props.schema.properties)
     Object.keys(this.props.schema.properties)
-      .filter(
-        (a) =>
-          !this.isIgnored(a) &&
-          !this.props.schema.properties[a].hide &&
-          this.props.schema.properties[a].title
+      .filter((a) =>
+        !this.isIgnored(a) &&
+        !this.props.schema.properties[a].hide &&
+        (this.props.hideEmptyTitle
+          ? this.props.schema.properties[a].title
+          : true)
       )
       .forEach((a) => {
         if (!viewModels.some((pc) => pc.name === a)) {
