@@ -37,6 +37,7 @@ export interface UpSchemaObjectProps {
   onSearchButtonClick?: (text: string) => any;
   isReadOnly? : (property: string) => boolean;
   defaultColspan?: number;
+  hideEmptyTitle?:boolean
 }
 
 export interface UpSchemaObjectState {
@@ -153,33 +154,55 @@ export default class UpSchemaObject extends React.Component<
   }
 
   render() {
-    let viewModels = (!_.isEmpty(this.props.viewModels) ? this.props.viewModels : this.props.schema['viewModels']) || [] ;
-    Object.keys(this.props.schema.properties).forEach((key, index) => 
-      this.props.schema.properties[key]['order'] =  this.props.schema.properties[key]['order'] || index+1
+    let viewModels =
+      (!_.isEmpty(this.props.viewModels)
+        ? this.props.viewModels
+        : this.props.schema["viewModels"]) || [];
+    Object.keys(this.props.schema.properties).forEach(
+      (key, index) =>
+        (this.props.schema.properties[key]["order"] =
+          this.props.schema.properties[key]["order"] || index + 1)
     );
-
-    let inferViewModels : {name: string, colspan : number, order : number,group: string}[] = viewModels.filter(
-      a => !this.isIgnored(a.name) && this.props.schema.properties[a.name] && !this.props.schema.properties[a.name].hide
-    ).map( vm => ({...vm, order: this.props.schema.properties[vm.name]['order'], group: this.props.schema.properties[vm.name]['group'], colspan :vm.colspan || this.props.defaultColspan})) ;
-    
-    Object.keys(this.props.schema.properties)
+    let inferViewModels: {
+      name: string;
+      colspan: number;
+      order: number;
+      group: string;
+    }[] = viewModels
       .filter(
-        a =>!this.isIgnored(a) && !this.props.schema.properties[a].hide
+        (a) =>
+          !this.isIgnored(a.name) &&
+          this.props.schema.properties[a.name] &&
+          !this.props.schema.properties[a.name].hide 
       )
-      .forEach(a => {
-        if (!viewModels.some(pc =>  pc.name === a)) {
-          inferViewModels.push(
-            {
-              colspan: this.props.defaultColspan,
-              name: a,
-              order: inferViewModels.length,
-              group: this.props.schema.properties[a]['group']
-            }
-          );
+      .map((vm) => ({
+        ...vm,
+        order: this.props.schema.properties[vm.name]["order"],
+        group: this.props.schema.properties[vm.name]["group"],
+        colspan: vm.colspan || this.props.defaultColspan,
+      }));
+      console.log(this.props.schema.properties)
+    Object.keys(this.props.schema.properties)
+      .filter((a) =>
+        !this.isIgnored(a) &&
+        !this.props.schema.properties[a].hide &&
+        (this.props.hideEmptyTitle
+          ? this.props.schema.properties[a].title
+          : true)
+      )
+      .forEach((a) => {
+        if (!viewModels.some((pc) => pc.name === a)) {
+          inferViewModels.push({
+            colspan: this.props.defaultColspan,
+            name: a,
+            order: inferViewModels.length,
+            group: this.props.schema.properties[a]["group"],
+          });
         }
-    });
+      });
     
     inferViewModels = inferViewModels.sort(compareItems);
+
 
     const rows = groupByRow(
       inferViewModels,
@@ -187,6 +210,7 @@ export default class UpSchemaObject extends React.Component<
     );
 
     const groupedRow = rows.map(row =>_.groupBy(row,'group'))
+
     
     let unknownsGroupIndex = -1;
     groupedRow.forEach((element,index)=>{

@@ -39,6 +39,7 @@ export interface UpSchemaFormProps {
   rowSpacing?:number,
   gutter?:number,
   defaultColspan?:number
+  hideEmptyTitle?:boolean
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -106,6 +107,7 @@ export default class UpSchemaForm extends React.Component<
           isRequired={false}
           schema={schema}
           node={""}
+          hideEmptyTitle={this.props.hideEmptyTitle}
           onChange={this.onChange}
           showError={this.props.showError}
           ignoredProperties={this.props.ignoredProperties}

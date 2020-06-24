@@ -34,6 +34,7 @@ export interface UpSchemaFormComponentSelectorProps {
   translate: (text: string) => any;
   onSearchButtonClick?: (text: string) => any;
   isReadOnly? : (property: string) => boolean;
+  hideEmptyTitle?:boolean
 }
 
 export default class UpSchemaFormComponentSelector extends React.Component<
@@ -86,6 +87,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             onSearchButtonClick={this.props.onSearchButtonClick}
             isReadOnly={this.props.isReadOnly}
             defaultColspan={defaultColspan}
+            hideEmptyTitle={this.props.hideEmptyTitle}
           />
         );
         isControl = false;
