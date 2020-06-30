@@ -1,4 +1,9 @@
+# React-Schemaform (version: 0.1.83)
 
+## Main changes
+- Update react-controls
+- Add required field
+  
 # React-Schemaform (version: 0.1.80)
 
 ## Main changes
