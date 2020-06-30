@@ -7,6 +7,7 @@ import {
   UpGrid,
   UpCol,
   UpRow,
+  UpLigne
 } from "@up-group-ui/react-controls";
 
 export interface UpFormGroupProps {
@@ -39,7 +40,6 @@ const UpFormGroup = (props: UpFormGroupProps) => {
           <i className="glyphicon glyphicon-info-sign" />
         </a>
       ) : null}
-      <span style={{ color: "red" }}>{isRequired ? " *" : ""}</span>
     </>
   );
 
@@ -52,7 +52,15 @@ const UpFormGroup = (props: UpFormGroupProps) => {
   }
   return (
     <>
-      {title && <UpLabel text={title}>{additionalElements}</UpLabel>}
+      {title && (
+        <div style={{display:'flex',alignItems:'center'}}>
+          <UpLabel text={title}></UpLabel>
+          {isRequired ? (
+            <UpLigne> * </UpLigne>
+          ) : null}
+          {additionalElements}
+        </div>
+      )}
       {children}
     </>
   );
