@@ -181,7 +181,6 @@ export default class UpSchemaObject extends React.Component<
         group: this.props.schema.properties[vm.name]["group"],
         colspan: vm.colspan || this.props.defaultColspan,
       }));
-      console.log(this.props.schema.properties)
     Object.keys(this.props.schema.properties)
       .filter((a) =>
         !this.isIgnored(a) &&
@@ -359,7 +358,8 @@ export default class UpSchemaObject extends React.Component<
   };
 
   isRequired(prop) {
-    let required = false;
+     let required = false;
+
     if (this.props.schema.required != undefined) {
       required = this.props.schema.required.indexOf(prop) !== -1;
     }
