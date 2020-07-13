@@ -12,7 +12,8 @@ import {
   UpBox,
   UpGrid,
   UpCol,
-  UpRow
+  UpRow,
+  UpFormGroup
 } from "@up-group-ui/react-controls";
 import {style} from 'typestyle'
 import { UpFormContextConsumer } from './UpFormContext';
@@ -277,8 +278,8 @@ export default class UpSchemaObject extends React.Component<
             {groupedRow.map((group) => {
               for (let element in group) {
                 const Rows = element !== "undefined" ? (
-                  <fieldset key={element}>
-                    <legend>{element}</legend>
+                  <React.Fragment key={element}>
+                    <UpFormGroup title={element} >
                     <SchemaRow 
                       title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
                       withHR={this.props.withHR}
@@ -289,7 +290,9 @@ export default class UpSchemaObject extends React.Component<
                         name: element.name,
                         render : elements[element.name]
                       }))} />
-                  </fieldset>
+                    </UpFormGroup>
+                  </React.Fragment>
+                
                 ) : (
                   <SchemaRow 
                       title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
