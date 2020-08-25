@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.89)
+
+## Main changes
+- Update react-controls (0.2.74)
+- Allow to pass enum as string into the value of the EnumField component
+
 # React-Schemaform (version: 0.1.88)
 
 ## Main changes

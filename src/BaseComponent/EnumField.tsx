@@ -13,17 +13,34 @@ interface UpEnumExtendProp {
 }
 type EnumData = { id: any; text: string };
 
-export default class EnumField extends UpFormControl<number | number[]> {
+export default class EnumField extends UpFormControl<number | string |  number[] | string[]> {
   constructor(p, c) {
     super(p, c);
   }
 
+  convertValuesFromStringToInt  = (values : string[]) : number[] => {
+    return values.map(this.convertValueFromStringToInt);
+  }
+
+  convertValueFromStringToInt  = (value : string) : number =>  {
+    const indexOfEnumValue = this.props.schema.enumNames.indexOf(value) ;
+    return this.props.schema.enum[indexOfEnumValue] ;
+  }
+
   selectedOptions = (options: EnumData[]) : EnumData | EnumData[] => {
     if(this.state.value != null) {
+      
+      let value = this.state.value;
+      if(typeof value  == "string") {
+        value = this.convertValueFromStringToInt(value) ;
+      } else if(_.isArray(value) && value.length > 0 && typeof value[0] == "string") {
+        value = this.convertValuesFromStringToInt(value as string[]) ;
+      }
+      
       if(this.isArray) {
-        return options.filter(option => (this.state.value as number[]).some(id => id == option.id)) 
+        return options.filter(option => (value as number[]).some(id => id == option.id)) 
       } else {
-        const optionFiltered = options.find( o => o.id == this.state.value as number) ;
+        const optionFiltered = options.find( o => o.id == value as number) ;
         return !_.isEmpty(optionFiltered) ? optionFiltered : null
       }
     }
