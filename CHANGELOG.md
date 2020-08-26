@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.90)
+
+## Bug fixes
+- Fix readonly attribut on date input
+
 # React-Schemaform (version: 0.1.89)
 
 ## Main changes
