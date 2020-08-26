@@ -41,6 +41,7 @@ export default class DateTimeField extends UpFormControl<Moment> {
         maxDate={maxDate}
         minDate={minDate}
         onChange={this.handleChangeEventGlobal}
+        readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
       />
     );
   }
