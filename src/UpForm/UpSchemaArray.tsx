@@ -14,7 +14,7 @@ import { eventFactory, UpGrid } from "@up-group-ui/react-controls";
 
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
-    name?:string;
+    name?: string;
     onChange: (e: React.ChangeEvent<any>, value: any, hasError: boolean) => void;
     isRequired: boolean;
     node: string;
@@ -26,6 +26,7 @@ export interface UpSchemaArrayProps {
     onSearchButtonClick: (text: string) => any;
     floatingLabel?: string;
     isReadOnly?: (property: string) => boolean;
+    maxInputToGenerate?: number
 }
 
 export interface UpSchemaArrayState {
@@ -94,7 +95,7 @@ export default class UpSchemaArray extends React.Component<
                 default:
                     let values = this.props.value != null ? this.props.value : [];
 
-                    values.forEach((value, indexField) => { 
+                    values.forEach((value, indexField) => {
                         elements.push(ComponentRegistery.GetComponentInstance(
                             this.onItemChange.bind(this, indexField),
                             this.props.isRequired,
@@ -139,15 +140,17 @@ export default class UpSchemaArray extends React.Component<
                 {items}
                 <br />
                 <span className="btn-group">
-                    <button className="btn btn-default" onClick={this.AddElement}>
-                        <span className="glyphicon glyphicon-plus" />
+                    <button className="btn btn-default"
+                        disabled={this.props.value.length + 1 >= this.props.maxInputToGenerate}
+                        onClick={this.addOnElement}>
+                        <span className="glyphicon glyphicon-plus" />Add
                     </button>
                     <button
                         className="btn btn-default"
-                        disabled={this.state.items.length <= 0}
-                        onClick={this.RemoveElement}
+                        disabled={this.props.value.length + 1 <= 1}
+                        onClick={this.RemoveOnElement}
                     >
-                        <span className="glyphicon glyphicon-minus" />
+                        <span className="glyphicon glyphicon-minus" />remove
                     </button>
                 </span>
             </div>
@@ -159,18 +162,31 @@ export default class UpSchemaArray extends React.Component<
     }
 
     AddElement = () => {
-        var items = this.state.items;
-        items.push(new Item(this.onItemChange));
-        this.setState({ items: items });
+        // var items = this.state.items;
+        // items.push(new Item(this.onItemChange));
+        this.setState({ items: this.props.value });
     };
-    RemoveElement = () => {
-        var items = this.state.items;
-        var item = items.pop();
-        // this.setState({ items: items }, this.onItemChange);
+
+
+    addOnElement = () => {
+        var values = [...this.props.value] || [];
+        values.push("")
+        this.props.onChange(eventFactory(this.props.name, values), values, null);
+    }
+
+    RemoveOnElement = () => {
+        var values = [...this.props.value] || [];
+        values.pop()
+        this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
 
     onItemChange = (index, event, value) => {
-        var values = this.props.value || [] ;
+        if (value > 31 || value < 1) {
+            this.props.onChange(eventFactory(this.props.name, this.props.value), this.props.value, null);
+            return;
+        }
+
+        var values = this.props.value || [];
         values[index] = value
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
@@ -182,12 +198,7 @@ export class Item {
     error = false;
     constructor(public onItemChange) { }
 
-    onChange = (
-        e: React.ChangeEvent<any>,
-        value,
-        hasError: boolean,
-        t?: string
-    ) => {
+    onChange = (e: React.ChangeEvent<any>, value, hasError: boolean, t?: string) => {
         if (t !== undefined) {
             if (this.value === null) {
                 this.value = {};
