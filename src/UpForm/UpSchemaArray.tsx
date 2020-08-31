@@ -11,7 +11,26 @@ import ErrorMemory from "./ErrorMemory";
 import { JsonSchema } from "../interfaces/JsonSchema";
 
 import { eventFactory, UpGrid, UpButtonGroup, UpButton } from "@up-group-ui/react-controls";
-import * as _  from 'lodash' ;
+import * as _ from 'lodash';
+import { style } from 'typestyle';
+
+const alignmentArray = style({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap'
+});
+
+const contentArray = style({
+    maxWidth: '250px', 
+    padding: '0 5px', 
+    display: 'flex'
+});
+
+const preSuFixStyle = style({
+    padding: '17px 15px 15px', 
+    fontSize: '14px'
+});
 
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
@@ -29,14 +48,16 @@ export interface UpSchemaArrayProps {
     maxNumberOfValue?: number
     maxValue?: number;
     minValue?: number;
+    preffixText?: string,
+    suffixText?: string
 }
 
 export interface UpSchemaArrayState {
     items: Item[];
 }
 
-function isValuesFill(values, maxNumberOfValue) : boolean {
-    return values && values.length == maxNumberOfValue && !values.some(value => _.isEmpty(value)) ;
+function isValuesFill(values, maxNumberOfValue): boolean {
+    return values && values.length == maxNumberOfValue && !values.some(value => _.isEmpty(value));
 }
 
 export default class UpSchemaArray extends React.Component<
@@ -49,11 +70,11 @@ export default class UpSchemaArray extends React.Component<
     }
     render() {
         var schema: JsonSchema = this.props.schema.items as JsonSchema;
-       
+
         if (this.props.schema.referenceTo) {
             return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory("", data), data, error))
         }
-        
+
         var comp = ComponentRegistery.GetComponentBySchema(schema);
 
         if (comp != null && comp.array === true) {
@@ -116,7 +137,7 @@ export default class UpSchemaArray extends React.Component<
                         ));
                     });
 
-                    if(!isValuesFill(values, this.props.maxNumberOfValue)) {
+                    if (!isValuesFill(values, this.props.maxNumberOfValue)) {
                         elements.push(ComponentRegistery.GetComponentInstance(
                             this.onItemChange.bind(this, values.length),
                             this.props.isRequired,
@@ -133,17 +154,23 @@ export default class UpSchemaArray extends React.Component<
                     break;
             }
 
-            return <div key={index} style={{
-                display: 'flex', width: '100%', flexDirection: 'column'
-            }}>{elements.map(element => element)}</div>;
+            return <div key={index} className={alignmentArray}>
+                {elements.map(element =>
+                    <div className={contentArray}>
+                        {this.props.preffixText && <div className={preSuFixStyle}>{this.props.preffixText}</div>}
+                        {element}
+                        {this.props.suffixText && <div className={preSuFixStyle}>{this.props.suffixText}</div>}
+                    </div>
+                )}
+            </div>;
         });
 
         return (
             <div
                 style={{
-                    borderRadius: "4px",
                     padding: "5px",
-                    border: "1px solid #f4f4f4"
+                    // borderRadius: "4px",
+                    // border: "1px solid #f4f4f4"
                 }}
             >
                 {items}
@@ -192,11 +219,13 @@ export default class UpSchemaArray extends React.Component<
             return;
         }
 
-        if (value > this.props.maxValue || value < this.props.minValue) {
+        const parsedValue = typeof value === 'number' ? value : parseInt(value);//TEMP
+
+        if (parsedValue > this.props.maxValue || parsedValue < this.props.minValue) {
             this.props.onChange(eventFactory(this.props.name, this.props.value), this.props.value, null);
             return;
         }
-        
+
         var values = this.props.value || [];
         values[index] = value
         this.props.onChange(eventFactory(this.props.name, values), values, null);

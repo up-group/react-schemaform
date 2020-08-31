@@ -113,7 +113,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         onSearchButtonClick={this.props.onSearchButtonClick}
                         floatingLabel={floatingLabel}
                         isReadOnly={this.props.isReadOnly}
-                        maxNumberOfValue={this.props.values.maxInputToGenerate}
+                        maxNumberOfValue={this.props.values.maxNumberOfValue}
                         {...additionalProps}
                     />
                 );
