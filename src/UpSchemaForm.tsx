@@ -171,10 +171,8 @@ export default class UpSchemaForm extends React.Component<
     node: string
   ) => {
     this.errorMemory.errorOn(node, hasError);
-
     let nodeArray = node.split(".");
     nodeArray.shift();
-
     this.addToQueue(this.state.data, nodeArray, newValue, node);
   };
 
@@ -201,7 +199,6 @@ export default class UpSchemaForm extends React.Component<
         return;
       }
     }
-
     this.props.onFormChange(_.cloneDeep(this.state.data), this.errorMemory.hasError);
   }
 
