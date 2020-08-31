@@ -14,22 +14,21 @@ import { eventFactory, UpGrid, UpButtonGroup, UpButton } from "@up-group-ui/reac
 import * as _ from 'lodash';
 import { style } from 'typestyle';
 
-const alignmentArray = style({
+const layoutItems = style({
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     flexWrap: 'wrap'
 });
 
-const contentArray = style({
-    maxWidth: '250px', 
+const contentArray = style({ 
     padding: '0 5px', 
     display: 'flex'
 });
 
 const preSuFixStyle = style({
-    padding: '17px 15px 15px', 
-    fontSize: '14px'
+    fontSize: '0.8rem',
+    padding: '6px 6px 12px',
 });
 
 export interface UpSchemaArrayProps {
@@ -48,8 +47,9 @@ export interface UpSchemaArrayProps {
     maxNumberOfValue?: number
     maxValue?: number;
     minValue?: number;
-    preffixText?: string,
-    suffixText?: string
+    preffixText?: string;
+    suffixText?: string;
+    itemWidth?:string;
 }
 
 export interface UpSchemaArrayState {
@@ -64,18 +64,27 @@ export default class UpSchemaArray extends React.Component<
     UpSchemaArrayProps,
     UpSchemaArrayState
     > {
+    
+    static defaultProps = {
+        itemWidth : 'auto',
+    }    
+        
     constructor(p, c) {
         super(p, c);
         this.state = { items: [] };
     }
     render() {
-        var schema: JsonSchema = this.props.schema.items as JsonSchema;
+        let schema: JsonSchema = this.props.schema.items as JsonSchema;
 
         if (this.props.schema.referenceTo) {
             return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory("", data), data, error))
         }
+        
+        let elementWrapper = style({
+            width : this.props.itemWidth
+        });
 
-        var comp = ComponentRegistery.GetComponentBySchema(schema);
+        let comp = ComponentRegistery.GetComponentBySchema(schema);
 
         if (comp != null && comp.array === true) {
             return ComponentRegistery.GetComponentInstanceByKey(
@@ -90,9 +99,9 @@ export default class UpSchemaArray extends React.Component<
             );
         }
 
-        var items = this.state.items.map((item, index, array) => {
-            var type = JsonSchemaHelper.getBaseType(schema);
-            var elements = [];
+        let items = this.state.items.map((item, index, array) => {
+            let type = JsonSchemaHelper.getBaseType(schema);
+            let elements = [];
             switch (type) {
                 case "object":
                     elements.push((
@@ -154,11 +163,11 @@ export default class UpSchemaArray extends React.Component<
                     break;
             }
 
-            return <div key={index} className={alignmentArray}>
+            return <div key={index} className={layoutItems}>
                 {elements.map(element =>
                     <div className={contentArray}>
                         {this.props.preffixText && <div className={preSuFixStyle}>{this.props.preffixText}</div>}
-                        {element}
+                        <div className={elementWrapper}>{element}</div>
                         {this.props.suffixText && <div className={preSuFixStyle}>{this.props.suffixText}</div>}
                     </div>
                 )}
@@ -203,13 +212,13 @@ export default class UpSchemaArray extends React.Component<
     }
 
     addElement = () => {
-        var values = [...this.props.value] || [];
+        let values = [...this.props.value] || [];
         values.push("")
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     }
 
     removeElement = () => {
-        var values = [...this.props.value] || [];
+        let values = [...this.props.value] || [];
         values.pop()
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
@@ -226,7 +235,7 @@ export default class UpSchemaArray extends React.Component<
             return;
         }
 
-        var values = this.props.value || [];
+        let values = this.props.value || [];
         values[index] = value
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };

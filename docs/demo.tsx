@@ -145,8 +145,9 @@ const schema = {
             maxValue : 31,
             minValue: 1,
             maxNumberOfValue: 4,
-            preffixText: 'From',
-            suffixText : 'To'
+            preffixText: 'Le ',
+            suffixText : ' du mois',
+            itemWidth: '70px'
         }
     }],
 }
