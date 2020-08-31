@@ -139,7 +139,14 @@ const schema = {
             group: 'Group 1'
         },
     },
-    viewModels: [],
+    viewModels: [{
+        name: "number", 
+        additionalProps: {
+            maxValue : 31,
+            minValue: 1,
+            maxNumberOfValue: 4
+        }
+    }],
 }
 
 class Demo extends React.Component<{}, DemoState> {

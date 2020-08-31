@@ -13,6 +13,7 @@ export interface PropertyViewModel {
     component?: string;
     name?: string;
     isSeparator?: boolean;
+    additionalProps?: {[key: string]: any};
 }
 
 export interface UpSchemaFormComponentSelectorProps {
@@ -70,6 +71,10 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     renderElement(parametersForm) {
         let { withFloatingLabel, element, isControl, isArray, type, defaultColspan } = parametersForm
         const floatingLabel = withFloatingLabel && this.props.schema.title
+        
+        let viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
+        let additionalProps = (viewModel && viewModel.additionalProps) || {}
+
         switch (type) {
             case "object":
                 element = (
@@ -88,6 +93,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         isReadOnly={this.props.isReadOnly}
                         defaultColspan={defaultColspan}
                         hideEmptyTitle={this.props.hideEmptyTitle}
+                        {...additionalProps}
                     />
                 );
                 isControl = false;
@@ -103,12 +109,12 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         onChange={this.onElementChange}
                         node={this.props.node}
                         ignoredProperties={this.props.ignoredProperties}
-                        viewsModel={this.props.viewModels}
                         translate={this.props.translate}
                         onSearchButtonClick={this.props.onSearchButtonClick}
                         floatingLabel={floatingLabel}
                         isReadOnly={this.props.isReadOnly}
-                        maxInputToGenerate={this.props.values.maxInputToGenerate}
+                        maxNumberOfValue={this.props.values.maxInputToGenerate}
+                        {...additionalProps}
                     />
                 );
                 isArray = true;

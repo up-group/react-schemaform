@@ -11,6 +11,7 @@ import ErrorMemory from "./ErrorMemory";
 import { JsonSchema } from "../interfaces/JsonSchema";
 
 import { eventFactory, UpGrid, UpButtonGroup, UpButton } from "@up-group-ui/react-controls";
+import * as _  from 'lodash' ;
 
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
@@ -21,18 +22,21 @@ export interface UpSchemaArrayProps {
     showError;
     value: any;
     ignoredProperties: string[];
-    viewsModel: PropertyViewModel[];
     translate: (text: string) => any;
     onSearchButtonClick: (text: string) => any;
     floatingLabel?: string;
     isReadOnly?: (property: string) => boolean;
-    maxInputToGenerate?: number
+    maxNumberOfValue?: number
     maxValue?: number;
     minValue?: number;
 }
 
 export interface UpSchemaArrayState {
     items: Item[];
+}
+
+function isValuesFill(values, maxNumberOfValue) : boolean {
+    return values && values.length == maxNumberOfValue && !values.some(value => _.isEmpty(value)) ;
 }
 
 export default class UpSchemaArray extends React.Component<
@@ -45,11 +49,11 @@ export default class UpSchemaArray extends React.Component<
     }
     render() {
         var schema: JsonSchema = this.props.schema.items as JsonSchema;
-        console.log('render')
-
+       
         if (this.props.schema.referenceTo) {
             return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory("", data), data, error))
         }
+        
         var comp = ComponentRegistery.GetComponentBySchema(schema);
 
         if (comp != null && comp.array === true) {
@@ -78,9 +82,9 @@ export default class UpSchemaArray extends React.Component<
                             isRequired={this.props.isRequired}
                             schema={schema}
                             node={""}
-                            onChange={item.onChange}
+                            onChange={() => null}
                             ignoredProperties={this.props.ignoredProperties}
-                            viewModels={this.props.viewsModel}
+                            viewModels={[]}
                             translate={this.props.translate}
                             onSearchButtonClick={this.props.onSearchButtonClick}
                             isReadOnly={this.props.isReadOnly}
@@ -112,17 +116,19 @@ export default class UpSchemaArray extends React.Component<
                         ));
                     });
 
-                    elements.push(ComponentRegistery.GetComponentInstance(
-                        this.onItemChange.bind(this, values.length),
-                        this.props.isRequired,
-                        schema,
-                        this.props.showError,
-                        null,
-                        `${this.props.name}_${values.length}`,
-                        this.props.translate,
-                        this.props.onSearchButtonClick,
-                        this.props.isReadOnly
-                    ));
+                    if(!isValuesFill(values, this.props.maxNumberOfValue)) {
+                        elements.push(ComponentRegistery.GetComponentInstance(
+                            this.onItemChange.bind(this, values.length),
+                            this.props.isRequired,
+                            schema,
+                            this.props.showError,
+                            null,
+                            `${this.props.name}_${values.length}`,
+                            this.props.translate,
+                            this.props.onSearchButtonClick,
+                            this.props.isReadOnly
+                        ));
+                    }
 
                     break;
             }
@@ -147,15 +153,15 @@ export default class UpSchemaArray extends React.Component<
                         intent={'primary'}
                         width={"icon"}
                         actionType="add"
-                        disabled={this.props.value.length + 1 >= this.props.maxInputToGenerate}
-                        onClick={this.addOnElement}>
+                        disabled={this.props.value.length + 1 >= this.props.maxNumberOfValue}
+                        onClick={this.addElement}>
                     </UpButton>
                     <UpButton
                         intent={'primary'}
                         width={"icon"}
                         actionType="minus"
                         disabled={this.props.value.length + 1 <= 1}
-                        onClick={this.RemoveOnElement}
+                        onClick={this.removeElement}
                     >
                     </UpButton>
                 </UpButtonGroup>
@@ -164,23 +170,18 @@ export default class UpSchemaArray extends React.Component<
     }
 
     componentDidMount() {
-        this.AddElement();
+        let items = [...this.state.items];
+        items.push(new Item(this.onItemChange));
+        this.setState({ items });
     }
 
-    AddElement = () => {
-        // var items = this.state.items;
-        // items.push(new Item(this.onItemChange));
-        this.setState({ items: this.props.value });
-    };
-
-
-    addOnElement = () => {
+    addElement = () => {
         var values = [...this.props.value] || [];
         values.push("")
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     }
 
-    RemoveOnElement = () => {
+    removeElement = () => {
         var values = [...this.props.value] || [];
         values.pop()
         this.props.onChange(eventFactory(this.props.name, values), values, null);
@@ -190,10 +191,12 @@ export default class UpSchemaArray extends React.Component<
         if (value === '') {
             return;
         }
+
         if (value > this.props.maxValue || value < this.props.minValue) {
             this.props.onChange(eventFactory(this.props.name, this.props.value), this.props.value, null);
             return;
         }
+        
         var values = this.props.value || [];
         values[index] = value
         this.props.onChange(eventFactory(this.props.name, values), values, null);
