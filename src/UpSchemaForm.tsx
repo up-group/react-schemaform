@@ -98,9 +98,9 @@ export default class UpSchemaForm extends React.Component<
     }
 
     const value = _.cloneDeep(this.state.data);
+    
     let content = (
-      <div className={this.props.wrapperClassName} style={{ display : 'flex' , width : '100%', 
-        flexDirection : 'column'}}>
+      <div className={this.props.wrapperClassName} style={{ display : 'flex' , width : '100%', flexDirection : 'column'}}>
         <UpSchemaFormComponentSelector
           value={value}
           values={value}

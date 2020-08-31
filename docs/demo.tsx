@@ -144,7 +144,9 @@ const schema = {
         additionalProps: {
             maxValue : 31,
             minValue: 1,
-            maxNumberOfValue: 4
+            maxNumberOfValue: 4,
+            preffixText: 'From',
+            suffixText : 'To'
         }
     }],
 }
@@ -161,7 +163,7 @@ class Demo extends React.Component<{}, DemoState> {
             dataS: {
                 active: true,
                 number: [1],
-                maxInputToGenerate: 4,
+                maxNumberOfValue: 4,
                 maxValue: 31,
                 minValue: 1
             },
