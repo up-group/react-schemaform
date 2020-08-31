@@ -10,7 +10,7 @@ import UpSchemaObject from "./UpSchemaObject";
 import ErrorMemory from "./ErrorMemory";
 import { JsonSchema } from "../interfaces/JsonSchema";
 
-import { eventFactory, UpGrid } from "@up-group-ui/react-controls";
+import { eventFactory, UpGrid, UpButtonGroup, UpButton } from "@up-group-ui/react-controls";
 
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
@@ -27,6 +27,8 @@ export interface UpSchemaArrayProps {
     floatingLabel?: string;
     isReadOnly?: (property: string) => boolean;
     maxInputToGenerate?: number
+    maxValue?: number;
+    minValue?: number;
 }
 
 export interface UpSchemaArrayState {
@@ -43,6 +45,7 @@ export default class UpSchemaArray extends React.Component<
     }
     render() {
         var schema: JsonSchema = this.props.schema.items as JsonSchema;
+        console.log('render')
 
         if (this.props.schema.referenceTo) {
             return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory("", data), data, error))
@@ -139,20 +142,23 @@ export default class UpSchemaArray extends React.Component<
             >
                 {items}
                 <br />
-                <span className="btn-group">
-                    <button className="btn btn-default"
+                <UpButtonGroup gutter={1} align={"h"}>
+                    <UpButton
+                        intent={'primary'}
+                        width={"icon"}
+                        actionType="add"
                         disabled={this.props.value.length + 1 >= this.props.maxInputToGenerate}
                         onClick={this.addOnElement}>
-                        <span className="glyphicon glyphicon-plus" />Add
-                    </button>
-                    <button
-                        className="btn btn-default"
+                    </UpButton>
+                    <UpButton
+                        intent={'primary'}
+                        width={"icon"}
+                        actionType="minus"
                         disabled={this.props.value.length + 1 <= 1}
                         onClick={this.RemoveOnElement}
                     >
-                        <span className="glyphicon glyphicon-minus" />remove
-                    </button>
-                </span>
+                    </UpButton>
+                </UpButtonGroup>
             </div>
         );
     }
@@ -181,11 +187,13 @@ export default class UpSchemaArray extends React.Component<
     };
 
     onItemChange = (index, event, value) => {
-        if (value > 31 || value < 1) {
+        if (value === '') {
+            return;
+        }
+        if (value > this.props.maxValue || value < this.props.minValue) {
             this.props.onChange(eventFactory(this.props.name, this.props.value), this.props.value, null);
             return;
         }
-
         var values = this.props.value || [];
         values[index] = value
         this.props.onChange(eventFactory(this.props.name, values), values, null);

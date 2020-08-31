@@ -108,6 +108,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         onSearchButtonClick={this.props.onSearchButtonClick}
                         floatingLabel={floatingLabel}
                         isReadOnly={this.props.isReadOnly}
+                        maxInputToGenerate={this.props.values.maxInputToGenerate}
                     />
                 );
                 isArray = true;
