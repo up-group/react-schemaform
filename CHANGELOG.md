@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.91)
+
+## Main Changes
+- Improve UpSChemaArray behaviour
+
 # React-Schemaform (version: 0.1.90)
 
 ## Bug fixes
