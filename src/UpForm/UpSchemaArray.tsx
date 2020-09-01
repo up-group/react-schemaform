@@ -78,6 +78,7 @@ export default class UpSchemaArray extends React.Component<
         var comp = ComponentRegistery.GetComponentBySchema(schema);
 
         if (comp != null && comp.array === true) {
+            // TODO : clarify the usage of the property array of a component
             return ComponentRegistery.GetComponentInstanceByKey(
                 comp.key,
                 this.props.onChange,
@@ -215,7 +216,7 @@ export default class UpSchemaArray extends React.Component<
     };
 
     onItemChange = (index, event, value) => {
-        if (value === '') {
+        if (value === '' && index === (this.props.value || []).length) {
             return;
         }
 
@@ -228,6 +229,7 @@ export default class UpSchemaArray extends React.Component<
 
         var values = this.props.value || [];
         values[index] = value
+        values = values.filter(value => !_.isEmpty(value))
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
 }
