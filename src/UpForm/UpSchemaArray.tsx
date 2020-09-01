@@ -50,6 +50,7 @@ export interface UpSchemaArrayProps {
     preffixText?: string;
     suffixText?: string;
     itemWidth?:string;
+    componentType?: string
 }
 
 export interface UpSchemaArrayState {
@@ -84,7 +85,7 @@ export default class UpSchemaArray extends React.Component<
             width : this.props.itemWidth
         });
 
-        let comp = ComponentRegistery.GetComponentBySchema(schema);
+        var comp = ComponentRegistery.GetComponentBySchema(schema, this.props.componentType);
 
         if (comp != null && comp.array === true) {
             // TODO : clarify the usage of the property array of a component

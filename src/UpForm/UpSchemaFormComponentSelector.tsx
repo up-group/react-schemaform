@@ -71,9 +71,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     renderElement(parametersForm) {
         let { withFloatingLabel, element, isControl, isArray, type, defaultColspan } = parametersForm
         const floatingLabel = withFloatingLabel && this.props.schema.title
-        
-        let viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
-        let additionalProps = (viewModel && viewModel.additionalProps) || {}
+        const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
+        const additionalProps = (viewModel && viewModel.additionalProps) || {};
 
         switch (type) {
             case "object":
@@ -131,7 +130,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                     this.props.onSearchButtonClick,
                     this.props.isReadOnly,
                     floatingLabel,
-                    this.props.values
+                    this.props.values,
+                    additionalProps
                 );
                 break;
         }

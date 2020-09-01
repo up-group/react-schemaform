@@ -48,32 +48,33 @@ export default class ComponentRegistery {
   }
 
   private static GetComponentByType(type: string) {
-    for (var ComponentKey in this.Component) {
-      if (!this.Component.hasOwnProperty(ComponentKey)) {
+    for (var componentKey in this.Component) {
+      if (!this.Component.hasOwnProperty(componentKey)) {
         continue;
       }
-      if (this.Component[ComponentKey].type === type) {
-        return this.Component[ComponentKey];
+      if (this.Component[componentKey].type === type) {
+        return this.Component[componentKey];
       }
     }
     return null;
   }
 
-  private static GetComponentByFormat(format: string) {
+  private static GetComponentByFormat(format: string, componentType: string) {
     for (var ComponentKey in this.Component) {
       if (!this.Component.hasOwnProperty(ComponentKey)) {
         continue;
       }
       if (this.Component[ComponentKey].format === format) {
-        return this.Component[ComponentKey];
+        return componentType ? this.Component[componentType] : this.Component[ComponentKey];
       }
     }
     return null;
   }
 
-  public static GetComponentBySchema(schema: JsonSchema) {
+  public static GetComponentBySchema(schema: JsonSchema, componentType: string) {
     var comp = ComponentRegistery.GetComponentByFormat(
-      ((schema.items as JsonSchema) || schema).format
+      ((schema.items as JsonSchema) || schema).format,
+      componentType
     );
 
     if (comp == null) {
@@ -92,7 +93,7 @@ export default class ComponentRegistery {
     showError: boolean,
     value: any,
     floatingLabel,
-    isReadOnly: (property: string) => boolean
+    isReadOnly: (property: string) => boolean,
   ) {
     var comp = this.GetComponentByKey(key);
     var props = {
@@ -115,19 +116,22 @@ export default class ComponentRegistery {
     showError: boolean,
     value: any,
     name: string,
-    translate : (text: string) => any,
+    translate: (text: string) => any,
     onSearchButtonClick: (text: string) => any,
-    isReadOnly?: (property:string) => boolean,
+    isReadOnly?: (property: string) => boolean,
     floatingLabel?: string,
-    values?: {[ key: string]: any }
+    values?: { [key: string]: any },
+    additionalProps?: { [key: string]: any }
   ) {
-    var comp = this.GetComponentBySchema(schema);
-    
+
+    const componentType = additionalProps !== undefined ? additionalProps.componentType : null;
+    var comp = this.GetComponentBySchema(schema, componentType);
+
     // TODO : clean code
-    const newSchema = {...schema}
-    if(newSchema.entitySource && newSchema.entitySource.defaultParameters) {
-      for(const key in newSchema.entitySource.defaultParameters) {
-        newSchema.entitySource.defaultParameters[key] = values ? values[key] : null ;
+    const newSchema = { ...schema }
+    if (newSchema.entitySource && newSchema.entitySource.defaultParameters) {
+      for (const key in newSchema.entitySource.defaultParameters) {
+        newSchema.entitySource.defaultParameters[key] = values ? values[key] : null;
       }
     }
 
@@ -141,7 +145,8 @@ export default class ComponentRegistery {
       translate,
       onSearchButtonClick,
       floatingLabel,
-      isReadOnly
+      isReadOnly,
+      additionalProps
     };
 
     return React.createElement(comp.ComponentClass, props);
@@ -161,6 +166,8 @@ import EnumField from "../BaseComponent/EnumField";
 import UploadField from "../BaseComponent/UploadField";
 import MonthField from "../BaseComponent/MonthField";
 import EnumInlineField from "../BaseComponent/EnumInlineField";
+import RadioField from '../BaseComponent/RadioField';
+import { PropertyViewModel } from './UpSchemaFormComponentSelector';
 
 ComponentRegistery.Register("UpNumber", "number", null, NumberField);
 ComponentRegistery.Register("String", "string", null, StringField);
@@ -169,6 +176,7 @@ ComponentRegistery.Register("DateTime", null, "date-time", DateTimeField);
 ComponentRegistery.Register("Time", null, "time", TimeField);
 ComponentRegistery.Register("Integer", "integer", null, IntegerField);
 ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
+ComponentRegistery.Register("Radio", null, "radio", RadioField);
 
 ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
 ComponentRegistery.Register("EnumInline", null, "enumInline", EnumInlineField, true);
