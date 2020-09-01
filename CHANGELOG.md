@@ -1,7 +1,12 @@
+# React-Schemaform (version: 0.1.92)
+
+## Bug fixes
+- UpSchemaArray with integer : Manage empty value in field
+
 # React-Schemaform (version: 0.1.91)
 
 ## Main Changes
-- Improve UpSChemaArray behaviour
+- Improve UpSchemaArray behaviour
 
 # React-Schemaform (version: 0.1.90)
 
