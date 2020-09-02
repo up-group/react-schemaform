@@ -13,7 +13,7 @@ export interface PropertyViewModel {
     component?: string;
     name?: string;
     isSeparator?: boolean;
-    additionalProps?: {[key: string]: any};
+    additionalProps?: { [key: string]: any };
 }
 
 export interface UpSchemaFormComponentSelectorProps {
@@ -71,9 +71,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     renderElement(parametersForm) {
         let { withFloatingLabel, element, isControl, isArray, type, defaultColspan } = parametersForm
         const floatingLabel = withFloatingLabel && this.props.schema.title
-        
-        let viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
-        let additionalProps = (viewModel && viewModel.additionalProps) || {}
+        const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
+        const additionalProps = (viewModel && viewModel.additionalProps) || {};
 
         switch (type) {
             case "object":
@@ -131,7 +130,8 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                     this.props.onSearchButtonClick,
                     this.props.isReadOnly,
                     floatingLabel,
-                    this.props.values
+                    this.props.values,
+                    additionalProps
                 );
                 break;
         }
@@ -156,6 +156,9 @@ export default class UpSchemaFormComponentSelector extends React.Component<
         const format = this.props.schema.format || (this.props.schema.items && this.props.schema.items['format']);
 
         if (isControl) {
+            //Temp
+            const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
+            const { componentType } = (viewModel && viewModel.additionalProps) || {};
             return (
                 <UpFormContextConsumer>
                     {({ withFloatingLabel, defaultColspan }) => (
@@ -163,7 +166,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                             isRequired={this.props.isRequired}
                             title={this.props.schema.title}
                             description={this.props.schema.description}
-                            withFloatingLabel={(type === 'string' || format === 'enum' || type == "number") && format !== 'multilineText' && withFloatingLabel}
+                            withFloatingLabel={(type === 'string' || format === 'enum' || type == "number") && format !== 'multilineText' && withFloatingLabel && !componentType}
                         >
                             {this.renderElement({ withFloatingLabel, element, isArray, isControl, type, defaultColspan })}
                         </UpFormGroup>

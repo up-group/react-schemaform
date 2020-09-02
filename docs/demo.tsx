@@ -138,18 +138,35 @@ const schema = {
             enum: [null, 1, 2, 3, 4],
             group: 'Group 1'
         },
-    },
-    viewModels: [{
-        name: "number", 
-        additionalProps: {
-            maxValue : 31,
-            minValue: 1,
-            maxNumberOfValue: 4,
-            preffixText: 'Le ',
-            suffixText : ' du mois',
-            itemWidth: '70px'
+        frequency_of_payment: {
+            title: "Établissement",
+            enumNames: ["Standard", "Specifique"],
+            enumDescriptions: ["Standard", "Spécifique"],
+            type: "integer",
+            default: 0,
+            format: "enum",
+            enum: [1, 2]
         }
-    }],
+    },
+    viewModels: [
+        {
+            name: "number",
+            additionalProps: {
+                maxValue: 31,
+                minValue: 1,
+                maxNumberOfValue: 4,
+                preffixText: 'Le ',
+                suffixText: ' du mois',
+                itemWidth: '70px'
+            },
+        },
+        {
+            name: "frequency_of_payment",
+            additionalProps: {
+                componentType: "Radio"
+            }
+        }
+    ],
 }
 
 class Demo extends React.Component<{}, DemoState> {

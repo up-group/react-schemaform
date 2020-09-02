@@ -50,6 +50,7 @@ export interface UpSchemaArrayProps {
     preffixText?: string;
     suffixText?: string;
     itemWidth?:string;
+    componentType?: string
 }
 
 export interface UpSchemaArrayState {
@@ -84,7 +85,7 @@ export default class UpSchemaArray extends React.Component<
             width : this.props.itemWidth
         });
 
-        let comp = ComponentRegistery.GetComponentBySchema(schema);
+        var comp = ComponentRegistery.GetComponentBySchema(schema, this.props.componentType);
 
         if (comp != null && comp.array === true) {
             // TODO : clarify the usage of the property array of a component
@@ -190,14 +191,14 @@ export default class UpSchemaArray extends React.Component<
                         intent={'primary'}
                         width={"icon"}
                         actionType="add"
-                        disabled={this.props.value.length + 1 >= this.props.maxNumberOfValue}
+                        disabled={this.props.value && this.props.value.length + 1 >= this.props.maxNumberOfValue}
                         onClick={this.addElement}>
                     </UpButton>
                     <UpButton
                         intent={'primary'}
                         width={"icon"}
                         actionType="minus"
-                        disabled={this.props.value.length + 1 <= 1}
+                        disabled={this.props.value && this.props.value.length + 1 <= 1}
                         onClick={this.removeElement}
                     >
                     </UpButton>
