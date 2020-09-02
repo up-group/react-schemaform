@@ -3,15 +3,6 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpRadio } from "@up-group-ui/react-controls";
 
 export default class RadioField extends UpFormControl<number> {
-    state = {
-        value: null
-    }
-
-    handleChange = (event) => {
-        this.setState({
-            value: event.target.value
-        });
-    }
 
     setOptionsValues = () => {
         const { enumDescriptions, enum: enumValues } = this.props.schema;
@@ -19,9 +10,8 @@ export default class RadioField extends UpFormControl<number> {
     }
 
     renderField() {
-        const { value } = this.state;
         const { name } = this.props;
-        const { default: defaultValue } = this.props.schema;
+        const { value } = this.state;
 
         return (
             <UpRadio
@@ -29,6 +19,8 @@ export default class RadioField extends UpFormControl<number> {
                 gutter={10}
                 alignMode="horizontal"
                 name={name}
+                value={value}
+                onChange={this.handleChangeEventGlobal}
                 options={this.setOptionsValues()}
             />
         )
