@@ -15,7 +15,7 @@ export default class RadioField extends UpFormControl<number> {
 
     setOptionsValues = () => {
         const { enumDescriptions, enum: enumValues } = this.props.schema;
-        return enumDescriptions.map((currentElement, index) => ({ text: currentElement, value: enumValues[index] }));
+        return enumDescriptions.map((currentElement, index) => ({ text: currentElement, value: enumValues[index].toString() }));
     }
 
     renderField() {
@@ -26,10 +26,7 @@ export default class RadioField extends UpFormControl<number> {
         return (
             <UpRadio
                 flexWrap
-                onChange={this.handleChange}
                 gutter={10}
-                value={value}
-                defaultValue={defaultValue}
                 alignMode="horizontal"
                 name={name}
                 options={this.setOptionsValues()}
