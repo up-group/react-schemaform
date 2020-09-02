@@ -191,14 +191,14 @@ export default class UpSchemaArray extends React.Component<
                         intent={'primary'}
                         width={"icon"}
                         actionType="add"
-                        disabled={this.props.value.length + 1 >= this.props.maxNumberOfValue}
+                        disabled={this.props.value && this.props.value.length + 1 >= this.props.maxNumberOfValue}
                         onClick={this.addElement}>
                     </UpButton>
                     <UpButton
                         intent={'primary'}
                         width={"icon"}
                         actionType="minus"
-                        disabled={this.props.value.length + 1 <= 1}
+                        disabled={this.props.value && this.props.value.length + 1 <= 1}
                         onClick={this.removeElement}
                     >
                     </UpButton>
