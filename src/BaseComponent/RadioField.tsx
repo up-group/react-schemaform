@@ -1,12 +1,23 @@
 import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpRadio } from "@up-group-ui/react-controls";
+import _ = require('lodash');
 
 export default class RadioField extends UpFormControl<number> {
 
     setOptionsValues = () => {
         const { enumDescriptions, enum: enumValues } = this.props.schema;
         return enumDescriptions.map((currentElement, index) => ({ text: currentElement, value: enumValues[index].toString() }));
+    }
+    
+    convertValueFromStringToInt  = (value : string) : string =>  {
+        if(!value) return null;
+
+        const indexOfEnumValue = this.props.schema.enumNames.indexOf(value) ;
+        if(indexOfEnumValue != undefined) {
+            return this.props.schema.enum[indexOfEnumValue].toString() ;
+        }
+        return value;
     }
 
     renderField() {
@@ -19,7 +30,7 @@ export default class RadioField extends UpFormControl<number> {
                 gutter={10}
                 alignMode="horizontal"
                 name={name}
-                value={value}
+                value={this.convertValueFromStringToInt(value && value.toString())}
                 onChange={this.handleChangeEventGlobal}
                 options={this.setOptionsValues()}
             />
