@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.94)
+
+## Bug fixes
+- Fix floatingLabel on DateTimeField
+
 # React-Schemaform (version: 0.1.93)
 
 ## Main changes
