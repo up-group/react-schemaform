@@ -14,7 +14,7 @@ export default class RadioField extends UpFormControl<number> {
         if(!value) return null;
 
         const indexOfEnumValue = this.props.schema.enumNames.indexOf(value) ;
-        if(indexOfEnumValue != undefined) {
+        if(indexOfEnumValue != -1) {
             return this.props.schema.enum[indexOfEnumValue].toString() ;
         }
         return value;
