@@ -67,9 +67,9 @@ export interface JsonSchema {
     text: string;
     query: string;
     queryParameterName: string;
-    data? : any;
+    data?: any;
     autoload?: boolean;
-    defaultParameters?: {[key: string] : any}
+    defaultParameters?: { [key: string]: any }
   };
   fileExtension?: string;
   readonly?: boolean;
@@ -79,4 +79,8 @@ export interface JsonSchema {
   referenceTo?: string;
   getEntitySelector?: (itemsSetter: (data: any, error: any) => void) => JSX.Element;
   isToggle?: boolean;
+  optionsSource?: () => { [key: string]: any };
+  optionsSchema?: { [key: string]: any };
+  valueSelector?: string;
+  GroupingInfo?: { [key: string]: any };
 }

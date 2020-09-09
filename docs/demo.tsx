@@ -146,6 +146,79 @@ const schema = {
             default: 0,
             format: "enum",
             enum: [1, 2]
+        },
+        multipleRadioDescription: {
+            title: "Commerçants trouvés",
+            enumNames: [null],
+            enumDescriptions: [null],
+            type: "integer",
+            default: 0,
+            format: "enum",
+            enum: [null],
+            valueSelector: "codeCrt",
+            optionsSchema: {
+                type: "object",
+                properties: {
+                    codeCrt: {
+                        type: "string",
+                        title: "Code CRT"
+                    },
+                    compteClient: {
+                        type: "string",
+                        title: "N° Compte Client"
+                    },
+                    raisonSociale: {
+                        type: "string",
+                        title: "Raison Sociale",
+                    },
+                    DenCommerciale: {
+                        type: "string",
+                        title: "Dén. Commerciale"
+                    },
+                    Ville: {
+                        type: "string",
+                        title: "Ville"
+                    },
+                    source: {
+                        type: "string",
+                        title: "source",
+                        hide: true
+                    }
+                }
+            },
+            optionsSource: () => ([
+                {
+                    codeCrt: "Code 123456",
+                    compteClient: "1234567890",
+                    raisonSociale: "Raison Sociale",
+                    DenCommerciale: "Dén. Commerciale",
+                    Ville: "Paris",
+                    source: "BMC"
+                },
+                {
+                    codeCrt: "Code 456",
+                    compteClient: "1234567890",
+                    raisonSociale: "Raison Sociale",
+                    DenCommerciale: "Dén. Commerciale",
+                    Ville: "Paris",
+                    source : "INSEE"
+                },
+            ]),
+            GroupingInfo: {
+                discriminator: "source",
+                groups: [
+                    {
+                        title: "SOURCE- BMC",
+                        discriminator: "BMC",
+                        color: "orange"
+                    },
+                    {
+                        title: "SOURCE- INSEE",
+                        discriminator: "INSEE",
+                        color: "black"
+                    }
+                ]
+            }
         }
     },
     viewModels: [
@@ -165,6 +238,16 @@ const schema = {
             additionalProps: {
                 componentType: "Radio"
             }
+        },
+        {
+            name: "multipleRadioDescription",
+            additionalProps: {
+                componentType: "Radio",
+                multipleDescriptionLabels: "true",
+                displayMode: "large",
+                alignMode: "horizontal"
+            }
+
         }
     ],
 }

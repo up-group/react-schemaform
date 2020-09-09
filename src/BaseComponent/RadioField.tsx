@@ -5,34 +5,74 @@ import _ = require('lodash');
 
 export default class RadioField extends UpFormControl<number> {
 
-    setOptionsValues = () => {
-        const { enumDescriptions, enum: enumValues } = this.props.schema;
-        return enumDescriptions.map((currentElement, index) => ({ text: currentElement, value: enumValues[index].toString() }));
+    getOptionsValues = () => {
+        return this.props.schema.optionsSource();
     }
-    
-    convertValueFromStringToInt  = (value : string) : string =>  {
-        if(!value) return null;
 
-        const indexOfEnumValue = this.props.schema.enumNames.indexOf(value) ;
-        if(indexOfEnumValue != -1) {
-            return this.props.schema.enum[indexOfEnumValue].toString() ;
+    setOptions = () => {
+        const {
+            enumDescriptions,
+            enum: enumValues,
+            optionsSchema: { properties } = {},
+            valueSelector,
+            GroupingInfo: { groups } = {}
+        } = this.props.schema;
+
+        const { multipleDescriptionLabels } = this.props.additionalProps;
+
+        if (properties && multipleDescriptionLabels) {
+            const valuesOptions = this.getOptionsValues();
+            const textsOptions = valuesOptions.map(valueOption => {
+                return Object.keys(valueOption).map(key => ({
+                    title: properties[key].title,
+                    value: valueOption[key]
+                }));
+            });
+
+            return textsOptions.map((textOption, index) => {
+                const options = textOption.filter(option => option.title !== 'source');
+                const descriminatorValue = groups && textOption.find(option => option.title === 'source').value;
+                const selectedGroup = groups && groups.find(group => group.discriminator === descriminatorValue);
+
+                return {
+                    text: options,
+                    value: valuesOptions[index][valueSelector],
+                    ...(groups && { additionalData: { value: selectedGroup.title, color: selectedGroup.color } })
+                }
+            });
+        }
+        else {
+            return enumDescriptions.map((currentElement, index) => ({
+                text: currentElement,
+                value: enumValues[index].toString(),
+            }));
+        }
+    }
+
+    convertValueFromStringToInt = (value: string): string => {
+        if (!value) return null;
+
+        const indexOfEnumValue = this.props.schema.enumNames.indexOf(value);
+        if (indexOfEnumValue != -1) {
+            return this.props.schema.enum[indexOfEnumValue].toString();
         }
         return value;
     }
 
     renderField() {
-        const { name } = this.props;
+        const { name, additionalProps: { alignMode, displayMode } } = this.props;
         const { value } = this.state;
 
         return (
             <UpRadio
                 flexWrap
                 gutter={10}
-                alignMode="horizontal"
+                alignMode={alignMode ? alignMode : 'horizontal'}
                 name={name}
                 value={this.convertValueFromStringToInt(value && value.toString())}
                 onChange={this.handleChangeEventGlobal}
-                options={this.setOptionsValues()}
+                options={this.setOptions()}
+                displayMode={displayMode ? displayMode : 'normal'}
             />
         )
     }

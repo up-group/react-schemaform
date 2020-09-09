@@ -15,6 +15,7 @@ export interface BaseProps<BaseType> {
   onSearchButtonClick?: (text: string) => any;
   floatingLabel?: string
   isReadOnly?:(property: string) => boolean;
+  additionalProps?: { [key: string]: any }
 }
 
 export interface BaseState<BaseType> {
