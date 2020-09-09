@@ -204,7 +204,7 @@ const schema = {
                     source : "INSEE"
                 },
             ]),
-            GroupingInfo: {
+            groupingInfo: {
                 discriminator: "source",
                 groups: [
                     {

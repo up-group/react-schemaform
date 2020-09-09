@@ -82,5 +82,5 @@ export interface JsonSchema {
   optionsSource?: () => { [key: string]: any };
   optionsSchema?: { [key: string]: any };
   valueSelector?: string;
-  GroupingInfo?: { [key: string]: any };
+  groupingInfo?: { [key: string]: any };
 }

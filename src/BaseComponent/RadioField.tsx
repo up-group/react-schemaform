@@ -15,7 +15,7 @@ export default class RadioField extends UpFormControl<number> {
             enum: enumValues,
             optionsSchema: { properties } = {},
             valueSelector,
-            GroupingInfo: { groups } = {}
+            groupingInfo: { groups } = {}
         } = this.props.schema;
 
         const { multipleDescriptionLabels } = this.props.additionalProps;
