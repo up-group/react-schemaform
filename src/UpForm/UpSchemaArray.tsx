@@ -31,6 +31,10 @@ const preSuFixStyle = style({
     padding: '6px 6px 12px',
 });
 
+function isEmptyValue(value) {
+    return value === undefined || value === null || value === NaN || (typeof value === 'object' && Object.keys(value).length === 0) || (typeof value === 'string' && value.trim().length === 0)
+}
+
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
     name?: string;
@@ -239,7 +243,7 @@ export default class UpSchemaArray extends React.Component<
 
         let values = this.props.value || [];
         values[index] = parsedValue;
-        values = values.filter(value => !_.isEmpty(value))
+        values = values.filter(function checkIEmpty(valueToCheck) { return !isEmptyValue(valueToCheck)})
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
 }
