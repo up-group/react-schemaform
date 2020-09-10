@@ -62,7 +62,7 @@ export interface UpSchemaArrayState {
 }
 
 function isValuesFill(values, maxNumberOfValue): boolean {
-    return values && values.length == maxNumberOfValue && !values.some(value => _.isEmpty(value));
+    return values && values.length == maxNumberOfValue && !values.some(value => isEmptyValue(value));
 }
 
 export default class UpSchemaArray extends React.Component<
