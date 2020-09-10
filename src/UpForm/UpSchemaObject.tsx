@@ -154,6 +154,16 @@ export default class UpSchemaObject extends React.Component<
         );
     }
 
+    convertValueFromStringToInt = (value, schema) => {
+        if (!value) return null;
+
+        const indexOfEnumValue = schema.enumNames.indexOf(value);
+        if (indexOfEnumValue != -1) {
+            return schema.enum[indexOfEnumValue].toString();
+        }
+        return value;
+    }
+
     render() {
         let viewModels =
             (!_.isEmpty(this.props.viewModels)
@@ -233,8 +243,8 @@ export default class UpSchemaObject extends React.Component<
 
                 if (this.isIgnored(propertyName) || property.hide) continue;
 
-                let value =
-                    this.props.value == null ? null : this.props.value[propertyName];
+                let value = this.props.value == null ? null : this.props.value[propertyName];
+                const parsedValue  = property.format == 'enum' ? this.convertValueFromStringToInt(value, property) : value;
 
                 let element = (
                     <div
@@ -245,7 +255,7 @@ export default class UpSchemaObject extends React.Component<
                         }}
                     >
                         <UpSchemaFormComponentSelector
-                            value={value}
+                            value={parsedValue}
                             values={this.props.value}
                             name={propertyName}
                             showError={this.props.showError}
