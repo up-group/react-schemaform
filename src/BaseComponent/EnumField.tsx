@@ -24,6 +24,9 @@ export default class EnumField extends UpFormControl<number | string |  number[]
 
   convertValueFromStringToInt  = (value : string) : number =>  {
     const indexOfEnumValue = this.props.schema.enumNames.indexOf(value) ;
+    if(indexOfEnumValue == -1) {
+      return parseInt(value) || null;
+    }
     return this.props.schema.enum[indexOfEnumValue] ;
   }
 
