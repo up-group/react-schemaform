@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.98)
+
+## Bug Fixes
+- Fix enum field
+
 # React-Schemaform (version: 0.1.97)
 
 ## Main changes
