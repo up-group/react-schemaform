@@ -155,8 +155,7 @@ export default class UpSchemaObject extends React.Component<
     }
 
     convertValueFromStringToInt = (value, schema) => {
-        if (!value) return null;
-
+        if (value == null) return null;
         const indexOfEnumValue = schema.enumNames.indexOf(value);
         if (indexOfEnumValue != -1) {
             return schema.enum[indexOfEnumValue].toString();
