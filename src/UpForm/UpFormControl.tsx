@@ -14,7 +14,8 @@ export interface BaseProps<BaseType> {
   translate : (text: string) => any,
   onSearchButtonClick?: (text: string) => any;
   floatingLabel?: string
-  isReadOnly?:(property: string) => boolean;
+  // isReadOnly?:(property: string) => boolean;
+  isReadOnly?: boolean;
   additionalProps?: { [key: string]: any }
 }
 

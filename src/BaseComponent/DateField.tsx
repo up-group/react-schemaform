@@ -42,7 +42,8 @@ export default class DateField extends UpFormControl<Moment> {
         minDate={minDate}
         onChange={this.handleChangeEventGlobal}
         floatingLabel={this.props.floatingLabel}
-        readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        // readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        readonly = {this.props.isReadOnly}
       />
     );
   }

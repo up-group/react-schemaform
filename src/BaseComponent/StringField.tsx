@@ -18,7 +18,8 @@ export default class StringField extends UpFormControl<string> {
             value={this.state.value}
             showError={this.props.showError}
             isRequired={this.props.isRequired}
-            readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            // readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly = {this.props.isReadOnly}
             onChange={this.handleChangeEventGlobal}
             floatingLabel={this.props.floatingLabel}
           />
@@ -31,7 +32,8 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
-            readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            // readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly = {this.props.isReadOnly}
             floatingLabel={this.props.floatingLabel}
           />
         );
@@ -42,7 +44,8 @@ export default class StringField extends UpFormControl<string> {
             value={this.state.value}
             showError={this.props.showError}
             isRequired={this.props.isRequired}
-            readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            // readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly = {this.props.isReadOnly}
             onChange={this.handleChangeEventGlobal}
           />
         );
@@ -103,7 +106,8 @@ export default class StringField extends UpFormControl<string> {
             showError={this.props.showError}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
-            readonly= {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            // readonly= {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly = {this.props.isReadOnly}
             floatingLabel={this.props.floatingLabel}
           />
         );

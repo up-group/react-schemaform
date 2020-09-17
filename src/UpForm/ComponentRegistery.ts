@@ -93,7 +93,8 @@ export default class ComponentRegistery {
     showError: boolean,
     value: any,
     floatingLabel,
-    isReadOnly: (property: string) => boolean,
+    // isReadOnly: (property: string) => boolean,
+    isReadOnly?: boolean
   ) {
     var comp = this.GetComponentByKey(key);
     var props = {
@@ -118,7 +119,8 @@ export default class ComponentRegistery {
     name: string,
     translate: (text: string) => any,
     onSearchButtonClick: (text: string) => any,
-    isReadOnly?: (property: string) => boolean,
+    // isReadOnly?: (property: string) => boolean,
+    isReadOnly?: boolean,
     floatingLabel?: string,
     values?: { [key: string]: any },
     additionalProps?: { [key: string]: any }

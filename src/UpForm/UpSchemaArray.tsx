@@ -47,8 +47,9 @@ export interface UpSchemaArrayProps {
     translate: (text: string) => any;
     onSearchButtonClick: (text: string) => any;
     floatingLabel?: string;
-    isReadOnly?: (property: string) => boolean;
-    maxNumberOfValue?: number
+    // isReadOnly?: (property: string) => boolean;
+    isReadOnly?: boolean;
+    maxNumberOfValue?: number;
     maxValue?: number;
     minValue?: number;
     preffixText?: string;

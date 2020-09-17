@@ -34,7 +34,8 @@ export interface UpSchemaFormProps {
   translate?: (text: string) => any;
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
-  isReadOnly?: (property:string,data) => boolean;
+  // isReadOnly?: (property:string,data) => boolean;
+  isReadOnly?: boolean
   withFloatingLabel?: boolean,
   rowSpacing?:number,
   gutter?:number,
@@ -114,7 +115,8 @@ export default class UpSchemaForm extends React.Component<
           viewModels={this.props.viewModels}
           translate={this.props.translate}
           onSearchButtonClick={this.props.onSearchButtonClick}
-          isReadOnly = {this.props.isReadOnly? (name) => this.props.isReadOnly(name, value): ()=>false}
+          // isReadOnly = {this.props.isReadOnly? (name) => this.props.isReadOnly(name, value): ()=>false}
+          isReadOnly={this.props.isReadOnly}
         />
         {this.props.children}
       </div>

@@ -18,7 +18,7 @@ export default class DateTimeField extends UpFormControl<Moment> {
     if (this.state.value && this.state.value.toString() == MIN_DATE_TIME) {
       return undefined;
     }
-    return this.state == null ? null : moment(this.state.value);
+    return this.state.value == null ? null : moment(this.state.value);
   }
 
   renderField() {
@@ -42,7 +42,8 @@ export default class DateTimeField extends UpFormControl<Moment> {
         minDate={minDate}
         onChange={this.handleChangeEventGlobal}
         floatingLabel={this.props.floatingLabel}
-        readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        // readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        readonly = {this.props.isReadOnly}
       />
     );
   }
