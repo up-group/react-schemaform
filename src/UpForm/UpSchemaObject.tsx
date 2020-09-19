@@ -172,12 +172,11 @@ export default class UpSchemaObject extends React.Component<
         const propertiesKeys = Object.keys(this.props.schema.properties);
         propertiesKeys.forEach(
             (key, index, array) => {
-                const count = array.length;
                 const orderPropertie = viewModels.find(elt => elt.name === key);
                 if (orderPropertie) {
                     return this.props.schema.properties[key]["order"] = orderPropertie.order;
                 }
-                this.props.schema.properties[key]["order"] = +count;
+                this.props.schema.properties[key]["order"] = array.length + index;
             }
         );
 
