@@ -168,11 +168,19 @@ export default class UpSchemaObject extends React.Component<
             (!_.isEmpty(this.props.viewModels)
                 ? this.props.viewModels
                 : this.props.schema["viewModels"]) || [];
-        Object.keys(this.props.schema.properties).forEach(
-            (key, index) =>
-                (this.props.schema.properties[key]["order"] =
-                    this.props.schema.properties[key]["order"] || index + 1)
+
+        const propertiesKeys = Object.keys(this.props.schema.properties);
+        propertiesKeys.forEach(
+            (key, index, array) => {
+                const count = array.length;
+                const orderPropertie = viewModels.find(elt => elt.name === key);
+                if (orderPropertie) {
+                    return this.props.schema.properties[key]["order"] = orderPropertie.order;
+                }
+                this.props.schema.properties[key]["order"] = +count;
+            }
         );
+
         let inferViewModels: {
             name: string;
             colspan: number;
