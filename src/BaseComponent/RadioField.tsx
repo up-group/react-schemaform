@@ -60,7 +60,7 @@ export default class RadioField extends UpFormControl<number> {
     }
 
     renderField() {
-        const { name, additionalProps: { alignMode, displayMode } } = this.props;
+        const { name, additionalProps: { alignMode, displayMode }, isReadOnly } = this.props;
         const { value } = this.state;
 
         return (
@@ -73,6 +73,7 @@ export default class RadioField extends UpFormControl<number> {
                 onChange={this.handleChangeEventGlobal}
                 options={this.setOptions()}
                 displayMode={displayMode ? displayMode : 'normal'}
+                readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
             />
         )
     }

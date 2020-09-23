@@ -143,7 +143,7 @@ const schema = {
             enumNames: ["Standard", "Specifique"],
             enumDescriptions: ["Standard", "Spécifique"],
             type: "integer",
-            default: 0,
+            default: 1,
             format: "enum",
             enum: [1, 2]
         },
@@ -201,7 +201,7 @@ const schema = {
                     raisonSociale: "Raison Sociale",
                     DenCommerciale: "Dén. Commerciale",
                     Ville: "Paris",
-                    source : "INSEE"
+                    source: "INSEE"
                 },
             ]),
             groupingInfo: {

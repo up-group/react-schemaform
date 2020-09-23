@@ -154,11 +154,11 @@ export default class UpSchemaObject extends React.Component<
         );
     }
 
-    convertValueFromStringToInt = (value, schema) => {
+    convertValueFromStringToInt = (value, schema, componentType) => {
         if (value == null) return null;
         const indexOfEnumValue = schema.enumNames.indexOf(value);
         if (indexOfEnumValue != -1) {
-            return schema.enum[indexOfEnumValue].toString();
+            return componentType ? schema.enum[indexOfEnumValue].toString() : schema.enum[indexOfEnumValue];
         }
         return value;
     }
@@ -168,11 +168,18 @@ export default class UpSchemaObject extends React.Component<
             (!_.isEmpty(this.props.viewModels)
                 ? this.props.viewModels
                 : this.props.schema["viewModels"]) || [];
-        Object.keys(this.props.schema.properties).forEach(
-            (key, index) =>
-                (this.props.schema.properties[key]["order"] =
-                    this.props.schema.properties[key]["order"] || index + 1)
+
+        const propertiesKeys = Object.keys(this.props.schema.properties);
+        propertiesKeys.forEach(
+            (key, index, array) => {
+                const orderPropertie = viewModels.find(elt => elt.name === key);
+                if (orderPropertie) {
+                    return this.props.schema.properties[key]["order"] = orderPropertie.order;
+                }
+                this.props.schema.properties[key]["order"] = array.length + index;
+            }
         );
+
         let inferViewModels: {
             name: string;
             colspan: number;
@@ -238,12 +245,13 @@ export default class UpSchemaObject extends React.Component<
 
         for (let propertyName in this.props.schema.properties) {
             if (this.props.schema.properties.hasOwnProperty(propertyName)) {
-                let property = this.props.schema.properties[propertyName];
+                const property = this.props.schema.properties[propertyName];
 
                 if (this.isIgnored(propertyName) || property.hide) continue;
 
-                let value = this.props.value == null ? null : this.props.value[propertyName];
-                const parsedValue  = property.format == 'enum' ? this.convertValueFromStringToInt(value, property) : value;
+                const value = this.props.value == null ? null : this.props.value[propertyName];
+                const { additionalProps: { componentType = undefined } = {} } = this.props.viewModels.find(viewModel => viewModel.name === propertyName) || {};
+                const parsedValue = property.format == 'enum' ? this.convertValueFromStringToInt(value, property, componentType) : value;
 
                 let element = (
                     <div
@@ -254,7 +262,7 @@ export default class UpSchemaObject extends React.Component<
                         }}
                     >
                         <UpSchemaFormComponentSelector
-                            value={parsedValue}
+                            value={parsedValue ? parsedValue : value}
                             values={this.props.value}
                             name={propertyName}
                             showError={this.props.showError}
