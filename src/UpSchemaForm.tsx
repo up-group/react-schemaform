@@ -9,6 +9,7 @@ import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { JsonSchema } from "./interfaces/JsonSchema";
 import { UpPanel } from "@up-group-ui/react-controls";
+import * as moment from "moment";
 import * as _ from "lodash";
 import * as classnames from "classnames";
 import {style} from "typestyle";
@@ -179,11 +180,11 @@ export default class UpSchemaForm extends React.Component<
   updateState(node: string) {
     let schema: JsonSchema = this.getSchema();
     if (schema && schema.properties["start_date"] && schema.properties["end_date"] && schema.properties["start_date"].format == "date" && schema.properties["end_date"].format == "date") {
-      if (this.state.data["start_date"]) {
-        schema.properties["end_date"].minimum = this.state.data["start_date"].format()
+      if (this.state.data.hasOwnProperty('start_date')) {
+        schema.properties["end_date"].minimum = this.state.data["start_date"] ? this.state.data["start_date"].format() : '';
       }
-      if (this.state.data["end_date"]) {
-        schema.properties["start_date"].maximum = this.state.data["end_date"].format()
+      if (this.state.data.hasOwnProperty('end_date')) {
+        schema.properties["start_date"].maximum = this.state.data["end_date"] ? this.state.data["end_date"].format() : '';
       }
     }
 
