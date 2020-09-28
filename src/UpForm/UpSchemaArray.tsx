@@ -62,7 +62,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
 
     constructor(p, c) {
         super(p, c);
-        this.state = { items: [...this.props.value, ''] || [1, ''] };
+        this.state = { items: (this.props.value && [...this.props.value, '']) || [1, ''] };
     }
 
     render() {
