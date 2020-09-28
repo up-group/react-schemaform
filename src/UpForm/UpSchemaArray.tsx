@@ -148,13 +148,15 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                     <UpButton
                         intent={'primary'}
                         width={'icon'}
+                        borderless={true}
                         actionType='add'
                         disabled={this.state.items.length && this.state.items.length >= this.props.maxNumberOfValue}
                         onClick={this.addElement}>
                     </UpButton>
                     <UpButton
                         intent={'primary'}
-                        width={'icon'}
+                        width={'icon'}                        
+                        borderless={true}
                         actionType='minus'
                         disabled={this.state.items.length && this.state.items.length <= 1}
                         onClick={this.removeElement}
