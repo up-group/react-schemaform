@@ -1,16 +1,9 @@
-﻿import * as React from "react";
-
-import ComponentRegistery from "./ComponentRegistery";
-
-import UpSchemaFormComponentSelector, {
-    PropertyViewModel
-} from "./UpSchemaFormComponentSelector";
-import JsonSchemaHelper from "../helper/JsonSchemaHelper";
-import UpSchemaObject from "./UpSchemaObject";
-import ErrorMemory from "./ErrorMemory";
-import { JsonSchema } from "../interfaces/JsonSchema";
-
-import { eventFactory, UpGrid, UpButtonGroup, UpButton } from "@up-group-ui/react-controls";
+﻿import * as React from 'react';
+import ComponentRegistery from './ComponentRegistery';
+import JsonSchemaHelper from '../helper/JsonSchemaHelper';
+import UpSchemaObject from './UpSchemaObject';
+import { JsonSchema } from '../interfaces/JsonSchema';
+import { eventFactory, UpGrid, UpButtonGroup, UpButton } from '@up-group-ui/react-controls';
 import * as _ from 'lodash';
 import { style } from 'typestyle';
 
@@ -21,8 +14,8 @@ const layoutItems = style({
     flexWrap: 'wrap'
 });
 
-const contentArray = style({ 
-    padding: '0 5px', 
+const contentArray = style({
+    padding: '0 5px',
     display: 'flex'
 });
 
@@ -31,9 +24,9 @@ const preSuFixStyle = style({
     padding: '6px 6px 12px',
 });
 
-function isEmptyValue(value) {
+const isEmptyValue = value => {
     return value === undefined || value === null || value === NaN || (typeof value === 'object' && Object.keys(value).length === 0) || (typeof value === 'string' && value.trim().length === 0)
-}
+};
 
 export interface UpSchemaArrayProps {
     schema: JsonSchema;
@@ -53,40 +46,34 @@ export interface UpSchemaArrayProps {
     minValue?: number;
     preffixText?: string;
     suffixText?: string;
-    itemWidth?:string;
+    itemWidth?: string;
     componentType?: string
-}
+};
 
 export interface UpSchemaArrayState {
-    items: Item[];
-}
+    items: (string | number)[];
+};
 
-function isValuesFill(values, maxNumberOfValue): boolean {
-    return values && values.length == maxNumberOfValue && !values.some(value => isEmptyValue(value));
-}
+export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, UpSchemaArrayState> {
 
-export default class UpSchemaArray extends React.Component<
-    UpSchemaArrayProps,
-    UpSchemaArrayState
-    > {
-    
     static defaultProps = {
-        itemWidth : 'auto',
-    }    
-        
+        itemWidth: 'auto',
+    }
+
     constructor(p, c) {
         super(p, c);
-        this.state = { items: [] };
+        this.state = { items: [...this.props.value, ''] || [1, ''] };
     }
+
     render() {
         let schema: JsonSchema = this.props.schema.items as JsonSchema;
 
         if (this.props.schema.referenceTo) {
-            return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory("", data), data, error))
+            return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory('', data), data, error))
         }
-        
+
         let elementWrapper = style({
-            width : this.props.itemWidth
+            width: this.props.itemWidth
         });
 
         var comp = ComponentRegistery.GetComponentBySchema(schema, this.props.componentType);
@@ -109,7 +96,7 @@ export default class UpSchemaArray extends React.Component<
             let type = JsonSchemaHelper.getBaseType(schema);
             let elements = [];
             switch (type) {
-                case "object":
+                case 'object':
                     elements.push((
                         <UpSchemaObject
                             value={null}
@@ -117,7 +104,7 @@ export default class UpSchemaArray extends React.Component<
                             withHR={index !== 0}
                             isRequired={this.props.isRequired}
                             schema={schema}
-                            node={""}
+                            node={''}
                             onChange={() => null}
                             ignoredProperties={this.props.ignoredProperties}
                             viewModels={[]}
@@ -127,45 +114,18 @@ export default class UpSchemaArray extends React.Component<
                         />
                     ));
                     break;
-                //case "array":
-                //    element = <UpSchemaArray
-                //        node={""}
-                //        onError={null}
-                //        isRequired={this.props.isRequired}
-                //        schema= { schema}
-                //        onChange={value.oc} />
-                //    break;
                 default:
-                    let values = this.props.value != null ? this.props.value : [];
-
-                    values.forEach((value, indexField) => {
-                        elements.push(ComponentRegistery.GetComponentInstance(
-                            this.onItemChange.bind(this, indexField),
-                            this.props.isRequired,
-                            schema,
-                            this.props.showError,
-                            value,
-                            `${this.props.name}_${indexField}`,
-                            this.props.translate,
-                            this.props.onSearchButtonClick,
-                            this.props.isReadOnly
-                        ));
-                    });
-
-                    if (!isValuesFill(values, this.props.maxNumberOfValue)) {
-                        elements.push(ComponentRegistery.GetComponentInstance(
-                            this.onItemChange.bind(this, values.length),
-                            this.props.isRequired,
-                            schema,
-                            this.props.showError,
-                            null,
-                            `${this.props.name}_${values.length}`,
-                            this.props.translate,
-                            this.props.onSearchButtonClick,
-                            this.props.isReadOnly
-                        ));
-                    }
-
+                    elements.push(ComponentRegistery.GetComponentInstance(
+                        this.onItemChange.bind(this, index),
+                        this.props.isRequired,
+                        schema,
+                        this.props.showError,
+                        this.state.items[index],
+                        `${this.props.name}_${index}`,
+                        this.props.translate,
+                        this.props.onSearchButtonClick,
+                        this.props.isReadOnly
+                    ));
                     break;
             }
 
@@ -181,28 +141,24 @@ export default class UpSchemaArray extends React.Component<
         });
 
         return (
-            <div
-                style={{
-                    padding: "5px",
-                    // borderRadius: "4px",
-                    // border: "1px solid #f4f4f4"
-                }}
-            >
+            <div style={{ padding: '5px' }}>
                 {items}
                 <br />
-                <UpButtonGroup gutter={1} align={"h"}>
+                <UpButtonGroup gutter={1} align={'h'}>
                     <UpButton
                         intent={'primary'}
-                        width={"icon"}
-                        actionType="add"
-                        disabled={this.props.value && this.props.value.length + 1 >= this.props.maxNumberOfValue}
+                        width={'icon'}
+                        borderless={true}
+                        actionType='add'
+                        disabled={this.state.items.length && this.state.items.length >= this.props.maxNumberOfValue}
                         onClick={this.addElement}>
                     </UpButton>
                     <UpButton
                         intent={'primary'}
-                        width={"icon"}
-                        actionType="minus"
-                        disabled={this.props.value && this.props.value.length + 1 <= 1}
+                        width={'icon'}                        
+                        borderless={true}
+                        actionType='minus'
+                        disabled={this.state.items.length && this.state.items.length <= 1}
                         onClick={this.removeElement}
                     >
                     </UpButton>
@@ -211,64 +167,45 @@ export default class UpSchemaArray extends React.Component<
         );
     }
 
-    componentDidMount() {
-        let items = [...this.state.items];
-        items.push(new Item(this.onItemChange));
-        this.setState({ items });
-    }
-
     addElement = () => {
-        let values = [...this.props.value] || [];
-        values.push("")
+        let values = this.state.items;
+        if (values.some(value => isEmptyValue(value) || value === this.props.maxValue)) return;
+
+        this.setState({
+            items: [...values, this.nextValue(values)]
+        });
         this.props.onChange(eventFactory(this.props.name, values), values, null);
-    }
+    };
 
     removeElement = () => {
-        let values = [...this.props.value] || [];
-        values.pop()
+        let values = this.state.items.slice(0, -1);
+        this.setState({
+            items: values
+        });
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
 
     onItemChange = (index, event, value) => {
-        if (value === '' && index === (this.props.value || []).length) {
-            return;
-        }
+        let parsedValue = typeof value === 'number' ? value : parseInt(value);
+        let values = this.state.items;
 
-        const parsedValue = typeof value === 'number' ? value : parseInt(value);
+        if (values.includes(parsedValue)) {
+            parsedValue = this.nextValue(values);
+        }
 
         if (parsedValue > this.props.maxValue || parsedValue < this.props.minValue) {
-            this.props.onChange(eventFactory(this.props.name, this.props.value), this.props.value, null);
+            this.props.onChange(eventFactory(this.props.name, values), values, null);
             return;
         }
 
-        let values = this.props.value || [];
         values[index] = parsedValue;
-        values = values.filter(function checkIEmpty(valueToCheck) { return !isEmptyValue(valueToCheck)})
+        values = values.filter(valueToCheck => !isEmptyValue(valueToCheck));
         this.props.onChange(eventFactory(this.props.name, values), values, null);
     };
-}
 
-export class Item {
-    value = null;
-    errorMemory = new ErrorMemory();
-    error = false;
-    constructor(public onItemChange) { }
-
-    onChange = (e: React.ChangeEvent<any>, value, hasError: boolean, t?: string) => {
-        if (t !== undefined) {
-            if (this.value === null) {
-                this.value = {};
-            }
-            this.errorMemory.cleanErrorOn(t);
-            this.value[t.split(".")[1]] = value;
-
-            if (this.errorMemory.hasError === false) {
-                this.onItemChange();
-            }
-        } else {
-            this.error = hasError;
-            this.value = value;
-            this.onItemChange();
-        }
+    nextValue = (items): number => {
+        const values = items.map(item => parseInt(item)).filter(item => !Number.isNaN(item));
+        const maxValue = Math.max(...values);
+        return (maxValue + 1);
     };
 }
