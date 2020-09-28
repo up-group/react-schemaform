@@ -3,6 +3,8 @@
 ## Main changes
 - Update react-controls (0.2.87)
  
+## Bug Fixes
+- UpSchemaArray : fix array controls to accept only distinct values
 
 # React-Schemaform (version: 0.1.101)
 
