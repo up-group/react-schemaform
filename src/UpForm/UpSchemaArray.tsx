@@ -23,10 +23,10 @@ const componentStyle = stylesheet({
         display: 'flex',
         alignItems: 'center'
     },
-    preFixStyle: {
+    preFixItem: {
         marginRight: '7px'
     },
-    suFixStyle: {
+    suFixItem: {
         marginLeft: '7px'
     }
 });
@@ -139,9 +139,9 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
             return <div key={index} className={componentStyle.layoutItems}>
                 {elements.map(element =>
                     <div className={componentStyle.content}>
-                        {this.props.preffixText && <div className={componentStyle.preFixStyle}>{this.props.preffixText}</div>}
+                        {this.props.preffixText && <div className={componentStyle.preFixItem}>{this.props.preffixText}</div>}
                         <div className={elementWrapper}>{element}</div>
-                        {this.props.suffixText && <div className={componentStyle.suFixStyle}>{this.props.suffixText}</div>}
+                        {this.props.suffixText && <div className={componentStyle.suFixItem}>{this.props.suffixText}</div>}
                     </div>
                 )}
             </div>;
