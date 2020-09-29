@@ -9,19 +9,18 @@ import { style, stylesheet } from 'typestyle';
 
 const componentStyle = stylesheet({
     wrapper: {
+        display: 'flex',
         position: 'relative',
         top: '-5px'
     },
     layoutItems: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        flexWrap: 'wrap'
+        marginRight: '35px'
     },
     content: {
         fontSize: '0.8rem',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        whiteSpace: 'nowrap'
     },
     preFixItem: {
         marginRight: '7px'
