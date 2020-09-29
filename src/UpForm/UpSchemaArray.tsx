@@ -5,23 +5,30 @@ import UpSchemaObject from './UpSchemaObject';
 import { JsonSchema } from '../interfaces/JsonSchema';
 import { eventFactory, UpGrid, UpButtonGroup, UpButton } from '@up-group-ui/react-controls';
 import * as _ from 'lodash';
-import { style } from 'typestyle';
+import { style, stylesheet } from 'typestyle';
 
-const layoutItems = style({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
-});
-
-const contentArray = style({
-    padding: '0 5px',
-    display: 'flex'
-});
-
-const preSuFixStyle = style({
-    fontSize: '0.8rem',
-    padding: '6px 6px 12px',
+const componentStyle = stylesheet({
+    wrapper: {
+        position: 'relative',
+        top: '-5px'
+    },
+    layoutItems: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
+    content: {
+        fontSize: '0.8rem',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    preFixStyle: {
+        marginRight: '7px'
+    },
+    suFixStyle: {
+        marginLeft: '7px'
+    }
 });
 
 const isEmptyValue = value => {
@@ -129,34 +136,32 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                     break;
             }
 
-            return <div key={index} className={layoutItems}>
+            return <div key={index} className={componentStyle.layoutItems}>
                 {elements.map(element =>
-                    <div className={contentArray}>
-                        {this.props.preffixText && <div className={preSuFixStyle}>{this.props.preffixText}</div>}
+                    <div className={componentStyle.content}>
+                        {this.props.preffixText && <div className={componentStyle.preFixStyle}>{this.props.preffixText}</div>}
                         <div className={elementWrapper}>{element}</div>
-                        {this.props.suffixText && <div className={preSuFixStyle}>{this.props.suffixText}</div>}
+                        {this.props.suffixText && <div className={componentStyle.suFixStyle}>{this.props.suffixText}</div>}
                     </div>
                 )}
             </div>;
         });
 
         return (
-            <div style={{ padding: '5px' }}>
+            <div className={componentStyle.wrapper}>
                 {items}
                 <br />
                 <UpButtonGroup gutter={1} align={'h'}>
                     <UpButton
                         intent={'primary'}
                         width={'icon'}
-                        borderless={true}
                         actionType='add'
                         disabled={this.state.items.length && this.state.items.length >= this.props.maxNumberOfValue}
                         onClick={this.addElement}>
                     </UpButton>
                     <UpButton
                         intent={'primary'}
-                        width={'icon'}                        
-                        borderless={true}
+                        width={'icon'}
                         actionType='minus'
                         disabled={this.state.items.length && this.state.items.length <= 1}
                         onClick={this.removeElement}
