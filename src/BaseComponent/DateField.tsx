@@ -5,6 +5,7 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpDate } from "@up-group-ui/react-controls";
 
 import { Moment } from "moment";
+import _ = require('lodash');
 
 const MIN_DATE = "01/01/0001";
 
@@ -30,7 +31,7 @@ export default class DateField extends UpFormControl<Moment> {
     }
 
     if (this.props.schema.minimum !== undefined) {
-      minDate = new Date(this.props.schema.minimum);
+      minDate = (_.isEmpty(this.props.schema.minimum) && minDateProp) ? minDateProp : new Date(this.props.schema.minimum);
     }
 
     return (
@@ -45,6 +46,6 @@ export default class DateField extends UpFormControl<Moment> {
         floatingLabel={this.props.floatingLabel}
         readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
       />
-    );
+    ); 
   }
 }
