@@ -248,6 +248,18 @@ const schema = {
                 alignMode: "horizontal"
             }
 
+        },
+        {
+            name: "start_date",
+            additionalProps: {
+                minDate: "today"
+            }
+        },
+        {
+            name: "end_date",
+            additionalProps: {
+                minDate: "today"
+            }
         }
     ],
 }
