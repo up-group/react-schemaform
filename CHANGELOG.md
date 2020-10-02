@@ -1,4 +1,9 @@
-# React-Schemaform (version: 0.1.105)
+# React-Schemaform (version: 0.1.107)
+
+## Main changes
+- Allow to define a date value in string format like 'today'
+ 
+ # React-Schemaform (version: 0.1.105)
 
 ## Main changes
 - Update react-controls (0.2.87)
