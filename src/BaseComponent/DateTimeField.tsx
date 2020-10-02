@@ -5,6 +5,7 @@ import { UpDate, UpTimePicker } from "@up-group-ui/react-controls";
 
 import { Moment } from "moment";
 import * as moment from "moment";
+import _ = require('lodash');
 
 const MIN_DATE_TIME = "0001-01-01T00:00:00";
 
@@ -22,14 +23,15 @@ export default class DateTimeField extends UpFormControl<Moment> {
   }
 
   renderField() {
-    var maxDate: Date, minDate: Date;
+    let maxDate: Date, minDate: Date;
+    const { minDate: minDateProp } = this.props.additionalProps;
 
     if (this.props.schema.maximum !== undefined) {
       maxDate = new Date(this.props.schema.maximum);
     }
 
     if (this.props.schema.minimum !== undefined) {
-      minDate = new Date(this.props.schema.minimum);
+      minDate = (_.isEmpty(this.props.schema.minimum) && minDateProp) ? minDateProp : new Date(this.props.schema.minimum);
     }
 
     return (
@@ -39,7 +41,7 @@ export default class DateTimeField extends UpFormControl<Moment> {
         showError={this.props.showError}
         isRequired={this.props.isRequired}
         maxDate={maxDate}
-        minDate={minDate}
+        minDate={minDate || minDateProp}
         onChange={this.handleChangeEventGlobal}
         floatingLabel={this.props.floatingLabel}
         readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}

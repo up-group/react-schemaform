@@ -74,6 +74,15 @@ export default class UpSchemaFormComponentSelector extends React.Component<
         const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
         const additionalProps = (viewModel && viewModel.additionalProps) || {};
 
+        const { format } = this.props.schema;
+        if (format == 'date' || format == 'date-time') {
+            for (let prop in additionalProps) {
+                if (additionalProps[prop] === 'today') {
+                    additionalProps[prop] = new Date();
+                }
+            }
+        }
+
         switch (type) {
             case "object":
                 element = (
