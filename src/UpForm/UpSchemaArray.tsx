@@ -68,7 +68,12 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
 
     constructor(p, c) {
         super(p, c);
-        this.state = { items: (this.props.value && [...this.props.value, '']) || [1, ''] };
+        this.state = {
+            items: (this.props.value && [
+                ...this.props.value,
+                ...(this.props.value.length === this.props.maxNumberOfValue ? [] : [''])
+            ]) || [1, '']
+        };
     }
 
     render() {
@@ -82,7 +87,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
             width: this.props.itemWidth
         });
 
-        var comp = ComponentRegistery.GetComponentBySchema(schema, this.props.componentType);
+        let comp = ComponentRegistery.GetComponentBySchema(schema, this.props.componentType);
 
         if (comp != null && comp.array === true) {
             // TODO : clarify the usage of the property array of a component
