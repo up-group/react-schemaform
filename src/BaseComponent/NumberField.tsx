@@ -24,6 +24,7 @@ export default class NumberField extends UpFormControl<number> {
         max={this.props.schema.maximum}
         min={this.props.schema.minimum}
         floatingLabel={this.props.floatingLabel}
+        maxLength={this.props.schema.maxLength}
       />
     );
   }

@@ -19,6 +19,7 @@ export default class IntegerField extends UpFormControl<number> {
         onChange={this.handleChangeEventGlobal}
         max={this.props.schema.maximum}
         min={this.props.schema.minimum}
+        maxLength={this.props.schema.maxLength}
       />
     );
   }
