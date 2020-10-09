@@ -1,7 +1,12 @@
-# React-Schemaform (version: 0.1.109)
+# React-Schemaform (version: 0.1.110)
 
 ## Main changes
-- Update react-controls (0.2.80)
+- Update react-controls (0.2.91)
+ 
+ # React-Schemaform (version: 0.1.109)
+
+## Main changes
+- Update react-controls (0.2.90)
  
 ## Bug Fixes
 - Fix UpSchemaArray max length limit with init value
