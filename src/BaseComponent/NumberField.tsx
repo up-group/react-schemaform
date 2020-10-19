@@ -14,6 +14,8 @@ export default class NumberField extends UpFormControl<number> {
   }
 
   renderField() {
+    const { additionalProps: { hideButtons } } = this.props;
+
     return (
       <UpNumber
         name={this.props.name}
@@ -24,6 +26,7 @@ export default class NumberField extends UpFormControl<number> {
         max={this.props.schema.maximum}
         min={this.props.schema.minimum}
         floatingLabel={this.props.floatingLabel}
+        hideButtons={hideButtons}
       />
     );
   }
