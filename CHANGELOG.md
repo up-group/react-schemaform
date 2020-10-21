@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.111)
+
+## Main changes
+- Update react-controls (0.2.92)
+- Allow to hideButtons on UpNumber
+ 
 # React-Schemaform (version: 0.1.110)
 
 ## Main changes
