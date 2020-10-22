@@ -1,4 +1,10 @@
-# React-Schemaform (version: 0.1.111)
+# React-Schemaform (version: 0.1.112)
+
+## Main changes
+- Update react-controls (0.2.93)
+- Allow to set fullwidth on UpDate
+ 
+ # React-Schemaform (version: 0.1.111)
 
 ## Main changes
 - Update react-controls (0.2.92)
