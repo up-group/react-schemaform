@@ -24,7 +24,7 @@ export default class DateTimeField extends UpFormControl<Moment> {
 
   renderField() {
     let maxDate: Date, minDate: Date;
-    const { minDate: minDateProp, maxDate: maxDateProp } = this.props.additionalProps;
+    const { minDate: minDateProp, maxDate: maxDateProp, fullWidth } = this.props.additionalProps;
 
     if (this.props.schema.maximum !== undefined) {
       maxDate = (_.isEmpty(this.props.schema.maximum) && maxDateProp) ? maxDateProp : new Date(this.props.schema.maximum);
@@ -45,6 +45,7 @@ export default class DateTimeField extends UpFormControl<Moment> {
         onChange={this.handleChangeEventGlobal}
         floatingLabel={this.props.floatingLabel}
         readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        fullWidth = {fullWidth}
       />
     );
   }
