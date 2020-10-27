@@ -69,7 +69,8 @@ export interface JsonSchema {
     queryParameterName: string;
     data?: any;
     autoload?: boolean;
-    defaultParameters?: { [key: string]: any }
+    defaultParameters?: { [key: string]: any },
+    fetchData?: (input: string, defaultParameters?: {[key : string]: string}) => Promise<any>;
   };
   fileExtension?: string;
   readonly?: boolean;

@@ -58,10 +58,10 @@ export default class RadioField extends UpFormControl<number> {
     }
 
     componentDidMount() {
-        const loadOptions = this.props.schema.optionsSource;
+        const loadOptions = this.props.schema.entitySource?.fetchData ;
         if(loadOptions != null) {
             this.setState(update(this.state, { extra: { isDataFetching: { $set: true } } }));
-            loadOptions().then((data) => {
+            loadOptions("").then((data) => {
                 this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: data }} }));
             }).catch(e => this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: [] }}})))
         }

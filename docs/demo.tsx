@@ -186,27 +186,29 @@ const schema = {
                     }
                 }
             },
-            optionsSource: () => ( new Promise((resolve, reject) => {
-                setTimeout(() =>
-                    resolve([
-                        {
-                            codeCrt: "Code 123456",
-                            compteClient: "1234567890",
-                            raisonSociale: "Raison Sociale",
-                            DenCommerciale: "Dén. Commerciale",
-                            Ville: "Paris",
-                            source: "BMC"
-                        },
-                        {
-                            codeCrt: "Code 456",
-                            compteClient: "1234567890",
-                            raisonSociale: "Raison Sociale",
-                            DenCommerciale: "Dén. Commerciale",
-                            Ville: "Paris",
-                            source: "INSEE"
-                        }
-                    ]), 5000);
-            })),
+            entitySource: { 
+                fetchData : (args) => ( new Promise((resolve, reject) => {
+                    setTimeout(() =>
+                        resolve([
+                            {
+                                codeCrt: "Code 123456",
+                                compteClient: "1234567890",
+                                raisonSociale: "Raison Sociale",
+                                DenCommerciale: "Dén. Commerciale",
+                                Ville: "Paris",
+                                source: "BMC"
+                            },
+                            {
+                                codeCrt: "Code 456",
+                                compteClient: "1234567890",
+                                raisonSociale: "Raison Sociale",
+                                DenCommerciale: "Dén. Commerciale",
+                                Ville: "Paris",
+                                source: "INSEE"
+                            }
+                        ]), 5000);
+                }))
+            },
             groupingInfo: {
                 discriminator: "source",
                 groups: [
