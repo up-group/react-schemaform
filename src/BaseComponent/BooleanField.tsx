@@ -22,7 +22,7 @@ export default class BooleanField extends UpFormControl<boolean> {
         return <UpRadio
           name={this.props.name}
           displayMode="normal"
-          gutter={8}
+          gutter={10}
           alignMode="horizontal"
           options={[
             { text: "Oui", value: "true" },
@@ -43,6 +43,7 @@ export default class BooleanField extends UpFormControl<boolean> {
             { text: "Non", value: "false" },
             { text: "Indifférent", value: "null" }
           ]}
+          gutter={10}
           onChange={this.handleChangeData}
           defaultValue={this.convert(this.default(null))}
           value={this.convert(this.state.value)}
