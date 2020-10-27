@@ -1,13 +1,10 @@
 import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpRadio } from "@up-group-ui/react-controls";
+import { UpLoadingIndicator, UpRadio } from "@up-group-ui/react-controls";
+import * as update from 'react-addons-update'
 import _ = require('lodash');
 
 export default class RadioField extends UpFormControl<number> {
-
-    getOptionsValues = () => {
-        return this.props.schema.optionsSource();
-    }
 
     setOptions = () => {
         const {
@@ -21,22 +18,23 @@ export default class RadioField extends UpFormControl<number> {
         const { multipleDescriptionLabels } = this.props.additionalProps;
 
         if (properties && multipleDescriptionLabels) {
-            const valuesOptions = this.getOptionsValues();
-            const textsOptions = valuesOptions.map(valueOption => {
+            const valueOptions = this.state.extra.options || [];
+            
+            const textOptions = valueOptions.map(valueOption => {
                 return Object.keys(valueOption).map(key => ({
                     title: properties[key].title,
                     value: valueOption[key]
                 }));
             });
 
-            return textsOptions.map((textOption, index) => {
+            return textOptions.map((textOption, index) => {
                 const options = textOption.filter(option => option.title !== 'source');
                 const descriminatorValue = groups && textOption.find(option => option.title === 'source').value;
                 const selectedGroup = groups && groups.find(group => group.discriminator === descriminatorValue);
 
                 return {
                     text: options,
-                    value: valuesOptions[index][valueSelector],
+                    value: valueOptions[index][valueSelector],
                     ...(groups && { additionalData: { value: selectedGroup.title, color: selectedGroup.color } })
                 }
             });
@@ -59,9 +57,23 @@ export default class RadioField extends UpFormControl<number> {
         return value;
     }
 
+    componentDidMount() {
+        const loadOptions = this.props.schema.optionsSource;
+        if(loadOptions != null) {
+            this.setState(update(this.state, { extra: { isDataFetching: { $set: true } } }));
+            loadOptions().then((data) => {
+                this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: data }} }));
+            }).catch(e => this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: [] }}})))
+        }
+    }
+
     renderField() {
         const { name, additionalProps: { alignMode, displayMode }, isReadOnly } = this.props;
         const { value } = this.state;
+        
+        if(this.state.extra.isDataFetching) {
+            return <UpLoadingIndicator isLoading={true} />
+        }
 
         return (
             <UpRadio
@@ -73,7 +85,7 @@ export default class RadioField extends UpFormControl<number> {
                 onChange={this.handleChangeEventGlobal}
                 options={this.setOptions()}
                 displayMode={displayMode ? displayMode : 'normal'}
-                readonly = {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+                readonly = {isReadOnly && isReadOnly(this.props.name)}
             />
         )
     }

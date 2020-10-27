@@ -20,7 +20,8 @@ export interface BaseProps<BaseType> {
 
 export interface BaseState<BaseType> {
   value?: BaseType;
-  internalData? : any
+  internalData? : any;
+  extra?: any;
 }
 
 export abstract class UpFormControl<BaseType> extends React.Component<
@@ -33,7 +34,8 @@ export abstract class UpFormControl<BaseType> extends React.Component<
   constructor(props?, context?) {
     super(props, context);
     this.state = {
-      value: this.props.value != undefined ? this.props.value : this.default()
+      value: this.props.value != undefined ? this.props.value : this.default(),
+      extra: {}
     };
     this.controlErrorCentral = new ControlErrorCentral();
     this.controlErrorCentral.addControl(

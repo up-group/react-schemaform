@@ -38,6 +38,7 @@
     "lodash": "^4.17.19",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-addons-update": "^15.6.0",
     "react-json-editor-ajrm": "^2.5.9",
     "tslib": "^1.11.1"
   },
