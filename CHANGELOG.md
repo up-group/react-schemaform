@@ -1,4 +1,9 @@
-# React-Schemaform (version: 0.1.114)
+# React-Schemaform (version: 0.1.115)
+
+## Main changes
+- RadioField : set the data source same way as select
+ 
+ # React-Schemaform (version: 0.1.114)
 
 ## Main changes
 - RadioField : allow to pass the options as a promise to resolve
