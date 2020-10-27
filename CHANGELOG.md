@@ -1,4 +1,9 @@
-# React-Schemaform (version: 0.1.113)
+# React-Schemaform (version: 0.1.114)
+
+## Main changes
+- RadioField : allow to pass the options as a promise to resolve
+ 
+ # React-Schemaform (version: 0.1.113)
 
 ## Main changes
 - Update react-controls (0.2.94)
