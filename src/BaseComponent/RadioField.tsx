@@ -21,7 +21,7 @@ export default class RadioField extends UpFormControl<number> {
             const valueOptions = this.state.extra.options || [];
             
             const textOptions = valueOptions.map(valueOption => {
-                return Object.keys(valueOption).map(key => ({
+                return Object.keys(valueOption).filter(k => properties[k] != null).map(key => ({
                     title: properties[key].title,
                     value: valueOption[key]
                 }));
@@ -31,11 +31,10 @@ export default class RadioField extends UpFormControl<number> {
                 const options = textOption.filter(option => option.title !== 'source');
                 const descriminatorValue = groups && textOption.find(option => option.title === 'source').value;
                 const selectedGroup = groups && groups.find(group => group.discriminator === descriminatorValue);
-
                 return {
                     text: options,
                     value: valueOptions[index][valueSelector],
-                    ...(groups && { additionalData: { value: selectedGroup.title, color: selectedGroup.color } })
+                    ...(groups && { additionalData: { value: selectedGroup?.title, color: selectedGroup?.color } })
                 }
             });
         }
@@ -50,8 +49,8 @@ export default class RadioField extends UpFormControl<number> {
     convertValueFromStringToInt = (value: string): string => {
         if (!value) return null;
 
-        const indexOfEnumValue = this.props.schema.enumNames.indexOf(value);
-        if (indexOfEnumValue != -1) {
+        const indexOfEnumValue = this.props.schema.enumNames?.indexOf(value);
+        if (indexOfEnumValue!=null && indexOfEnumValue != -1) {
             return this.props.schema.enum[indexOfEnumValue].toString();
         }
         return value;
@@ -61,7 +60,7 @@ export default class RadioField extends UpFormControl<number> {
         const loadOptions = this.props.schema.entitySource?.fetchData ;
         if(loadOptions != null) {
             this.setState(update(this.state, { extra: { isDataFetching: { $set: true } } }));
-            loadOptions("").then((data) => {
+            loadOptions("", this.props.schema.entitySource.defaultParameters).then((data) => {
                 this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: data }} }));
             }).catch(e => this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: [] }}})))
         }

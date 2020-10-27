@@ -131,7 +131,7 @@ export default class ComponentRegistery {
     const newSchema = { ...schema }
     if (newSchema.entitySource && newSchema.entitySource.defaultParameters) {
       for (const key in newSchema.entitySource.defaultParameters) {
-        newSchema.entitySource.defaultParameters[key] = values ? values[key] : null;
+        newSchema.entitySource.defaultParameters[key] = values[key] ? values[key] : newSchema.entitySource.defaultParameters[key];
       }
     }
 
