@@ -82,6 +82,7 @@ export interface JsonSchema {
   isToggle?: boolean;
   optionsSource?: () => { [key: string]: any };
   optionsSchema?: { [key: string]: any };
-  valueSelector?: string;
+  idKey?: string;
+  textKey?: string;
   groupingInfo?: { [key: string]: any };
 }

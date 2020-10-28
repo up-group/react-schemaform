@@ -11,29 +11,30 @@ export default class RadioField extends UpFormControl<number> {
             enumDescriptions,
             enum: enumValues,
             optionsSchema: { properties } = {},
-            valueSelector,
+            idKey,
+            textKey,
             groupingInfo: { groups } = {}
         } = this.props.schema;
 
         const { multipleDescriptionLabels } = this.props.additionalProps;
 
         if (properties && multipleDescriptionLabels) {
-            const valueOptions = this.state.extra.options || [];
+            const options = this.state.extra.options || [];
             
-            const textOptions = valueOptions.map(valueOption => {
-                return Object.keys(valueOption).filter(k => properties[k] != null).map(key => ({
+            const textOptions = options.map(option => {
+                return Object.keys(option).filter(k => properties[k] != null).map(key => ({
                     title: properties[key].title,
-                    value: valueOption[key]
+                    value: option[key]
                 }));
             });
 
             return textOptions.map((textOption, index) => {
-                const options = textOption.filter(option => option.title !== 'source');
+                const labels = textOption.filter(option => option.title !== 'source');
                 const descriminatorValue = groups && textOption.find(option => option.title === 'source').value;
                 const selectedGroup = groups && groups.find(group => group.discriminator === descriminatorValue);
                 return {
-                    text: options,
-                    value: valueOptions[index][valueSelector],
+                    text: labels,
+                    value: options[index][idKey],
                     ...(groups && { additionalData: { value: selectedGroup?.title, color: selectedGroup?.color } })
                 }
             });
