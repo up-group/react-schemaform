@@ -155,7 +155,8 @@ const schema = {
             default: 0,
             format: "enum",
             enum: [null],
-            valueSelector: "codeCrt",
+            idKey: "codeCrt",
+            textKey: "compteClient",
             optionsSchema: {
                 type: "object",
                 properties: {

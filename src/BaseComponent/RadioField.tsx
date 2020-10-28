@@ -29,7 +29,7 @@ export default class RadioField extends UpFormControl<number> {
             });
 
             return textOptions.map((textOption, index) => {
-                const labels = textOption.filter(option => option.title !== 'source');
+                const labels = textOption.filter(option => option.hide !== true);
                 const descriminatorValue = groups && textOption.find(option => option.title === 'source').value;
                 const selectedGroup = groups && groups.find(group => group.discriminator === descriminatorValue);
                 return {
@@ -68,7 +68,7 @@ export default class RadioField extends UpFormControl<number> {
     }
 
     renderField() {
-        const { name, additionalProps: { alignMode, displayMode }, isReadOnly } = this.props;
+        const { name, additionalProps: { alignMode, displayMode, nbItemsPerRow }, isReadOnly } = this.props;
         const { value } = this.state;
         
         if(this.state.extra.isDataFetching) {
@@ -86,6 +86,7 @@ export default class RadioField extends UpFormControl<number> {
                 options={this.setOptions()}
                 displayMode={displayMode ? displayMode : 'normal'}
                 readonly = {isReadOnly && isReadOnly(this.props.name)}
+                nbItemsPerRow={nbItemsPerRow}
             />
         )
     }
