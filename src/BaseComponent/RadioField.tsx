@@ -13,7 +13,7 @@ export default class RadioField extends UpFormControl<number> {
             optionsSchema: { properties } = {},
             idKey,
             textKey,
-            groupingInfo: { groups } = {}
+            groupingInfo: { groups, discriminator} = {}
         } = this.props.schema;
 
         const { multipleDescriptionLabels } = this.props.additionalProps;
@@ -24,18 +24,20 @@ export default class RadioField extends UpFormControl<number> {
             const textOptions = options.map(option => {
                 return Object.keys(option).filter(k => properties[k] != null).map(key => ({
                     title: properties[key].title,
-                    value: option[key]
+                    value: option[key],
+                    hide: properties[key].hide
                 }));
             });
 
             return textOptions.map((textOption, index) => {
                 const labels = textOption.filter(option => option.hide !== true);
-                const descriminatorValue = groups && textOption.find(option => option.title === 'source').value;
-                const selectedGroup = groups && groups.find(group => group.discriminator === descriminatorValue);
+                const descriminatorValue = groups && textOption.find(option => option.title === discriminator).value;
+                const selectedGroup = groups && groups.find(group => group.name === descriminatorValue);
+                
                 return {
                     text: labels,
                     value: options[index][idKey],
-                    ...(groups && { additionalData: { value: selectedGroup?.title, color: selectedGroup?.color } })
+                    ...(groups && { additionalData: { value: selectedGroup?.name, color: selectedGroup?.color } })
                 }
             });
         }
@@ -54,6 +56,7 @@ export default class RadioField extends UpFormControl<number> {
         if (indexOfEnumValue!=null && indexOfEnumValue != -1) {
             return this.props.schema.enum[indexOfEnumValue].toString();
         }
+
         return value;
     }
 
