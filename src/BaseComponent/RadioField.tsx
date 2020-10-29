@@ -42,10 +42,11 @@ export default class RadioField extends UpFormControl<number> {
             });
         }
         else {
-            return enumDescriptions.map((currentElement, index) => ({
-                text: currentElement,
-                value: enumValues[index].toString(),
-            }));
+            return (
+                enumDescriptions && enumDescriptions.map((currentElement, index) => ({
+                    text: currentElement,
+                    value: enumValues[index].toString(),
+            })));
         }
     }
 
