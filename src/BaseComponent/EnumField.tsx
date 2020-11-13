@@ -51,9 +51,10 @@ export default class EnumField extends UpFormControl<number | string |  number[]
   }
 
   renderField() {
-    var options = [];
+    const { additionalProps } = this.props;
 
-    for (var i = 0; i < this.schema.enum.length; i++) {
+    let options = [];
+    for (let i = 0; i < this.schema.enum.length; i++) {
       if (this.schema.enum[i] !== null) {
         options.push({
           id: this.schema.enum[i],
@@ -78,6 +79,7 @@ export default class EnumField extends UpFormControl<number | string |  number[]
         floatingLabel={this.props.floatingLabel}
         onChange={this.handleChangeEventGlobal}
         data={options}
+        {...additionalProps}
       />
     );
   }
