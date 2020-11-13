@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.125)
+
+## Main changes
+- EnumFiled : add additional properties handling
+
 # React-Schemaform (version: 0.1.124)
 
 ## Main changes
