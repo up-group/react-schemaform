@@ -178,14 +178,44 @@ export default class UpSchemaForm extends React.Component<
   };
 
   updateState(node: string) {
-    let schema: JsonSchema = this.getSchema();
-    if (schema && schema.properties["start_date"] && schema.properties["end_date"] && schema.properties["start_date"].format == "date" && schema.properties["end_date"].format == "date") {
-      if (this.state.data.hasOwnProperty('start_date')) {
-        schema.properties["end_date"].minimum = this.state.data["start_date"] ? this.state.data["start_date"].format() : '';
+    const schema: JsonSchema = this.getSchema();
+    const { properties : schemaProperties } = schema || {};
+    
+    //Update related date fields state.
+    //The number of date fields that exist in the schema.
+    const dateInputsLength = _.keys(schemaProperties).filter(property => schemaProperties[property].format == 'date').length;
+
+    //Schema contains two related date fields : start_date && end_date.
+    if(dateInputsLength == 2) {
+      if (schemaProperties['start_date'] && schemaProperties['end_date'] && schemaProperties['start_date'].format == 'date' && schemaProperties['end_date'].format == 'date') {
+        if (this.state.data.hasOwnProperty('start_date')) {
+          schemaProperties['end_date'].minimum = this.state.data['start_date'] ? this.state.data['start_date'].format() : '';
+        }
+        if (this.state.data.hasOwnProperty('end_date')) {
+          schemaProperties['start_date'].maximum = this.state.data['end_date'] ? this.state.data['end_date'].format() : '';
+        }
       }
-      if (this.state.data.hasOwnProperty('end_date')) {
-        schema.properties["start_date"].maximum = this.state.data["end_date"] ? this.state.data["end_date"].format() : '';
-      }
+    }
+
+    //Schema contains several related date fields.
+    if(dateInputsLength > 2) {
+      _.keys(schemaProperties).forEach( property => {
+        if(schemaProperties[property] && schemaProperties[property].format == 'date') {
+
+          if (this.state.data.hasOwnProperty(property)) {
+            const viewModelProperty = this.props.viewModels.find(model => model.name == property);
+            const { caseOf, isRelatedTo : relatedDate } = viewModelProperty?.additionalProps || {};
+
+            if(caseOf && relatedDate && schema.properties[relatedDate] && caseOf == 'start_date') {
+              schemaProperties[relatedDate].minimum = this.state.data[property] ? this.state.data[property].format() : '';
+            }
+
+            if(caseOf && relatedDate && schema.properties[relatedDate] && caseOf == 'end_date') {
+              schemaProperties[relatedDate].maximum = this.state.data[property] ? this.state.data[property].format() : '';
+            }
+          }
+        }
+      });
     }
 
     if (this.props.updateRules && this.props.updateRules.length > 0) {
