@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.127)
+
+## Main changes
+- Update react-controls (0.2.105)
+- Add related dates handler
+
 # React-Schemaform (version: 0.1.126)
 
 ## Main changes
