@@ -63,18 +63,18 @@ const schema = {
                 query: "v1/establishements/searchestablishment",
             },
         },
-        start_date: {
-            title: "Date de début",
-            type: ["string", "null"],
-            default: null,
-            format: "date",
-        },
-        end_date: {
-            title: "Date de fin",
-            type: ["string", "null"],
-            default: null,
-            format: "date",
-        },
+        // start_date: {
+        //     title: "Date de début",
+        //     type: ["string", "null"],
+        //     default: null,
+        //     format: "date",
+        // },
+        // end_date: {
+        //     title: "Date de fin",
+        //     type: ["string", "null"],
+        //     default: null,
+        //     format: "date",
+        // },
         settlement_reference: {
             title: "Numéro de télécollecte",
             type: ["string", "null"],
@@ -225,7 +225,31 @@ const schema = {
                     }
                 ]
             }
-        }
+        },
+        departure_date: {
+            title: "Date de depart ",
+            type: ["string", "null"],
+            default: null,
+            format: "date",
+        },
+        arrival_date: {
+            title: "Date d'arrivée",
+            type: ["string", "null"],
+            default: null,
+            format: "date",
+        },
+        creation_date: {
+            title: "Date de création",
+            type: ["string", "null"],
+            default: null,
+            format: "date",
+        },
+        expiration_date: {
+            title: "Date d'expiration",
+            type: ["string", "null"],
+            default: null,
+            format: "date",
+        },
     },
     viewModels: [
         {
@@ -264,6 +288,34 @@ const schema = {
             name: "end_date",
             additionalProps: {
                 minDate: "today"
+            }
+        },
+        {
+            name: "departure_date",
+            additionalProps: {
+                caseOf : "start_date",
+                isRelatedTo : "arrival_date"
+            }
+        },
+        {
+            name: "arrival_date",
+            additionalProps: {
+                caseOf : "end_date",
+                isRelatedTo : "departure_date"
+            }
+        },
+        {
+            name: "creation_date",
+            additionalProps: {
+                caseOf : "start_date",
+                isRelatedTo : "expiration_date"
+            }
+        },
+        {
+            name: "expiration_date",
+            additionalProps: {
+                caseOf : "end_date",
+                isRelatedTo : "creation_date"
             }
         }
     ],
