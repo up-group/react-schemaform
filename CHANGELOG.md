@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.129)
+
+## Main changes
+- Update react-controls (0.2.107)
+- Add property breakAfter on a viewModel
+
 # React-Schemaform (version: 0.1.128)
 
 ## Main changes

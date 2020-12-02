@@ -12,7 +12,7 @@ export interface PropertyViewModel {
     colspan?: number;
     component?: string;
     name?: string;
-    isSeparator?: boolean;
+    breakAfter?: boolean;
     additionalProps?: { [key: string]: any };
 }
 

@@ -74,7 +74,7 @@ export function manageColspan<
     T extends {
         colspan?: number;
         order: number;
-        isSeparator?: boolean;
+        breakAfter?: boolean;
         group?: string;
     }
 >(items: T[], defaultColspan: number, group?: string) {
@@ -95,7 +95,8 @@ export function manageColspan<
         } else {
             currentRow = rows[rows.length - 1];
         }
-        if (viewModel.isSeparator) {
+
+        if (viewModel.breakAfter) {
             usedColSpan = spanLimit;
         }
 
@@ -103,10 +104,6 @@ export function manageColspan<
             currentRow = [];
             rows.push(currentRow);
             usedColSpan = colspan;
-        }
-
-        if (!viewModel.isSeparator) {
-            currentRow.push(viewModel);
         }
 
         return rows;
@@ -169,14 +166,21 @@ export default class UpSchemaObject extends React.Component<
                 ? this.props.viewModels
                 : this.props.schema["viewModels"]) || [];
 
-        const propertiesKeys = Object.keys(this.props.schema.properties);
-        propertiesKeys.forEach(
+        Object.keys(viewModels).forEach(
             (key, index, array) => {
-                const orderPropertie = viewModels.find(elt => elt.name === key);
-                if (orderPropertie) {
-                    return this.props.schema.properties[key]["order"] = orderPropertie.order;
+             if(viewModels[key].order == null) {
+                viewModels[key].order = index+1;
+             }
+        });
+
+        Object.keys(this.props.schema.properties).forEach(
+            (key, index, array) => {
+                const viewModel = viewModels.find(elt => elt.name === key);
+                if (viewModel) {
+                    this.props.schema.properties[key]["order"] = viewModel.order;
+                } else {
+                    this.props.schema.properties[key]["order"] = array.length + index;
                 }
-                this.props.schema.properties[key]["order"] = array.length + index;
             }
         );
 
@@ -185,6 +189,7 @@ export default class UpSchemaObject extends React.Component<
             colspan: number;
             order: number;
             group: string;
+            breakAfter?: boolean;
         }[] = viewModels
             .filter(
                 (a) =>
@@ -197,7 +202,9 @@ export default class UpSchemaObject extends React.Component<
                 order: this.props.schema.properties[vm.name]["order"],
                 group: this.props.schema.properties[vm.name]["group"],
                 colspan: vm.colspan || this.props.defaultColspan,
+                breakAfter : vm.breakAfter
             }));
+
         Object.keys(this.props.schema.properties)
             .filter((a) =>
                 !this.isIgnored(a) &&
@@ -219,14 +226,12 @@ export default class UpSchemaObject extends React.Component<
 
         inferViewModels = inferViewModels.sort(compareItems);
 
-
         const rows = groupByRow(
             inferViewModels,
             this.props.defaultColspan
         );
 
         const groupedRow = rows.map(row => _.groupBy(row, 'group'))
-
 
         let unknownsGroupIndex = -1;
         groupedRow.forEach((element, index) => {
