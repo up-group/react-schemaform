@@ -78,8 +78,8 @@ export function manageColspan<
         group?: string;
     }
 >(items: T[], defaultColspan: number, group?: string) {
+    let usedColSpan = 0;
     return items.sort(compareItems).reduce((rows, viewModel) => {
-        let usedColSpan = 0;
         let colspan = 0;
         const spanLimit = 24;
         if (group) {
@@ -88,16 +88,13 @@ export function manageColspan<
 
         colspan = viewModel.colspan || defaultColspan;
         usedColSpan += colspan;
+
         let currentRow;
         if (rows.length === 0) {
             currentRow = [];
             rows.push(currentRow);
         } else {
             currentRow = rows[rows.length - 1];
-        }
-
-        if (viewModel.breakAfter) {
-            usedColSpan = spanLimit;
         }
 
         if (usedColSpan > spanLimit) {
@@ -107,6 +104,11 @@ export function manageColspan<
         }
         
         currentRow.push(viewModel);
+
+        if (viewModel.breakAfter) {
+            currentRow = [];
+            rows.push(currentRow);
+        }
 
         return rows;
     }, []);
