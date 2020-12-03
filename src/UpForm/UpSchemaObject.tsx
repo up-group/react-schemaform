@@ -15,6 +15,7 @@ import {
     UpRow,
     UpFormGroup
 } from "@up-group-ui/react-controls";
+
 import { style } from 'typestyle'
 import { UpFormContextConsumer } from './UpFormContext';
 import _ = require('lodash');
@@ -40,7 +41,6 @@ export interface UpSchemaObjectProps {
     defaultColspan?: number;
     hideEmptyTitle?: boolean
 }
-
 export interface UpSchemaObjectState {
     showAdvanced: boolean;
 }
@@ -105,6 +105,8 @@ export function manageColspan<
             rows.push(currentRow);
             usedColSpan = colspan;
         }
+        
+        currentRow.push(viewModel);
 
         return rows;
     }, []);
@@ -161,6 +163,7 @@ export default class UpSchemaObject extends React.Component<
     }
 
     render() {
+
         let viewModels =
             (!_.isEmpty(this.props.viewModels)
                 ? this.props.viewModels
@@ -371,17 +374,6 @@ export default class UpSchemaObject extends React.Component<
             </UpFormContextConsumer>
         );
     }
-
-    private sizeSpan = (schema: JsonSchema) => {
-        if (schema.hide === true) {
-            return 0;
-        }
-        let type = JsonSchemaHelper.getBaseType(schema);
-        if (type === "object" || type === "array") {
-            return 24;
-        }
-        return 24;
-    };
 
     isRequired(prop) {
         let required = false;
