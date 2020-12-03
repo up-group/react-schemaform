@@ -1,3 +1,10 @@
+# React-Schemaform (version: 0.1.130)
+
+## Main changes
+- Update react-controls (0.2.108)
+## Bug Fixes
+- Fix row layout regarding colspan
+
 # React-Schemaform (version: 0.1.129)
 
 ## Main changes
