@@ -30,7 +30,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@up-group-ui/react-controls": "0.2.108",
+    "@up-group-ui/react-controls": "0.2.110",
     "ajv": "^6.10.0",
     "bootstrap3": "^3.3.5",
     "brace": "^0.11.1",
@@ -40,8 +40,8 @@
     "jsoneditor-react": "^1.0.0",
     "lodash": "^4.17.19",
     "react": "^16.0.0",
+    "react-addons-update": "^15.6.3",
     "react-dom": "^16.0.0",
-    "react-addons-update": "^15.6.0",
     "react-json-editor-ajrm": "^2.5.9",
     "tslib": "^1.11.1"
   },
