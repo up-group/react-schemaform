@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.137)
+
+## Main changes
+- Update react-controls (0.2.119)
+- Clean form layout props
+
 # React-Schemaform (version: 0.1.136)
 
 ## Main changes
