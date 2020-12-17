@@ -1,15 +1,11 @@
 ﻿import * as React from "react";
-import JsonSchemaHelper from "../helper/JsonSchemaHelper";
 import { JsonSchema } from "../interfaces/JsonSchema";
 
 import UpSchemaFormComponentSelector, {
     PropertyViewModel
 } from "./UpSchemaFormComponentSelector";
 import {
-    UpSvgIcon,
     UpButton,
-    UpPanel,
-    UpBox,
     UpGrid,
     UpCol,
     UpRow,
@@ -39,6 +35,7 @@ export interface UpSchemaObjectProps {
     onSearchButtonClick?: (text: string) => any;
     isReadOnly?: (property: string) => boolean;
     defaultColspan?: number;
+    rowMinHeight?: number;
     hideEmptyTitle?: boolean
 }
 export interface UpSchemaObjectState {
@@ -262,14 +259,18 @@ export default class UpSchemaObject extends React.Component<
                 const value = this.props.value == null ? null : this.props.value[propertyName];
                 const { additionalProps: { componentType = undefined } = {} } = this.props.viewModels.find(viewModel => viewModel.name === propertyName) || {};
                 const parsedValue = property.format == 'enum' ? this.convertValueFromStringToInt(value, property, componentType) : value;
+            
+                let fieldStyle : React.CSSProperties = {
+                    display: property.hide === true ? "none" : "block"
+                }
+
+                if(this.props.rowMinHeight) {
+                    fieldStyle = {...fieldStyle, minHeight: `${this.props.rowMinHeight}px`}
+                }
 
                 let element = (
                     <div
-                        style={{
-                            minHeight: 70,
-                            padding: "0 10px",
-                            display: property.hide === true ? "none" : "block"
-                        }}
+                        style={fieldStyle}
                     >
                         <UpSchemaFormComponentSelector
                             value={parsedValue ? parsedValue : value}
@@ -305,21 +306,18 @@ export default class UpSchemaObject extends React.Component<
                         {groupedRow.map((group) => {
                             for (let element in group) {
                                 const Rows = element !== "undefined" ? (
-                                    <React.Fragment key={element}>
-                                        <UpFormGroup title={element} >
-                                            <SchemaRow
-                                                title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
-                                                withHR={this.props.withHR}
-                                                key={element}
-                                                rowSpacing={rowSpacing}
-                                                elements={group[element].map(element => ({
-                                                    colspan: element.colspan,
-                                                    name: element.name,
-                                                    render: elements[element.name]
-                                                }))} />
-                                        </UpFormGroup>
-                                    </React.Fragment>
-
+                                    <UpFormGroup title={element} key={element}>
+                                        <SchemaRow
+                                            title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
+                                            withHR={this.props.withHR}
+                                            key={element}
+                                            rowSpacing={rowSpacing}
+                                            elements={group[element].map(element => ({
+                                                colspan: element.colspan,
+                                                name: element.name,
+                                                render: elements[element.name]
+                                            }))} />
+                                    </UpFormGroup>
                                 ) : (
                                         <SchemaRow
                                             title={this.props.schema.title == null || this.props.node === "" ? "" : this.props.schema.title}
@@ -355,7 +353,7 @@ export default class UpSchemaObject extends React.Component<
                                                 }}
                                             >
                                                 + de critères
-                      </UpButton>
+                                            </UpButton>
                                         </div>
                                     </UpCol>
                                 </UpRow>

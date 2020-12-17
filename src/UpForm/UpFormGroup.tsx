@@ -3,10 +3,6 @@ import * as React from "react";
 
 import {
   UpLabel,
-  UpBox,
-  UpGrid,
-  UpCol,
-  UpRow,
   UpLigne
 } from "@up-group-ui/react-controls";
 

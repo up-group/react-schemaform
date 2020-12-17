@@ -39,6 +39,7 @@ export interface UpSchemaFormProps {
   withFloatingLabel?: boolean,
   rowSpacing?:number,
   gutter?:number,
+  rowMinHeight?:number,
   defaultColspan?:number
   hideEmptyTitle?:boolean
 }
@@ -47,9 +48,15 @@ export default class UpSchemaForm extends React.Component<
   UpSchemaFormProps,
   {data: any}
   > {
+
   static defaultProps = {
     showError: true,
-    initValue: null
+    initValue: null,
+    withFloatingLabel: true,
+    rowSpacing: 5,
+    gutter: 5,
+    defaultColspan: 8,
+    rowMinHeight: 70
   };
 
   private errorMemory = new ErrorMemory();
@@ -128,6 +135,8 @@ export default class UpSchemaForm extends React.Component<
               withFloatingLabel: this.props.withFloatingLabel,
               rowSpacing: this.props.rowSpacing,
               gutter: this.props.gutter,
+              defaultColspan: this.props.defaultColspan,
+              rowMinHeight : this.props.rowMinHeight,
             }}
           >
           <UpPanel type={'primary'} title={schema.title} className={classnames(this.props.wrapperClassName, style({
@@ -149,6 +158,7 @@ export default class UpSchemaForm extends React.Component<
           rowSpacing: this.props.rowSpacing,
           gutter: this.props.gutter,
           defaultColspan: this.props.defaultColspan,
+          rowMinHeight: this.props.rowMinHeight
         }}
       >
         <div

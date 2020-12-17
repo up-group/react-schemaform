@@ -69,12 +69,14 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
 
     renderElement(parametersForm) {
-        let { withFloatingLabel, element, isControl, isArray, type, defaultColspan } = parametersForm
+
+        let { withFloatingLabel, type, defaultColspan, rowMinHeight } = parametersForm
         const floatingLabel = withFloatingLabel && this.props.schema.title
         const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
         const additionalProps = (viewModel && viewModel.additionalProps) || {};
 
         const { format } = this.props.schema;
+
         if (format == 'date' || format == 'date-time') {
             for (let prop in additionalProps) {
                 if (additionalProps[prop] === 'today') {
@@ -83,6 +85,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             }
         }
 
+        let element = null ;
         switch (type) {
             case "object":
                 element = (
@@ -101,10 +104,10 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         isReadOnly={this.props.isReadOnly}
                         defaultColspan={defaultColspan}
                         hideEmptyTitle={this.props.hideEmptyTitle}
+                        rowMinHeight={rowMinHeight}
                         {...additionalProps}
                     />
                 );
-                isControl = false;
                 break;
             case "array":
                 element = (
@@ -125,7 +128,6 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         {...additionalProps}
                     />
                 );
-                isArray = true;
                 break;
             default:
                 element = ComponentRegistery.GetComponentInstance(
@@ -148,9 +150,6 @@ export default class UpSchemaFormComponentSelector extends React.Component<
     }
 
     render() {
-        const element = null;
-        const isControl = true;
-        const isArray = false;
 
         const parameters = this.props.node.split(".");
         if (parameters.length !== 0 && this.props.node !== "") {
@@ -164,26 +163,23 @@ export default class UpSchemaFormComponentSelector extends React.Component<
         const type = JsonSchemaHelper.getBaseType(this.props.schema);
         const format = this.props.schema.format || (this.props.schema.items && this.props.schema.items['format']);
 
-        if (isControl) {
-            //Temp
-            const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
-            const { componentType } = (viewModel && viewModel.additionalProps) || {};
-            return (
-                <UpFormContextConsumer>
-                    {({ withFloatingLabel, defaultColspan }) => (
-                        <UpFormGroup
-                            isRequired={this.props.isRequired}
-                            title={this.props.schema.title}
-                            description={this.props.schema.description}
-                            withFloatingLabel={(type === 'string' || format === 'enum' || type == "number") && format !== 'multilineText' && withFloatingLabel && !componentType}
-                        >
-                            {this.renderElement({ withFloatingLabel, element, isArray, isControl, type, defaultColspan })}
-                        </UpFormGroup>
-                    )}
-                </UpFormContextConsumer>
-            );
-        }
-        return element;
+        const viewModel = this.props.name && this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
+        const { componentType } = (viewModel && viewModel.additionalProps) || {};
+
+        return (
+            <UpFormContextConsumer>
+                {({ withFloatingLabel, defaultColspan, rowMinHeight }) => (
+                    <UpFormGroup
+                        isRequired={this.props.isRequired}
+                        title={this.props.schema.title}
+                        description={this.props.schema.description}
+                        withFloatingLabel={(type === 'string' || format === 'enum' || type == "number") && format !== 'multilineText' && withFloatingLabel && !componentType}
+                    >
+                        {this.renderElement({ withFloatingLabel, rowMinHeight, type, defaultColspan })}
+                    </UpFormGroup>
+                )}
+            </UpFormContextConsumer>
+        );
     }
 
     private onElementChange = (
