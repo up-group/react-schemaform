@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 
-import { UpSelect } from "@up-group-ui/react-controls";
+import { eventFactory, UpSelect } from "@up-group-ui/react-controls";
 import { JsonSchema, InternalTypeOfSchema } from "../interfaces/JsonSchema";
 
 export default class EntityField<Type> extends UpFormControl<Type> {
@@ -27,6 +27,12 @@ export default class EntityField<Type> extends UpFormControl<Type> {
   };
 
   renderField() {
+
+    //Display the component sent by the external source, otherwise display the normal component.
+    if(this.props.schema.referenceTo){
+      return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory("", data), data, error))
+    }
+    
     return (
       <UpSelect
         name={this.props.name}
