@@ -1,7 +1,8 @@
 # React-Schemaform (version: 0.1.137)
 
 ## Main changes
-- Update react-controls (0.2.119)
+- Update react-controls (0.2.120)
+- Enable to render specific enty field
 - Clean form layout props
 
 # React-Schemaform (version: 0.1.136)
