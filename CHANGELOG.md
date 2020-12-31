@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.138)
+## Main changes
+- Update react-controls (0.2.121)
+- Fix entityKey format on array values
+
 # React-Schemaform (version: 0.1.137)
 
 ## Main changes
