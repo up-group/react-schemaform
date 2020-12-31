@@ -23,6 +23,8 @@ export type InternalFormatOfSchema =
   | "uri"
   | "search";
 
+export type ReturnType = 'id' | 'full';
+
 export interface JsonSchema {
   $ref?: string;
   id?: string;
@@ -71,6 +73,7 @@ export interface JsonSchema {
     autoload?: boolean;
     defaultParameters?: { [key: string]: any },
     fetchData?: (input: string, defaultParameters?: {[key : string]: string}) => Promise<any>;
+    returnType?: ReturnType;
   };
   fileExtension?: string;
   readonly?: boolean;

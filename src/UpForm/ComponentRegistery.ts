@@ -73,7 +73,7 @@ export default class ComponentRegistery {
 
   public static GetComponentBySchema(schema: JsonSchema, componentType: string) {
     var comp = ComponentRegistery.GetComponentByFormat(
-      ((schema.items as JsonSchema) || schema).format,
+      ((schema.items as JsonSchema) || schema).format || schema.format,
       componentType
     );
 

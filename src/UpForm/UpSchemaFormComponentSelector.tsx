@@ -85,6 +85,10 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             }
         }
 
+        if(format == "entityKey" && type == "array") {
+            type = "entityKey"
+        }
+
         let element = null ;
         switch (type) {
             case "object":
@@ -173,7 +177,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         isRequired={this.props.isRequired}
                         title={this.props.schema.title}
                         description={this.props.schema.description}
-                        withFloatingLabel={(type === 'string' || format === 'enum' || type == "number") && format !== 'multilineText' && withFloatingLabel && !componentType}
+                        withFloatingLabel={(type === 'string' || format === 'enum' || type == "number" || format === 'entityKey') && format !== 'multilineText' && withFloatingLabel && !componentType}
                     >
                         {this.renderElement({ withFloatingLabel, rowMinHeight, type, defaultColspan })}
                     </UpFormGroup>

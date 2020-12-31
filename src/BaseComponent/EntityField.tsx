@@ -39,11 +39,11 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         showError={this.props.showError}
         default={null}
         value={this.getValue()}
-        returnType="full"
+        returnType={this.schema.entitySource && this.schema.entitySource.returnType ?  this.schema.entitySource.returnType : "full"}
         isRequired={this.props.isRequired}
         multiple={this.isArray}
         placeholder="Recherche"
-        allowClear={!this.props.isRequired}
+        allowClear={true}
         onChange={this.onChange}
         dataSource={this.schema.entitySource && !this.schema.entitySource.data ? this.schema.entitySource : undefined}
         floatingLabel={this.props.floatingLabel}
@@ -54,7 +54,7 @@ export default class EntityField<Type> extends UpFormControl<Type> {
   }
 
   private get schema(): JsonSchema {
-    return (this.props.schema.items as JsonSchema) || this.props.schema;
+    return this.props.schema.entitySource ? this.props.schema : (this.props.schema.items as JsonSchema) || this.props.schema;
   }
 
   private get isArray() {
