@@ -134,20 +134,24 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                 );
                 break;
             default:
-                element = ComponentRegistery.GetComponentInstance(
-                    this.onElementChange,
-                    this.props.isRequired,
-                    this.props.schema,
-                    this.props.showError,
-                    this.props.value,
-                    this.props.name,
-                    this.props.translate,
-                    this.props.onSearchButtonClick,
-                    this.props.isReadOnly,
-                    floatingLabel,
-                    this.props.values,
-                    additionalProps
-                );
+                try {
+                    element = ComponentRegistery.GetComponentInstance(
+                        this.onElementChange,
+                        this.props.isRequired,
+                        this.props.schema,
+                        this.props.showError,
+                        this.props.value,
+                        this.props.name,
+                        this.props.translate,
+                        this.props.onSearchButtonClick,
+                        this.props.isReadOnly,
+                        floatingLabel,
+                        this.props.values,
+                        additionalProps
+                    );
+                } catch(e) {
+                    console.error(e);
+                }
                 break;
         }
         return element
