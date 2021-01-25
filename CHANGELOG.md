@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.141)
+## Main changes
+- Update react-controls (0.2.127)
+- Update EntityField to not filter option in case of autocompletion
 # React-Schemaform (version: 0.1.140)
 ## Main changes
 - Update react-controls (0.2.126)

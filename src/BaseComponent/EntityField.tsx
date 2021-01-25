@@ -45,6 +45,15 @@ export default class EntityField<Type> extends UpFormControl<Type> {
         placeholder="Recherche"
         allowClear={true}
         onChange={this.onChange}
+        filterOptions={(option: any, filter) => {
+          if(this.schema.entitySource && !this.schema.entitySource.autoload) { 
+            return true;
+          }
+          
+          const filterMatched = !filter 
+          || (option.label != null && `${option.label}`.toLowerCase().includes(filter.toLowerCase()))
+          return filterMatched;
+        }}
         dataSource={this.schema.entitySource && !this.schema.entitySource.data ? this.schema.entitySource : undefined}
         floatingLabel={this.props.floatingLabel}
         autoload={this.schema.entitySource.autoload}
