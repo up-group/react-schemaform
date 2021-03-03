@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.144)
+## Main changes
+- Update react-controls (0.2.134)
+## Bug Fixes
+- Fix colspan after a break on a view model
+
 # React-Schemaform (version: 0.1.143)
 ## Main changes
 - Update react-controls (0.2.130)
