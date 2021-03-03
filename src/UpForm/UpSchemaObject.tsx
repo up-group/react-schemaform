@@ -105,6 +105,7 @@ export function manageColspan<
         if (viewModel.breakAfter) {
             currentRow = [];
             rows.push(currentRow);
+            usedColSpan = colspan;
         }
 
         return rows;
