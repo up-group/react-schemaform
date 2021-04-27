@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.148)
+## Main changes
+- Update react-controls (0.2.153)
+- Add clear option on text input
 # React-Schemaform (version: 0.1.147)
 ## Main changes
 - Update react-controls (0.2.147)

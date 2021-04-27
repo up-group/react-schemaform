@@ -21,6 +21,7 @@ export default class StringField extends UpFormControl<string> {
             readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
             onChange={this.handleChangeEventGlobal}
             floatingLabel={this.props.floatingLabel}
+            hasClearOption={true}
           />
         );
       case "phone":
@@ -105,6 +106,7 @@ export default class StringField extends UpFormControl<string> {
             onChange={this.handleChangeEventGlobal}
             readonly= {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
             floatingLabel={this.props.floatingLabel}
+            hasClearOption={true}
           />
         );
     }
