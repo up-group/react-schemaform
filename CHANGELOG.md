@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.150)
+## Bugs Fixes
+- Fix floating label for integer type field
+
 # React-Schemaform (version: 0.1.149)
 ## Main changes
 - Update react-controls (0.2.155)
