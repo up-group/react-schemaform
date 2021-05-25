@@ -92,6 +92,11 @@ const schema = {
             format: 'phone',
             default: null,
         },
+        amount: {
+            title: "Montant",
+            type: "integer",
+            default: null
+        },
         number: {
             title: "Nombre",
             type: "array",
