@@ -8,6 +8,8 @@ export default class IntegerField extends UpFormControl<number> {
   }
 
   renderField() {
+    const { additionalProps: { hideButtons } } = this.props;
+
     return (
       <UpNumber
         floatingLabel={this.props.floatingLabel}
@@ -19,6 +21,7 @@ export default class IntegerField extends UpFormControl<number> {
         onChange={this.handleChangeEventGlobal}
         max={this.props.schema.maximum}
         min={this.props.schema.minimum}
+        hideButtons={hideButtons}
       />
     );
   }
