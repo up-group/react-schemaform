@@ -8,7 +8,7 @@ export default class IntegerField extends UpFormControl<number> {
   }
 
   renderField() {
-    const { additionalProps: { hideButtons } } = this.props;
+    const { additionalProps: { hideButtons } = {} } = this.props;
 
     return (
       <UpNumber
