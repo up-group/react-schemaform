@@ -9,7 +9,7 @@ export default class NumberField extends UpFormControl<number> {
   }
 
   renderField() {
-    const { additionalProps: { hideButtons, objectStyles } = {} } = this.props;
+    const { additionalProps: { hideButtons, objectStyles, seperatorForDecimalNumbers } = {} } = this.props;
 
     return (
       <UpNumber
@@ -23,6 +23,7 @@ export default class NumberField extends UpFormControl<number> {
         min={this.props.schema.minimum}
         floatingLabel={this.props.floatingLabel}
         hideButtons={hideButtons}
+        seperatorForDecimalNumbers={seperatorForDecimalNumbers}
       />
     );
   }
