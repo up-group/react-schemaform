@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.151)
+## Main changes
+- Update react-controls (0.2.156)
+- UpNumber : Allow to define decimal separator
+- UpInput : Allow to pass className
+
 # React-Schemaform (version: 0.1.150)
 ## Bugs Fixes
 - Fix floating label for integer type field
