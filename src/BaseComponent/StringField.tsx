@@ -10,7 +10,7 @@ export default class StringField extends UpFormControl<string> {
   }
  
   renderField() {
-    const { objectStyles } = this.props.additionalProps;
+    const { objectStyles, ...restProps } = this.props.additionalProps;
     
     switch (this.props.schema.format) {
       case "email":
@@ -110,6 +110,7 @@ export default class StringField extends UpFormControl<string> {
             readonly= {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
             floatingLabel={this.props.floatingLabel}
             hasClearOption={true}
+            {...restProps}
           />
         );
     }
