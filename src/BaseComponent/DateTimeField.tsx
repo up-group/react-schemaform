@@ -9,7 +9,7 @@ import _ = require('lodash');
 
 const MIN_DATE_TIME = "0001-01-01T00:00:00";
 
-export default class DateTimeField extends UpFormControl<Moment> {
+export default class DateTimeField extends UpFormControl<Moment, {}> {
   inputElementGroup: HTMLDivElement;
   constructor(p, c) {
     super(p, c);

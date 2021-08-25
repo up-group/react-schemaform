@@ -6,13 +6,13 @@ export default class TypeNullControl implements ErrorControl<any> {
   private _isNullable: boolean;
   private _isRequierd: boolean;
   public defaultValue: any;
-  private _control: UpFormControl<any>;
+  private _control: UpFormControl<any, {}>;
 
   constructor(
     isRequierd: boolean,
     isNullable: boolean,
     defaultValue: any,
-    control: UpFormControl<any>
+    control: UpFormControl<any, {}>
   ) {
     this._isNullable = isNullable;
     this._isRequierd = isRequierd;

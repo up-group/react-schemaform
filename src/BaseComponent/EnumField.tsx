@@ -6,14 +6,14 @@ import { JsonSchema, InternalTypeOfSchema} from "../interfaces/JsonSchema";
 
 import * as _ from 'lodash' ;
 
-interface UpEnumExtendProp {
+interface UpEnumExtendProps {
   _enum: Number[];
   enumDescriptions: String[];
   multiple: boolean;
 }
 type EnumData = { id: any; text: string };
 
-export default class EnumField extends UpFormControl<number | string |  number[] | string[]> {
+export default class EnumField extends UpFormControl<number | string |  number[] | string[], UpEnumExtendProps> {
   constructor(p, c) {
     super(p, c);
   }
@@ -74,7 +74,7 @@ export default class EnumField extends UpFormControl<number | string |  number[]
         minimumInputLength={0}
         disabled={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
         placeholder="Recherche"
-        multiple={this.isArray}
+        multiple={this.isArray || this.props.multiple}
         allowClear={!this.props.isRequired}
         floatingLabel={this.props.floatingLabel}
         onChange={this.handleChangeEventGlobal}

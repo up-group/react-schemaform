@@ -2,7 +2,7 @@
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpDropFile } from "@up-group-ui/react-controls";
 
-export default class UploadField extends UpFormControl<number[]> {
+export default class UploadField extends UpFormControl<number[], {}> {
   constructor(p, c) {
     super(p, c);
   }
