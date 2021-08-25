@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.152)
+## Main changes
+- Update react-controls (0.2.159)
+- Enum : Allow to specify multiple properties
+
 # React-Schemaform (version: 0.1.151)
 ## Main changes
 - Update react-controls (0.2.156)
