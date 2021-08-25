@@ -77,7 +77,7 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
     }
 
     render() {
-        let schema: JsonSchema = this.props.schema.items as JsonSchema;
+        let schema: JsonSchema = this.props.schema.items as JsonSchema || this.props.schema;
 
         if (this.props.schema.referenceTo) {
             return this.props.schema.getEntitySelector((data, error) => this.props.onChange(eventFactory('', data), data, error))

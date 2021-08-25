@@ -49,6 +49,7 @@ const schema = {
             $ref: "#/definitions/PaginationProperties",
             hide: true,
         },
+       
         establishment_id: {
             title: "Établissement",
             type: ["string", "null"],
@@ -111,37 +112,6 @@ const schema = {
             type: "boolean",
             default: false,
             isToggle: true,
-        },
-        transaction_status: {
-            title: "Status",
-            enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
-            enumDescriptions: [
-                null,
-                "Authorized",
-                "Validated",
-                "Canceled",
-                "Denied",
-            ],
-            type: ["array"],
-            default: null,
-            format: "enum",
-            enum: [null, 1, 2, 3, 4],
-        },
-        inline_status: {
-            title: "Status",
-            enumNames: [null, "Authorized", "Validated", "Canceled", "Denied"],
-            enumDescriptions: [
-                null,
-                "Authorized",
-                "Validated",
-                "Canceled",
-                "Denied",
-            ],
-            type: ["number"],
-            default: null,
-            format: "enumInline",
-            enum: [null, 1, 2, 3, 4],
-            group: 'Group 1'
         },
         frequency_of_payment: {
             title: "Établissement",
@@ -255,6 +225,33 @@ const schema = {
             default: null,
             format: "date",
         },
+
+        roles: {
+            format: "enum",
+            title: "Selection multiple",
+            type: ["array", "null"],
+            enum: [
+                "1",
+                "2",
+                "4",
+                "8",
+                "16"
+            ],
+            enumDescriptions: [
+                "Livraison",
+                "Gestionnaire",
+                "Facturation",
+                "Décideur",
+                "Mandataire"
+            ],
+            enumNames: [
+                "Shipping",
+                "Management",
+                "Invoicing",
+                "DecisionMaker",
+                "Mandatary"
+            ]
+        }
     },
     viewModels: [
         {
@@ -322,7 +319,8 @@ const schema = {
                 caseOf : "end_date",
                 isRelatedTo : "creation_date"
             }
-        }
+        },
+        
     ],
 }
 

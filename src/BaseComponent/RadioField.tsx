@@ -4,7 +4,7 @@ import { UpLoadingIndicator, UpRadio } from "@up-group-ui/react-controls";
 import * as update from 'react-addons-update'
 import _ = require('lodash');
 
-export default class RadioField extends UpFormControl<number> {
+export default class RadioField extends UpFormControl<number, {}> {
 
     setOptions = () => {
         const {

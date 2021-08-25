@@ -9,7 +9,7 @@ import _ = require('lodash');
 
 const MIN_DATE = "01/01/0001";
 
-export default class DateField extends UpFormControl<Moment> {
+export default class DateField extends UpFormControl<Moment, {}> {
   inputElementGroup: HTMLDivElement;
   constructor(p, c) {
     super(p, c);

@@ -5,7 +5,7 @@ import { style } from 'typestyle';
 
 export type EnumData = { type: any; label: string, value?: string };
 
-export default class EnumInlineField extends UpFormControl<EnumData> {
+export default class EnumInlineField extends UpFormControl<EnumData, {}> {
   constructor(p, c) {
     super(p, c);
   }

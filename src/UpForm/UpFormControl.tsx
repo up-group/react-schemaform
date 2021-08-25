@@ -24,8 +24,8 @@ export interface BaseState<BaseType> {
   extra?: any;
 }
 
-export abstract class UpFormControl<BaseType> extends React.Component<
-  BaseProps<BaseType>,
+export abstract class UpFormControl<BaseType, ExtendedProps> extends React.Component<
+  BaseProps<BaseType> & ExtendedProps,
   BaseState<BaseType>
 > {
   inputElement: HTMLInputElement;

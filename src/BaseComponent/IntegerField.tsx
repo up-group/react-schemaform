@@ -3,7 +3,7 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpNumber } from "@up-group-ui/react-controls";
 import { style } from "typestyle";
 
-export default class IntegerField extends UpFormControl<number> {
+export default class IntegerField extends UpFormControl<number, {}> {
   constructor(p, c) {
     super(p, c);
   }

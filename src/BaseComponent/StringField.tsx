@@ -4,7 +4,7 @@ import { UpInput, UpEmail, UpPhone, UpText, UpButton } from "@up-group-ui/react-
 import { UpSvgIcon } from "@up-group-ui/react-controls";
 import { style } from 'typestyle';
 
-export default class StringField extends UpFormControl<string> {
+export default class StringField extends UpFormControl<string, {}> {
   constructor(p, c) {
     super(p, c);
   }
