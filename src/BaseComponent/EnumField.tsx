@@ -34,10 +34,13 @@ export default class EnumField extends UpFormControl<number | string |  number[]
     if(this.state.value != null) {
       
       let value = this.state.value;
+
       if(typeof value  == "string") {
         value = this.convertValueFromStringToInt(value) ;
       } else if(_.isArray(value) && value.length > 0 && typeof value[0] == "string") {
         value = this.convertValuesFromStringToInt(value as string[]) ;
+      } else if(this.isArray && value === 0) {
+        value = [] ;
       }
       
       if(this.isArray) {
