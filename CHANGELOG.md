@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.154)
+## Bugs fixes 
+- Fix default value set to 0 for multiple enum field
+
 # React-Schemaform (version: 0.1.152)
 ## Main changes
 - Update react-controls (0.2.159)
