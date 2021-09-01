@@ -12,7 +12,7 @@
     "tsc": "./node_modules/typescript/bin/tsc",
     "version": "tsc -v",
     "clean": "rimraf lib",
-    "prepublish": "npm run clean && npm run build ",
+    "prepublishOnly": "npm run clean && npm run build ",
     "start": "webpack-dev-server --config webpack.config.js --port 1338 --progress --colors",
     "start:inspect": "webpack-dev-server --config webpack.config.js --port 1338 --progress --colors --inspect-brk=18764",
     "build": "tsc",
@@ -30,7 +30,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@up-group-ui/react-controls": "0.2.156",
+    "@up-group-ui/react-controls": "0.2.161",
     "ajv": "^6.10.0",
     "bootstrap3": "^3.3.5",
     "brace": "^0.11.1",
