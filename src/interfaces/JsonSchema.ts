@@ -63,6 +63,7 @@ export interface JsonSchema {
   format?: InternalFormatOfSchema;
   enumDescriptions?: string[];
   enumNames?: string[];
+  hiddenEnumValues?: string[];
   entitySource?: {
     id: string;
     name: string;
