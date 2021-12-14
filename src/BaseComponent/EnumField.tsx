@@ -59,7 +59,7 @@ export default class EnumField extends UpFormControl<number | string |  number[]
     let options = [];
     for (let i = 0; i < this.schema.enum.length; i++) {
       if (this.schema.enum[i] !== null) {
-        if (this.schema.hiddenEnumValues === undefined || this.schema.hiddenEnumValues.indexOf(this.schema.enum[i]) === -1 )
+        if (this.schema.hiddenEnumValues == null || this.schema.hiddenEnumValues.indexOf(this.schema.enum[i]) === -1 )
           options.push({
             id: this.schema.enum[i],
             text: this.props.translate ? this.props.translate(this.schema.enumDescriptions[i]) : this.schema.enumDescriptions[i]
