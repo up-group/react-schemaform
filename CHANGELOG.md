@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.164)
+## Main changes
+- Add new prop hidden field for enum
+
 # React-Schemaform (version: 0.1.163)
 ## Main changes
 - Update react-controls (0.2.168)
