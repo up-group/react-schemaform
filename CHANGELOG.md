@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.166)
+## Main changes
+- Update react-controls (0.2.174)
+## Bug Fixes
+- Fix error handling of form validation
+
 # React-Schemaform (version: 0.1.165)
 ## Main changes
 - Form fields : fix error handling
