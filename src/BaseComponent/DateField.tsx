@@ -39,6 +39,7 @@ export default class DateField extends UpFormControl<Moment, {}> {
         name={this.props.name}
         value={this.currentValue}
         showError={this.props.showError}
+        errorDisplayMode={"inline"}
         isRequired={this.props.isRequired}
         maxDate={maxDate || maxDateProp}
         minDate={minDate || minDateProp}

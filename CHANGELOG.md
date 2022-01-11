@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.165)
+## Main changes
+- Form fields : fix error handling
+
 # React-Schemaform (version: 0.1.164)
 ## Main changes
 - Add new prop hidden field for enum

@@ -37,6 +37,7 @@ export default class EntityField<Type> extends UpFormControl<Type, {}> {
       <UpSelect
         name={this.props.name}
         showError={this.props.showError}
+        errorDisplayMode={"inline"}
         default={null}
         value={this.getValue()}
         returnType={this.schema.entitySource && this.schema.entitySource.returnType ?  this.schema.entitySource.returnType : "full"}

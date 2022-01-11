@@ -84,7 +84,6 @@ const schema = {
         email: {
             title: "Email",
             type: ["string", "null"],
-            format: 'email',
             default: null,
         },
         phone: {
@@ -320,7 +319,15 @@ const schema = {
                 isRelatedTo : "creation_date"
             }
         },
-        
+        {
+            name: "email",
+            additionalProps: {
+                validation : [{
+                    pattern: /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    errorMessage: 'Le champ doit être un courriel'
+               }]
+            }
+        }
     ],
 }
 
@@ -332,7 +339,7 @@ class Demo extends React.Component<{}, DemoState> {
             result: "",
             schema: schema,
             hasError: false,
-            showError: false,
+            showError: true,
             dataS: {
                 active: true,
                 number: [1],

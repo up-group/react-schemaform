@@ -72,6 +72,7 @@ export default class EnumField extends UpFormControl<number | string |  number[]
         name={this.props.name}
         value={this.selectedOptions(options)}
         showError={this.props.showError}
+        errorDisplayMode={"inline"}
         default={this.schema.default}
         returnType="id"
         isRequired={this.props.isRequired}

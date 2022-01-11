@@ -17,6 +17,7 @@ export default class NumberField extends UpFormControl<number, {}> {
         name={this.props.name}
         value={this.state.value}
         showError={this.props.showError}
+        errorDisplayMode={"inline"}
         isRequired={this.props.isRequired}
         onChange={this.handleChangeEventGlobal}
         max={this.props.schema.maximum}

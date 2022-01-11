@@ -18,6 +18,7 @@ export default class IntegerField extends UpFormControl<number, {}> {
         name={this.props.name}
         value={this.state.value}
         showError={this.props.showError}
+        errorDisplayMode={"inline"}
         decimalPlace={0}
         isRequired={this.props.isRequired}
         onChange={this.handleChangeEventGlobal}

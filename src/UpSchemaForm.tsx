@@ -50,7 +50,6 @@ export default class UpSchemaForm extends React.Component<
   > {
 
   static defaultProps = {
-    showError: true,
     initValue: null,
     withFloatingLabel: true,
     rowSpacing: 5,

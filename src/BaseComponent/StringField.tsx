@@ -24,6 +24,7 @@ export default class StringField extends UpFormControl<string, {}> {
             onChange={this.handleChangeEventGlobal}
             floatingLabel={this.props.floatingLabel}
             hasClearOption={true}
+            errorDisplayMode={"inline"}
           />
         );
       case "phone":
@@ -32,6 +33,7 @@ export default class StringField extends UpFormControl<string, {}> {
             name={this.props.name}
             value={this.state.value}
             showError={this.props.showError}
+            errorDisplayMode={"inline"}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
             readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
@@ -105,6 +107,7 @@ export default class StringField extends UpFormControl<string, {}> {
             name={this.props.name}
             value={this.state.value}
             showError={this.props.showError}
+            errorDisplayMode={"inline"}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
             readonly= {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
