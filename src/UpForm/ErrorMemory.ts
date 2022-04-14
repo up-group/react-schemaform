@@ -2,9 +2,10 @@
 
 const GUID_EMPTY =  "00000000-0000-0000-0000-000000000000" ;
 
-export function isEmpty(value: any) : boolean {
-    return value === undefined || value === null || value === "" || value === GUID_EMPTY || (Array.isArray(value) && value.length === 0) ;
+export function isFalsy(value: any) : boolean {
+    return value === undefined || value === null || value === "" || value === GUID_EMPTY || (Array.isArray(value) && value.length === 0) || value === false ;
 }
+
 
 export default class ErrorMemory {
   constructor() {}
@@ -20,11 +21,8 @@ export default class ErrorMemory {
   }
 
   get hasError(): boolean {
-    for (var node in this.memory) {
-      if (this.memory.hasOwnProperty(node) === false) {
-        continue;
-      }
-      if (!isEmpty(this.memory[node])) {
+    for (let node of Object.getOwnPropertyNames(this.memory)) {
+      if (!isFalsy(this.memory[node])) { 
         return true;
       }
     }
