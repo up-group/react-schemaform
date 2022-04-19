@@ -1,9 +1,7 @@
 ﻿import * as React from "react";
-import { JsonSchema } from "../interfaces/JsonSchema";
+import { AdditionalProps, JsonSchema } from "../interfaces/JsonSchema";
 
-import UpSchemaFormComponentSelector, {
-    PropertyViewModel
-} from "./UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector from "./UpSchemaFormComponentSelector";
 import {
     UpButton,
     UpGrid,
@@ -15,6 +13,7 @@ import {
 import { style } from 'typestyle'
 import { UpFormContextConsumer } from './UpFormContext';
 import _ = require('lodash');
+import { isFalsy } from "./ErrorMemory";
 
 export interface UpSchemaObjectProps {
     value: any;
@@ -30,7 +29,6 @@ export interface UpSchemaObjectProps {
     isRequired: boolean;
     showError: boolean;
     ignoredProperties: string[];
-    viewModels: PropertyViewModel[];
     translate: (text: string) => any;
     onSearchButtonClick?: (text: string) => any;
     isReadOnly?: (property: string) => boolean;
@@ -61,7 +59,7 @@ const getStyles = (props) => {
     });
 };
 
-function compareItems<T extends { order: number }>(a: T, b: T): number {
+function compareItems<T extends { order?: number }>(a: T, b: T): number {
     if (a.order > b.order) return 1;
     if (a.order === b.order) return 0;
     return -1;
@@ -70,7 +68,7 @@ function compareItems<T extends { order: number }>(a: T, b: T): number {
 export function manageColspan<
     T extends {
         colspan?: number;
-        order: number;
+        order?: number;
         breakAfter?: boolean;
         group?: string;
     }
@@ -115,7 +113,7 @@ export function manageColspan<
 export function groupByRow<
     T extends {
         colspan?: number;
-        order: number;
+        order?: number;
         isSeparator?: boolean;
         group?: string;
     }
@@ -153,6 +151,13 @@ export default class UpSchemaObject extends React.Component<
         );
     }
 
+    private isHiddenProperty(propertyName: string): boolean {
+        let property = this.props.schema.properties[propertyName]
+        let isHidden = property.hide === true || (this.props.hideEmptyTitle && isFalsy(property.title))
+        let isIgnored = this.isIgnored(propertyName) ;
+        return isIgnored || isHidden ;
+    }
+
     convertValueFromStringToInt = (value, schema, componentType) => {
         if (value == null) return null;
         const indexOfEnumValue = schema.enumNames.indexOf(value);
@@ -163,69 +168,30 @@ export default class UpSchemaObject extends React.Component<
     }
 
     render() {
+        let properties = {...this.props.schema.properties} ;
+        let propertiesToShow : { [property: string] : JsonSchema } = {} ;
 
-        let viewModels =
-            (!_.isEmpty(this.props.viewModels)
-                ? this.props.viewModels
-                : this.props.schema["viewModels"]) || [];
+        Object.keys(properties)
+            .filter(key => !this.isHiddenProperty(key))
+            .forEach(key => {
+                propertiesToShow[key] = {...properties[key]};
+            })
 
-        Object.keys(viewModels).forEach(
+        // Set the order as for the one specified in the properties definition
+        Object.keys(propertiesToShow).forEach(
             (key, index, array) => {
-             if(viewModels[key].order == null) {
-                viewModels[key].order = index+1;
-             }
+            if(propertiesToShow[key]["order"] == null)
+                propertiesToShow[key]["order"] = array.length + 1 + index;
+        })
+
+        let inferViewModels = Object.keys(propertiesToShow)
+            .map(key => {
+                return {
+                    ...properties[key],
+                    name: key,
+                    colspan: properties[key].colspan || this.props.defaultColspan,
+                }
         });
-
-        Object.keys(this.props.schema.properties).forEach(
-            (key, index, array) => {
-                const viewModel = viewModels.find(elt => elt.name === key);
-                if (viewModel) {
-                    this.props.schema.properties[key]["order"] = viewModel.order;
-                } else {
-                    this.props.schema.properties[key]["order"] = array.length + index;
-                }
-            }
-        );
-
-        let inferViewModels: {
-            name: string;
-            colspan: number;
-            order: number;
-            group: string;
-            breakAfter?: boolean;
-        }[] = viewModels
-            .filter(
-                (a) =>
-                    !this.isIgnored(a.name) &&
-                    this.props.schema.properties[a.name] &&
-                    !this.props.schema.properties[a.name].hide
-            )
-            .map((vm) => ({
-                ...vm,
-                order: this.props.schema.properties[vm.name]["order"],
-                group: this.props.schema.properties[vm.name]["group"],
-                colspan: vm.colspan || this.props.defaultColspan,
-                breakAfter : vm.breakAfter
-            }));
-
-        Object.keys(this.props.schema.properties)
-            .filter((a) =>
-                !this.isIgnored(a) &&
-                !this.props.schema.properties[a].hide &&
-                (this.props.hideEmptyTitle
-                    ? this.props.schema.properties[a].title
-                    : true)
-            )
-            .forEach((a) => {
-                if (!viewModels.some((pc) => pc.name === a)) {
-                    inferViewModels.push({
-                        colspan: this.props.defaultColspan,
-                        name: a,
-                        order: inferViewModels.length,
-                        group: this.props.schema.properties[a]["group"],
-                    });
-                }
-            });
 
         inferViewModels = inferViewModels.sort(compareItems);
 
@@ -251,52 +217,54 @@ export default class UpSchemaObject extends React.Component<
         let elements = {};
         let elementsAdvanced = [];
 
-        for (let propertyName in this.props.schema.properties) {
-            if (this.props.schema.properties.hasOwnProperty(propertyName)) {
-                const property = this.props.schema.properties[propertyName];
+        let propertiesNames = Object.getOwnPropertyNames(propertiesToShow) ;
+        for (let propertyName of propertiesNames) {
+            const property = propertiesToShow[propertyName];
 
-                if (this.isIgnored(propertyName) || property.hide) continue;
+            const value = this.props.value == null ? null : this.props.value[propertyName];
 
-                const value = this.props.value == null ? null : this.props.value[propertyName];
-                const { additionalProps: { componentType = undefined } = {} } = this.props.viewModels.find(viewModel => viewModel.name === propertyName) || {};
-                const parsedValue = property.format == 'enum' ? this.convertValueFromStringToInt(value, property, componentType) : value;
+            const additionalProps = property.props ;
+            let componentType = null ;
+            if(additionalProps && typeof additionalProps !== "string") {
+                componentType = additionalProps.componentType ;
+            }
             
-                let fieldStyle : React.CSSProperties = {
-                    display: property.hide === true ? "none" : "block"
-                }
+            const parsedValue = property.format == 'enum' ? this.convertValueFromStringToInt(value, property, componentType) : value;
+        
+            let fieldStyle : React.CSSProperties = {
+                display: property.hide === true ? "none" : "block"
+            }
 
-                if(this.props.rowMinHeight) {
-                    fieldStyle = {...fieldStyle, minHeight: `${this.props.rowMinHeight}px`}
-                }
+            if(this.props.rowMinHeight) {
+                fieldStyle = {...fieldStyle, minHeight: `${this.props.rowMinHeight}px`}
+            }
 
-                let element = (
-                    <div
-                        style={fieldStyle}
-                    >
-                        <UpSchemaFormComponentSelector
-                            value={parsedValue ? parsedValue : value}
-                            values={this.props.value}
-                            name={propertyName}
-                            showError={this.props.showError}
-                            isRequired={this.isRequired(propertyName)}
-                            key={propertyName}
-                            schema={property}
-                            node={this.props.node + "." + propertyName}
-                            onChange={this.props.onChange}
-                            ignoredProperties={this.props.ignoredProperties}
-                            viewModels={inferViewModels}
-                            translate={this.props.translate}
-                            onSearchButtonClick={this.props.onSearchButtonClick}
-                            isReadOnly={this.props.isReadOnly}
-                        />
-                    </div>
-                );
+            let element = (
+                <div
+                    style={fieldStyle}
+                >
+                    <UpSchemaFormComponentSelector
+                        value={parsedValue ? parsedValue : value}
+                        values={this.props.value}
+                        name={propertyName}
+                        showError={this.props.showError}
+                        isRequired={this.isRequired(propertyName)}
+                        key={propertyName}
+                        schema={property}
+                        node={this.props.node + "." + propertyName}
+                        onChange={this.props.onChange}
+                        ignoredProperties={this.props.ignoredProperties}
+                        translate={this.props.translate}
+                        onSearchButtonClick={this.props.onSearchButtonClick}
+                        isReadOnly={this.props.isReadOnly}
+                    />
+                </div>
+            );
 
-                if (property.advanced === true) {
-                    elementsAdvanced.push(element);
-                } else {
-                    elements[propertyName] = element;
-                }
+            if (property.advanced === true) {
+                elementsAdvanced.push(element);
+            } else {
+                elements[propertyName] = element;
             }
         }
 

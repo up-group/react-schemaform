@@ -2,14 +2,11 @@
 /// <reference path="./interfaces/UpReactComponent.ts"/>
 
 import * as React from "react";
-import UpSchemaFormComponentSelector, {
-  PropertyViewModel
-} from "./UpForm/UpSchemaFormComponentSelector";
+import UpSchemaFormComponentSelector from "./UpForm/UpSchemaFormComponentSelector";
 import ErrorMemory from "./UpForm/ErrorMemory";
 import JsonSchemaHelper from "./helper/JsonSchemaHelper";
-import { JsonSchema } from "./interfaces/JsonSchema";
+import { AdditionalProps, JsonSchema } from "./interfaces/JsonSchema";
 import { UpPanel } from "@up-group-ui/react-controls";
-import * as moment from "moment";
 import * as _ from "lodash";
 import * as classnames from "classnames";
 import {style} from "typestyle";
@@ -31,7 +28,6 @@ export interface UpSchemaFormProps {
   showError: boolean;
   ignoredProperties?: string[];
   wrapperClassName?: string;
-  viewModels?: PropertyViewModel[];
   translate?: (text: string) => any;
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
@@ -118,7 +114,6 @@ export default class UpSchemaForm extends React.Component<
           onChange={this.onChange}
           showError={this.props.showError}
           ignoredProperties={this.props.ignoredProperties}
-          viewModels={this.props.viewModels}
           translate={this.props.translate}
           onSearchButtonClick={this.props.onSearchButtonClick}
           isReadOnly = {this.props.isReadOnly? (name) => this.props.isReadOnly(name, value): ()=>false}
@@ -210,10 +205,11 @@ export default class UpSchemaForm extends React.Component<
     if(dateInputsLength > 2) {
       _.keys(schemaProperties).forEach( property => {
         if(schemaProperties[property] && schemaProperties[property].format == 'date') {
+          let schemaProperty = schemaProperties[property] ;
 
           if (this.state.data.hasOwnProperty(property)) {
-            const viewModelProperty = this.props.viewModels.find(model => model.name == property);
-            const { caseOf, isRelatedTo : relatedDate } = viewModelProperty?.additionalProps || {};
+            
+            const { caseOf, isRelatedTo : relatedDate } = schemaProperty.props as AdditionalProps || {};
 
             if(caseOf && relatedDate && schema.properties[relatedDate] && caseOf == 'start_date') {
               schemaProperties[relatedDate].minimum = this.state.data[property] ? this.state.data[property].format() : '';

@@ -4,17 +4,8 @@ import UpSchemaArray from "./UpSchemaArray";
 import UpSchemaObject from "./UpSchemaObject";
 import ComponentRegistery from "./ComponentRegistery";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";
-import { JsonSchema } from "../interfaces/JsonSchema";
+import { AdditionalProps, JsonSchema } from "../interfaces/JsonSchema";
 import { UpFormContextConsumer } from './UpFormContext';
-
-export interface PropertyViewModel {
-    order: number;
-    colspan?: number;
-    component?: string;
-    name?: string;
-    breakAfter?: boolean;
-    additionalProps?: { [key: string]: any };
-}
 
 export interface UpSchemaFormComponentSelectorProps {
     value: any;
@@ -31,7 +22,6 @@ export interface UpSchemaFormComponentSelectorProps {
     isRequired: boolean;
     showError: boolean;
     ignoredProperties?: string[];
-    viewModels: PropertyViewModel[];
     translate: (text: string) => any;
     onSearchButtonClick?: (text: string) => any;
     isReadOnly?: (property: string) => boolean;
@@ -72,8 +62,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
 
         let { withFloatingLabel, type, defaultColspan, rowMinHeight } = parametersForm
         const floatingLabel = withFloatingLabel && this.props.schema.title
-        const viewModel = this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
-        const additionalProps = (viewModel && viewModel.additionalProps) || {};
+        const additionalProps = this.props.schema?.props as object || {} ;
 
         const { format } = this.props.schema;
 
@@ -102,7 +91,6 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         node={this.props.node}
                         onChange={this.props.onChange}
                         ignoredProperties={this.props.ignoredProperties}
-                        viewModels={this.props.viewModels}
                         translate={this.props.translate}
                         onSearchButtonClick={this.props.onSearchButtonClick}
                         isReadOnly={this.props.isReadOnly}
@@ -170,9 +158,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
 
         const type = JsonSchemaHelper.getBaseType(this.props.schema);
         const format = this.props.schema.format || (this.props.schema.items && this.props.schema.items['format']);
-
-        const viewModel = this.props.name && this.props.viewModels && this.props.viewModels.find(viewModel => viewModel.name == this.props.name);
-        const { componentType } = (viewModel && viewModel.additionalProps) || {};
+        const { componentType } = this.props.schema?.props as AdditionalProps || {};
 
         return (
             <UpFormContextConsumer>

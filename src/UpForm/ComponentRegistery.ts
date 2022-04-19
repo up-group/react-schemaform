@@ -167,7 +167,6 @@ import UploadField from "../BaseComponent/UploadField";
 import MonthField from "../BaseComponent/MonthField";
 import EnumInlineField from "../BaseComponent/EnumInlineField";
 import RadioField from '../BaseComponent/RadioField';
-import { PropertyViewModel } from './UpSchemaFormComponentSelector';
 
 ComponentRegistery.Register("UpNumber", "number", null, NumberField);
 ComponentRegistery.Register("String", "string", null, StringField);

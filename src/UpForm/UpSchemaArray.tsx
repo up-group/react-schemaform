@@ -118,7 +118,6 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
                             node={''}
                             onChange={() => null}
                             ignoredProperties={this.props.ignoredProperties}
-                            viewModels={[]}
                             translate={this.props.translate}
                             onSearchButtonClick={this.props.onSearchButtonClick}
                             isReadOnly={this.props.isReadOnly}

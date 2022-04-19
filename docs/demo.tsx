@@ -2,22 +2,15 @@
 import * as ReactDOM from "react-dom";
 import UpSchemaForm from "../src/UpSchemaForm";
 import {
-    UpNumber,
     UpThemeProvider,
-    UpThemeInterface,
     UpDefaultTheme
 } from "@up-group-ui/react-controls";
 
-import axios, { AxiosResponse } from "axios";
-
-import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
 
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
-import { JsonSchemaHelper } from "../src";
 import { style } from "typestyle";
-import { PropertyViewModel } from "../src/UpForm/UpSchemaFormComponentSelector";
 
 //ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-07.json"));
 
@@ -85,6 +78,12 @@ const schema = {
             title: "Email",
             type: ["string", "null"],
             default: null,
+            additionalProps: {
+                validation : [{
+                    pattern: /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    errorMessage: 'Le champ doit être un courriel'
+               }]
+            }
         },
         phone: {
             title: "Phone",
@@ -104,6 +103,14 @@ const schema = {
             items: {
                 title: "Jours du mois",
                 type: "integer"
+            },
+            additionalProps: {
+                maxValue: 31,
+                minValue: 1,
+                maxNumberOfValue: 4,
+                preffixText: 'Le ',
+                suffixText: ' du mois',
+                itemWidth: '70px'
             }
         },
         active: {
@@ -119,7 +126,10 @@ const schema = {
             type: "integer",
             default: 1,
             format: "enum",
-            enum: [1, 2]
+            enum: [1, 2],
+            additionalProps: {
+                componentType: "Radio"
+            }
         },
         multipleRadioDescription: {
             title: "Commerçants trouvés",
@@ -159,6 +169,12 @@ const schema = {
                         title: "source",
                         hide: true
                     }
+                },
+                additionalProps: {
+                    componentType: "Radio",
+                    multipleDescriptionLabels: "true",
+                    displayMode: "large",
+                    alignMode: "horizontal"
                 }
             },
             entitySource: { 
@@ -205,24 +221,40 @@ const schema = {
             type: ["string", "null"],
             default: null,
             format: "date",
+            additionalProps: {
+                caseOf : "start_date",
+                isRelatedTo : "arrival_date"
+            }
         },
         arrival_date: {
             title: "Date d'arrivée",
             type: ["string", "null"],
             default: null,
             format: "date",
+            additionalProps: {
+                caseOf : "end_date",
+                isRelatedTo : "departure_date"
+            }
         },
         creation_date: {
             title: "Date de création",
             type: ["string", "null"],
             default: null,
             format: "date",
+            additionalProps: {
+                caseOf : "start_date",
+                isRelatedTo : "expiration_date"
+            }
         },
         expiration_date: {
             title: "Date d'expiration",
             type: ["string", "null"],
             default: null,
             format: "date",
+            additionalProps: {
+                caseOf : "end_date",
+                isRelatedTo : "creation_date"
+            }
         },
 
         roles: {
@@ -251,84 +283,7 @@ const schema = {
                 "Mandatary"
             ]
         }
-    },
-    viewModels: [
-        {
-            name: "number",
-            additionalProps: {
-                maxValue: 31,
-                minValue: 1,
-                maxNumberOfValue: 4,
-                preffixText: 'Le ',
-                suffixText: ' du mois',
-                itemWidth: '70px'
-            },
-        },
-        {
-            name: "frequency_of_payment",
-            additionalProps: {
-                componentType: "Radio"
-            }
-        },
-        {
-            name: "multipleRadioDescription",
-            additionalProps: {
-                componentType: "Radio",
-                multipleDescriptionLabels: "true",
-                displayMode: "large",
-                alignMode: "horizontal"
-            }
-        },
-        {
-            name: "start_date",
-            additionalProps: {
-                minDate: "today"
-            }
-        },
-        {
-            name: "end_date",
-            additionalProps: {
-                minDate: "today"
-            }
-        },
-        {
-            name: "departure_date",
-            additionalProps: {
-                caseOf : "start_date",
-                isRelatedTo : "arrival_date"
-            }
-        },
-        {
-            name: "arrival_date",
-            additionalProps: {
-                caseOf : "end_date",
-                isRelatedTo : "departure_date"
-            }
-        },
-        {
-            name: "creation_date",
-            additionalProps: {
-                caseOf : "start_date",
-                isRelatedTo : "expiration_date"
-            }
-        },
-        {
-            name: "expiration_date",
-            additionalProps: {
-                caseOf : "end_date",
-                isRelatedTo : "creation_date"
-            }
-        },
-        {
-            name: "email",
-            additionalProps: {
-                validation : [{
-                    pattern: /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    errorMessage: 'Le champ doit être un courriel'
-               }]
-            }
-        }
-    ],
+    }
 }
 
 class Demo extends React.Component<{}, DemoState> {
@@ -364,7 +319,6 @@ class Demo extends React.Component<{}, DemoState> {
                             padding: "10px"
                         })}
                         withFloatingLabel={true}
-                        viewModels={this.state.schema.viewModels}
                         translate={text => {
                             if (text === "Authorized") return "Authorisée";
                             return text;

@@ -89,4 +89,12 @@ export interface JsonSchema {
   idKey?: string;
   textKey?: string;
   groupingInfo?: { [key: string]: any };
+  
+  colspan?: number;
+  component?: string;
+  breakAfter?: boolean;
+  props?: { [key: string]: any } | string;
+  name?: string;
 }
+
+export type AdditionalProps = { [key: string]: any } ;

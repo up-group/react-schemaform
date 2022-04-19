@@ -1,3 +1,6 @@
+# React-Schemaform (version: 0.1.167)
+## Main changes
+- Remove viewModels
 # React-Schemaform (version: 0.1.166)
 ## Main changes
 - Update react-controls (0.2.174)
