@@ -187,9 +187,9 @@ export default class UpSchemaObject extends React.Component<
         let inferViewModels = Object.keys(propertiesToShow)
             .map(key => {
                 return {
-                    ...properties[key],
+                    ...propertiesToShow[key],
                     name: key,
-                    colspan: properties[key].colspan || this.props.defaultColspan,
+                    colspan: propertiesToShow[key].colspan || this.props.defaultColspan,
                 }
         });
 

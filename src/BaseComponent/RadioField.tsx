@@ -71,11 +71,18 @@ export default class RadioField extends UpFormControl<number, {}> {
     }
 
     renderField() {
-        const { name, additionalProps: { alignMode, displayMode, nbItemsPerRow }, isReadOnly } = this.props;
+        const { name, additionalProps: { alignMode, displayMode, nbItemsPerRow }} = this.props;
         const { value } = this.state;
         
         if(this.state.extra.isDataFetching) {
             return <UpLoadingIndicator isLoading={true} />
+        }
+
+        let isReadOnly = false ;
+        try {
+            isReadOnly = this.props.isReadOnly && this.props.isReadOnly(this.props.name)
+        } catch (e) {
+            console.error(e) ;
         }
 
         return (
@@ -88,7 +95,7 @@ export default class RadioField extends UpFormControl<number, {}> {
                 onChange={this.handleChangeEventGlobal}
                 options={this.setOptions()}
                 displayMode={displayMode ? displayMode : 'normal'}
-                readonly = {isReadOnly && isReadOnly(this.props.name)}
+                readonly = {isReadOnly}
                 nbItemsPerRow={nbItemsPerRow}
             />
         )

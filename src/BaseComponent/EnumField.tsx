@@ -67,6 +67,13 @@ export default class EnumField extends UpFormControl<number | string |  number[]
       }
     }
 
+    let isReadOnly = false ;
+    try {
+        isReadOnly = this.props.isReadOnly && this.props.isReadOnly(this.props.name)
+    } catch (e) {
+        console.error(e) ;
+    }
+
     return (
       <UpSelect
         name={this.props.name}
@@ -77,7 +84,7 @@ export default class EnumField extends UpFormControl<number | string |  number[]
         returnType="id"
         isRequired={this.props.isRequired}
         minimumInputLength={0}
-        disabled={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        disabled={isReadOnly}
         placeholder="Recherche"
         multiple={this.isArray || this.props.multiple}
         allowClear={!this.props.isRequired}

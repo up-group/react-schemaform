@@ -11,7 +11,14 @@ export default class StringField extends UpFormControl<string, {}> {
  
   renderField() {
     const { objectStyles, ...restProps } = this.props.additionalProps;
-    
+
+    let isReadOnly = false ;
+    try {
+      isReadOnly = this.props.isReadOnly && this.props.isReadOnly(this.props.name)
+    } catch (e) {
+      console.error(e) ;
+    }
+
     switch (this.props.schema.format) {
       case "email":
         return (
@@ -20,7 +27,7 @@ export default class StringField extends UpFormControl<string, {}> {
             value={this.state.value}
             showError={this.props.showError}
             isRequired={this.props.isRequired}
-            readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly={isReadOnly}
             onChange={this.handleChangeEventGlobal}
             floatingLabel={this.props.floatingLabel}
             hasClearOption={true}
@@ -36,7 +43,7 @@ export default class StringField extends UpFormControl<string, {}> {
             errorDisplayMode={"inline"}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
-            readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly={isReadOnly}
             floatingLabel={this.props.floatingLabel}
           />
         );
@@ -47,7 +54,7 @@ export default class StringField extends UpFormControl<string, {}> {
             value={this.state.value}
             showError={this.props.showError}
             isRequired={this.props.isRequired}
-            readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly={isReadOnly}
             onChange={this.handleChangeEventGlobal}
           />
         );
@@ -95,9 +102,15 @@ export default class StringField extends UpFormControl<string, {}> {
             <UpButton
               intent="primary"
               actionType="search"
-              onClick={(e: any) => this.props.onSearchButtonClick && this.props.onSearchButtonClick(e.target.value)}>
+              onClick={(e: any) => {
+                try {
+                  return this.props.onSearchButtonClick && this.props.onSearchButtonClick(e.target.value)
+                } catch (e) {
+                  console.error(e) ;
+                }
+              }}>
               Rechercher
-          </UpButton>
+            </UpButton>
           </div>
         );
       default:
@@ -110,7 +123,7 @@ export default class StringField extends UpFormControl<string, {}> {
             errorDisplayMode={"inline"}
             isRequired={this.props.isRequired}
             onChange={this.handleChangeEventGlobal}
-            readonly= {this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+            readonly= {isReadOnly}
             floatingLabel={this.props.floatingLabel}
             hasClearOption={true}
             {...restProps}

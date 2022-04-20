@@ -34,6 +34,13 @@ export default class DateField extends UpFormControl<Moment, {}> {
       minDate = (_.isEmpty(this.props.schema.minimum) && minDateProp) ? minDateProp : new Date(this.props.schema.minimum);
     }
 
+    let isReadOnly = false ;
+    try {
+        isReadOnly = this.props.isReadOnly && this.props.isReadOnly(this.props.name)
+    } catch (e) {
+        console.error(e) ;
+    }
+
     return (
       <UpDate
         name={this.props.name}
@@ -45,7 +52,7 @@ export default class DateField extends UpFormControl<Moment, {}> {
         minDate={minDate || minDateProp}
         onChange={this.handleChangeEventGlobal}
         floatingLabel={this.props.floatingLabel}
-        readonly={this.props.isReadOnly && this.props.isReadOnly(this.props.name)}
+        readonly={isReadOnly}
         fullWidth = {fullWidth}
       />
     ); 

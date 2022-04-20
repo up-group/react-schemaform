@@ -116,7 +116,7 @@ export default class UpSchemaForm extends React.Component<
           ignoredProperties={this.props.ignoredProperties}
           translate={this.props.translate}
           onSearchButtonClick={this.props.onSearchButtonClick}
-          isReadOnly = {this.props.isReadOnly? (name) => this.props.isReadOnly(name, value): ()=>false}
+          isReadOnly = {this.props.isReadOnly ? (name) => this.props.isReadOnly(name, value): () =>false}
         />
         {this.props.children}
       </div>
