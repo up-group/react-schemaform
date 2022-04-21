@@ -137,6 +137,11 @@ export default class UpSchemaObject extends React.Component<
     UpSchemaObjectProps,
     UpSchemaObjectState
     > {
+
+    public static defaultProps: Partial<UpSchemaObjectProps> = {
+        hideEmptyTitle : true
+    }
+
     constructor(p, c) {
         super(p, c);
         this.state = {
