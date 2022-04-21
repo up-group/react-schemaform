@@ -94,6 +94,7 @@ export interface JsonSchema {
   component?: string;
   breakAfter?: boolean;
   props?: { [key: string]: any } | string;
+  from?: string;
   name?: string;
 }
 
