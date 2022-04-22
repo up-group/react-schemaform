@@ -8,7 +8,7 @@ import JsonSchemaHelper from "./helper/JsonSchemaHelper";
 import { AdditionalProps, JsonSchema } from "./interfaces/JsonSchema";
 import { UpPanel } from "@up-group-ui/react-controls";
 import * as _ from "lodash";
-import * as classnames from "classnames";
+import classnames from "classnames";
 import {style} from "typestyle";
 import { UpFormContextProvider } from './UpForm/UpFormContext';
 

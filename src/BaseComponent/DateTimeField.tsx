@@ -1,21 +1,19 @@
-﻿import * as $ from "jquery";
-import * as React from "react";
+﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
-import { UpDate, UpTimePicker } from "@up-group-ui/react-controls";
+import { UpDate } from "@up-group-ui/react-controls";
 
-import { Moment } from "moment";
-import * as moment from "moment";
+import moment from "moment";
 import _ = require('lodash');
 
 const MIN_DATE_TIME = "0001-01-01T00:00:00";
 
-export default class DateTimeField extends UpFormControl<Moment, {}> {
+export default class DateTimeField extends UpFormControl<moment.Moment, {}> {
   inputElementGroup: HTMLDivElement;
   constructor(p, c) {
     super(p, c);
   }
 
-  get currentValue(): Moment {
+  get currentValue(): moment.Moment {
     if (this.state.value && this.state.value.toString() == MIN_DATE_TIME) {
       return undefined;
     }

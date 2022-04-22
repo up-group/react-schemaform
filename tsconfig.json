@@ -10,6 +10,7 @@
     "outDir": "dist/",
     "allowUnreachableCode": false,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "baseUrl": ".", 
     "paths": {
