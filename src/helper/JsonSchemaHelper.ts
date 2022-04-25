@@ -41,11 +41,28 @@ export default class JsonSchemaHelper {
       }
 
       if (data[index] != null && data[index]["$ref"] !== undefined) {
-        data[index] = {...data[index], ...this.getFromDefinition(
+        let definition = this.getFromDefinition(
           data[index]["$ref"],
           originalDefinitions,
           flattenedDefinitions
-        )};
+        );
+
+        if(data[index]['properties']) {
+          data[index]["type"] =   data[index]["type"] || definition['type'] ;
+          let propertiesNames = Object.getOwnPropertyNames(data[index]['properties']) ;
+          for(let propertyName of propertiesNames) {
+            data[index]['properties'][propertyName] = { ...definition['properties'][propertyName], ...data[index]['properties'][propertyName] }
+          }
+        } else if (data[index]['items'] && data[index]['items']['properties']) {
+            data[index]["type"] =   data[index]["type"] || definition['type'] ;
+            let propertiesNames = Object.getOwnPropertyNames(data[index]['items']['properties']) ;
+            for(let propertyName of propertiesNames) {
+              data[index]['items']['properties'][propertyName] = { ...definition['items']['properties'][propertyName], ...data[index]['items']['properties'][propertyName] }
+            }
+        } else {
+          data[index] = {...data[index], ...definition};
+        }
+
         delete data[index]["$ref"];
       } else if (typeof data[index] !== "string") {
         this.flat(data[index], originalDefinitions, flattenedDefinitions);
