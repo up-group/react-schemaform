@@ -1,11 +1,8 @@
 const webpack = require("webpack");
-const path = require("path");
-const os = require("os");
 
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
 
@@ -49,7 +46,6 @@ module.exports = {
             title: "Up - Schéma Form Démo",
             template: "docs/index.html"
         }),
-        new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new ForkTsCheckerWebpackPlugin({
             checkSyntacticErrors: true

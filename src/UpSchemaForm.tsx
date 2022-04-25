@@ -20,7 +20,7 @@ interface UpdateRule {
   handler: ShouldApplyUpdateRulePolicy
 }
 
-export interface UpSchemaFormProps {
+export interface UpSchemaFormProps  {
   initValue?: any;
   value?: any;
   schema: string | JsonSchema;
@@ -41,7 +41,7 @@ export interface UpSchemaFormProps {
 }
 
 export default class UpSchemaForm extends React.Component<
-  UpSchemaFormProps,
+  React.PropsWithChildren<UpSchemaFormProps>,
   {data: any}
   > {
 

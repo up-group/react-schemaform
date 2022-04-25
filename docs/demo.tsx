@@ -308,48 +308,35 @@ class Demo extends React.Component<{}, DemoState> {
     render() {
         return (
             <UpThemeProvider theme={UpDefaultTheme}>
-                <>
-                    <UpSchemaForm
-                        initValue={this.state.dataS}
-                        value={this.state.dataS}
-                        showError={this.state.showError}
-                        schema={this.state.schema}
-                        onFormChange={this.onFormPayload}
-                        wrapperClassName={style({
-                            padding: "10px"
-                        })}
-                        withFloatingLabel={true}
-                        translate={text => {
-                            if (text === "Authorized") return "Authorisée";
-                            return text;
-                        }}
-                        updateRules={[{
-                            targetField: "data_type",
-                            trackedField: "search",
-                            handler: (value: any) => {
-                                if (value.length === 14)
-                                    return { type: 2 };
-                                return { type: 3 };
-                            }
-                        }]}
-                        gutter={10}
-                        rowSpacing={25}
-                        defaultColspan={8}
+                <UpSchemaForm
+                    initValue={this.state.dataS}
+                    value={this.state.dataS}
+                    showError={this.state.showError}
+                    schema={this.state.schema}
+                    onFormChange={this.onFormPayload}
+                    wrapperClassName={style({
+                        padding: "10px"
+                    })}
+                    withFloatingLabel={true}
+                    translate={text => {
+                        if (text === "Authorized") return "Authorisée";
+                        return text;
+                    }}
+                    updateRules={[{
+                        targetField: "data_type",
+                        trackedField: "search",
+                        handler: (value: any) => {
+                            if (value.length === 14)
+                                return { type: 2 };
+                            return { type: 3 };
+                        }
+                    }]}
+                    gutter={10}
+                    rowSpacing={25}
+                    defaultColspan={8}
 
-                    //ignoredProperties={["pagination_properties"]}
-                    />
-                    <button onClick={(e: any) => this.setState({ dataS: {} })}>Reset</button>
-                    <JSONInput
-                        id="a_unique_id"
-                        placeholder={this.state.schema}
-                        locale={locale}
-                        theme="light_mitsuketa_tribute"
-                        colors={{
-                            string: "#DAA520" // overrides theme colors with whatever color value you want
-                        }}
-                        onChange={this.onSchemaChange}
-                    />
-                </>
+                //ignoredProperties={["pagination_properties"]}
+                />
             </UpThemeProvider>
         );
     }
