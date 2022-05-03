@@ -31,7 +31,7 @@ export interface UpSchemaFormProps {
   translate?: (text: string) => any;
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
-  isReadOnly?: (property:string,data) => boolean;
+  isReadOnly?: (property:string, data: unknown) => boolean;
   withFloatingLabel?: boolean,
   rowSpacing?:number,
   gutter?:number,
