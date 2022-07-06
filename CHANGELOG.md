@@ -1,3 +1,6 @@
+# React-Schemaform (version: 0.1.180)
+## Main changes
+- Add props displayIfEmpty in JSONShcema
 # React-Schemaform (version: 0.1.179)
 ## Main changes
 - Update react-controls (0.2.183)
