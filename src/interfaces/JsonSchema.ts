@@ -96,6 +96,7 @@ export interface JsonSchema {
   props?: { [key: string]: any } | string;
   from?: string;
   name?: string;
+  displayIfEmpty?:boolean;
 }
 
 export type AdditionalProps = { [key: string]: any } ;
