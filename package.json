@@ -1,6 +1,6 @@
 {
   "name": "@up-group-ui/react-schemaform",
-  "version": "0.1.197",
+  "version": "0.1.198",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@up-group-ui/react-controls": "^0.2.215",
+    "@up-group-ui/react-controls": "0.2.214",
     "ajv": "^6.10.0",
     "bootstrap3": "^3.3.5",
     "brace": "^0.11.1",
