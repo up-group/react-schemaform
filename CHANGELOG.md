@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.204)
+## Bugs Fixes
+
+- Fix group by rows
+
 # React-Schemaform (version: 0.1.203)
 ## Main changes
 
