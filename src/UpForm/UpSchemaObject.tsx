@@ -74,9 +74,10 @@ export function manageColspan<
     }
 >(items: T[], defaultColspan: number, group?: string) {
     let usedColSpan = 0;
+    const spanLimit = 24;
     return items.sort(compareItems).reduce((rows, viewModel) => {
         let colspan = 0;
-        const spanLimit = 24;
+        
         if (group) {
             viewModel.group = group === "undefined" ? "Autre" : group;
         }
@@ -103,7 +104,7 @@ export function manageColspan<
         if (viewModel.breakAfter) {
             currentRow = [];
             rows.push(currentRow);
-            usedColSpan = colspan;
+            usedColSpan = 0;
         }
 
         return rows;
@@ -122,14 +123,14 @@ export function groupByRow<
 
     if (!_.isUndefined(oneGroupAtLeast)) {
         const groupedByGroup = _.groupBy(items, "group");
-
-        const managedGroup = _.forIn(groupedByGroup, (values, key) => {
-            manageColspan(values, defaultColspan, key);
+        _.forIn(groupedByGroup, (values, key) => {
+            values.forEach(value => {
+                value.group = key === "undefined" ? "Autre" : key;
+            });
         });
-        return _.values(managedGroup);
+        return _.values(groupedByGroup);
     } else {
-        const rows = manageColspan(items, defaultColspan);
-        return rows;
+        return manageColspan(items, defaultColspan);
     }
 }
 
