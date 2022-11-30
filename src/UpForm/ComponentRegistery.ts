@@ -167,6 +167,7 @@ import UploadField from "../BaseComponent/UploadField";
 import MonthField from "../BaseComponent/MonthField";
 import EnumInlineField from "../BaseComponent/EnumInlineField";
 import RadioField from '../BaseComponent/RadioField';
+import TagsSelect from "../BaseComponent/TagsSelect";
 
 ComponentRegistery.Register("UpNumber", "number", null, NumberField);
 ComponentRegistery.Register("String", "string", null, StringField);
@@ -176,6 +177,7 @@ ComponentRegistery.Register("Time", null, "time", TimeField);
 ComponentRegistery.Register("Integer", "integer", null, IntegerField);
 ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
 ComponentRegistery.Register("Radio", null, "radio", RadioField);
+ComponentRegistery.Register("TagsSelect", null, "tags-select", TagsSelect);
 
 ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
 ComponentRegistery.Register("EnumInline", null, "enumInline", EnumInlineField, true);
