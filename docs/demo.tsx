@@ -256,7 +256,6 @@ const schema = {
                 isRelatedTo : "creation_date"
             }
         },
-
         roles: {
             format: "enum",
             title: "Selection multiple",
@@ -274,6 +273,32 @@ const schema = {
                 "Facturation",
                 "Décideur",
                 "Mandataire"
+            ],
+            enumNames: [
+                "Shipping",
+                "Management",
+                "Invoicing",
+                "DecisionMaker",
+                "Mandatary"
+            ]
+        },
+        anomalies: {
+            format: "tags-select",
+            title: "Anomalies",
+            type: ["array", "null"],
+            enum: [
+                "1",
+                "2",
+                "4",
+                "8",
+                "16"
+            ],
+            enumDescriptions: [
+                "A 1",
+                "A 2",
+                "A 3",
+                "A 4",
+                "A 5"
             ],
             enumNames: [
                 "Shipping",
@@ -362,6 +387,7 @@ class Demo extends React.Component<{}, DemoState> {
 
     onFormPayload = (e, hasError: boolean) => {
         this.setState({ dataS: e });
+        console.log(e);
     };
 }
 
