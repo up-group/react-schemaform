@@ -177,10 +177,11 @@ ComponentRegistery.Register("Time", null, "time", TimeField);
 ComponentRegistery.Register("Integer", "integer", null, IntegerField);
 ComponentRegistery.Register("Boolean", "boolean", null, BooleanField);
 ComponentRegistery.Register("Radio", null, "radio", RadioField);
-ComponentRegistery.Register("TagsSelect", null, "tags-select", TagsSelect);
 
 ComponentRegistery.Register("Entity", null, "entityKey", EntityField, true);
 ComponentRegistery.Register("EnumInline", null, "enumInline", EnumInlineField, true);
 ComponentRegistery.Register("Enum", null, "enum", EnumField, true);
 ComponentRegistery.Register("Upload", null, "upload", UploadField, false);
 ComponentRegistery.Register("Month", null, "month", MonthField, false);
+
+ComponentRegistery.Register("TagsSelect",null, "tags-select", TagsSelect, true);
