@@ -42,7 +42,7 @@ const schema = {
             $ref: "#/definitions/PaginationProperties",
             hide: true,
         },
-       
+
         establishment_id: {
             title: "Établissement",
             type: ["string", "null"],
@@ -177,7 +177,7 @@ const schema = {
                     alignMode: "horizontal"
                 }
             },
-            entitySource: { 
+            entitySource: {
                 fetchData : (args) => ( new Promise((resolve, reject) => {
                     setTimeout(() =>
                         resolve([
@@ -256,7 +256,6 @@ const schema = {
                 isRelatedTo : "creation_date"
             }
         },
-
         roles: {
             format: "enum",
             title: "Selection multiple",
@@ -282,6 +281,55 @@ const schema = {
                 "DecisionMaker",
                 "Mandatary"
             ]
+        },
+        anomalies: {
+            format: "tags-select",
+            title: "Anomalies",
+            type: "tags-select",
+            tags: [
+                {
+                    id: "1",
+                    text: "A 1",
+                    selected: false
+                },
+                {
+                    id: "2",
+                    text: "A 2",
+                    selected: false
+                },
+                {
+                    id: "4",
+                    text: "A 3",
+                    selected: false
+                },
+                {
+                    id: "8",
+                    text: "A 4",
+                    selected: false
+                },
+                {
+                    id: "16",
+                    text: "A 5",
+                    selected: false
+                },
+            ],
+            items: {
+                type: "object",
+                properties: {
+                    id: {
+                        type: "string"
+                    },
+                    text: {
+                        type: "string"
+                    },
+                    selected: {
+                        type: "boolean"
+                    }
+                }
+            },
+            props: {
+                componentType: "TagsSelect"
+            }
         }
     }
 }
@@ -362,6 +410,7 @@ class Demo extends React.Component<{}, DemoState> {
 
     onFormPayload = (e, hasError: boolean) => {
         this.setState({ dataS: e });
+        console.log(e);
     };
 }
 

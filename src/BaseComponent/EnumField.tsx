@@ -44,7 +44,7 @@ export default class EnumField extends UpFormControl<number | string |  number[]
       }
       
       if(this.isArray) {
-        return options.filter(option => (value as number[]).some(id => id == option.id)) 
+        return options.filter(option => (value as number[]).some(id => id == option.id))
       } else {
         const optionFiltered = options.find( o => o.id == value as number) ;
         return !_.isEmpty(optionFiltered) ? optionFiltered : null

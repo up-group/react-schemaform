@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+import * as React from "react";
 import ControlErrorCentral from "../ControlError/ControlErrorCentral";
 import TypeNullControl from "../ControlError/TypeNullControl";
 import JsonSchemaHelper from "../helper/JsonSchemaHelper";

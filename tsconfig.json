@@ -12,8 +12,11 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "baseUrl": ".", 
-    "lib": ["ES2020"],
+    "baseUrl": ".",
+    "lib": [
+      "ES2020",
+      "dom"
+    ],
     "paths": {
       "*": [
         "src/*"

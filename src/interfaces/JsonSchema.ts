@@ -55,6 +55,7 @@ export interface JsonSchema {
   patternProperties?: { [pattern: string]: JsonSchema };
   dependencies?: { [key: string]: JsonSchema | string[] };
   enum?: any[];
+  tags?: any[];
   type?: InternalTypeOfSchema | InternalTypeOfSchema[];
   allOf?: JsonSchema[];
   anyOf?: JsonSchema[];
@@ -89,7 +90,7 @@ export interface JsonSchema {
   idKey?: string;
   textKey?: string;
   groupingInfo?: { [key: string]: any };
-  
+
   colspan?: number;
   component?: string;
   breakAfter?: boolean;

@@ -1,32 +1,45 @@
 import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpTagsSelect } from "@up-group-ui/react-controls";
-
-export interface SelectedTagData {
-    id: string;
-    text: string;
-    selected: boolean;
-}
+import { TagData } from "@up-group-ui/react-controls/dist/Components/Display/Tag";
+import { JsonSchema } from "interfaces/JsonSchema";
 
 export interface ExtendedProps {
-    label?: string
+  label?: string;
 }
 
-export default class TagsSelect extends UpFormControl<SelectedTagData[], ExtendedProps> {
+export default class TagsSelect extends UpFormControl<
+  TagData[],
+  ExtendedProps
+> {
+  constructor(p, c) {
+    super(p, c);
+  }
 
-    constructor(p, c) {
-        super(p, c);
-    }
+  private get schema(): JsonSchema {
+    return this.props.schema as JsonSchema;
+  }
 
-    renderField() {
-        const { tags, label } = this.props;
+  renderField() {
+    const { label } = this.props;
 
-        return (
-            <UpTagsSelect
-                label={label}
-                onChange={this.handleChangeEventGlobal}
-                tags={tags}
-            />
-        )
-    }
-};
+    const tags =
+      this.schema.tags?.map(({ id, text, selected }) => ({
+        id,
+        text,
+        selected,
+      })) || [];
+
+    const handleChange = (e, data) => {
+      this.handleChangeEventGlobal(e, data);
+    };
+
+    return (
+      <>
+        {tags.length > 0 ? (
+          <UpTagsSelect label={label} onChange={handleChange} tags={tags} />
+        ) : null}
+      </>
+    );
+  }
+}
