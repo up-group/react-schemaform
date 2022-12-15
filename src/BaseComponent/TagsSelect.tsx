@@ -4,7 +4,7 @@ import { UpTagsSelect } from "@up-group-ui/react-controls";
 import { JsonSchema } from "interfaces/JsonSchema";
 import { TagData } from "@up-group-ui/react-controls/dist/Components/Display/Tag/UpTag";
 export interface ExtendedProps {
-    label?: string;
+    floatingLabel?: string;
 }
 
 export default class TagsSelect extends UpFormControl<TagData[], ExtendedProps> {
@@ -17,7 +17,7 @@ export default class TagsSelect extends UpFormControl<TagData[], ExtendedProps> 
     }
     
     renderField() {
-        const { label } = this.props;
+        const { floatingLabel } = this.props;
  
         let tags : TagData[] = [];
         for (let i = 0; i < this.schema.enum.length; i++) {
@@ -33,7 +33,7 @@ export default class TagsSelect extends UpFormControl<TagData[], ExtendedProps> 
 
         return (
             <UpTagsSelect
-                label={label}
+                label={floatingLabel}
                 onChange={this.handleChangeEventGlobal}
                 tags={tags}
             />
