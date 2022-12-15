@@ -325,7 +325,11 @@ class Demo extends React.Component<{}, DemoState> {
                 number: [1],
                 maxNumberOfValue: 4,
                 maxValue: 31,
-                minValue: 1
+                minValue: 1,
+                anomalies: [{
+                    id: "1",
+                    selected: true
+                }]
             },
         };
     }
