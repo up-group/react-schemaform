@@ -167,7 +167,7 @@ export default class UpSchemaFormComponentSelector extends React.Component<
                         isRequired={this.props.isRequired}
                         title={this.props.schema.title}
                         description={this.props.schema.description}
-                        withFloatingLabel={(type === 'string' || format === 'enum' || type == "number" || type == "integer" || format === 'entityKey') && format !== 'multilineText' && withFloatingLabel && !componentType}
+                        withFloatingLabel={(type === 'string' || format === 'enum' || type == "number" || type == "integer" || format === 'entityKey' || (type == "array" && format === "tags-select")) && format !== 'multilineText' && withFloatingLabel && !componentType}
                     >
                         {this.renderElement({ withFloatingLabel, rowMinHeight, type, defaultColspan })}
                     </UpFormGroup>
