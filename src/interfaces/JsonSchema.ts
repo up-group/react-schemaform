@@ -23,7 +23,12 @@ export type InternalFormatOfSchema =
   | "uri"
   | "search";
 
-export type ReturnType = 'id' | 'full';
+export type ReturnType = "id" | "full";
+
+export interface EnumsAuthorization {
+  role: string;
+  enum: string[];
+}
 
 export interface JsonSchema {
   $ref?: string;
@@ -72,8 +77,11 @@ export interface JsonSchema {
     queryParameterName: string;
     data?: any;
     autoload?: boolean;
-    defaultParameters?: { [key: string]: any },
-    fetchData?: (input: string, defaultParameters?: {[key : string]: string}) => Promise<any>;
+    defaultParameters?: { [key: string]: any };
+    fetchData?: (
+      input: string,
+      defaultParameters?: { [key: string]: string }
+    ) => Promise<any>;
     returnType?: ReturnType;
   };
   fileExtension?: string;
@@ -82,7 +90,9 @@ export interface JsonSchema {
   advanced?: boolean;
   order?: number;
   referenceTo?: string;
-  getEntitySelector?: (itemsSetter: (data: any, error: any) => void) => JSX.Element;
+  getEntitySelector?: (
+    itemsSetter: (data: any, error: any) => void
+  ) => JSX.Element;
   isToggle?: boolean;
   optionsSource?: () => { [key: string]: any };
   optionsSchema?: { [key: string]: any };
@@ -96,7 +106,9 @@ export interface JsonSchema {
   props?: { [key: string]: any } | string;
   from?: string;
   name?: string;
-  displayIfEmpty?:boolean;
+  displayIfEmpty?: boolean;
+
+  habilitations?: EnumsAuthorization[];
 }
 
-export type AdditionalProps = { [key: string]: any } ;
+export type AdditionalProps = { [key: string]: any };
