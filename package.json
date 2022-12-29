@@ -1,6 +1,6 @@
 {
   "name": "@up-group-ui/react-schemaform",
-  "version": "0.1.206",
+  "version": "0.1.208",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
     "start:inspect": "webpack-dev-server --config webpack.config.js --port 1338 --progress --colors --inspect-brk=18764",
     "build": "tsc",
     "publishProd": "npm version patch && npm publish --access public",
-    "publishBeta": "npm version patch && npm publish --tag beta --access public",
+    "publishBeta": "npm version patch && npm publish --tag beta --access public ; git push",
     "test": "jest --silent --no-cache --config jest.config.json",
     "test:update": "jest --silent -u --no-cache --config jest.config.json",
     "test:watch": "jest --watch --no-cache --config jest.config.json --verbose false",
@@ -30,7 +30,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@up-group-ui/react-controls": "0.2.224",
+    "@up-group-ui/react-controls": "0.2.228",
     "ajv": "^6.10.0",
     "bootstrap3": "^3.3.5",
     "brace": "^0.11.1",
@@ -43,7 +43,8 @@
     "react-addons-update": "^15.6.3",
     "react-dom": "^16.0.0",
     "react-json-editor-ajrm": "^2.5.9",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.0",
+    "typestyle": "^2.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

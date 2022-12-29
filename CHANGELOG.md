@@ -1,3 +1,15 @@
+# React-Schemaform (version: 0.1.208)
+## Main changes
+
+- Update react-controls (0.2.228)
+- Fix floating label for tags-select
+  
+# React-Schemaform (version: 0.1.207)
+## Main changes
+
+- Update react-controls (0.2.226)
+- Add TagSelect component with enum and format set to tags-select
+  
 # React-Schemaform (version: 0.1.206)
 ## Main changes
 

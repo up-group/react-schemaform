@@ -23,7 +23,7 @@ interface DemoState {
     dataS: any;
 }
 
-const schema = {
+const schema_save = {
     definitions: {
         PaginationProperties: {
             type: ["object", "null"],
@@ -256,7 +256,6 @@ const schema = {
                 isRelatedTo : "creation_date"
             }
         },
-
         roles: {
             format: "enum",
             title: "Selection multiple",
@@ -274,6 +273,105 @@ const schema = {
                 "Facturation",
                 "Décideur",
                 "Mandataire"
+            ],
+            enumNames: [
+                "Shipping",
+                "Management",
+                "Invoicing",
+                "DecisionMaker",
+                "Mandatary"
+            ]
+        },
+        anomalies: {
+            format: "tags-select",
+            title: "Anomalies",
+            type: ["array", "null"],
+            enum: [
+                "1",
+                "2",
+                "4",
+                "8",
+                "16"
+            ],
+            enumDescriptions: [
+                "A 1",
+                "A 2",
+                "A 3",
+                "A 4",
+                "A 5"
+            ],
+            enumNames: [
+                "Shipping",
+                "Management",
+                "Invoicing",
+                "DecisionMaker",
+                "Mandatary"
+            ]
+        },
+        type: {
+            format: "tags-select",
+            title: "Type",
+            type: "integer",
+            enum: [
+                "1",
+                "2",
+                "4",
+                "8",
+                "16"
+            ],
+            enumDescriptions: [
+                "Type 1",
+                "Type 2",
+                "Type 3",
+                "Type 4",
+                "Type 5"
+            ],
+            enumNames: [
+                "Shipping",
+                "Management",
+                "Invoicing",
+                "DecisionMaker",
+                "Mandatary"
+            ],
+            additionalProps: {
+                multipleSelection: false
+            }
+        }
+    }
+}
+
+const schema = {
+    definitions: {
+        PaginationProperties: {
+            type: ["object", "null"],
+            default: null,
+            properties: {
+                page_number: { type: "integer", default: 0 },
+                page_size: { type: "integer", default: 0 },
+                sort_property_name: { type: ["string", "null"], default: null },
+                sort_order: { type: ["integer", "null"], default: null },
+            },
+        },
+    },
+    type: "object",
+    properties: {
+        anomalies: {
+            format: "tags-select",
+            title: "Anomalies",
+            type: ["array", "null"],
+            enum: [
+                "1",
+                "2",
+                "4",
+                "8",
+                "16"
+            ],
+            enumDescriptions: [
+                "A 1",
+                "A 2",
+                "A 3",
+                "A 4",
+                "A 5"
             ],
             enumNames: [
                 "Shipping",
@@ -300,7 +398,18 @@ class Demo extends React.Component<{}, DemoState> {
                 number: [1],
                 maxNumberOfValue: 4,
                 maxValue: 31,
-                minValue: 1
+                minValue: 1,
+                anomalies: [{
+                    id: "1",
+                    selected: true
+                }, {
+                    id: "3",
+                    selected: true
+                }],
+                type: [{
+                    id: "1",
+                    selected: true
+                }]
             },
         };
     }
@@ -362,6 +471,7 @@ class Demo extends React.Component<{}, DemoState> {
 
     onFormPayload = (e, hasError: boolean) => {
         this.setState({ dataS: e });
+        console.log(e);
     };
 }
 
