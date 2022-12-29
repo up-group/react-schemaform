@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.209)
+## Main changes
+
+- Add habilitations on enum
+  
 # React-Schemaform (version: 0.1.208)
 ## Main changes
 
