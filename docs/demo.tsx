@@ -42,7 +42,7 @@ const schema_save = {
             $ref: "#/definitions/PaginationProperties",
             hide: true,
         },
-       
+
         establishment_id: {
             title: "Établissement",
             type: ["string", "null"],
@@ -177,7 +177,7 @@ const schema_save = {
                     alignMode: "horizontal"
                 }
             },
-            entitySource: { 
+            entitySource: {
                 fetchData : (args) => ( new Promise((resolve, reject) => {
                     setTimeout(() =>
                         resolve([
@@ -359,6 +359,7 @@ const schema = {
             format: "tags-select",
             title: "Anomalies",
             type: ["array", "null"],
+            default: [1, 2],
             enum: [
                 "1",
                 "2",
@@ -372,6 +373,33 @@ const schema = {
                 "A 3",
                 "A 4",
                 "A 5"
+            ],
+            enumNames: [
+                "Shipping",
+                "Management",
+                "Invoicing",
+                "DecisionMaker",
+                "Mandatary"
+            ],
+        },
+        type: {
+            format: "tags-select",
+            title: "Type",
+            type: "integer",
+            default: 2,
+            enum: [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            enumDescriptions: [
+                "Type 1",
+                "Type 2",
+                "Type 3",
+                "Type 4",
+                "Type 5"
             ],
             enumNames: [
                 "Shipping",
@@ -399,17 +427,7 @@ class Demo extends React.Component<{}, DemoState> {
                 maxNumberOfValue: 4,
                 maxValue: 31,
                 minValue: 1,
-                anomalies: [{
-                    id: "1",
-                    selected: true
-                }, {
-                    id: "3",
-                    selected: true
-                }],
-                type: [{
-                    id: "1",
-                    selected: true
-                }]
+                type: 3
             },
         };
     }
