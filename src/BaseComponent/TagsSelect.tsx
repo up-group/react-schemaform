@@ -3,6 +3,7 @@ import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpTagsSelect } from "@up-group-ui/react-controls";
 import { JsonSchema } from "interfaces/JsonSchema";
 import { TagData } from "@up-group-ui/react-controls/dist/Components/Display/Tag/UpTag";
+import _ from "lodash";
 export interface ExtendedProps {
   floatingLabel?: string;
 }
@@ -18,9 +19,12 @@ export default class TagsSelect extends UpFormControl<
     return (this.props.schema.items as JsonSchema) || this.props.schema;
   }
 
+  private get hasSingleSelection() {
+    return this.props.schema.type === 'integer' || (_.isArray(this.props.schema.type) && this.props.schema.type[0] === 'integer');
+  }
+
   private handleChange = (event, cleandata, error?) => {
-    const hasSingleSelection = this.props.schema.type === 'integer';
-    if (hasSingleSelection) {
+    if (this.hasSingleSelection) {
       const selectedValue = cleandata.id;
       return this.handleChangeEventGlobal(event, selectedValue, error);
     }
@@ -29,8 +33,6 @@ export default class TagsSelect extends UpFormControl<
 
   renderField() {
     const { floatingLabel } = this.props;
-    const hasMultipleSelection = this.props.schema.type !== 'integer';
-    const hasSingleSelection = this.props.schema.type === 'integer';
 
 
     let tags: TagData[] = [];
@@ -41,7 +43,7 @@ export default class TagsSelect extends UpFormControl<
           this.schema.hiddenEnumValues.indexOf(this.schema.enum[i]) === -1
         ){
           let isSelected;
-          if (hasSingleSelection){
+          if (this.hasSingleSelection){
             isSelected = this.props.schema.default == this.schema.enum[i]
           }else{
             isSelected = Array.isArray(this.props.schema.default) && this.props.schema.default?.some((id) => id == this.schema.enum[i])
@@ -63,7 +65,7 @@ export default class TagsSelect extends UpFormControl<
         label={floatingLabel}
         onChange={this.handleChange}
         tags={tags}
-        multipleSelection={hasMultipleSelection}
+        multipleSelection={!this.hasSingleSelection}
       />
     );
   }
