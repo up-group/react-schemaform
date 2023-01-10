@@ -1,3 +1,9 @@
+# React-Schemaform (version: 0.1.216)
+## Main changes
+
+- Update react-controls (0.2.242)
+- TagSelect : Fix detection single selection
+
 # React-Schemaform (version: 0.1.215)
 ## Main changes
 
