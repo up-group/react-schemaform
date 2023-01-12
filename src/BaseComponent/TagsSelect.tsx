@@ -34,19 +34,23 @@ export default class TagsSelect extends UpFormControl<
   renderField() {
     const { floatingLabel } = this.props;
 
-
     let tags: TagData[] = [];
+
     for (let i = 0; i < this.schema.enum.length; i++) {
       if (this.schema.enum[i] !== null) {
         if (
           this.schema.hiddenEnumValues == null ||
           this.schema.hiddenEnumValues.indexOf(this.schema.enum[i]) === -1
         ){
+
           let isSelected;
-          if (this.hasSingleSelection){
-            isSelected = this.props.schema.default == this.schema.enum[i]
-          }else{
-            isSelected = Array.isArray(this.props.schema.default) && this.props.schema.default?.some((id) => id == this.schema.enum[i])
+
+          const value = this.props.value != null ?  this.props.value : this.props.schema.default ;
+
+          if (this.hasSingleSelection) {
+            isSelected = value == this.schema.enum[i]
+          } else {
+            isSelected = Array.isArray(value) && value?.some((id) => id == this.schema.enum[i])
           }
 
           tags.push({
