@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.217)
+## Main changes
+
+- Update react-controls (0.2.249)
+- TagSelect : Fix handling value
 # React-Schemaform (version: 0.1.216)
 ## Main changes
 
