@@ -28,6 +28,7 @@ export type ReturnType = "id" | "full";
 export interface EnumsAuthorization {
   role: string;
   enum: string[];
+  default?: any;
 }
 
 export interface JsonSchema {

@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.218)
+## Main changes
+
+- Add default property to EnumsAuthorization
+
 # React-Schemaform (version: 0.1.217)
 ## Main changes
 
