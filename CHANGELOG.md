@@ -1,3 +1,8 @@
+# React-Schemaform (version: 0.1.220)
+## Bugs Fixes
+
+- TagSelect : fix unselect value
+
 # React-Schemaform (version: 0.1.218)
 ## Main changes
 
