@@ -25,10 +25,10 @@ export default class TagsSelect extends UpFormControl<
 
   private handleChange = (event, cleandata, error?) => {
     if (this.hasSingleSelection) {
-      const selectedValue = cleandata.id;
+      const selectedValue = cleandata.selected ? cleandata.id : null ;
       return this.handleChangeEventGlobal(event, selectedValue, error);
     }
-    this.handleChangeEventGlobal(event, cleandata, error);
+    this.handleChangeEventGlobal(event, cleandata.filter(v => v.selected).map(v =>  v.id), error);
   };
 
   renderField() {
@@ -36,7 +36,7 @@ export default class TagsSelect extends UpFormControl<
 
     let tags: TagData[] = [];
 
-    for (let i = 0; i < this.schema.enum.length; i++) {
+    for(let i in this.schema.enum) {
       if (this.schema.enum[i] !== null) {
         if (
           this.schema.hiddenEnumValues == null ||
@@ -50,7 +50,7 @@ export default class TagsSelect extends UpFormControl<
           if (this.hasSingleSelection) {
             isSelected = value == this.schema.enum[i]
           } else {
-            isSelected = Array.isArray(value) && value?.some((id) => id == this.schema.enum[i])
+            isSelected = _.isArray(value) && value?.some((id) => id == this.schema.enum[i])
           }
 
           tags.push({

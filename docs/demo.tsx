@@ -23,7 +23,7 @@ interface DemoState {
     dataS: any;
 }
 
-const schema_save = {
+const schema = {
     definitions: {
         PaginationProperties: {
             type: ["object", "null"],
@@ -117,7 +117,7 @@ const schema_save = {
             title: "Activé",
             type: "boolean",
             default: false,
-            isToggle: true,
+            isToggle: true
         },
         frequency_of_payment: {
             title: "Établissement",
@@ -336,78 +336,6 @@ const schema_save = {
             additionalProps: {
                 multipleSelection: false
             }
-        }
-    }
-}
-
-const schema = {
-    definitions: {
-        PaginationProperties: {
-            type: ["object", "null"],
-            default: null,
-            properties: {
-                page_number: { type: "integer", default: 0 },
-                page_size: { type: "integer", default: 0 },
-                sort_property_name: { type: ["string", "null"], default: null },
-                sort_order: { type: ["integer", "null"], default: null },
-            },
-        },
-    },
-    type: "object",
-    properties: {
-        anomalies: {
-            format: "tags-select",
-            title: "Anomalies",
-            type: ["array", "null"],
-            default: [1, 2],
-            enum: [
-                "1",
-                "2",
-                "4",
-                "8",
-                "16"
-            ],
-            enumDescriptions: [
-                "A 1",
-                "A 2",
-                "A 3",
-                "A 4",
-                "A 5"
-            ],
-            enumNames: [
-                "Shipping",
-                "Management",
-                "Invoicing",
-                "DecisionMaker",
-                "Mandatary"
-            ],
-        },
-        type: {
-            format: "tags-select",
-            title: "Type",
-            type: "integer",
-            default: 2,
-            enum: [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5"
-            ],
-            enumDescriptions: [
-                "Type 1",
-                "Type 2",
-                "Type 3",
-                "Type 4",
-                "Type 5"
-            ],
-            enumNames: [
-                "Shipping",
-                "Management",
-                "Invoicing",
-                "DecisionMaker",
-                "Mandatary"
-            ]
         }
     }
 }
