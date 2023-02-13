@@ -15,6 +15,7 @@ export default class TagsSelect extends UpFormControl<
   constructor(p, c) {
     super(p, c);
   }
+
   private get schema(): JsonSchema {
     return (this.props.schema.items as JsonSchema) || this.props.schema;
   }
@@ -25,7 +26,7 @@ export default class TagsSelect extends UpFormControl<
 
   private handleChange = (event, cleandata, error?) => {
     if (this.hasSingleSelection) {
-      const selectedValue = cleandata.selected ? cleandata.id : null ;
+      const selectedValue = cleandata.selected ? cleandata.id : this.isNullable ? null : this.props.value ;
       return this.handleChangeEventGlobal(event, selectedValue, error);
     }
     this.handleChangeEventGlobal(event, cleandata.filter(v => v.selected).map(v =>  v.id), error);
@@ -45,7 +46,7 @@ export default class TagsSelect extends UpFormControl<
 
           let isSelected;
 
-          const value = this.props.value != null ?  this.props.value : this.props.schema.default ;
+          const value = this.props.value !== undefined ?  this.props.value : this.props.schema.default ;
 
           if (this.hasSingleSelection) {
             isSelected = value == this.schema.enum[i]
