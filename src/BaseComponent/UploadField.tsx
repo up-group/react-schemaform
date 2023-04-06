@@ -11,6 +11,7 @@ export default class UploadField extends UpFormControl<number[], {}> {
     return (
       <UpDropFile
         name={this.props.name}
+        label={this.props.schema.title}
         onChange={this.handleChangeEventGlobal}
         allowedExtensions={[this.props.schema.fileExtension]}
       />
