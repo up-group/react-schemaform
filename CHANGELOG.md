@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.226)
+## Bugs Fixes
+
+- UploadField : Fix value prop
 # React-Schemaform (version: 0.1.225)
 ## Bugs Fixes
 

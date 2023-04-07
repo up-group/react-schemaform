@@ -1,8 +1,9 @@
 ﻿import * as React from "react";
 import { UpFormControl } from "../UpForm/UpFormControl";
 import { UpDropFile } from "@up-group-ui/react-controls";
+import { IFile } from "@up-group-ui/react-controls/dist/Components/Inputs/DropFile/types";
 
-export default class UploadField extends UpFormControl<number[], {}> {
+export default class UploadField extends UpFormControl<IFile, {}> {
   constructor(p, c) {
     super(p, c);
   }
@@ -19,6 +20,7 @@ export default class UploadField extends UpFormControl<number[], {}> {
   renderField() {
     return (
       <UpDropFile
+        value={this.props.value}
         name={this.props.name}
         label={this.props.schema.title}
         onChange={this.handleChangeEventGlobal}
