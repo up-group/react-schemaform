@@ -7,13 +7,22 @@ export default class UploadField extends UpFormControl<number[], {}> {
     super(p, c);
   }
 
+  private get allowedExtensions() : string[] {
+    let fileExtension :string = this.props.schema.fileExtension ;
+    let allowedExtensions : string[] = [] ;
+    if(fileExtension) {
+      allowedExtensions = fileExtension.split(',').map(ext => ext.trim());
+    }
+    return allowedExtensions ;
+  }
+
   renderField() {
     return (
       <UpDropFile
         name={this.props.name}
         label={this.props.schema.title}
         onChange={this.handleChangeEventGlobal}
-        allowedExtensions={[this.props.schema.fileExtension]}
+        allowedExtensions={this.allowedExtensions}
       />
     );
   }

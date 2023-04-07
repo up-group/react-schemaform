@@ -1,4 +1,8 @@
 # React-Schemaform (version: 0.1.224)
+## Bugs Fixes
+
+- UploadField : Fix extensions prop
+# React-Schemaform (version: 0.1.224)
 ## Main changes
 
 - UploadField : Add label prop
