@@ -1,4 +1,4 @@
-# React-Schemaform (version: 0.1.224)
+# React-Schemaform (version: 0.1.225)
 ## Bugs Fixes
 
 - UploadField : Fix extensions prop
