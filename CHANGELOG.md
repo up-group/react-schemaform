@@ -1,3 +1,11 @@
+# React-Schemaform (version: 0.1.227)
+## Bugs Fixes
+
+- UploadField : Fix double labels
+
+## Main changes
+
+- Update react-controls (0.2.264)
 # React-Schemaform (version: 0.1.226)
 ## Bugs Fixes
 
