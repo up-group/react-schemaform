@@ -6,6 +6,7 @@
 ## Main changes
 
 - Update react-controls (0.2.264)
+
 # React-Schemaform (version: 0.1.226)
 ## Bugs Fixes
 

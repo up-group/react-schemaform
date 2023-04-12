@@ -76,9 +76,12 @@ export default class UpSchemaFormComponentSelector extends React.Component<
 
         if(format == "entityKey" && type == "array") {
             type = "entityKey"
+        } else if(format == "upload" && type == "object") {
+            type = "upload"
         }
-
+        
         let element = null ;
+
         switch (type) {
             case "object":
                 element = (
