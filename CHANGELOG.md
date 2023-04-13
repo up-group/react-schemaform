@@ -1,3 +1,7 @@
+# React-Schemaform (version: 0.1.228)
+## Bugs Fixes
+
+- FormComponent : Fix additional props
 # React-Schemaform (version: 0.1.227)
 ## Bugs Fixes
 
