@@ -9,7 +9,7 @@ export default class IntegerField extends UpFormControl<number, {}> {
   }
 
   renderField() {
-    const { additionalProps: { hideButtons, objectStyles } = {} } = this.props;
+    const { additionalProps: { hideButtons, objectStyles, ...restProps } = {} } = this.props;
 
     return (
       <UpNumber
@@ -25,6 +25,7 @@ export default class IntegerField extends UpFormControl<number, {}> {
         max={this.props.schema.maximum}
         min={this.props.schema.minimum}
         hideButtons={hideButtons}
+        {...restProps}
       />
     );
   }

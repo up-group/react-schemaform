@@ -32,6 +32,7 @@ export default class StringField extends UpFormControl<string, {}> {
             floatingLabel={this.props.floatingLabel}
             hasClearOption={true}
             errorDisplayMode={"inline"}
+            {...restProps}
           />
         );
       case "phone":
@@ -45,6 +46,7 @@ export default class StringField extends UpFormControl<string, {}> {
             onChange={this.handleChangeEventGlobal}
             readonly={isReadOnly}
             floatingLabel={this.props.floatingLabel}
+            {...restProps}
           />
         );
       case "multilineText":
@@ -56,6 +58,7 @@ export default class StringField extends UpFormControl<string, {}> {
             isRequired={this.props.isRequired}
             readonly={isReadOnly}
             onChange={this.handleChangeEventGlobal}
+            {...restProps}
           />
         );
       case "search":
@@ -98,6 +101,7 @@ export default class StringField extends UpFormControl<string, {}> {
               placeholder="Votre recherche"
               value={this.state.value || ""}
               onChange={e => this.handleChangeEventGlobal(e, e.target.value)}
+              {...restProps}
             />
             <UpButton
               intent="primary"

@@ -71,7 +71,7 @@ export default class RadioField extends UpFormControl<number, {}> {
     }
 
     renderField() {
-        const { name, additionalProps: { alignMode, displayMode, nbItemsPerRow }} = this.props;
+        const { name, additionalProps: { alignMode, displayMode, nbItemsPerRow, ...restProps }} = this.props;
         const { value } = this.state;
         
         if(this.state.extra.isDataFetching) {
@@ -97,6 +97,7 @@ export default class RadioField extends UpFormControl<number, {}> {
                 displayMode={displayMode ? displayMode : 'normal'}
                 readonly = {isReadOnly}
                 nbItemsPerRow={nbItemsPerRow}
+                {...restProps}
             />
         )
     }

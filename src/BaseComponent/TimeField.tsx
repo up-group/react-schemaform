@@ -14,6 +14,7 @@ export default class TimeField extends UpFormControl<string, {}> {
         //onError = { this.handlErrorEventGlobal } //TODO : implement the value
         onChange={this.handleChangeEventGlobal}
         hasError={undefined}
+        {...this.props.additionalProps}
       />
     );
   }

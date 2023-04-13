@@ -59,6 +59,7 @@ export default class EntityField<Type> extends UpFormControl<Type, {}> {
         floatingLabel={this.props.floatingLabel}
         autoload={this.schema.entitySource.autoload}
         data={this.schema.entitySource ? this.schema.entitySource.data : undefined}
+        {...this.props.additionalProps}
       />
     );
   }

@@ -71,6 +71,7 @@ export default class TagsSelect extends UpFormControl<
         onChange={this.handleChange}
         tags={tags}
         multipleSelection={!this.hasSingleSelection}
+        {...this.props.additionalProps}
       />
     );
   }

@@ -31,6 +31,7 @@ export default class BooleanField extends UpFormControl<boolean, {}> {
           onChange={this.handleChangeData}
           defaultValue={this.convert(this.default(false))}
           value={this.convert(this.state.value)}
+          {...this.props.additionalProps}
         />
       }
     } else {
@@ -47,6 +48,7 @@ export default class BooleanField extends UpFormControl<boolean, {}> {
           onChange={this.handleChangeData}
           defaultValue={this.convert(this.default(null))}
           value={this.convert(this.state.value)}
+          {...this.props.additionalProps}
         />
       );
     }

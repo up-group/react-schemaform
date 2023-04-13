@@ -18,12 +18,14 @@ export default class UploadField extends UpFormControl<IFile, {}> {
   }
 
   renderField() {
+
     return (
       <UpDropFile
         value={this.props.value}
         name={this.props.name}
         onChange={this.handleChangeEventGlobal}
         allowedExtensions={this.allowedExtensions}
+        {...this.props.additionalProps}
       />
     );
   }
