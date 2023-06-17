@@ -1,4 +1,8 @@
 
+# React-Schemaform (version: 0.1.230)
+## Main changes
+
+- Update react-controls (0.2.266)
 # React-Schemaform (version: 0.1.229)
 ## Main changes
 
