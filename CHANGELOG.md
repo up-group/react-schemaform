@@ -1,5 +1,9 @@
 
+# React-Schemaform (version: 0.1.232)
+## Main changes
 
+- Json Schema : allow hide to be a string referencing a custom handler
+  
 # React-Schemaform (version: 0.1.231)
 ## Main changes
 
