@@ -87,7 +87,7 @@ export interface JsonSchema {
   };
   fileExtension?: string;
   readonly?: boolean;
-  hide?: boolean;
+  hide?: boolean | string;
   advanced?: boolean;
   order?: number;
   referenceTo?: string;
