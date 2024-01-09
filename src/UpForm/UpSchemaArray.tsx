@@ -197,9 +197,8 @@ export default class UpSchemaArray extends React.Component<UpSchemaArrayProps, U
         let parsedValue = typeof value === 'number' ? value : parseInt(value);
         let values = this.state.items;
 
-        if (values.includes(parsedValue)) {
-            parsedValue = this.nextValue(values);
-        }
+        if (values.includes(parsedValue)) 
+            return;
 
         if (parsedValue > this.props.maxValue || parsedValue < this.props.minValue) {
             this.props.onChange(eventFactory(this.props.name, values), values, null);
