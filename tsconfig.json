@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "baseUrl": ".", 
+    "baseUrl": ".",
+    "skipLibCheck": true,
     "lib": ["ES2020"],
     "paths": {
       "*": [
