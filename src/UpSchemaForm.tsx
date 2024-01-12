@@ -32,12 +32,13 @@ export interface UpSchemaFormProps {
   updateRules?: UpdateRule[];
   onSearchButtonClick?: (text: string) => any;
   isReadOnly?: (property:string, data: unknown) => boolean;
-  withFloatingLabel?: boolean,
-  rowSpacing?:number,
-  gutter?:number,
-  rowMinHeight?:number,
-  defaultColspan?:number
-  hideEmptyTitle?:boolean
+  withFloatingLabel?: boolean;
+  rowSpacing?: number;
+  gutter?: number;
+  rowMinHeight?: number;
+  defaultColspan?: number;
+  hideEmptyTitle?: boolean;
+  propertyValueGenerators?: any;
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -178,7 +179,16 @@ export default class UpSchemaForm extends React.Component<
     this.errorMemory.errorOn(node, hasError);
     let nodeArray = node.split(".");
     nodeArray.shift();
-    this.addToQueue(this.state.data, nodeArray, newValue, node);
+    if (this.props.schema.properties[nodeArray[0]]?.generateOtherPropertyValue) {
+      var generatedValue = this.props.propertyValueGenerators[nodeArray[0]](newValue);
+      var targetNode = '.' + this.props.schema.properties[nodeArray[0]].targetProperty;
+      var targetNodeArray = node.split(".");
+      targetNodeArray.shift();
+      this.addToQueue(this.state.data, nodeArray, newValue, node);
+      this.addToQueue(this.state.data, targetNodeArray, generatedValue, targetNode);
+    }
+    else 
+      this.addToQueue(this.state.data, nodeArray, newValue, node);
   };
 
   updateState(node: string) {
