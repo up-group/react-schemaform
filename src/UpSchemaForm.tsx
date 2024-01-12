@@ -188,7 +188,7 @@ export default class UpSchemaForm extends React.Component<
       this.addToQueue(this.state.data, targetNodeArray, generatedValue, targetNode);
     }
     else 
-      _this.addToQueue(_this.state.data, nodeArray, newValue, node);
+      this.addToQueue(this.state.data, nodeArray, newValue, node);
   };
 
   updateState(node: string) {
