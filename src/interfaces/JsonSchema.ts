@@ -100,7 +100,7 @@ export interface JsonSchema {
   idKey?: string;
   textKey?: string;
   groupingInfo?: { [key: string]: any };
-  
+
   colspan?: number;
   component?: string;
   breakAfter?: boolean;
@@ -110,6 +110,15 @@ export interface JsonSchema {
   displayIfEmpty?: boolean;
 
   habilitations?: EnumsAuthorization[];
+
+  targetPropertyValueGeneration?: {
+    calculateValue?: (
+      input: string,
+      defaultParameters?: { [key: string]: string }
+    ) => any;
+    targetProperty?: string;
+    operationName?: string;
+  };
 }
 
 export type AdditionalProps = { [key: string]: any };
