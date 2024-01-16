@@ -38,7 +38,6 @@ export interface UpSchemaFormProps {
   rowMinHeight?: number;
   defaultColspan?: number;
   hideEmptyTitle?: boolean;
-  propertyValueGenerators?: any;
 }
 
 export default class UpSchemaForm extends React.Component<
@@ -179,15 +178,18 @@ export default class UpSchemaForm extends React.Component<
     this.errorMemory.errorOn(node, hasError);
     let nodeArray = node.split(".");
     nodeArray.shift();
-    if (this.props.schema.properties[nodeArray[0]]?.generateOtherPropertyValue) {
-      var generatedValue = this.props.propertyValueGenerators[nodeArray[0]](newValue);
-      var targetNode = '.' + this.props.schema.properties[nodeArray[0]].targetProperty;
-      var targetNodeArray = node.split(".");
-      targetNodeArray.shift();
+
+    const schema: JsonSchema = this.getSchema();
+    const { properties : schemaProperties } = schema || {};
+    const currentElement = schemaProperties[e.target.name];
+    debugger;
+
+     if (currentElement?.targetPropertyValueGeneration) {
+      var generatedValue = currentElement.targetPropertyValueGeneration.calculateValue(newValue);
       this.addToQueue(this.state.data, nodeArray, newValue, node);
-      this.addToQueue(this.state.data, targetNodeArray, generatedValue, targetNode);
-    }
-    else 
+      this.addToQueue(this.state.data, [currentElement.targetPropertyValueGeneration.targetProperty], generatedValue, currentElement.targetPropertyValueGeneration.targetProperty);
+     }
+     else 
       this.addToQueue(this.state.data, nodeArray, newValue, node);
   };
 
