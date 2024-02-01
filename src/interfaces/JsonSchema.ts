@@ -67,6 +67,7 @@ export interface JsonSchema {
   oneOf?: JsonSchema[];
   not?: JsonSchema;
   format?: InternalFormatOfSchema;
+  multipleSelectionGroups?: string[][];
   enumDescriptions?: string[];
   enumNames?: string[];
   hiddenEnumValues?: string[];

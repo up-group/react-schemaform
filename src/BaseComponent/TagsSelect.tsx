@@ -45,13 +45,21 @@ export default class TagsSelect extends UpFormControl<
         ){
 
           let isSelected;
-
           const value = this.props.value !== undefined ?  this.props.value : this.props.schema.default ;
-
           if (this.hasSingleSelection) {
             isSelected = value == this.schema.enum[i]
           } else {
             isSelected = _.isArray(value) && value?.some((id) => id == this.schema.enum[i])
+          }
+
+          let isDisabled;
+          const multipleSelectionGroups = this.props.schema.multipleSelectionGroups;
+          if(multipleSelectionGroups) {
+            isDisabled = (
+              isSelected === false && 
+              multipleSelectionGroups.some(group => 
+                !group.includes(this.schema.enum[i]) && group.some(gr => value.includes(gr)))
+            );
           }
 
           tags.push({
@@ -59,7 +67,8 @@ export default class TagsSelect extends UpFormControl<
             text: this.props.translate
                 ? this.props.translate(this.schema.enumDescriptions[i])
                 : this.schema.enumDescriptions[i],
-            selected: isSelected
+            selected: isSelected,
+            disabled: isDisabled
           });
         }
       }
@@ -71,6 +80,7 @@ export default class TagsSelect extends UpFormControl<
         onChange={this.handleChange}
         tags={tags}
         multipleSelection={!this.hasSingleSelection}
+        multipleSelectionGroups={this.props.schema.multipleSelectionGroups}
         {...this.props.additionalProps}
       />
     );
