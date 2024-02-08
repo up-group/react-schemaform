@@ -61,7 +61,8 @@ export default class TagsSelect extends UpFormControl<
             isDisabled = (
               !isSelected && 
               this.multipleSelectionGroups.some(group => 
-                !group.includes(this.schema.enum[i]) && group.some(gr => value.includes(gr)))
+                !group.includes(this.schema.enum[i]) 
+                && group.some(gr => value.includes(gr) || value.includes(gr.toString())))
             );
           }
 
