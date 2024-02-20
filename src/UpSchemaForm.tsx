@@ -181,7 +181,7 @@ export default class UpSchemaForm extends React.Component<
 
     const schema: JsonSchema = this.getSchema();
     const { properties : schemaProperties } = schema || {};
-    const currentElement = schemaProperties[e.target.name];
+    const currentElement = schemaProperties[e.target?.name] ?? schemaProperties[nodeArray[0]];
 
      if (currentElement?.targetPropertyValueGeneration) {
       var generatedValue = currentElement.targetPropertyValueGeneration.calculateValue(newValue);
