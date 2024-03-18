@@ -168,6 +168,7 @@ import MonthField from "../BaseComponent/MonthField";
 import EnumInlineField from "../BaseComponent/EnumInlineField";
 import RadioField from '../BaseComponent/RadioField';
 import TagsSelect from "../BaseComponent/TagsSelect";
+import IconicTagsSelect from "../BaseComponent/IconicTagsSelect";
 
 ComponentRegistery.Register("UpNumber", "number", null, NumberField);
 ComponentRegistery.Register("String", "string", null, StringField);
@@ -185,3 +186,5 @@ ComponentRegistery.Register("Upload", null, "upload", UploadField, false);
 ComponentRegistery.Register("Month", null, "month", MonthField, false);
 
 ComponentRegistery.Register("TagsSelect",null, "tags-select", TagsSelect, true);
+ComponentRegistery.Register("IconicTagsSelect",null, "iconic-tags-select", IconicTagsSelect, true);
+
