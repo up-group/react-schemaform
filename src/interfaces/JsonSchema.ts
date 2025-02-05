@@ -108,7 +108,7 @@ export interface JsonSchema {
 
   colspan?: number;
   component?: string;
-  breakAfter?: boolean;
+  breakAfter?: boolean | string;
   props?: { [key: string]: any } | string;
   from?: string;
   name?: string;
