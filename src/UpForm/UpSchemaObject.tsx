@@ -69,7 +69,7 @@ export function manageColspan<
     T extends {
         colspan?: number;
         order?: number;
-        breakAfter?: boolean;
+        breakAfter?: boolean | string;
         group?: string;
     }
 >(items: T[], defaultColspan: number, group?: string) {
@@ -377,13 +377,13 @@ interface SchemaRowProps {
     rowSpacing: number;
     withHR: boolean;
     title: string;
-    elements: { colspan: number, name: string, breakAfter: boolean, render: React.ReactNode }[];
+    elements: { colspan: number, name: string, breakAfter: boolean | string, render: React.ReactNode }[];
 }
 
 const SchemaRow: React.FunctionComponent<SchemaRowProps> = ({ rowSpacing, withHR, title, elements }) => {
 
     function getRows<
-        T extends { colspan: number, name: string, breakAfter: boolean, render: React.ReactNode }
+        T extends { colspan: number, name: string, breakAfter: boolean | string, render: React.ReactNode }
     >(items: T[]) {
         return items.reduce((rows, viewModel) => {
             let currentRow;
