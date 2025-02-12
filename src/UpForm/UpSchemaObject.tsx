@@ -377,13 +377,13 @@ interface SchemaRowProps {
     rowSpacing: number;
     withHR: boolean;
     title: string;
-    elements: { colspan: number, name: string, breakAfter: boolean, render: React.ReactNode }[];
+    elements: { colspan: number, name: string, breakAfter: string | boolean, render: React.ReactNode }[];
 }
 
 const SchemaRow: React.FunctionComponent<SchemaRowProps> = ({ rowSpacing, withHR, title, elements }) => {
 
     function getRows<
-        T extends { colspan: number, name: string, breakAfter: boolean, render: React.ReactNode }
+        T extends { colspan: number, name: string, breakAfter: string | boolean, render: React.ReactNode }
     >(items: T[]) {
         return items.reduce((rows, viewModel) => {
             let currentRow;
