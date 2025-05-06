@@ -1,3 +1,5 @@
+import { Alignement } from "@up-group-ui/react-controls/dist/Components/Containers/ButtonGroup/types";
+
 export type InternalTypeOfSchema =
   | "null"
   | "object"
@@ -113,9 +115,7 @@ export interface JsonSchema {
   from?: string;
   name?: string;
   displayIfEmpty?: boolean;
-
   habilitations?: EnumsAuthorization[];
-
   targetPropertyValueGeneration?: {
     calculateValue?: (
       input: string,
@@ -124,6 +124,7 @@ export interface JsonSchema {
     targetProperty?: string;
     operationName?: string;
   };
+  buttonGroupAlignStyle?: Alignement;
 }
 
 export type AdditionalProps = { [key: string]: any };
