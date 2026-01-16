@@ -71,6 +71,10 @@ export default class UpSchemaFormComponentSelector extends React.Component<
             for (let prop in additionalProps) {
                 if (additionalProps[prop] === 'today') {
                     additionalProps[prop] = new Date();
+                } else if (additionalProps[prop] === 'tomorrow') {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    additionalProps[prop] = tomorrow;
                 }
             }
         }
