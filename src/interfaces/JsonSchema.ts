@@ -23,7 +23,8 @@ export type InternalFormatOfSchema =
   | "multilineText"
   | "imageUrl"
   | "uri"
-  | "search";
+  | "search"
+  | "message";
 
 export type ReturnType = "id" | "full";
 
@@ -125,6 +126,7 @@ export interface JsonSchema {
     operationName?: string;
   };
   buttonGroupAlignStyle?: Alignement;
+  message?: string;
 }
 
 export type AdditionalProps = { [key: string]: any };

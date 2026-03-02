@@ -61,6 +61,10 @@ export default class StringField extends UpFormControl<string, {}> {
             {...restProps}
           />
         );
+      case "message":
+        return (
+             <span className={messageStyle}>{this.props.schema.message}</span>
+        );
       case "search":
         const searchInputStyle = style({
           position: 'relative',
@@ -136,3 +140,10 @@ export default class StringField extends UpFormControl<string, {}> {
     }
   }
 }
+
+const messageStyle = style({
+    color: '#4E5B59',
+    fontFamily: 'Roboto',
+    fontSize: '18px',
+    fontWeight: 'bold',
+  });
