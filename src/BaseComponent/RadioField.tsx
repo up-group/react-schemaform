@@ -60,13 +60,30 @@ export default class RadioField extends UpFormControl<number, {}> {
         return value;
     }
 
-    componentDidMount() {
-        const loadOptions = this.props.schema.entitySource?.fetchData ;
-        if(loadOptions != null) {
+    private loadOptions(dependencyValues?: { [key: string]: any }) {
+        const fetchData = this.props.schema.entitySource?.fetchData;
+        if (fetchData != null) {
             this.setState(update(this.state, { extra: { isDataFetching: { $set: true } } }));
-            loadOptions("", this.props.schema.entitySource.defaultParameters).then((data) => {
-                this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: data }} }));
-            }).catch(e => this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: [] }}})))
+            const params = { ...(this.props.schema.entitySource?.defaultParameters || {}), ...dependencyValues };
+            fetchData("", params).then((data) => {
+                this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: data } } }));
+            }).catch(e => this.setState(update(this.state, { extra: { isDataFetching: { $set: false }, options: { $set: [] } } })));
+        }
+    }
+
+    componentDidMount() {
+        this.loadOptions(this.props.dependencyValues);
+    }
+
+    componentDidUpdate(prevProps: typeof this.props) {
+        const depProps = this.props.schema.entitySource?.dependencyProperties;
+        if (depProps != null && depProps.length > 0) {
+            const prevDeps = prevProps.dependencyValues || {};
+            const nextDeps = this.props.dependencyValues || {};
+            const changed = depProps.some(key => prevDeps[key] !== nextDeps[key]);
+            if (changed) {
+                this.loadOptions(nextDeps);
+            }
         }
     }
 
